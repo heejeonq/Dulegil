@@ -10,7 +10,7 @@ public class NoticeController {
 	@RequestMapping(value="/notice")
 	public ModelAndView aob(ModelAndView mav) {
 		
-		mav.setViewName("notice/notice_list.jsp");
+		mav.setViewName("notice/notice_list");
 		
 		return mav;
 	}
