@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+body{
+	font-family: 'Pretendard-Regular';
+	margin: 0;
+}
+
+table{
+	width: 100%;
+    border-collapse: collapse;
+}
+
+th{
+	font-size: 11pt;
+	text-align: center;
+}
+
+th, td{
+	color: #555;
+}
+
+input:focus, select:focus {
+	outline: none;
+}
+
+.mainWrap{
+	width: 60%;
+	margin: 5% auto;
+}
+
+.mainWrap ul{
+	margin-top:20px;
+}
+
+.mainWrap h1{
+	font-size: 23pt;
+	font-weight: 600;
+    position: relative;
+    color: #333;
+    text-align: center;
+	margin: 3% 0;
+}
+
+.mainWrap p{
+	margin: 6% 6% 2%;
+	font-size: 15pt;
+	font-weight: 600;
+}
+
+.col{
+    position: relative;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin-top: 6%;
+}
+
+.baseInfo, .addInfo, .btnBox{
+	width: 700px;
+	margin: 0 auto;
+}
+
+.baseInfo input, #emailSel{
+	font-family: 'Pretendard-Regular';
+	display:inline-block;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    line-height: 2;
+    font-size: 14px;
+    color: #444;
+    width: 70%;
+    margin-bottom: 5px;
+}
+
+#reBtn{
+	width: 17%;
+	letter-spacing: 2px;
+	cursor: pointer;
+	margin-left: 15px;
+	border-bottom: none;
+	font-weight: 600;
+}
+#uid {
+	width: 40%;
+	margin-right: 0;
+}
+
+#emailSel {
+	width: 30%;
+	height: 49px;
+	margin-left: 0;
+}
+
+.addInfo input{
+	font-family: 'Pretendard-Regular';
+	display:inline-block;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    line-height: 2;
+    font-size: 14px;
+    color: #444;
+    width: 80%;
+    margin-bottom: 5px;
+}
+
+.addInfo th{
+	width: 150px;
+}
+
+#ubirth {
+	width: 200px;
+}
+
+.genBox{
+	width: 200px;
+}
+
+#gender{
+	width: 18%;
+}
+
+.addInfo label{
+	font-size: 10pt;
+	margin: 0;
+	text-align: center;
+}
+
+#zipcode {
+	width: 90px;
+}
+
+#address{
+	width: 50%;
+}
+
+#addressBtn{
+	width: 90px;
+	letter-spacing: 2px;
+	cursor: pointer;
+	margin-right: 15px;
+	border-bottom: none;
+	font-weight: 600;
+}
+
+#addressDetail{
+	width: 86%;
+}
+
+.btnBox{
+	width: 36%; 
+}
+
+#joinBtn{
+	font-family: 'Pretendard-Regular';
+	width: 300px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;	
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: white;
+    margin-top: 16%;
+}

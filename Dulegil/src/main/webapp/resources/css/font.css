@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+
+
+@font-face{
+	font-family:'';
+	src: url()
+	
+}
+
+
+
+1. 수정 톱니바퀴 아이콘
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<span class="material-symbols-outlined">
+settings
+</span>
+
+
+2. 홈 버튼
+<span class="material-symbols-outlined">
+home
+</span>
+
+3. 메뉴
+<span class="material-symbols-outlined">
+menu
+</span>
+
+4. 엑스버튼
+<span class="material-symbols-outlined">
+close
+</span>
+
+5. 서치버튼
+<span class="material-symbols-outlined">
+search
+</span>
+
+
+6. 추가 버튼
+<span class="material-symbols-outlined">
+add
+</span>
+
+7. 삭제 버튼 
+<span class="material-symbols-outlined">
+delete
+</span>
+
+8. 확인 버튼
+<span class="material-symbols-outlined">
+check_circle
+</span>
+
+9. 로그인 버튼
+<span class="material-symbols-outlined">
+login
+</span>
+
+10. 로그아웃 버튼
+<span class="material-symbols-outlined">
+exit_to_app
+</span>
+
+
+11. 회원관리
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<span class="material-symbols-outlined">
+person
+</span>
+
+
+12. 달력
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<span class="material-symbols-outlined">
+calendar_month
+</span>
+
+
+13. 수정
+<span class="material-symbols-outlined">
+edit_square
+</span>
+
+
+14. 달력 삭제
+<span class="material-symbols-outlined">
+event_busy
+</span>
+
+
+
+
+
+
+
+
+
