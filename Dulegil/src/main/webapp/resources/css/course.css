@@ -72,7 +72,7 @@ th, dt{
 }
 
 .courseCon {
-	margin-top: 5%;
+	margin-top: 3%;
 }
 
 .courseCon > img, .courseCon_mapDetail> img {
@@ -121,7 +121,6 @@ th, dt{
 #cDetail{
 	margin-bottom: 2%; 
 }
-
 
 .courseCon_1 > span{
 	font-size: 11pt;

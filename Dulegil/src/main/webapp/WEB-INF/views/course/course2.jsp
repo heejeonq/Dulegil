@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/course.css" type="text/css">
 <script type="text/javascript"
 		src="../../../../../jsp/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -44,28 +44,28 @@ $(document).ready(function(){
 			<div class="col"></div>
 			
 			<div class="wrapCBtn">
-				<a href="course1.html">
+				<a href="course1">
 					<span class="cBtn">1코스</span>
 				</a>
-				<a href="course2.html">
+				<a href="course2">
 					<span class="cBtn on">2코스</span>
 				</a>
-				<a href="course3.html">
+				<a href="course3">
 					<span class="cBtn">3코스</span>
 				</a>
-				<a href="course4.html">
+				<a href="course4">
 					<span class="cBtn">4코스</span>
 				</a>
-				<a href="course5.html">
+				<a href="course5">
 					<span class="cBtn">5코스</span>
 				</a>
-				<a href="course6.html">
+				<a href="course6">
 					<span class="cBtn">6코스</span>
 				</a>
-				<a href="course7.html">
+				<a href="course7">
 					<span class="cBtn">7코스</span>
 				</a>
-				<a href="course8.html">
+				<a href="course8">
 					<span class="cBtn">8코스</span>
 				</a>
 			</div>
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			<div class="courseCon_map">지도</div>
 			
 			<div class="courseCon_mapDetail">
-			<img src="../../css/images/mark.png">
+			<img src="resources/images/mark.png">
 				<span>코스 진입 방법</span><br /> 
 				<div class="courseCon_1">
 					<dl>
@@ -108,7 +108,7 @@ $(document).ready(function(){
 			
 			<div class="courseCon">
 				<div class="courseCon_1">				
-				<span id="CC">서울 둘레길의 2코스로 묵동천, 망우산, 용마산, 아차산을 통과하는 코스이다. 
+				<span id="cDetail">서울 둘레길의 2코스로 묵동천, 망우산, 용마산, 아차산을 통과하는 코스이다. 
 							    산 능선을 따라 산책하는 코스로 서울 둘레길 중 전망이 가장 뛰어난 코스이며, 용마산과 아차산은 정비가 잘되어있는 편안한 트래킹이 가능하다. 
 							    특히 아차산은 정비가 잘 되어 있을 뿐만이 아니라 아차산보루 등 역사, 문화자원이 풍부하다. 
 							    또한 아차산 생태공원으로 인해 볼거리가 다양하다는 특성이 있다.</span>
@@ -147,7 +147,7 @@ $(document).ready(function(){
 				</div>
 				
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>스탬프 시설 위치</span>
 				<div class="courseCon_1">
 					<div class="wrapStp">
@@ -166,7 +166,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>안내지도 및 스탬프북 배부처</span>
 				<div class="courseCon_1">
 					<table>

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
-<link rel="stylesheet" href="../../css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/course.css" type="text/css">
 <script type="text/javascript"
 		src="../../../../../../jsp/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -39,28 +39,28 @@ $(document).ready(function(){
 			<div class="col"></div>
 		
 			<div class="wrapCBtn">
-					<a href="course1.html">
+					<a href="course1">
 						<span class="cBtn">1코스</span>
 					</a>
-					<a href="course2.html">
+					<a href="course2">
 						<span class="cBtn">2코스</span>
 					</a>
-					<a href="course3.html">
+					<a href="course3">
 						<span class="cBtn on">3코스</span>
 					</a>
-					<a href="course4.html">
+					<a href="course4">
 						<span class="cBtn">4코스</span>
 					</a>
-					<a href="course5.html">
+					<a href="course5">
 						<span class="cBtn">5코스</span>
 					</a>
-					<a href="course6.html">
+					<a href="course6">
 						<span class="cBtn">6코스</span>
 					</a>
-					<a href="course7.html">
+					<a href="course7">
 						<span class="cBtn">7코스</span>
 					</a>
-					<a href="course8.html">
+					<a href="course8">
 						<span class="cBtn">8코스</span>
 					</a>
 			</div>
@@ -81,7 +81,7 @@ $(document).ready(function(){
 			<div class="courseCon_map">지도</div>
 			
 			<div class="courseCon_mapDetail">
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>코스 진입 방법</span><br /> 
 				<div class="courseCon_1">
 					<dl>
@@ -101,7 +101,7 @@ $(document).ready(function(){
 				
 			<div class="courseCon">
 				<div class="courseCon_1">				
-				<span id="CC">고덕·일자산코스는 광나루역에서 출발해 한강, 고덕산, 일자산, 성내천, 문정근린공원, 탄천을 경유해 수서역에 도착하는 코스이다. 
+				<span id="cDetail">고덕·일자산코스는 광나루역에서 출발해 한강, 고덕산, 일자산, 성내천, 문정근린공원, 탄천을 경유해 수서역에 도착하는 코스이다. 
 				                            본 코스는 강길, 숲길, 하천길이 모두 포함되어 서울시의 자연경관을 보고 느낄 수 있는 최적의 코스이다. 
 				                            또한 숲길은 높지 않은 고도로 수월한 산행이 가능하며, 주변의 역사문화관광지가 다양하게 분포하고 있어 볼거리 또한 풍부하다. 
 				                            코스가 긴 편으로 소요시간이 다소 걸리지만 비교적 평탄한 지형으로 트레킹을 하기에 무리가 없다.</span>
@@ -145,7 +145,7 @@ $(document).ready(function(){
 					</table>	
 				</div>
 					
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>스탬프 시설 위치</span>
 				<div class="courseCon_1">
 					<div class="wrapStp">
@@ -168,7 +168,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 	
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>안내지도 및 스탬프북 배부처</span>
 				<div class="courseCon_1">
 					<table>
