@@ -1,0 +1,57 @@
+git_ignore초기본.txt
+액세스 권한이 있는 사용자
+공유되지 않음
+시스템 속성
+유형
+텍스트
+크기
+372바이트
+사용한 용량
+372바이트
+위치
+수업자료
+소유자
+나
+수정 날짜
+2021. 6. 28.에 내가 수정
+열어 본 날짜
+오후 1:44에 내가 열어 봄
+생성 날짜
+2022. 3. 13.에 Google Drive Web (Unverified) 사용
+설명 추가
+뷰어가 다운로드할 수 있음
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+## ignoring target file
+target/
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+
+### first not include this ignore ###
+#.settings/
+#.classpath
+#.project
+
+### Project file ###
+#CommonProperties.*
