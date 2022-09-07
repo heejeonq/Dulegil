@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class NoticeController {
 	
 	@RequestMapping(value="/notice")
-	public ModelAndView aob(ModelAndView mav) {
+	public ModelAndView notice(ModelAndView mav) {
 		
 		mav.setViewName("notice/notice_list");
 		
