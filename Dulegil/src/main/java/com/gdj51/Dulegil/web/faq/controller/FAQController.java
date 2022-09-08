@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FAQController {
-	@RequestMapping(value = "/FAQ")
+	@RequestMapping(value = "/faq")
 	public ModelAndView FAQ(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("faq/faq");

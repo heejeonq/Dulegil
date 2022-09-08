@@ -4,27 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>FAQ</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/faq.css">
 <link rel="stylesheet" href="resources/css/fonts.css" />
-<title>FAQ</title>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("ul.tabTitle li").click(function(){
-		var tab_id = $(this).attr("data-tab");
-
-		$("ul.tabTitle li").removeClass("active");
-		$(".tabContent").removeClass("active");
-
-		$(this).addClass("active");
-		$("#"+tab_id).addClass("active");
-	});
-
-	$(".wrapCBtn span").click(function(){
-		$(".wrapCBtn span").removeClass("on");
-		$(this).addClass("on");
+	$(".faqAns").hide();
+	
+	$(".qstCon").on("click", function(){
+		if($(this).next().css("display")=="none"){        
+			$(this).next().show();        
+			$(this).children("span").text("[닫기]");      
+		}else{        
+			$(this).next().hide();        
+			$(this).children("span").text("[열기]");      
+		}
 	});
 
 });
@@ -37,37 +34,37 @@ $(document).ready(function(){
 
 	<!-- Container -->
 	<div class="container-main">
-		<div class="faqWrap">
-			<div class="faq_t1">FAQ <br />
-			<div class="faq_t2">자주하는 질문</div>
+		<div class="faq">
+			<div class="faqMainTit">FAQ <br />
+			<div class="faqSubTit">자주하는 질문</div>
 			</div>
-			<div class="faq_col"></div>
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+			<div class="col"></div>
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						혼자 걷기 걱정되는 사람에게는 어떤 코스가 좋을까요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 							5코스와 6코스를 추천합니다. 
 							<br/>
 							다른 코스와 비교해서 길지 않은 거리로 오소록한 숲길이 포함되어 있습니다.
 						</div>
 					</li>
 				</ul>	
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						둘레길에서 동물을 만나면 어떻게 해야 하나요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 							우선 묶여있지 않은 개를 만났을 때는 아래와 같이 행동하셔서 조심히 현장에서 벗어나시기 바랍니다.<br/>
 							<br/>
 							- 자극하지 말 것<br/>
@@ -82,16 +79,16 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						둘레길을 걸을 때 지켜야 할 안전 수칙은 무엇이 있나요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 							처음 둘레길을 걸으신다면 꼭 지켜야 할 안전 수칙을 안내 드립니다.<br/>
 							<br/>
 							- 걷기 종료시간은 하절기 오후 6시, 동절기 오후 5시. 이 시간 이후 걷기 자제하기<br/>
@@ -103,46 +100,46 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						길 여행을 하기 전 무엇을 준비해야 하나요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 							둘레 길은 총 8개 코스로 구성되어 있으며 각 코스마다 특징과 개성이 있어 어떤 코스를 가도 즐겁게 여행을 할 수 있습니다.<br/>
 							둘레길 홈페이지에 있는 코스정보를 꼼꼼히 읽은 후 취향에 맞는 특정 코스를 선택하여 여행을 하는 것이 좋습니다. <br/>
 						</div>
 					</li>
 				</ul>
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						둘레길 지도는 어디서 구할 수 있나요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 							공지사항 페이지에서 인쇄가 가능한 전체지도와 각 코스의 세부지도를 무료로 다운로드 받으실 수 있습니다.<br/>
 							코스와 관련되어 지도와 함께 보다 상세한 설명이 필요하다면 가이드북을 구매하시는 것을 권장 드립니다.
 						</div>
 					</li>
 				</ul>	
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						코스의 시작점과 종점까지는 어떻게 이동해야 하나요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 							각 코스의 시작점과 종점으로 향하는 대중교통 정보는 둘레길 홈페이지의 코스 별 주변 정보 안내 페이지에서 확인하실 수 있습니다.<br/>
 							<br/>
 							또한 코스의 시작/도착점에는 주차장이 따로 마련되어 있지 않다는 점 참고 바라며, <br/>
@@ -151,16 +148,16 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>	
-				<ul class="faq_question">
-					<li class="q_row01">Q</li>
-					<li class="q_row02" onclick="">
+				<ul class="faqQst">
+					<li class="qstTit">Q</li>
+					<li class="qstCon" onclick="">
 						완주증명서는 어떻게 해야 받을 수 있나요?
 					</li>
 				</ul>
-				<ul class="faq_answer">
-					<li class="a_row">
-						<span id="a_row01">A</span>
-						<div class="a_row02"> 
+				<ul class="faqAns">
+					<li class="faqDtl">
+						<span id="ansTit">A</span>
+						<div class="ansCon"> 
 						서울 둘레길 8개 코스를 돌면서 28개의 완주인증 스탬프를 모두 받아오시면 완주 증명서를 발급 해 드립니다.<br/>
 						<br/>
 						발급 장소 및 시간<br/>
@@ -179,7 +176,7 @@ $(document).ready(function(){
 						안내문의 ☞ 070-4465-7905<br/>
 						</div>
 					</li>
-				</ul>				
+				</ul>
 		</div>	
 	</div>
 

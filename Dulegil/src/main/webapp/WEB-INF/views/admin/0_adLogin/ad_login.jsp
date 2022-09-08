@@ -154,10 +154,13 @@ body {
 }
 </style>
 
+<link rel="stylesheet" type="text/css"
+	href="resources/css/common/cmn.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/css/common/popup.css" />
+
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/common/popup.js"></script>
-<script type="text/javascript"
-	src="resources/script/jquery/jquery-1.12.4.min.js">
-</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -200,7 +203,7 @@ function login(){
 			
 		    	  },
 		    	  error :function(request, status, error) { //실패했을 때 함수 실행
-		        	 console.log(request,responseText); //실패 상세내역
+		        	 console.log(request.responseText); //실패 상세내역
 		     		}
 		      
 		   });
