@@ -5,13 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/main.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/main.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <title>메인</title>
-<script type="text/javascript"
-      src="../jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min"></script>
  <script type="text/javascript">
 $(document).ready(function (){
 	var weatherIcon = {
@@ -67,7 +66,7 @@ $(document).ready(function (){
 	
 	//코스정보
 	$.ajax({
-		url: "../css/courseInfo.json", //경로
+		url: "resources/css/courseInfo.json", //경로
 		type: "GET", //전송방식 (GET:주소형태, POST: 주소 헤더형태)
 		dataType: "json",//데이터 형태
 		success : function(res) { //성공했을 때 결과를 res에 받고 함수 실행
@@ -80,9 +79,9 @@ $(document).ready(function (){
 								$("#courseDis").text(res[i].courseDis);
 								$("#courseTm").text(res[i].courseTm);
 								$("#courseLvl").text(res[i].courseLvl);
-								$("#courseP1").attr("src", "../css/images/" +res[i].courseP1 +".jpg");
-								$("#courseP2").attr("src", "../css/images/" +res[i].courseP2 +".jpg");
-								$("#courseP3").attr("src", "../css/images/" +res[i].courseP3 +".jpg");
+								$("#courseP1").attr("src", "resources/images/" +res[i].courseP1 +".jpg");
+								$("#courseP2").attr("src", "resources/images/" +res[i].courseP2 +".jpg");
+								$("#courseP3").attr("src", "resources/images/" +res[i].courseP3 +".jpg");
 
 						}
 					} 
@@ -120,7 +119,7 @@ $(document).ready(function (){
       </div>
 		<div class="map_area">
 			<div class="map_img">
-				<img alt="서울둘레길 지도" src="../css/images/map.png" usemap="#duleMap">
+				<img alt="서울둘레길 지도" src="resources/images/map.png" usemap="#duleMap">
 				<map name="duleMap">
 				    <area target="" alt="1코스" title="1코스" href="" coords="588,27,615,49,677,91,662,165,624,174,609,109,581,87,551,34" shape="poly">
 				    <area target="" alt="2코스" title="2코스" href="" coords="658,180,614,198,662,230,641,257,642,318,677,304,704,255,710,227" shape="poly">
@@ -132,7 +131,7 @@ $(document).ready(function (){
 				    <area target="" alt="8코스" title="8코스" href="" coords="335,134,397,141,402,181,448,169,471,166,472,109,506,50,530,29,551,96,527,135,504,204,441,223,382,243,336,215" shape="poly">
 				</map>
 				<div class="map_line">
-				<img src="../css/images/1코스.png" >
+				<img src="resources/images/1코스.png" >
 				</div>
 				
 			</div>
@@ -160,18 +159,18 @@ $(document).ready(function (){
 						</div>
 					</dl>
 					<div class="mindul">
-					<img alt="서울둘레길코스사진" src="../css/images/mindul.png" class="mindul2"/>
+					<img alt="서울둘레길코스사진" src="resources/images/mindul.png" class="mindul2"/>
 					</div>
 				</div>
 				<div class="photo">
-				<img alt="서울둘레길코스사진" src="../css/images/course1a.jpg" class="cosP" id="courseP1"/>
-				<img alt="서울둘레길코스사진" src="../css/images/course1b.jpg" class="cosP" id="courseP2"/>
-				<img alt="서울둘레길코스사진" src="../css/images/course1c.jpg" class="cosP" id="courseP3"/>
+				<img alt="서울둘레길코스사진" src="resources/images/course1a.jpg" class="cosP" id="courseP1"/>
+				<img alt="서울둘레길코스사진" src="resources/images/course1b.jpg" class="cosP" id="courseP2"/>
+				<img alt="서울둘레길코스사진" src="resources/images/course1c.jpg" class="cosP" id="courseP3"/>
 				</div>
 				<div class="photo1">
-				<img alt="서울둘레길코스사진" src="../css/images/main_icon01.png" class="cosI"/>
-				<img alt="서울둘레길코스사진" src="../css/images/main_icon02.png" class="cosI"/>
-				<img alt="서울둘레길코스사진" src="../css/images/main_icon04.png" class="cosI"/>
+				<img alt="서울둘레길코스사진" src="resources/images/main_icon01.png" class="cosI"/>
+				<img alt="서울둘레길코스사진" src="resources/images/main_icon02.png" class="cosI"/>
+				<img alt="서울둘레길코스사진" src="resources/images/main_icon04.png" class="cosI"/>
 				</div>
 			</div>
 		</div>

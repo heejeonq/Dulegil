@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/mypage.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/common.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/mypage.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/common.css" />
 <title>내 정보</title>
 <script type="text/javascript">
 function change_btn(e) {
@@ -60,7 +60,7 @@ function change_btn(e) {
 				</div>
 				<div class="user_box">
 					<div class="user_profile">
-						<img alt="" src="../css/images/sample3.png">
+						<img alt="" src="resources/images/sample3.png">
 					</div>
 					<div class="user_info">
 						<dl>
