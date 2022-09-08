@@ -94,7 +94,7 @@
     text-align: center;
     width: 100%;
 }
-.wriBtn {
+.btn {
 	font-size: 11px;
 	cursor: pointer;
 	height: 30px;
@@ -104,16 +104,16 @@
 	border: 1px solid rgba(0, 0, 0, 0.21);
 	border-radius: 4px;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-	background-color: #77bdeb;
-	box-shadow: 0px 1px 0px #87a86f;
+	background-color: #f0c41994;;
+	box-shadow: 0px 1px 0px #97853e;;
 	float: left;
 	margin-top: 20px;
 }
-.wriBtn:hover{
-	background-color:#989d7f;
+.btn:hover{
+	background-color:#b9992194;
 }
-.wriBtn:acrive{
-	background-color:#eff1e3;
+.btn:acrive{
+	background-color:#856c0d94;;
 	box-shadow: 0 0 #87a86f;
 }
 .cosSelBox{

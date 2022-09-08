@@ -28,7 +28,7 @@
 			<div class="col"></div>			
 			<div class="midBox">
 				<!-- <div class=box1>글쓰기</div> -->
-				<input type="button" class="wriBtn" value="글쓰기"/>
+				<input type="button" class="btn" value="글쓰기"/>
 				
 			<div class="searchWrap">
 				<div class="selBox">
