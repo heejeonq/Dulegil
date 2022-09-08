@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blank">
+
+<!-- 페이지카운트 -->
+<select id="getCnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT(*) AS CNT
+FROM BOARD_TYPE T INNER JOIN  BULLETIN_BOARD B 
+	ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+WHERE B.DEL_DT IS NULL
+AND T.BLTNBOARD_NO =3	
+</select>
+
+<!-- 목록 -->
+<select id="getFreeList" parameterType="hashmap" resultType="hashmap">	
+SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT
+FROM(SELECT B.POST_NO,M.MEMBER_NO,M.NM,B.TITLE,B.HIT,
+        CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+            	THEN TO_CHAR(B.REG_DT, 'HH24:MI')
+            	ELSE TO_CHAR(B.REG_DT,'YY.MM.DD')
+       			END AS DT,
+              ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
+FROM MEMBER M INNER JOIN BULLETIN_BOARD B
+    ON M.MEMBER_NO = B.MEMBER_NO
+WHERE B.DEL_DT IS NULL
+AND BLTNBOARD_NO =3
+)F
+WHERE T.RNUM BETWEEN #{start} AND #{end}
+</select>
+
+<!-- 게시글등록 -->
+<insert id="insert" parameterType="hashmap">
+INSERT INTO BULLETIN_BOARD (POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,REG_DT)
+VALUES (COMMUNITY_SEQ.NEXTVAL,3,#{memberNo},#{title},#{contents},SYSDATE)
+</insert>
+
+
+<!-- 게시글 삭제 -->
+
+
+<!-- 게시글 수정 -->
+
+
+<!-- 조회수 -->
+<update id="updateTHit" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET HIT = HIT+1
+WHERE BLTNBOARD_NO ='3'
+AND POST_NO= #{no}
+</update>
+
+<!-- 상세보기 -->
+
+</mapper>
