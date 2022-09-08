@@ -10,7 +10,7 @@ public class EventController {
 	@RequestMapping(value = "/event")
 	public ModelAndView event(ModelAndView mav) throws Throwable {
 
-		mav.setViewName("event/event_calendear");
+		mav.setViewName("event/event_calendar");
 
 		return mav;
 	}
