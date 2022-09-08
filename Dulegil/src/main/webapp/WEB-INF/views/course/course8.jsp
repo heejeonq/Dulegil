@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
-<link rel="stylesheet" href="../../css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/course.css" type="text/css">
 <script type="text/javascript"
 		src="../../../../../../jsp/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -44,28 +44,28 @@ $(document).ready(function(){
 			<div class="col"></div>
 			
 			<div class="wrapCBtn">
-				<a href="course1.html">
+				<a href="course1">
 					<span class="cBtn">1코스</span>
 				</a>
-				<a href="course2.html">
+				<a href="course2">
 					<span class="cBtn">2코스</span>
 				</a>
-				<a href="course3.html">
+				<a href="course3">
 					<span class="cBtn">3코스</span>
 				</a>
-				<a href="course4.html">
+				<a href="course4">
 					<span class="cBtn">4코스</span>
 				</a>
-				<a href="course5.html">
+				<a href="course5">
 					<span class="cBtn">5코스</span>
 				</a>
-				<a href="course6.html">
+				<a href="course6">
 					<span class="cBtn">6코스</span>
 				</a>
-				<a href="course7.html">
+				<a href="course7">
 					<span class="cBtn">7코스</span>
 				</a>
-				<a href="course8.html">
+				<a href="course8">
 					<span class="cBtn on">8코스</span>
 				</a>
 			</div>
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			<div class="courseCon_map">지도</div>
 			
 			<div class="courseCon_mapDetail">
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>코스 진입 방법</span><br /> 
 				<div class="courseCon_1">
 					<dl>
@@ -103,7 +103,7 @@ $(document).ready(function(){
 			
 			<div class="courseCon">
 				<div class="courseCon_1">			
-				<span id="CC">8코스는 북한산 둘레길을 이용해 통과하는 노선으로 이미 개통이 된 곳으로 이용하여 정비가 잘되어 있다. 
+				<span id="cDetail">8코스는 북한산 둘레길을 이용해 통과하는 노선으로 이미 개통이 된 곳으로 이용하여 정비가 잘되어 있다. 
 				 			    대체적으로 경사가 급하진 않지만 약간의 코스에서 어려움이 있다. 또한 산 코스임에도 노선이 길어 하루동안 코스를 통과할 수는 없다. 
 				 			  8코스는 대체적으로 사찰과 문화재뿐만 아닌 계곡 등의 자연적 요소 등이 분포되어있어 볼거리가 다양한 코스이다.</span>
 					<br />
@@ -160,7 +160,7 @@ $(document).ready(function(){
 					</table>
 				</div>
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>스탬프 시설 위치</span>
 				<div class="courseCon_1">
 					<div class="wrapStp">
@@ -191,7 +191,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>안내지도 및 스탬프북 배부처</span>
 				<div class="courseCon_1">
 					<table>

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script type="text/javascript"
-      src="../jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min"></script>
  <script type="text/javascript">
 $(document).ready(function (){
 	
@@ -37,7 +36,7 @@ $(document).ready(function (){
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 				</svg>
 				</li>
-				<li class="alarm"><img src="../css/images/notification.png" class="alarm_img"><span class="alarm_num">1</span>
+				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num">1</span>
 					<div class="alarm_contents">
 						<ul>
 							<li>abc123님이 동행을 신청하였습니다</li>
@@ -50,7 +49,7 @@ $(document).ready(function (){
 		<!-- Nav -->
 		<div class="nav">
 			<div class="logo">
-				<a href="#"> <img alt="서울둘레길 로고" src="../css/images/direction.png">
+				<a href="#"> <img alt="서울둘레길 로고" src="resources/images/direction.png">
 					<span>서울둘레길</span>
 				</a>
 			</div>

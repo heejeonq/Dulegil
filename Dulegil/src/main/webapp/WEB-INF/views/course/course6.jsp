@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
-<link rel="stylesheet" href="../../css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/course.css" type="text/css">
 <script type="text/javascript"
 		src="../../../../../../jsp/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -44,28 +44,28 @@ $(document).ready(function(){
 			<div class="col"></div>
 			
 			<div class="wrapCBtn">
-				<a href="course1.html">
+				<a href="course1">
 					<span class="cBtn">1코스</span>
 				</a>
-				<a href="course2.html">
+				<a href="course2">
 					<span class="cBtn">2코스</span>
 				</a>
-				<a href="course3.html">
+				<a href="course3">
 					<span class="cBtn">3코스</span>
 				</a>
-				<a href="course4.html">
+				<a href="course4">
 					<span class="cBtn">4코스</span>
 				</a>
-				<a href="course5.html">
+				<a href="course5">
 					<span class="cBtn">5코스</span>
 				</a>
-				<a href="course6.html">
+				<a href="course6">
 					<span class="cBtn on">6코스</span>
 				</a>
-				<a href="course7.html">
+				<a href="course7">
 					<span class="cBtn">7코스</span>
 				</a>
-				<a href="course8.html">
+				<a href="course8">
 					<span class="cBtn">8코스</span>
 				</a>
 			</div>
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			<div class="courseCon_map">지도</div>	
 			
 			<div class="courseCon_mapDetail">
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>코스 진입 방법</span><br /> 
 				<div class="courseCon_1">
 					<dl>
@@ -118,7 +118,7 @@ $(document).ready(function(){
 			
 			<div class="courseCon">
 				<div class="courseCon_1">					
-				<span id="CC">안양천코스는 석수역에서 출발해 안양천, 한강을 따라 걸어 가양역에 도착하는 코스이다. 
+				<span id="cDetail">안양천코스는 석수역에서 출발해 안양천, 한강을 따라 걸어 가양역에 도착하는 코스이다. 
 				       		    본 코스는 다소 길지만 지하철역이 곳곳에 위치하고 있어 대중교통의 접근이 편리하고, 전 구간이 평탄한 지형으로 수월한 트레킹이 가능하다. 
 				       		    서울의 하천과 한강을 만끽 할 수 있어 숲길이 대부분인 다른 코스와 차별화가 된다. 곳곳에 운동시설, 산책로, 편의시설, 휴게시설 등이 다수 위치하고 있다.<br />
 							    ※특히 안양천길은 봄이면 봄꽃으로 물들며 하얀 벚꽃 비를 맞으며 길을 걸을 수 있다.</span>
@@ -157,7 +157,7 @@ $(document).ready(function(){
 					
 				</div>
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>스탬프 시설 위치</span>
 				<div class="courseCon_1">
 					<div class="wrapStp">
@@ -176,7 +176,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>안내지도 및 스탬프북 배부처</span>
 				<div class="courseCon_1">
 					<table>

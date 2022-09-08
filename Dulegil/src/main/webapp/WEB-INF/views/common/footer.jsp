@@ -5,7 +5,7 @@
 	<div class="footer">
       <div class="footer_container">
          <div class="footer_logo">
-            <img src="../css/images/seoul_logo.png" alt="서울시 로고">
+            <img src="resources/images/seoul_logo.png" alt="서울시 로고">
          </div>
          <div class="footer_section">
             <div><a href="https://www.seoul.go.kr/helper/privacy.do?type=www">개인정보처리방침</a></div>
