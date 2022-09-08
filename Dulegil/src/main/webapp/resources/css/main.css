@@ -82,10 +82,10 @@ display: inline-block;
 }
 
 .course_no {
-	height: 50px;
-    width: 100px;
-    line-height: 52px;
-    font-size: 22px;
+    height: 45px;
+    width: 85px;
+    line-height: 48px;
+    font-size: 20px;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
@@ -113,7 +113,8 @@ display: inline-block;
 	word-break: keep-all;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	font-size: 15pt;
+	font-size: 13pt;
+	margin-top: 1px;
 }
 
 .course_txt dl {
@@ -149,9 +150,9 @@ display: inline-block;
 	width:64px;
 }
 .mindul2{
-	width: 80px;
-    left: 435%;
-    top: 36%;
+    width: 65px;
+    left: 465%;
+    top: 50%;
     position: relative;
 }
 
