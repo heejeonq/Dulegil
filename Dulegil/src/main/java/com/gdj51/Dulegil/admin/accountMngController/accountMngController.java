@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gdj51.Dulegil.dao.IDulDao;
+import com.gdj51.Dulegil.web.dao.IDao;
 
 @Controller
 public class accountMngController {
 	@Autowired
-	public IDulDao dao;
+	public IDao dao;
 
 	// 관리자 페이지
 	@RequestMapping(value = "/adAccountMng")
