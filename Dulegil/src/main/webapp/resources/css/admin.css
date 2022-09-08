@@ -40,7 +40,8 @@ html, body {
 	margin-top: 70px;
 	display: inline-block;
 	background-image:
-		url(http://localhost:8090/TestWeb/mindule/img/minlogo.png);
+		url('http://localhost:8090/Dulegil/resources/images/minlogo.png');
+
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;

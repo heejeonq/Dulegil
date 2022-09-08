@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사랑 상세</title>
+<title>이벤트 상세</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900"
 	rel="stylesheet">
@@ -18,7 +18,7 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" type="text/css" href="../css/header1.css">
+<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 <style type="text/css">
 @import
 	url('https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900')
@@ -250,7 +250,7 @@ th:nth-child(2), td:nth-child(2) {
 				<div id="Cname_box">
 					<span class="material-symbols-outlined"
 						style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">
-						event_note </span>공지사항
+						event_note </span> 이벤트
 				</div>
 			</div>
 			<div id="hd2_CC">
@@ -259,28 +259,29 @@ th:nth-child(2), td:nth-child(2) {
 						<thead>
 							<tr>
 								<th colspan="1">번호</th>
-								<th colspan="6">글제목</th>
+								<th colspan="6">글 제목</th>
 								<th colspan="1">작성자</th>
-								<th colspan="1">작성일</th>
+								<th colspan="1">기간</th>
 								<th colspan="1">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td colspan="1">01</td>
-								<td colspan="6">둘레길 긴급 공지사항</td>
+								<td colspan="6">여름맞이 둘레길 이벤트</td>
 								<td colspan="1">관리자</td>
-								<td colspan="1">22.06.30</td>
+								<td colspan="1">22.06.30 ~ 22.07.30</td>
 								<td colspan="1">1000</td>
 							</tr>
 						</tbody>
 					</table>
 
 					<div id="gongzi">
-						<a> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
+						<a> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br />
+							여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는
+							이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트
+							입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br />
+
 						</a>
 					</div>
 					<div id="update">

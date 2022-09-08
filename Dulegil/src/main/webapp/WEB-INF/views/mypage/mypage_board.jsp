@@ -249,7 +249,7 @@ function change_btn(e) {
 									<div class="searchBox">
 										<input type="text" class="serchTxt" placeholder="검색하기" />
 										<div class="search_ico" onclick="chk_search();">
-										<img src="../css/images/dod.png" id="searIcon" />
+										<img src="resources/images/dod.png" id="searIcon" />
 										</div>
 									</div>
 								

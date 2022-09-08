@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min"></script>
- <script type="text/javascript">
-$(document).ready(function (){
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
 	
 	//알람 버튼
 	$(".alarm").on("click", function(){

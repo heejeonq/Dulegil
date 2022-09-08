@@ -40,7 +40,7 @@ ul {
 	padding: 0 10px;
 	line-height: 50px;
 	font-family: 'Pretendard-Regular';
-	font-size: 12pt;
+	font-size: 11pt;
 	cursor: pointer;
 	
 }
@@ -124,9 +124,9 @@ span.material-symbols-outlined {
 }
 .gnb > ul  >li > a {
     font-family: 'Pretendard-Regular';
-    font-size: 18pt;
+    font-size: 16pt;
     font-weight: 600;
-    padding: 0 30px;
+    padding: 0 35px;
 }
 .gnb > ul  >li > a:hover{
 	color:#073;

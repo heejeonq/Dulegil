@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <title>메인</title>
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
  <script type="text/javascript">
 $(document).ready(function (){
 	var weatherIcon = {
@@ -39,7 +39,7 @@ $(document).ready(function (){
 	        var icon = (resp.weather[0].icon).substr(0,2);
 	        $(".weather_now1").append(temp);
 	    
-	        $('.weather_now1').append('<img src="../css/images/' + weatherIcon[icon] + '.svg">');
+	        $('.weather_now1').append('<img src="resources/images/' + weatherIcon[icon] + '.svg">');
 	 
         
     }
@@ -71,7 +71,7 @@ $(document).ready(function (){
 		dataType: "json",//데이터 형태
 		success : function(res) { //성공했을 때 결과를 res에 받고 함수 실행
 
-				$("[name='duleMap']").on("mouseover", "area", function(){
+				$("[name='duleMap']").on("mouseenter", "area", function(){
 					for(var i=0; i<res.length; i++){
 							if($(this).attr("title") == res[i].title){
 								$(".course_no span").text(res[i].title);
@@ -82,11 +82,17 @@ $(document).ready(function (){
 								$("#courseP1").attr("src", "resources/images/" +res[i].courseP1 +".jpg");
 								$("#courseP2").attr("src", "resources/images/" +res[i].courseP2 +".jpg");
 								$("#courseP3").attr("src", "resources/images/" +res[i].courseP3 +".jpg");
+								$(".map_line img").attr("src", "resources/images/" + (i+1) + "코스.png" );
 
 						}
 					} 
 					
 				});
+				$("[name='duleMap']").on("mouseleave", "area", function(){
+					for(var i=0; i<res.length; i++){
+						$(".map_line img").attr("src", "" );
+					}
+				});	
 		
 		}, 
 		error : function(req, status, error){ // 실패했을 때 함수 실행
@@ -131,7 +137,7 @@ $(document).ready(function (){
 				    <area target="" alt="8코스" title="8코스" href="" coords="335,134,397,141,402,181,448,169,471,166,472,109,506,50,530,29,551,96,527,135,504,204,441,223,382,243,336,215" shape="poly">
 				</map>
 				<div class="map_line">
-				<img src="resources/images/1코스.png" >
+				<img src="" >
 				</div>
 				
 			</div>
