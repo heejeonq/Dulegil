@@ -111,7 +111,7 @@ td {
 	margin-top: 70px;
 	display: inline-block;
 	background-image:
-		url(http://localhost:8090/TestWeb/mindule/img/mintable.png);
+	url('http://localhost:8090/Dulegil/resources/images/mintable.png');
 	background-size: cover;
 }
 </style>
