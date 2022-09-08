@@ -16,15 +16,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj51.Dulegil.dao.IDulDao;
 
 @Controller
 public class adLoginController {
 
+	@Autowired 
+	public IDulDao dao;
 
 	// 로그인 페이지
 	@RequestMapping(value="/adLogin")
-	public ModelAndView adLogin(ModelAndView mav) {
+	public ModelAndView adLogin(
+			HttpSession session,
+			ModelAndView mav) {
 
+		
+	
 		mav.setViewName("admin/0_adLogin/ad_login");
 		return mav;
 	}
@@ -42,7 +49,7 @@ public class adLoginController {
 		Map<String, Object> model = new HashMap<String, Object>();
 
 
-		//HashMap<String, String> data = 다오.getMap("xml_namespace.id", params)
+		HashMap<String, String> data = dao.getMap("adLogin.checkMem", params);
 		return mapper.writeValueAsString(model);
 	}
 
