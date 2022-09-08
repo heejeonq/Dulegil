@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/mypage.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/common.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/mypage.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/common.css" />
 <title>게시글 관리</title>
 <script type="text/javascript">
 function change_btn(e) {

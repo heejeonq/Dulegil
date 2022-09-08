@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/mypage.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/common.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/mypage.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/common.css" />
 <title>동행</title>
-<script type="text/javascript"
-      src="../jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min"></script>
 <script>
 $(document).ready(function(){
 	$(".singo span").on("click", function(){
@@ -78,7 +77,7 @@ function change_btn(e) {
 							<th colspan="5">같이 둘레길</th>
 						</tr>
 							<tr>
-							<td id=user_img><img src="../css/images/sample1.jpg"></td>
+							<td id=user_img><img src="resources/images/sample1.jpg"></td>
 							<td id=user_id>신청자id</td>
 							<td id=user_lvl>신뢰도</td>
 							<td id=user_age>나이</td>
@@ -93,7 +92,7 @@ function change_btn(e) {
 							<th colspan="5">같이 둘레길</th>
 						</tr>
 							<tr>
-							<td id=user_img><img src="../css/images/sample2.jpg"></td>
+							<td id=user_img><img src="resources/images/sample2.jpg"></td>
 							<td id=user_id>신청자id</td>
 							<td id=user_lvl>신뢰도</td>
 							<td id=user_age>나이</td>
@@ -186,7 +185,7 @@ function change_btn(e) {
 							<th colspan="6"  id=join_title>같이 둘레길1</th>
 						</tr>
 						<tr>
-							<td rowspan="2" id="user_img"><img src="../css/images/sample1.jpg"></td>
+							<td rowspan="2" id="user_img"><img src="resources/images/sample1.jpg"></td>
 							<td id="user_id" class="item">에디님</td>
 							<td></td>
 							<td></td>

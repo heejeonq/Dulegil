@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/mypage.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/common.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/mypage.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/common.css" />
 <title>개인 정보 수정</title>
 <!-- 주소검색 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
