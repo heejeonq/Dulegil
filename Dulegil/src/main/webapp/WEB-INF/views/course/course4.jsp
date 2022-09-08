@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/course.css" type="text/css">
 <script type="text/javascript"
 		src="../../../../../../jsp/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -45,28 +45,28 @@ $(document).ready(function(){
 			<div class="col"></div>
 			
 			<div class="wrapCBtn">
-				<a href="course1.html">
+				<a href="course1">
 					<span class="cBtn">1코스</span>
 				</a>
-				<a href="course2.html">
+				<a href="course2">
 					<span class="cBtn">2코스</span>
 				</a>
-				<a href="course3.html">
+				<a href="course3">
 					<span class="cBtn">3코스</span>
 				</a>
-				<a href="course4.html">
+				<a href="course4">
 					<span class="cBtn on">4코스</span>
 				</a>
-				<a href="course5.html">
+				<a href="course5">
 					<span class="cBtn">5코스</span>
 				</a>
-				<a href="course6.html">
+				<a href="course6">
 					<span class="cBtn">6코스</span>
 				</a>
-				<a href="course7.html">
+				<a href="course7">
 					<span class="cBtn">7코스</span>
 				</a>
-				<a href="course8.html">
+				<a href="course8">
 					<span class="cBtn">8코스</span>
 				</a>
 			</div>
@@ -87,7 +87,7 @@ $(document).ready(function(){
 			<div class="courseCon_map">지도</div>
 			
 			<div class="courseCon_mapDetail">
-			<img src="../../css/images/mark.png">
+			<img src="resources/images/mark.png">
 				<span>코스 진입 방법</span><br /> 
 				<div class="courseCon_1">
 					<dl>
@@ -109,7 +109,7 @@ $(document).ready(function(){
 			
 			<div class="courseCon">
 				<div class="courseCon_1">				
-				<span id="CC">서울 둘레길의 4코스로 수서역에서 출발하여 대모산, 구룡산, 우면산을 거쳐 사당역에 도착하는 코스이다. 
+				<span id="cDetail">서울 둘레길의 4코스로 수서역에서 출발하여 대모산, 구룡산, 우면산을 거쳐 사당역에 도착하는 코스이다. 
 							    본 코스는 대부분 산행코스지만 높지 않은 고도로 수월한 트레킹이 가능하며 산림자연자원이 풍부하고 서울시 조망이 매우 좋다. 
 							    또한 구룡산과 우면산 사이의 여의천, 양재시민의 숲, 양재천을 경유하는 길은 주변 경관이 좋으며, 평탄하고 아늑한 산책로로 간편한 트레킹이 가능하다. 
 							    출발지인 수서역과 도착지인 사당역은 대중교통의 접근성이 아주 편리하다.</span>
@@ -147,7 +147,7 @@ $(document).ready(function(){
 					</table>
 				</div>
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>스탬프 시설 위치</span>
 				<div class="courseCon_1">
 					<div class="wrapStp">
@@ -166,7 +166,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>안내지도 및 스탬프북 배부처</span>
 				<div class="courseCon_1">
 					<table>

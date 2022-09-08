@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
-<link rel="stylesheet" href="../../css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/course.css" type="text/css">
 <script type="text/javascript"
 		src="../../../../../../jsp/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -44,28 +44,28 @@ $(document).ready(function(){
 			<div class="col"></div>
 			
 			<div class="wrapCBtn">
-				<a href="course1.html">
+				<a href="course1">
 					<span class="cBtn">1코스</span>
 				</a>
-				<a href="course2.html">
+				<a href="course2">
 					<span class="cBtn">2코스</span>
 				</a>
-				<a href="course3.html">
+				<a href="course3">
 					<span class="cBtn">3코스</span>
 				</a>
-				<a href="course4.html">
+				<a href="course4">
 					<span class="cBtn">4코스</span>
 				</a>
-				<a href="course5.html">
+				<a href="course5">
 					<span class="cBtn on">5코스</span>
 				</a>
-				<a href="course6.html">
+				<a href="course6">
 					<span class="cBtn">6코스</span>
 				</a>
-				<a href="course7.html">
+				<a href="course7">
 					<span class="cBtn">7코스</span>
 				</a>
-				<a href="course8.html">
+				<a href="course8">
 					<span class="cBtn">8코스</span>
 				</a>
 			</div>
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			<div class="courseCon_map">지도</div>
 			
 			<div class="courseCon_mapDetail">
-			<img src="../../css/images/mark.png">
+			<img src="resources/images/mark.png">
 				<span>코스 진입 방법</span><br /> 
 				<div class="courseCon_1">
 					<dl>
@@ -103,7 +103,7 @@ $(document).ready(function(){
 			
 			<div class="courseCon">
 				<div class="courseCon_1">				
-				<span id="CC">관악산코스는 사당역에서 출발해 관악산, 삼성산을 거쳐 석수역에 도착하는 코스이다. 
+				<span id="cDetail">관악산코스는 사당역에서 출발해 관악산, 삼성산을 거쳐 석수역에 도착하는 코스이다. 
 				                            관악산과 높은 고도로 등반을 위한 산행이 대부분이지만 본 코스는 관악산의 둘레길을 따라서 걷는 코스로 자연경관이 매우 훌륭하고 
 				                            곳곳의 역사문화유적이 다양하게 분포하고 있어 볼거리 또한 매우 풍부하다. 
 				                            대부분의 구간이 숲길로 비교적 난이도가 있는 코스지만 서울의 산림자연환경을 느낄 수 있는 최적의 코스이기도 하다.</span>
@@ -141,7 +141,7 @@ $(document).ready(function(){
 					</table>
 				</div>
 				
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>스탬프 시설 위치</span>
 				<div class="courseCon_1">
 					<div class="wrapStp">
@@ -160,7 +160,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 
-				<img src="../../css/images/mark.png">
+				<img src="resources/images/mark.png">
 				<span>안내지도 및 스탬프북 배부처</span>
 				<div class="courseCon_1">
 					<table>
