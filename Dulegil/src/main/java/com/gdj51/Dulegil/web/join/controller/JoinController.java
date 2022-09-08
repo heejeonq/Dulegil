@@ -24,7 +24,7 @@ public class JoinController {
 	public IJoinDao dao;
 
 	@RequestMapping(value = "join")
-	public ModelAndView AMList(ModelAndView mav) throws Throwable {
+	public ModelAndView join(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("join/join");
 
