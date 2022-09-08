@@ -159,7 +159,8 @@ body {
 <link rel="stylesheet" type="text/css"
 	href="resources/css/common/popup.css" />
 
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/script/common/popup.js"></script>
 
 <script type="text/javascript">
@@ -195,7 +196,7 @@ function login(){
 		      		console.log(res);
 		      
 		     		 if(res.msg == "success"){	
-		    		  location.href = "ad_AccountMng";
+		    		  location.href = "adAccountMng";
 		    		  
 		     		 }else{
 		    		  makeAlert("알림", "아이디나 비밀번호가 틀립니다.")
@@ -233,29 +234,32 @@ function login(){
 			</div>
 
 			<div class="login_box">
-				<form action="#" id="actionForm">
+				<form action="#" id="actionForm" method="post">
+				
+				
 					<div class="id_box">
 						<span class="material-symbols-outlined"
-							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-							info </span> 
-						<input type="text" name="id" id="id" class="input" placeholder="ID"
-							maxlength="20" />
-
+							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">info </span>
+							
+						<input type="text"   name="id" id="id" class="input"
+							placeholder="ID" maxlength="20" />
 					</div>
+					
 					<div class="pw_box">
 						<span class="material-symbols-outlined"
-							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-							lock </span> 
-							<input type="password" name="pw" id="pw" class="input" placeholder="PASSWORD"
-							maxlength="20" />
+								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;"> lock </span> 
+						<input type="password" name="pw" id="pw" class="input"
+								placeholder="PASSWORD" maxlength="20" />
 					</div>
+					
 				</form>
-
 
 				<div class="login_btn">
 					<input type="button" id="loginBtn" class="loginBtn" value="login" />
 				</div>
-			</div>
+				
+			</div> <!-- login box end -->
+
 
 		</div>
 	</div>

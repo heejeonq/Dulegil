@@ -3,7 +3,7 @@
 <mapper namespace="adLogin">
 
 <select id="checkAd" parameterType="hashmap" resultType="hashmap">
-SELECT MEMBER_NO, EMAIL
+SELECT MEMBER_NO, EMAIL, PWD
 FROM MEMBER
 WHERE DEL_DT IS NULL
 AND AUTHORITY_NO = 1

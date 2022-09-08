@@ -63,6 +63,7 @@ public class adLoginController {
 		if(data != null) {
 			session.setAttribute("sMemNo", data.get("MEMBER_NO"));
 			session.setAttribute("sMemNm", data.get("EMAIL"));
+			session.setAttribute("sMemPw", data.get("PWD"));
 			model.put("msg", "success");
 		}else {
 			model.put("msg", "failed");
@@ -87,5 +88,14 @@ public class adLoginController {
 	
 	
 	// 로그아웃
+	@RequestMapping(value="/adLogout")
+	public ModelAndView adLogout(
+			HttpSession session,
+			ModelAndView mav) {
+		session.invalidate();
+		
+		mav.setViewName("redirect:adLogin");
+		return mav;
+	}
 
 }
