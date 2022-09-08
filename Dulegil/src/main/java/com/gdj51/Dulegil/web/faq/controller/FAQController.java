@@ -6,13 +6,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FAQController {
-	
-	@RequestMapping(value = "faq")
-	public ModelAndView join(ModelAndView mav) throws Throwable {
+	@RequestMapping(value = "/faq")
+	public ModelAndView FAQ(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("faq/faq");
 
 		return mav;
 	}
 
+	
 }

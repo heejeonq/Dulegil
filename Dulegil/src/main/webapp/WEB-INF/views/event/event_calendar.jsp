@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/calendar.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/calendar.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>전체일정</title>
 </head>
 <body>

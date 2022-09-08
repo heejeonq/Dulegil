@@ -7,26 +7,25 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AccompanyController {
 	
-	@RequestMapping(value="/Accompany")
-	public ModelAndView Accompany(ModelAndView mav) {
-		
+	@RequestMapping(value = "/accompany")
+	public ModelAndView accompany(ModelAndView mav) throws Throwable {
+
 		mav.setViewName("accompany/accompany_list");
-		
+
 		return mav;
 	}
-	@RequestMapping(value="/AccompanyDetail")
+	@RequestMapping(value="/accompanyDetail")
 	public ModelAndView AccompanyDetail(ModelAndView mav) {
 		
 		mav.setViewName("accompany/accompany_detail");
 		
 		return mav;
 	}
-	@RequestMapping(value="/AccompanyWrite")
+	@RequestMapping(value="/accompanyWrite")
 	public ModelAndView AccompanyWrite(ModelAndView mav) {
 		
 		mav.setViewName("accompany/accompany_write");
 		
 		return mav;
 	}
-
 }

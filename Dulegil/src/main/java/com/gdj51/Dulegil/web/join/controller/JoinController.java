@@ -34,7 +34,7 @@ public class JoinController {
 	@RequestMapping(value = "/joinAction/{gbn}", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
 	@ResponseBody
 
-	public String AOBAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String joinAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
