@@ -86,10 +86,10 @@ $(document).ready(function(){
 			</div>
 				<div class="btnWrap">
 					<div class="btnBox">
-					<input type="button" class="wriBtn" id="caBtn" value="취소">
+					<input type="button" class="btn" id="caBtn" value="취소">
 					</div>
 					<div class="btnBox">
-					<input type="button" class="wriBtn" id="inBtn"value="등록">
+					<input type="button" class="btn" id="inBtn"value="등록">
 					</div>
 				</div>
 

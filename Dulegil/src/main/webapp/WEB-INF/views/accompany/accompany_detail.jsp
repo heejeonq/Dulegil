@@ -98,9 +98,9 @@ $(document).ready(function(){
       
          
          
-         <input type="button" class="wriBtn" id="upBtn" value="수정"/>
-         <input type="button" class="wriBtn" id="delBtn" value="삭제"/>      
-         <input type="button" class="wriBtn" id="listBtn" value="목록"/>
+         <input type="button" class="btn" id="upBtn" value="수정"/>
+         <input type="button" class="btn" id="delBtn" value="삭제"/>      
+         <input type="button" class="btn" id="listBtn" value="목록"/>
       </div>
             
       </div>
