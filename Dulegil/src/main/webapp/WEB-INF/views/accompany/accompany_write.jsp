@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행구하기 상세보기</title>
-<!-- 제이쿼리 -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <!-- CKEditor -->
 <script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>

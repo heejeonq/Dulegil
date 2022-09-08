@@ -24,7 +24,7 @@ $(document).ready(function(){
 	<div class="header">
 		<div class="util">
 			<ul>
-				<li><a href="#"> 로그인 </a></li>
+				<li><a href="login"> 로그인 </a></li>
 				<li>
 				<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
@@ -49,29 +49,29 @@ $(document).ready(function(){
 		<!-- Nav -->
 		<div class="nav">
 			<div class="logo">
-				<a href="#"> <img alt="서울둘레길 로고" src="resources/images/direction.png">
+				<a href="main"> <img alt="서울둘레길 로고" src="resources/images/direction.png">
 					<span>서울둘레길</span>
 				</a>
 			</div>
 			<div class="gnb">
 				<ul>
-					<li><a href="#"> 둘레길 도우미</a>
+					<li><a href="notice"> 둘레길 도우미</a>
 
 						<ul class="gnb_dropdown">
-							<li><a href="#"> 공지사항 </a></li>
-							<li><a href="#"> FAQ </a></li>
+							<li><a href="notice"> 공지사항 </a></li>
+							<li><a href="FAQ"> FAQ </a></li>
 						</ul></li>
-					<li><a href="#"> 둘레길 코스안내</a>
+					<li><a href="course1"> 둘레길 코스안내</a>
 
-					<li><a href="#"> 전체일정</a>
+					<li><a href="event"> 전체일정</a>
 
-					<li><a href="#"> 명예의 전당</a></li>
-					<li><a href="#"> 커뮤니티</a>
+					<li><a href="bestReviewGallery"> 명예의 전당</a></li>
+					<li><a href="courseReview"> 커뮤니티</a>
 
 						<ul class="gnb_dropdown">
-							<li><a href="#"> 코스별 후기 </a></li>
-							<li><a href="#"> 동행구하기 </a></li>
-							<li><a href="#"> 자유게시판 </a></li>
+							<li><a href="courseReview"> 코스별 후기 </a></li>
+							<li><a href="accompany"> 동행구하기 </a></li>
+							<li><a href="freeBoard"> 자유게시판 </a></li>
 						</ul></li>
 				</ul>
 			</div>

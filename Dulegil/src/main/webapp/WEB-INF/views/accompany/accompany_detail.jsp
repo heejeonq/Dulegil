@@ -11,6 +11,7 @@
 <title>동행상세</title>
 <!-- 제이쿼리 -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+
 <script>
 $(document).ready(function(){
 	$(".moreBtn").on("click",function(){

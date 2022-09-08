@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/calendar.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/calendar.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>전체일정상세</title>
 </head>
 <body>
@@ -68,7 +68,7 @@
 								• 걷기 후기 이벤트 참가 신청 구글폼 URL : (https://forms.gle/Fcqbg1eZoPAQqUVP6)<br/>
 								<br/>
 								▶더 자세한 코스 정보는 아래 링크를 눌러주세요!<br/> 
-								<a href="../course/course1.html">☞서울 둘레길 코스 안내</a>
+								<a href="course1">☞서울 둘레길 코스 안내</a>
 							</p>
 						</div>
 					</div>
