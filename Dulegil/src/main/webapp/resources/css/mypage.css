@@ -55,8 +55,8 @@ table {
 	border-radius: 3px;
  }
  .btnbox:hover, .btnbox.active {
-	background: #77bdeb;
-    color: #fff;
+	background-color:#f0c41994; 
+	color: #000;
  }
  
 /* 내 정보 */
@@ -336,7 +336,7 @@ img#preview {
 }
 .table thead {
     height: 55px;
-    background-color: #eff3f6;
+    background-color: #bbd1bc;
 }
 .table tr {
 	height : 45px;
@@ -361,7 +361,7 @@ img#preview {
 /* DeleteBtn */
 #deleteBtn {
 	text-decoration: none;
-    color: #ffffff;
+    color: #000;
     height: 35px;
     width: 60px;
     display: inline-block;
@@ -389,13 +389,13 @@ img#preview {
     cursor: pointer;
 }
 .pagination span:active {
-    background-color: #2056b7;
-    color: white;
-    border: 1px solid #2056b7;
+	background-color:#bbd1bc;
+    color: #000;
+    border: 1px solid #bbd1bc;
 }
 .pagination span:hover {
-    background-color: #2056b7;
-    color: white;
+	background-color:#bbd1bc;;
+    color: #000;
     border-radius:50%;
 }
 
@@ -584,7 +584,7 @@ img#searIcon {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #4cb95e;
+	background-color:#bbd1bc;
     content: '';
 }
 table.standard, table.standard td{
