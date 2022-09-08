@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CourseReviewController {
 	
-	@RequestMapping(value="/courseReviewList")
+	@RequestMapping(value="/courseReview")
 	public ModelAndView courseReviewList(ModelAndView mav) {
 		
 		mav.setViewName("courseReviw/courseReviw_list");
@@ -30,5 +30,6 @@ public class CourseReviewController {
 		
 		return mav;
 	}
+}
 	
 	

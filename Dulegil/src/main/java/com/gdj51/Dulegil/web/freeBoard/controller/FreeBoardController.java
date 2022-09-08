@@ -13,7 +13,7 @@ public class FreeBoardController {
 	
 
 	
-	@RequestMapping(value="/freeBoardList")
+	@RequestMapping(value="/freeBoard")
 	public ModelAndView freeBoardList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable{
