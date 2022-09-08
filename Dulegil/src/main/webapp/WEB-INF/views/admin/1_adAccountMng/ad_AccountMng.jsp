@@ -12,6 +12,16 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="resources/css/admin.css">
+
+<script type="text/javascript"
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#logoutBtn").on("click", function() {
+		location.href = "adLogout";
+	});
+});
+</script>
 </head>
 <body>
 		<!--  header 1  -->
@@ -86,7 +96,7 @@
 			<div class="hh2_icon">
 				<div>알림</div>
 				<div>
-					<span class="material-symbols-outlined"> exit_to_app </span>로그아웃
+					<span class="material-symbols-outlined" id="logoutBtn" style="cursor:pointer;"> exit_to_app </span>로그아웃
 				</div>
 			</div>
 		</div>
@@ -114,15 +124,15 @@
 						<div class="id_box">
 							<span class="material-symbols-outlined"
 								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-								info </span> <input type="text" class="input" placeholder="아이디"
-								maxlength="20" />
+								info </span>  <input type="text" class="input" placeholder="아이디"
+								maxlength="20" value="${sMemNm}"/>
 
 						</div>
 						<div class="pw_box">
 							<span class="material-symbols-outlined"
 								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-								lock </span> <input type="password" class="input" placeholder="비밀번호"
-								maxlength="20" />
+								lock </span> <input type="text" class="input" placeholder="비밀번호"
+								maxlength="20" value="${sMemPw}" />
 						</div>
 					</div>
 

@@ -75,15 +75,7 @@ function drawList(list) {
 	var html = "";
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
-		
-		<tr no ="1">
-		<td>1</td>
-		<td>같이가실분</td>
-		<td>둘레마스터</td>
-		<td>20220817</td>
-		<td>1</td>
-		</tr>
-		
+
 	}
 	
 	$("tbody").html(html); //내가 받은 html로 갈아 엎어라
@@ -145,13 +137,13 @@ function drawList(list) {
 			</tr>		
 		</thead>
 		<tbody>
-		<tr no ="1">
+		<tr>
 				<td>1</td>
 				<td>같이가실분</td>
 				<td>둘레마스터</td>
 				<td>20220817</td>
 				<td>1</td>
-		</tr>
+			</tr>
 			<tr>
 				<td>2</td>
 				<td>오늘 날씨가 좋네요</td>

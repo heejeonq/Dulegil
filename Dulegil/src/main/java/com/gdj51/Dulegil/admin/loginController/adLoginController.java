@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj51.Dulegil.web.dao.IDao;
-
 
 @Controller
 public class adLoginController {
@@ -64,6 +62,7 @@ public class adLoginController {
 		if(data != null) {
 			session.setAttribute("sMemNo", data.get("MEMBER_NO"));
 			session.setAttribute("sMemNm", data.get("EMAIL"));
+			session.setAttribute("sMemPw", data.get("PWD"));
 			model.put("msg", "success");
 		}else {
 			model.put("msg", "failed");
@@ -76,17 +75,19 @@ public class adLoginController {
 	
 	
 	
-	//로그인 후 관리자 페이지로 이동 화면
-	@RequestMapping(value="/adAccountMng")
-	public ModelAndView adAccountMng(ModelAndView mav) {
-		mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
-		
-		return mav;
-	}
 
 	
 	
 	
 	// 로그아웃
+	@RequestMapping(value="/adLogout")
+	public ModelAndView adLogout(
+			HttpSession session,
+			ModelAndView mav) {
+		session.invalidate();
+		
+		mav.setViewName("redirect:adLogin");
+		return mav;
+	}
 
 }

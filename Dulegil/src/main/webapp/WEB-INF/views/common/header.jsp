@@ -59,7 +59,7 @@ $(document).ready(function(){
 
 						<ul class="gnb_dropdown">
 							<li><a href="notice"> 공지사항 </a></li>
-							<li><a href="FAQ"> FAQ </a></li>
+							<li><a href="faq"> FAQ </a></li>
 						</ul></li>
 					<li><a href="course1"> 둘레길 코스안내</a>
 
