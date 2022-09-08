@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
-.faqWrap{
+.faq{
 	overflow: hidden;
 	margin-bottom: 10%;
 	width: 100%;
 }
 
-.faq_t1{
+.faqMainTit{
 	font-size: 80px;
     position: relative;
     color: #333;
@@ -16,24 +16,24 @@
 	font-weight: 800;
 }
 
-.faq_t2{
+.faqSubTit{
 	font-size: 26px;
 	font-family: 'EliceDigitalBaeum';
 	font-weight: 600;
 	color: #666;
 }
 
-.faq_col{
+.col{
     position: relative;
     text-align: center;
     border-top: 2px solid #666;
 }
 
-.faq_question{
+.faqQst{
 	padding: 0;
 }
 
-.q_row01 {
+.qstTit, .qstCon {
     width: 10%;
     height: 60px;
     border-bottom: 1px solid #ddd;
@@ -45,16 +45,10 @@
     float: left;
 }
 
-.q_row02 {
+.qstCon {
     width: 90%;
-    height: 60px;
-    border-bottom: 1px solid #ddd;
     font-size: 15px;
-    line-height: 60px;
-    color: #000;
-    display: inline-block;
     text-align: left;
-    float: left;
     cursor: pointer;
 }
 
@@ -62,10 +56,10 @@
 	padding: 0;
 }
 
-.a_row{
+.faqDtl{
 	width: 100%;
     height: auto;
-    background: #eff3f6;
+    background: #bbd1bc;
     text-align: justify;
     display: block;
     float: left;
@@ -74,7 +68,7 @@
     border-bottom: 1px solid #ddd;
 }
 
-#a_row01{
+#ansTit, .ansCon{
 	width: 10%;
     height: auto;
     font-size: 23px;
@@ -86,14 +80,9 @@
     padding: 20px 0;
 } 
 
-.a_row02 {
+.ansCon {
 	width: 90%;
-    height: auto;
     font-size: 15px;
     line-height: 27px;
-    color: #333;
-    display: inline-block;
     text-align: left;
-    float: left;
-    padding: 20px 0;
 }

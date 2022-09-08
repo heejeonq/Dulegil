@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,21 +24,20 @@ body {
 
 #header {
 	height: 93px;
-    text-align: center;
-    background-color: #f2f3ef;
-    padding: 42px;
+	text-align: center;
+	background-color: #f2f3ef;
+	padding: 42px;
 }
 
 #header .h_logo {
 	width: 100%;
-    height: 100%;
+	height: 100%;
 	display: inline-block;
 	background-image:
 		url('http://localhost:8090/Dulegil/resources/images/minlogo.png');
-
 	background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+	background-position: center;
+	background-size: contain;
 }
 
 #bottom {
@@ -155,10 +154,63 @@ body {
 }
 </style>
 
+<link rel="stylesheet" type="text/css"
+	href="resources/css/common/cmn.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/css/common/popup.css" />
 
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/script/common/popup.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+   $("#actionForm").on("keypress","input",function(event){
+      if(event.keyCode == 13){//13은 엔터라는 뜻 엔터쳤을때 실행
+		//버튼 이벤트 발생
+		$("#loginBtn").click();
+        return false;
+      }
+   })
+   
+   $("#loginBtn").on("click", login);  
+});
 
+function login(){
+   if($.trim($("#id").val()) == ""){
+      makeAlert("알림", "아이디를 입력하세요.", function(){
+      $("#id").focus();	  
+      });
+   }else if ($.trim ($("#pw").val()) == ""){
+	   makeAlert("알림","비밀번호를 입력하세요",  function(){
+      $("#pw").focus();
+	   });
+   }else{
+	   var params = $("#actionForm").serialize();	
+		   $.ajax({
+		      url:"loginAjax", //경로
+		      type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
+		      dataType: "json", //
+		      data: params, //json 으로 보낼데이터
+		      	success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행
+		      		console.log(res);
+		      
+		     		 if(res.msg == "success"){	
+		    		  location.href = "ad_AccountMng";
+		    		  
+		     		 }else{
+		    		  makeAlert("알림", "아이디나 비밀번호가 틀립니다.")
+		    		  }
+			
+		    	  },
+		    	  error :function(request, status, error) { //실패했을 때 함수 실행
+		        	 console.log(request.responseText); //실패 상세내역
+		     		}
+		      
+		   });
+   }     
+}
 
+</script>
 
 
 
@@ -176,27 +228,32 @@ body {
 				<span class="material-symbols-outlined"
 					style="font-size: 34px; color: #4a4a4a; vertical-align: bottom;">
 					badge </span><span
-					style="font-size: 20px; color: #4a4a4a; vertical-align: middle; padding-left: 6px;
-">Admin
+					style="font-size: 20px; color: #4a4a4a; vertical-align: middle; padding-left: 6px;">Admin
 					Login</span>
 			</div>
 
 			<div class="login_box">
-				<div class="id_box">
-					<span class="material-symbols-outlined"
-						style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-						info </span> <input type="text" class="input" placeholder="ID"
-						maxlength="20" />
+				<form action="#" id="actionForm">
+					<div class="id_box">
+						<span class="material-symbols-outlined"
+							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
+							info </span> 
+						<input type="text" name="id" id="id" class="input" placeholder="ID"
+							maxlength="20" />
 
-				</div>
-				<div class="pw_box">
-					<span class="material-symbols-outlined"
-						style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-						lock </span><input type="password" class="input" placeholder="PASSWORD"
-						maxlength="20" />
-				</div>
+					</div>
+					<div class="pw_box">
+						<span class="material-symbols-outlined"
+							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
+							lock </span> 
+							<input type="password" name="pw" id="pw" class="input" placeholder="PASSWORD"
+							maxlength="20" />
+					</div>
+				</form>
+
+
 				<div class="login_btn">
-					<input type="button" class="loginBtn" value="login" />
+					<input type="button" id="loginBtn" class="loginBtn" value="login" />
 				</div>
 			</div>
 

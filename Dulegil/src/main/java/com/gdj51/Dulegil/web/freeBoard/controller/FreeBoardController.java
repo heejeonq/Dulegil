@@ -87,6 +87,10 @@ public class FreeBoardController {
 		mav.setViewName("freeBoard/freeBoard_write");
 		
 		return mav;
-	}				
+	}
+		
+		
+		
+		
 		
 }
