@@ -14,14 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj51.Dulegil.common.service.IPagingService;
+import com.gdj51.Dulegil.web.dao.IDao;
 
 
 
 
 @Controller
 public class FreeBoardController {	
-	//@Autowired 
-	//public IDulDao dao;
+	@Autowired 
+	public IDao dao;
 	
 	@Autowired
 	public IPagingService ips;
