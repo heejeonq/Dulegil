@@ -82,7 +82,7 @@ $(document).ready(function (){
 								$("#courseP1").attr("src", "resources/images/" +res[i].courseP1 +".jpg");
 								$("#courseP2").attr("src", "resources/images/" +res[i].courseP2 +".jpg");
 								$("#courseP3").attr("src", "resources/images/" +res[i].courseP3 +".jpg");
-								
+								$(".map_line img").attr("src", "resources/images/" + i+1 + "코스.png" )
 
 						}
 					} 
@@ -131,7 +131,7 @@ $(document).ready(function (){
 				    <area target="" alt="7코스" title="7코스" href="" coords="212,278,296,314,327,279,327,222,329,177,321,150,293,149,283,206,271,240,232,243" shape="poly">
 				    <area target="" alt="8코스" title="8코스" href="" coords="335,134,397,141,402,181,448,169,471,166,472,109,506,50,530,29,551,96,527,135,504,204,441,223,382,243,336,215" shape="poly">
 				</map>
-				<div class="map_line" id="map_line1">
+				<div class="map_line">
 				<img src="resources/images/1코스.png" >
 				</div>
 				
