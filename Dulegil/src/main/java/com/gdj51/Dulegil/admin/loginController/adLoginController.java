@@ -30,11 +30,19 @@ public class adLoginController {
 			HttpSession session,
 			ModelAndView mav) {
 
-		
-	
-		mav.setViewName("admin/0_adLogin/ad_login");
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+			mav.setViewName("redirect:adAccountMng");
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_login");
+		}
 		return mav;
 	}
+
+
+
+	
+	
+	
 
 	// 로그인 아작스(로그인 정보 취득)
 	@RequestMapping(value = "/loginAjax",
@@ -43,18 +51,41 @@ public class adLoginController {
 
 	@ResponseBody
 	public String loginAjax(
-			@RequestParam HashMap<String, String>params)throws Throwable {
+			HttpSession session,
+			@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
 
 
-		HashMap<String, String> data = dao.getMap("adLogin.checkMem", params);
+		HashMap<String, String> data = dao.getMap("adLogin.checkAd", params);
+		
+		if(data != null) {
+			session.setAttribute("sMemNo", data.get("MEMBER_NO"));
+			session.setAttribute("sMemNm", data.get("EMAIL"));
+			model.put("msg", "success");
+		}else {
+			model.put("msg", "failed");
+		}
+
 		return mapper.writeValueAsString(model);
 	}
 
 
+	
+	
+	
 	//로그인 후 관리자 페이지로 이동 화면
+	@RequestMapping(value="/adAccountMng")
+	public ModelAndView adAccountMng(ModelAndView mav) {
+		mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
+		
+		return mav;
+	}
 
+	
+	
+	
+	// 로그아웃
 
 }
