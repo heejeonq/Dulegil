@@ -131,8 +131,8 @@ function action(flag){
 	<!-- Container -->
 	<div class="container-main">							
 		<div class="mainWrap">
-			<h1>회원가입</h1>
 			<form action="#" id="actionForm">
+				<h1>회원가입</h1>
 				<p>필수 입력 사항</p>
 				<table class="bscInfo">
 					<colgroup>

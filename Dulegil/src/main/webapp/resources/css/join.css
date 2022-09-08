@@ -19,8 +19,15 @@ th, td{
 	color: #555;
 }
 
+.bscInfo tr td{
+	width: 73%;
+}
+
 input:focus, select:focus {
 	outline: none;
+}
+#actionForm{
+	border: 1px solid #ddd;
 }
 
 .mainWrap{
@@ -38,20 +45,14 @@ input:focus, select:focus {
     position: relative;
     color: #333;
     text-align: center;
-	margin: 7% 0;
+	margin-top: 7%;
+	margin-bottom: 10%;
 }
 
 .mainWrap p{
-	margin: 6% 6% 2%;
+	margin: 6% 7% 2%;
 	font-size: 15pt;
 	font-weight: 600;
-}
-
-.col{
-    position: relative;
-    text-align: center;
-    border-top: 1px solid #ddd;
-    margin-top: 3%;
 }
 
 .bscInfo, .addInfo, .btn{
@@ -80,6 +81,7 @@ input:focus, select:focus {
 	margin-left: 15px;
 	border-bottom: none;
 	font-weight: 600;
+	background-color: #f0c41994; 
 }
 
 #email {
@@ -144,6 +146,7 @@ input:focus, select:focus {
 	margin-right: 15px;
 	border-bottom: none;
 	font-weight: 600;
+	background-color: #f0c41994; 
 }
 
 #adrDtl{
@@ -151,7 +154,9 @@ input:focus, select:focus {
 }
 
 .btn{
-	width: 36%; 
+	display: flex;
+    justify-content: space-around;
+    margin: 7% 0;
 }
 
 #joinBtn{
@@ -164,5 +169,4 @@ input:focus, select:focus {
     cursor: pointer;
     border: 1px solid #ddd;
     background-color: white;
-    margin: 15% 0;
 }
