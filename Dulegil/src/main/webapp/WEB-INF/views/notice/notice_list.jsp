@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="resources/css/noticList.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <title>공지사항목록</title>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 	<!-- Header -->
@@ -45,28 +50,32 @@
 
 			</div>
 			<div class="content">
-				<div class="noticCon">
+				<div class="noticConTit">
 				  <div class=listTit>
 				  	<div class="num"> </div>
-					<div class="labelNotic">공지</div>
-					<span class="p">통행금지구간</span>
+				
+					<span class="pTit">제목</span>
 					<span class="date">2022-08-13</span>
 					<span class="hit">조회수</span>				
 					<span class="file">첨부파일</span>				
 				 </div>
 				</div>
 				
+				
 				<div class="noticCon">
 				  <div class=listTit>
-					<div class="labelNotic">공지</div>
+					<div class="labelNotic">필독</div>
 					<span class="p">서울둘레길 통행금지구간 안내</span>
 					<span class="date">2022-08-13</span>				
 					<span class="hit">30</span>	
+					<span class="fileF">
+					<img src="resources/images/diskette.png" id="searIcon" />
+					</span>	
 				 </div>
 				</div>
 				<div class="noticCon">
 				  <div class=listTit>
-					<div class="labelNotic">공지</div>
+					<div class="labelNotic">필독</div>
 					<span class="p">서울둘레길 통행금지구간 안내</span>
 					<span class="date">2022-08-13</span>
 					<span class="hit">30</span>					
@@ -74,7 +83,7 @@
 				</div>
 				<div class="noticCon">
 				  <div class=listTit>
-					<div class="labelNotic">공지</div>
+				
 					<span class="p">서울둘레길 통행금지구간 안내</span>
 					<span class="date">2022-08-13</span>
 					<span class="hit">30</span>					
@@ -82,7 +91,7 @@
 				</div>
 				<div class="noticCon">
 				  <div class=listTit>
-					<div class="labelNotic">공지</div>
+
 					<span class="p">서울둘레길 통행금지구간 안내</span>
 					<span class="date">2022-08-13</span>
 					<span class="hit">30</span>					
@@ -90,7 +99,32 @@
 				</div>
 				<div class="noticCon">
 				  <div class=listTit>
-					<div class="labelNotic">공지</div>
+
+					<span class="p">서울둘레길 통행금지구간 안내</span>
+					<span class="date">2022-08-13</span>
+					
+					<span class="hit">30</span>				
+				 </div>
+				</div>
+				<div class="noticCon">
+				  <div class=listTit>
+
+					<span class="p">서울둘레길 통행금지구간 안내</span>
+					<span class="date">2022-08-13</span>
+					<span class="hit">30</span>					
+				 </div>
+				</div>
+				<div class="noticCon">
+				  <div class=listTit>
+
+					<span class="p">서울둘레길 통행금지구간 안내</span>
+					<span class="date">2022-08-13</span>
+					<span class="hit">30</span>					
+				 </div>
+				</div>
+				<div class="noticCon">
+				  <div class=listTit>
+
 					<span class="p">서울둘레길 통행금지구간 안내</span>
 					<span class="date">2022-08-13</span>	
 					<span class="hit">30</span>				
@@ -98,31 +132,7 @@
 				</div>
 				<div class="noticCon">
 				  <div class=listTit>
-					<div class="labelNotic">공지</div>
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-					<div class="labelNotic">바보</div>
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-					<div class="labelNotic">공지</div>
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>	
-					<span class="hit">30</span>				
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-					<div class="labelNotic">공지</div>
+
 					<span class="p">서울둘레길 통행금지구간 안내</span>
 					<span class="date">2022-08-13</span>
 					<span class="hit">30</span>					

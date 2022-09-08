@@ -7,11 +7,10 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
-<title>Insert title here</title>
+<title>동행구하기 상세보기</title>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <!-- CKEditor -->
-<script type="text/javascript"
-		src="../../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){	
 	//에디터 연결
@@ -113,10 +112,10 @@ $(document).ready(function(){
 			</div>
 			<div class="btnWrap">
 				<div class="btnBox">
-					<input type="button" class="wriBtn" id="caBtn" value="취소">
+					<input type="button" class="btn" id="caBtn" value="취소">
 				</div>
 				<div class="btnBox">
-					<input type="button" class="wriBtn" id="inBtn"value="등록">
+					<input type="button" class="btn" id="inBtn"value="등록">
 				</div>
 			</div>
 

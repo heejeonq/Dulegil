@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class BestReviewGalleryController {
 	@RequestMapping(value = "/bestReviewGallery")
 	public ModelAndView bestReviewGallery(ModelAndView mav) throws Throwable {
-
+		
 		mav.setViewName("bestReviewGallery/bestReviewGallery_list");
 
 		return mav;

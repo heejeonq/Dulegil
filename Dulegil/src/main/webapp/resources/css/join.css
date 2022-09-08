@@ -19,8 +19,15 @@ th, td{
 	color: #555;
 }
 
+.bscInfo tr td{
+	width: 73%;
+}
+
 input:focus, select:focus {
 	outline: none;
+}
+#actionForm{
+	border: 1px solid #ddd;
 }
 
 .mainWrap{
@@ -38,28 +45,22 @@ input:focus, select:focus {
     position: relative;
     color: #333;
     text-align: center;
-	margin: 3% 0;
+	margin-top: 7%;
+	margin-bottom: 10%;
 }
 
 .mainWrap p{
-	margin: 6% 6% 2%;
+	margin: 6% 7% 2%;
 	font-size: 15pt;
 	font-weight: 600;
 }
 
-.col{
-    position: relative;
-    text-align: center;
-    border-top: 1px solid #ddd;
-    margin-top: 6%;
-}
-
-.baseInfo, .addInfo, .btnBox{
+.bscInfo, .addInfo, .btn{
 	width: 700px;
 	margin: 0 auto;
 }
 
-.baseInfo input, #emailSel{
+.bscInfo input, #emailSel{
 	font-family: 'Pretendard-Regular';
 	display:inline-block;
     padding: 10px 12px;
@@ -73,15 +74,17 @@ input:focus, select:focus {
     margin-bottom: 5px;
 }
 
-#reBtn{
+#cnfmBtn{
 	width: 17%;
 	letter-spacing: 2px;
 	cursor: pointer;
 	margin-left: 15px;
 	border-bottom: none;
 	font-weight: 600;
+	background-color: #f0c41994; 
 }
-#uid {
+
+#email {
 	width: 40%;
 	margin-right: 0;
 }
@@ -110,15 +113,15 @@ input:focus, select:focus {
 	width: 150px;
 }
 
-#ubirth {
+#dtBrt {
 	width: 200px;
 }
 
-.genBox{
+.gen{
 	width: 200px;
 }
 
-#gender{
+#gen{
 	width: 18%;
 }
 
@@ -128,29 +131,32 @@ input:focus, select:focus {
 	text-align: center;
 }
 
-#zipcode {
+#zcd {
 	width: 90px;
 }
 
-#address{
+#adr{
 	width: 50%;
 }
 
-#addressBtn{
+#adrBtn{
 	width: 90px;
 	letter-spacing: 2px;
 	cursor: pointer;
 	margin-right: 15px;
 	border-bottom: none;
 	font-weight: 600;
+	background-color: #f0c41994; 
 }
 
-#addressDetail{
+#adrDtl{
 	width: 86%;
 }
 
-.btnBox{
-	width: 36%; 
+.btn{
+	display: flex;
+    justify-content: space-around;
+    margin: 7% 0;
 }
 
 #joinBtn{
@@ -163,5 +169,4 @@ input:focus, select:focus {
     cursor: pointer;
     border: 1px solid #ddd;
     background-color: white;
-    margin-top: 16%;
 }

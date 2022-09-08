@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="resources/css/noticDetail.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <title>공지사항상세</title>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 	<!-- Header -->
@@ -60,9 +65,9 @@
 	<div class="emptyBox"></div>
 		<div class="btnBox">
 
-			<input type="button" class="wriBtn" id="listBtn" value="목록"/>
-			<input type="button" class="wriBtn" id="delBtn" value="삭제"/>		
-			<input type="button" class="wriBtn" id="upBtn"  value="수정"/>
+			<input type="button" class="btn" id="listBtn" value="목록"/>
+			<input type="button" class="btn" id="delBtn" value="삭제"/>		
+			<input type="button" class="btn" id="upBtn"  value="수정"/>
 		</div>
 				
 		

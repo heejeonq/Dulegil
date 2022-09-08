@@ -6,12 +6,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CourseReviewController {
-
-	@RequestMapping(value = "/courseReview")
-	public ModelAndView courseReview(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("courseReview/courseReview_list");
-
+	
+	@RequestMapping(value="/courseReviewList")
+	public ModelAndView courseReviewList(ModelAndView mav) {
+		
+		mav.setViewName("courseReviw/courseReviw_list");
+		
 		return mav;
 	}
-}
+
+	@RequestMapping(value="/courseReviewDetail")
+	public ModelAndView courseReviewDetail(ModelAndView mav) {
+		
+		mav.setViewName("courseReviw/courseReviw_detail");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/courseReviewWrite")
+	public ModelAndView courseReviewWrite(ModelAndView mav) {
+		
+		mav.setViewName("courseReviw/courseReviw_write");
+		
+		return mav;
+	}
+	
+	

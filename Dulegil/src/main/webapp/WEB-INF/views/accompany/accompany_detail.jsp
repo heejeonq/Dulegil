@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="resources/css/withDulDet.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행상세</title>
+<!-- 제이쿼리 -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+
 <script>
 $(document).ready(function(){
 	$(".moreBtn").on("click",function(){
@@ -97,9 +99,9 @@ $(document).ready(function(){
       
          
          
-         <input type="button" class="wriBtn" id="upBtn" value="수정"/>
-         <input type="button" class="wriBtn" id="delBtn" value="삭제"/>      
-         <input type="button" class="wriBtn" id="listBtn" value="목록"/>
+         <input type="button" class="btn" id="upBtn" value="수정"/>
+         <input type="button" class="btn" id="delBtn" value="삭제"/>      
+         <input type="button" class="btn" id="listBtn" value="목록"/>
       </div>
             
       </div>
@@ -126,7 +128,7 @@ $(document).ready(function(){
          <thead>
             <tr>
                <th colspan="5">
-               <img src="../../css/images/manico.png" />
+               <img src="resources/images/manico.png" />
                동행신청자 / 2명</th>
 
             </tr>

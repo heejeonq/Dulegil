@@ -31,7 +31,7 @@
 	</select>
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO, DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS )
-		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phoneNo}, #{dateBirth}, #{gender}, #{zipCode}, #{address}, #{detailAddress})
+		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt}, #{gen}, #{zcd}, #{adr}, #{adrDtl})
 	</insert>
 	<update id="deleteMember" parameterType="hashmap">
 		UPDATE MEM SET DEL = 0

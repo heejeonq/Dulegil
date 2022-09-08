@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/board.css" />
-<link rel="stylesheet" href="../../css/list.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/list.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>명예의전당</title>
 </head>
 <body>
@@ -19,7 +19,8 @@
 	<div class="container-main">
 		<div class="mainWrap">
 			<div class="tit">명예의 전당</div>
-			<div class="col"></div>			
+			<div class="col"></div>	
+					
 			<div class="midBox">
 			<div class="searchWrap">
 				<div class="selBox">
@@ -34,7 +35,7 @@
 				<div class="searchBox">
 					<input type="text" class="serchTxt" placeholder="검색하기" />					
 					<div class="search_ico" onclick="chk_search();">
-					<img src="../../css/images/search_icon.png" id="searIcon" />
+					<img src="resources/images/search_icon.png" id="searIcon" />
 					</div>	
 				</div>
 			</div>
@@ -47,22 +48,22 @@
 	            <div class="midT">의 베스트</div>
 	         </div>
 		
-			<div class="content">
+			<div class="content_bst">
 				<div class="c_box">
-					<img src="../../css/images/firstMedal.png" id="Medal" />
+					<img src="resources/images/firstMedal.png" id="Medal" />
 					
 					<div class="c_b_photo">
-						<img alt="명예의전당" src="../../css/images/bestpho.jpg" id="c_photo" />
+						<img alt="명예의전당" src="resources/images/bestpho.jpg" id="c_photo" />
 					</div>
 					
 					<div class="c_b_lv">
 						<div class="c_b_like">
-						<img src="../../css/images/좋아요.png" id="good"/> 
+						<img src="resources/images/좋아요.png" id="good"/> 
 						<div class="c_b_like2">127</div>
 						</div>
 					
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">3,425</div>				
 						</div>
 					</div>
@@ -75,16 +76,16 @@
 		
 		
 				<div class="c_box" id="c_box">
-					<img src="../../css/images/secondMedal.png" id="Medal" />
+					<img src="resources/images/secondMedal.png" id="Medal" />
 					<div class="c_b_photo">사진</div>
 					
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-						<img src="../../css/images/viewIcon1.png" id="view" />
+						<img src="resources/images/viewIcon1.png" id="view" />
 						<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>
@@ -96,15 +97,15 @@
 				</div>
 				
 				<div class="c_box">
-					<img src="../../css/images/thirdMedal.png" id="Medal" />
+					<img src="resources/images/thirdMedal.png" id="Medal" />
 					<div class="c_b_photo">사진</div>
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>
@@ -118,11 +119,11 @@
 					<div class="c_b_photo">사진</div>
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>
@@ -136,11 +137,11 @@
 					<div class="c_b_photo">사진</div>
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>
@@ -154,11 +155,11 @@
 					<div class="c_b_photo">사진</div>
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>
@@ -172,11 +173,11 @@
 					<div class="c_b_photo">사진</div>
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>
@@ -190,11 +191,11 @@
 					<div class="c_b_photo">사진</div>
 					<div class="c_b_lv">
 						<div class="c_b_like">
-							<img src="../../css/images/좋아요.png" id="good"/> 
+							<img src="resources/images/좋아요.png" id="good"/> 
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="../../css/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>

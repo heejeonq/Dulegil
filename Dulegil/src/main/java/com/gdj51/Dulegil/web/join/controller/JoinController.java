@@ -31,8 +31,6 @@ public class JoinController {
 		return mav;
 	}
 
-
-
 	@RequestMapping(value = "/joinAction/{gbn}", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
 	@ResponseBody
 
@@ -72,6 +70,5 @@ public class JoinController {
 
 		return mapper.writeValueAsString(model);
 	}
-
 	
 }
