@@ -17,7 +17,9 @@ public class accountMngController {
 
 	// 관리자 페이지
 	@RequestMapping(value = "/adAccountMng")
-	public ModelAndView adAccountMng(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
+	public ModelAndView adAccountMng(
+			@RequestParam HashMap<String, String> params, 
+			ModelAndView mav) throws Throwable {
 
 		mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
 		return mav;
