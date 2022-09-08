@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/mypage.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
-<link rel="stylesheet" href="../css/common.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/mypage.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" href="resources/css/common.css" />
 <title>게시글 관리</title>
 <script type="text/javascript">
 function change_btn(e) {
@@ -249,7 +249,7 @@ function change_btn(e) {
 									<div class="searchBox">
 										<input type="text" class="serchTxt" placeholder="검색하기" />
 										<div class="search_ico" onclick="chk_search();">
-										<img src="../css/images/dod.png" id="searIcon" />
+										<img src="resources/images/dod.png" id="searIcon" />
 										</div>
 									</div>
 								
