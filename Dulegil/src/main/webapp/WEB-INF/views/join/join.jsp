@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +7,7 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/join.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
-
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-
 <!-- 주소검색 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -54,10 +51,10 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipCode').value = data.zonecode;
-                document.getElementById("address").value = addr;
+                document.getElementById('zcd').value = data.zonecode;
+                document.getElementById("adr").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
+                document.getElementById("adrDtl").focus();
             }
         }).open();
     }
@@ -145,7 +142,7 @@ function action(flag){
 			
 			<p>필수 입력 사항</p>
 			
-			<table class="baseInfo">
+			<table class="bscInfo">
 				<colgroup>
 				<col style="width:150px;">
 				<col style="width:auto;">
@@ -165,7 +162,7 @@ function action(flag){
 							<option>gmail.com</option>
 							<option>icloud.com</option>
 						</select>
-						<input type="button" name="reBtn" id="reBtn" id="reBtn" value="중복확인" />
+						<input type="button" name="cnfmBtn" id="cnfmBtn" id="cnfmBtn" value="중복확인" />
 					</td>
 				</tr>
 				<tr>
@@ -177,7 +174,7 @@ function action(flag){
 				<tr>
 					<th>비밀번호 확인</th>
 					<td>
-						<input type="password" name="upwRe" id="upwRe" />
+						<input type="password" name="cnfmPwd" id="cnfmPwd" />
 					</td>
 				</tr>
 				<tr>
@@ -189,7 +186,7 @@ function action(flag){
 				<tr>
 					<th>휴대전화</th>
 					<td>
-						<input type="text" name="phoneNo" id="phoneNo" placeholder="- 없이 입력하세요" />
+						<input type="text" name="phn" id="phn" placeholder="- 없이 입력하세요" />
 					</td>
 				</tr>
 			</table>
@@ -199,36 +196,36 @@ function action(flag){
 				<tr>
 					<th>생년월일</th>
 					<td>
-						<input type="date" name="dateBirth" id="dateBirth">
+						<input type="date" name="dtBrt" id="dtBrt">
 					</td>	
 					<th>성별</th>
-					<td class="genBox">
-						<input type="radio" name="gender" id="gender" value="0" checked="checked" />
+					<td class="gen">
+						<input type="radio" name="gen" id="gen" value="0" checked="checked" />
       					<label for="m">남자</label>
-						<input type="radio" name="gender" id="gender" value="1" />
+						<input type="radio" name="gen" id="gen" value="1" />
 						<label for="f">여자</label>
 					</td>
 				</tr>
 				<tr>
 					<th rowspan="2">주소</th>
 					<td colspan="3">	
-						<input type="text" name="zipCode" id="zipCode" value="우편 번호" />
-						<input type="button" name="addressBtn" onclick="sample6_execDaumPostcode()" id="addressBtn" value="주소 검색" />	
-						<input type="text" name="address" id="address" value="주소" />
+						<input type="text" name="zcd" id="zcd" value="우편 번호" />
+						<input type="button" name="adrBtn" id="adrBtn" value="주소 검색" onclick="sample6_execDaumPostcode()" />	
+						<input type="text" name="adr" id="adr" value="주소" />
 					</td>
 				</tr>
 				<tr>
 					<td colspan="3">
-						<input type="text" name="detailAddress" id="detailAddress" placeholder="상세 주소" value=""/>
+						<input type="text" name="adrDtl" id="adrDtl" placeholder="상세 주소" value=""/>
 					</td>
 				</tr>
 			</table>
 
-			<div class="col"></div>
-			
-			<div class="btnBox">
+			<div class="btn">
 				<input type="button" id="joinBtn" value="가입하기">
 			</div>
+			<div class="col"></div>
+			
 		</form>
 		</div>
 	</div>
