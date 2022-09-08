@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+<select id="getMemberList" resultType="hashmap">
+		SELECT *
+		FROM (SELECT MEM_NO, MEM_ID, MEM_NM,
+			  CASE WHEN TO_CHAR(REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE, 'YY.MM.DD')
+	          	   THEN TO_CHAR(REG_DT, 'HH24:MI')
+	               ELSE TO_CHAR(REG_DT, 'YY.MM.DD')
+	          END AS REG_DT,
+      		  ROW_NUMBER() OVER(ORDER BY MEM_NO DESC) AS RNK
+      		  FROM MEM
+      		  WHERE DEL = 1
+      		  	<if test="searchTxt != null and searchTxt != ''"><!-- 검색어가 있다면 -->
+					<choose>
+						<when test="searchGbn == 0"><!-- MEM_ID -->
+							AND MEM_ID LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn == 1"><!-- MEM_NM -->
+							AND MEM_NM LIKE '%' || #{searchTxt} || '%'
+						</when>
+					</choose>
+				</if>) M
+		WHERE M.RNK BETWEEN #{start} AND #{end}
+	</select>
+	<select id="getMember" resultType="hashmap" parameterType="hashmap">
+		SELECT MEM_NO, MEM_ID, MEM_NM, TO_CHAR(MEM_BIRTH, 'YYYY-MM-DD') AS MEM_BIRTH, TO_CHAR(REG_DT, 'YYYY-MM-DD') AS REG_DT
+		FROM MEM
+		WHERE MEM_NO = #{no}
+	</select>
+	<insert id="insertMember" parameterType="hashmap">
+		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO, DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS )
+		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phoneNo}, #{dateBirth}, #{gender}, #{zipCode}, #{address}, #{detailAddress})
+	</insert>
+	<update id="deleteMember" parameterType="hashmap">
+		UPDATE MEM SET DEL = 0
+		WHERE MEM_NO = #{no}
+	</update>
+	<update id="updateMember" parameterType="hashmap">
+		UPDATE MEM SET MEM_ID = #{id},
+		<if test="pw != null and pw != ''">
+		MEM_PW = #{pw},	
+		</if>
+		 MEM_NM = #{nm}, MEM_BIRTH = #{birth}
+		WHERE MEM_NO = #{no}
+	</update>
+	<select id="getMemberCnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*) AS CNT
+		FROM MEM
+		WHERE DEL = 1
+      		  	<if test="searchTxt != null and searchTxt != ''"><!-- 검색어가 있다면 -->
+					<choose>
+						<when test="searchGbn == 0"><!-- MEM_ID -->
+							AND MEM_ID LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn == 1"><!-- MEM_NM -->
+							AND MEM_NM LIKE '%' || #{searchTxt} || '%'
+						</when>
+					</choose>
+				</if>
+	</select>
+
+
+</mapper>
