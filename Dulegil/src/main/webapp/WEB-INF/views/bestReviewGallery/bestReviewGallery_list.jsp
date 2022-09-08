@@ -19,7 +19,8 @@
 	<div class="container-main">
 		<div class="mainWrap">
 			<div class="tit">명예의 전당</div>
-			<div class="col"></div>			
+			<div class="col"></div>	
+					
 			<div class="midBox">
 			<div class="searchWrap">
 				<div class="selBox">
@@ -47,7 +48,7 @@
 	            <div class="midT">의 베스트</div>
 	         </div>
 		
-			<div class="content">
+			<div class="content_bst">
 				<div class="c_box">
 					<img src="resources/images/firstMedal.png" id="Medal" />
 					
@@ -104,7 +105,7 @@
 							<div class="c_b_like2">좋아요</div>
 						</div>
 						<div class="c_b_views">
-							<img src="resource/images/viewIcon1.png" id="view" />
+							<img src="resources/images/viewIcon1.png" id="view" />
 							<div class="c_b_view2">조회수</div>				
 						</div>
 					</div>

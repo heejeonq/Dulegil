@@ -4,11 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/board.css" />
-<link rel="stylesheet" href="../../css/cosRevDet.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/cosRevDet.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>코스후기상세</title>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+</script>
 
 </head>
 <body>
@@ -27,14 +32,14 @@
 		<div class="tit_tt">서울 둘레길 완주</div>
 		<div class="tit_tt">
 			<div class="tit_cos">
-			<img src="../../css/images/gitIcon.png" />
+			<img src="resources/images/gitIcon.png" />
 			1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분
 			<img src="../../css/images/gitIcon.png" />
 			</div>
 		</div>
 		<div class="ti_ttt">
 			<div class="tit_writer">
-			<img src="../../css/images/sample1.jpg" />양똥이</div><span>&nbsp;&nbsp;</span>
+			<img src="resources/images/sample1.jpg" />양똥이</div><span>&nbsp;&nbsp;</span>
 			<div class="tit_date">
 			작성일 2022-08-08</div>
 		</div>
@@ -42,13 +47,13 @@
 		<div class="conBox">
 		<div class="emptyBox"></div>
 		<div class= "imgg">
-		<img src="../../css/images/bestpho.jpg" />
+		<img src="resources/images/bestpho.jpg" />
 		</div>
 		<div class="te"> 다같이 완주 ^^</div>
 			
 			<div class="goodBtn">
 				<span class="like">
-					<img src="../../css/images/goodIco.png">
+					<img src="resources/images/goodIco.png">
 					<div class="goodCnt">25</div>
 			</div>		
 		</div>
@@ -59,7 +64,7 @@
 		
 			<div class="reporBtn">
 				<span class="report">
-					<img src="../../css/images/report1.png" />
+					<img src="resources/images/report1.png" />
 				</span>
 				<span class="reporTit">신고하기</span>			
 			</div>
@@ -104,10 +109,10 @@
 			<div class="mainview4">
 			
 				<div class="iconBox">
-					<img src="../../css/images/detailViewIcon.png" />
+					<img src="resources/images/detailViewIcon.png" />
 				</div>
 			<div class="idBox">
-				<img src="../../css/images/sample2.jpg" class="bbo"/> 지존루피
+				<img src="resources/images/sample2.jpg" class="bbo"/> 지존루피
 		    </div>			
 		    <div class="commentDe">와 저도 가보고싶어요와 저도 가보고싶어요<br/>
 		    		다음에 갈땐 나도 데려가요가요가요가요<br/>
