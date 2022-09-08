@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gdj51.Dulegil.dao.IDulDao;
+import com.gdj51.Dulegil.web.dao.IDao;
+
 
 @Controller
 public class adLoginController {
 
 	@Autowired 
-	public IDulDao dao;
+	public IDao dao;
 
 	// 로그인 페이지
 	@RequestMapping(value="/adLogin")
