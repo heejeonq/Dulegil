@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adLogin">
 
+
 <select id="checkAd" parameterType="hashmap" resultType="hashmap">
 SELECT MEMBER_NO, EMAIL, PWD
 FROM MEMBER
@@ -11,4 +12,12 @@ AND EMAIL = #{id}
 AND PWD = #{pw}
 </select>
 
+	<select id="checkMember" parameterType="hashmap" resultType="hashmap">
+		SELECT MEMBER_NO, NM
+		FROM MEMBER
+		WHERE DEL IS NOT NULL 
+		AND AUTHORITY_NO = 2
+		AND EMAIL = #{email}
+		AND PWD = #{pwd}
+	</select>
 </mapper>
