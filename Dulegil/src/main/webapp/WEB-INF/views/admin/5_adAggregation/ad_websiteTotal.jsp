@@ -17,7 +17,7 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" type="text/css" href="../css/header1.css">
+<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 <style type="text/css">
 #header2 #hd2_content {
 	width: 100%;
