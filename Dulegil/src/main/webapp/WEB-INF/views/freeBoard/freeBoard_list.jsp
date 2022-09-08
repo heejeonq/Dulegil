@@ -71,7 +71,8 @@ function reloadList(){
 	});
 	
 }
-function drawList(list) {
+
+/* function drawList(list) {
 	var html = "";
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
@@ -87,7 +88,8 @@ function drawList(list) {
 	}
 	
 	$("tbody").html(html); //내가 받은 html로 갈아 엎어라
-}
+} */
+
 </script>
 </head>
 <body>
