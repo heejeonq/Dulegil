@@ -60,7 +60,7 @@ table {
  }
  
 /* 내 정보 */
-.user_box {
+.mem_box {
     width: 100%;
     height: auto;
     border: 1px solid #dddddd;
@@ -74,15 +74,15 @@ table {
 	align-items: center;
 	border-radius: 3px;
 }
-.user_profile {
+.mem_profile {
 	  margin-right: 30px; 
 }
-.user_profile img {
+.mem_profile img {
 	width: 150px;
 	height: 150px;
 	border-radius: 3px;
 }
-.user_info {
+.mem_info {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -90,18 +90,18 @@ table {
 	    width: 40%;
 	
 }
-.user_info div {
+.mem_info div {
     display: flex;
     align-items: baseline;
 }
-.user_info dt{
+.mem_info dt{
 	font-weight: 600;
 	display: inline-block;
 	width: 20%;
 	margin: 8px 0;
 
 }
-.user_info dd{
+.mem_info dd{
 	font-weight: 300;
 	display: inline-block;
 	margin-left: 13px;
@@ -218,22 +218,22 @@ img#preview {
     margin-left: 7px;
     border-radius: 3px;
 }
-.birth01{
+.dtBrt01{
 	display: block;
 	width:49%;
 	float:left;
 }
-.gender01 label{
+.gen01 label{
 	font-size: 11pt;
 	 bottom: 3px;
     position: relative;
 }
-.gender01{
+.gen01{
 	display: flex;
 	width:49%;
 	padding-left: 12px;
 }
-.gender01 input[type='radio'] {
+.gen01 input[type='radio'] {
 	width:14px; 
 	margin-left:8px; 
 	margin-right:8px; 
@@ -249,12 +249,12 @@ img#preview {
 	display: inline-block;
 	width:100%;
 }
-.zip_code{
+.m_zcd{
 	position:relative;
 	display: inline-block;
 	width:49%;
 }
-.address_btn{
+.adr_btn{
 	position:absolute;
 	display: inline-block;
 	width:20%;
@@ -272,13 +272,13 @@ img#preview {
 }
 .address_btn:hover{background-color:#313439;
 }
-.add_01{
+.adr_01{
 	position:relative;
 	display: inline-block;
 	width:49%;
 	float:right;
 }
-.add_02{
+.adr_02{
 	display:block;
 	width:100%;
 }
@@ -293,14 +293,14 @@ img#preview {
 }
 
 /* 비밀번호 확인 */
-#introbh{
+#intropwd{
 	display: inline-block;
 	vertical-align: top;
 	font-size: 11pt;
 	text-align: left;
 	margin: 11.5% 0;
 }
-#introbh span{
+#intropwd span{
 	font-size: 15px;
 	}
 #id{
@@ -312,9 +312,8 @@ img#preview {
 	display: inline-block;
 	vertical-align: top;
 }
-#passwd{
+#pwd{
 	height: 35px;
-	width: 225px;
 	border: 1px solid #ddd;
 }
 
@@ -359,7 +358,7 @@ img#preview {
 }
 
 /* DeleteBtn */
-#deleteBtn {
+#delBtn {
 	text-decoration: none;
     color: #000;
     height: 35px;
@@ -495,7 +494,7 @@ img#searIcon {
     border-bottom: 4px solid #d0d0d0;
 
 }
-.join_user_list {
+.join_mem_list {
 	position: relative;
 	width: 100%;
 	height: 300px;
@@ -622,11 +621,11 @@ table.standard td a:hover{
 	text-decoration:underline #aaa;
 }
 table.standard td:nth-child(3){font-weight:500; color:#333; text-align:center; }
-#user_img > img {
+#mem_img > img {
 	width: 70px;
 	height: 70px;
 }
-#user_id{
+#mem_id{
 	font-size: 13px;
 }
 #join_title {
@@ -640,31 +639,31 @@ table.standard td:nth-child(3){font-weight:500; color:#333; text-align:center; }
     padding: 6px;
     border: 1px solid #ddd;  
 }
-table.user_rate {
+table.mem_rate {
     margin-bottom: 10px;
 }
-.user_rate tr {
+.mem_rate tr {
 	width: 100%;
 	font-size: 15pt;
 }
-.user_rate td {
+.mem_rate td {
 	padding: 10px;
 }
-.user_rate td:nth-child(1){
+.mem_rate td:nth-child(1){
 	width: 6%;
 }
-.user_rate td:nth-child(2){
+.mem_rate td:nth-child(2){
 	width: 12%;
 }
-.user_rate td:nth-child(3){
+.mem_rate td:nth-child(3){
 	width: 11%;
 }
-.user_rate td:nth-child(6){
+.mem_rate td:nth-child(6){
 	width: 6%;
 	float:right;
 	margin-right: 10px;	
 }
-.user_rate_list {
+.mem_rate_list {
 	border-bottom: 1px solid #777;
 }
 

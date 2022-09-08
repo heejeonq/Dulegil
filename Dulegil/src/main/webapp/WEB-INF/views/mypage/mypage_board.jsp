@@ -221,7 +221,7 @@ function change_btn(e) {
 						</table>
 						
 						<!-- DeleteBtn -->
-					 	<input type="button" name="deleteBtn" id="deleteBtn" class="btn green" value="삭제">
+					 	<input type="button" name="delBtn" id="delBtn" class="btn green" value="삭제">
 						
 						<!-- Paging -->			
 						<div class="pagination">

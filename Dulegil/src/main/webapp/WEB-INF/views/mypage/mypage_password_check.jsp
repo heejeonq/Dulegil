@@ -58,15 +58,15 @@ function change_btn(e) {
 				<div class="area_tit">
 					<span>비밀번호 확인</span>		         
 				</div>
-				<div class = "user_box">
-					<div id="introbh">
+				<div class = "mem_box">
+					<div id="intropwd">
 						<span id="id">스라쨘</span>
 						<span id="checkment">님의 개인정보를 보호하기 위해</span><br>
 						<span>비밀번호를 한번 더 확인합니다.</span>
 						<br>
-						<input type="text" id="passwd">
+						<input type="text" id="pwd">
 						<a href="마이페이지-개인정보수정.html">
-						<input type="button" class="btn green" id="passwdBtn" value="확인">
+						<input type="button" class="btn green" id="pwdbtn" value="확인">
 						</a>
 					</div>
 				</div>
