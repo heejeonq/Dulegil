@@ -15,7 +15,7 @@ public class DulDao implements IDulDao {
 	// 관리자 로그인 체크 
 	@Override
 	public HashMap<String, String> getMap(String string, HashMap<String, String> params)throws Throwable {
-		return session.selectOne("adLogin.checkMem", params);
+		return session.selectOne("adLogin.checkAd", params);
 	}
 	
 	
