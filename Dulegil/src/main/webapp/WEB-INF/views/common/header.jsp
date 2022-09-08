@@ -65,7 +65,7 @@ $(document).ready(function(){
 
 					<li><a href="event"> 전체일정</a>
 
-					<li><a href="#"> 명예의 전당</a></li>
+					<li><a href="bestReviewGallery"> 명예의 전당</a></li>
 					<li><a href="courseReview"> 커뮤니티</a>
 
 						<ul class="gnb_dropdown">

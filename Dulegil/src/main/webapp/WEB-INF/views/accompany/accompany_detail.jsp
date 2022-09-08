@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/board.css" />
-<link rel="stylesheet" href="../../css/withDulDet.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/withDulDet.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행상세</title>
-<script type="text/javascript" src="../../script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script>
 $(document).ready(function(){
 	$(".moreBtn").on("click",function(){
@@ -36,27 +36,27 @@ $(document).ready(function(){
       <div class="tit_tt">같이 돌아요</div>
       <div class="tit_tt">
          <div class="tit_cos">
-         <img src="../../css/images/gitIcon.png" />
+         <img src="resources/images/gitIcon.png" />
          1코스-수락·불암산코스   노원구,도봉구   18.6km   8시간 10분
          </div>
    
          <div class="tit_Ddate">| 2022-09-01
-         <img src="../../css/images/gitIcon.png" /></div>
+         <img src="resources/images/gitIcon.png" /></div>
          
          
       </div>
       <div class="midBox">
          <div class="intro">
             <div class="tit_writer">
-            <img src="../../css/images/sample1.jpg" />양똥이  </div><span>&nbsp;&nbsp;</span>
+            <img src="resources/images/sample1.jpg" />양똥이  </div><span>&nbsp;&nbsp;</span>
             <div class="age"> 만 30 세 </div>         
             <div class="gender"> 여 </div>         
             <div class="trust">
-               <img src="../../css/images/Mstar.png"  />
-               <img src="../../css/images/Mstar.png" />
-               <img src="../../css/images/Mstar.png" />
-               <img src="../../css/images/Mstar.png" />
-               <img src="../../css/images/Mstar2.png" />
+               <img src="resources/images/Mstar.png"  />
+               <img src="resources/images/Mstar.png" />
+               <img src="resources/images/Mstar.png" />
+               <img src="resources/images/Mstar.png" />
+               <img src="resources/images/Mstar2.png" />
             </div>
          </div>
          
@@ -71,13 +71,13 @@ $(document).ready(function(){
       <div class="conBox">
       <div class="emptyBox"></div>
       <div class= "imgg">
-      <img src="../../css/images/완주사진.jpg" />
+      <img src="resources/images/완주사진.jpg" />
       <div class="te"> 지도앞에서 한컷</div>
       </div>
       <div class="btnBox">
          <div class="withMBtn">
          <span class="withMB">
-         <img src="../../css/images/manico.png" />
+         <img src="resources/images/manico.png" />
          </span>
          <div class="withMTitW">
          <span class="withMTit">동행신청</span>   
@@ -85,7 +85,7 @@ $(document).ready(function(){
          </div>
          <div class="reporBtn">
          <span class="report">
-         <img src="../../css/images/report1.png" />
+         <img src="resources/images/report1.png" />
          </span>
          <span class="reporTit">신고하기</span>         
          </div>
@@ -175,10 +175,10 @@ $(document).ready(function(){
          <div class="mainview4">
          
             <div class="iconBox">
-               <img src="../../css/images/detailViewIcon.png" />
+               <img src="resources/images/detailViewIcon.png" />
             </div>
          <div class="idBox">
-            <img src="../../css/images/sample2.jpg" class="bbo"/> 지존루피
+            <img src="resources/images/sample2.jpg" class="bbo"/> 지존루피
           </div>         
           <div class="commentDe">와 저도 가보고싶어요와 저도 가보고싶어요<br/>
                 다음에 갈땐 나도 데려가요가요가요가요<br/>

@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/board.css" />
-<link rel="stylesheet" href="../css/list.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/list.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행목록</title>
 
 </head>
@@ -52,7 +52,7 @@
 					<input type="text" class="serchTxt" placeholder="검색하기" />
 					
 					<div class="search_ico" onclick="chk_search();">
-					<img src="../images/search_icon.png" id="searIcon" />
+					<img src="resources/images/search_icon.png" id="searIcon" />
 					</div>
 			</div>
 					

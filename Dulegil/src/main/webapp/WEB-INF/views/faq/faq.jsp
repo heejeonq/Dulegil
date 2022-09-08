@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/faq.css">
-<link rel="stylesheet" href="../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/faq.css">
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>FAQ</title>
-<script type="text/javascript"
-		src="../../../../../../jsp/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
