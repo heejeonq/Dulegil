@@ -17,6 +17,18 @@
     border-bottom: 1px solid #ddd;
 
 }
+.noticConTit{
+	width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    border-bottom: 2px solid #ddd;
+}
+.pTit{
+	font-size:14px;
+	text-align:center;
+}
 .listTit{
 	width: 100%;
     font-size: 14px;
@@ -57,8 +69,6 @@
     font-size: 14px;
     color: #666;
     letter-spacing: 0px;
-    position: relative;
-    display: inline-block;
     text-align: right;
     float: right;
 }
@@ -71,6 +81,14 @@
 .emptyBox{
 	width:100%;
 	height:100px;
+}
+.fileF{
+	float: right;
+	margin-right:40px;
+}
+
+.fileF img{
+	    vertical-align: middle;
 }
 
 

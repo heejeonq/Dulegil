@@ -60,12 +60,10 @@
 .map_line {
 	position: absolute;
     top: 0;
-    display: none;
-}
-.map_line:hover {
 
-    display: inline-block;
 }
+
+
 
 
 .map_img > img{

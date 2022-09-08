@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항 작성</title>
+<title>이벤트 작성</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" type="text/css" href="../css/header1.css">
+<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 <style type="text/css">
 #header2 #hd2_content {
 	width: 100%;
@@ -69,7 +69,7 @@
 }
 
 .CTN {
-	width: 20%;
+	width: 8%;
     /* text-align: right; */
     display: inline-block;
     font-size: 12px;
@@ -97,8 +97,11 @@
 
 .commentBoxT {
 	border: none;
+	width:100%;
 	height: 86%;
 	position: absolute;
+	font-family: 'Gothic A1';
+    font-weight: 500;
 }
 
 .checkbox {
@@ -190,8 +193,7 @@ input:focus {
 
 
 
-		<div id="header2">
-		<!-- 상단바 -->
+	<div id="header2">
 		<div id="hd2_header">
 			<div class="hh2_icon">
 				<div>알림</div>
@@ -216,30 +218,31 @@ input:focus {
 			<div id="hd2_CC">
 				<div id="CCbox">
 					<div id="Cname">
-						<span class="material-symbols-outlined "
-							style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;">
-							edit_square </span>공지사항 작성
+						<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>이벤트
+						추가
 					</div>
-
-
-					<div id="Ctitle">
-						<div class="CTN">메인으로 띄우기</div>
-						<div class="checkbox">
-							<input type="checkbox" class="commentBoxT">
-						</div>
-					</div>
-					
-					
 					<div id="Ctitle">
 						<div class="CTN">제목</div>
 						<div class="CTC">
+
 							<input type="text" class="commentBoxT">
 						</div>
 					</div>
-
+					<div id="Ctitle">
+						<div class="CTN">날짜</div>
+						<div class="CTC">
+							<input type="date" class="commentBoxT" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN"> ~ </div>
+						<div class="CTC">
+							<input type="date" class="commentBoxT" />
+						</div>
+					</div>
 					<textarea rows="30" cols="60" id="ct" name="ct" class="textarea"></textarea>
 					<div id="buttons">
-						<input type="button" value="작성" class="myButton" /> <input
+						<input type="button" value="추가" class="myButton" /> <input
 							type="button" value="목록" class="myButton" />
 					</div>
 
@@ -249,6 +252,7 @@ input:focus {
 
 
 	</div>
+
 
 </body>
 </html>

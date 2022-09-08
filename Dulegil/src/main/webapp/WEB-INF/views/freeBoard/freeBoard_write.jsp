@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/board.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>자유게시판작성</title>
-<script type="text/javascript" src="../../jquery/jquery-1.12.4.min.js"></script>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <!-- CKEditor -->
-<script type="text/javascript"
-		src="../../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){	
 	//에디터 연결

@@ -4,11 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/board.css" />
-<link rel="stylesheet" href="../css/list.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/list.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>자유게시판목록</title>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 	<!-- Header -->
@@ -38,7 +43,7 @@
 					<input type="text" class="serchTxt" placeholder="검색하기" />
 					
 					<div class="search_ico" onclick="chk_search();">
-					<img src="../../css/images/search_icon.png" id="searIcon" />
+					<img src="resources/images/search_icon.png" id="searIcon" />
 					</div>
 					
 				</div>
@@ -46,7 +51,7 @@
 
 
 			</div>
-	<div class="content">
+	<div class="content_free">
 		<table class="table">
 		<colgroup >
 			<col width="11%" />
@@ -173,7 +178,7 @@
 	</div>
 
 	<!-- footer -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<jsp:include page="../common/footer.jsp" flush="true"/>
 	
 </body>
 </html>

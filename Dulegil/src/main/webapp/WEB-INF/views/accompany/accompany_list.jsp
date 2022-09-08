@@ -4,12 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../css/board.css" />
-<link rel="stylesheet" href="../css/list.css" />
-<link rel="stylesheet" href="../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/board.css" />
+<link rel="stylesheet" href="resources/css/list.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행목록</title>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
 
+</script>
 </head>
 <body>
 	<!-- Header -->
@@ -27,7 +31,7 @@
 				<input type="button" class="wriBtn" value="글쓰기"/>
 				
 			<div class="searchWrap">
-				<div class="selBox">
+			<!-- 	<div class="selBox">
 					<select class="sel">
 						<option selected="selected">코스</option>
 						<option>1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분</option>
@@ -39,27 +43,28 @@
 						<option>7코스-봉산·앵봉산코스	마포구,은평구	16.8km	6시간 25분</option>
 						<option>8코스-북한·도봉산산코스	강북구,도봉구,성북구,은평구,종로구	33.7km	16시간30분</option>
 					</select>
-				</div>
+				</div> -->
 				<div class="selBox">
 					<select class="sel">
 						<option selected="selected">select</option>
 						<option>제목</option>
 						<option>내용</option>
 						<option>ID</option>
+						<option>코스</option>
 					</select>
 				</div>
 				<div class="searchBox">
 					<input type="text" class="serchTxt" placeholder="검색하기" />
 					
 					<div class="search_ico" onclick="chk_search();">
-					<img src="../images/search_icon.png" id="searIcon" />
+					<img src="resources/images/search_icon.png" id="searIcon" />
 					</div>
 			</div>
 					
 				</div>
 
 			</div>
-	<div class="content">
+	<div class="content_Acc">
 		<table class="table">
 		<colgroup >
 			<col width="12%" />

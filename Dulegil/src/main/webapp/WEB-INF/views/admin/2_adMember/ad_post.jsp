@@ -6,16 +6,15 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>댓글 관리</title>
+<title>member manage</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" type="text/css" href="../css/header1.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 <style type="text/css">
+
+
 
 /*오른쪽 전체 크기*/
 #header2 #hd2_content {
@@ -34,7 +33,7 @@
 
 /* vertical-align 은 여기 버튼 css에서 설정해준다. div아님*/
 #header2 #hd2_search .Sbar1, .Sbar11, .Sbar2, .Sbar3 {
-	margin: 20px 3px 0px 3px;
+	margin: 20px 0px 0px 0px;
 	display: -webkit-inline-box;
 	border: 1px solid #ddd;
 	position: relative;
@@ -62,7 +61,7 @@
 	/*border: solid 1px #444;*/
 }
 
-/* 오른쪽 하단 크기 스크롤*/
+/* 오른쪽 하단 크기 */
 #header2 #hd2_CC {
 	width: 100%;
 	height: 87%;
@@ -74,7 +73,8 @@
 /* 내용 크기 */
 #header2 #hd2_CC #CCbox {
 	display: inline-block;
-	/*width: 1000px;*/
+	text-align: -webkit-center;
+	width: 1000px;
 	height: 70%;
 	/*border: solid 1px #000;*/
 	font-size: 25px;
@@ -99,27 +99,45 @@ th, td {
 	font-weight: 500;
 }
 
-th:nth-child(12) {
-	width: 70px;
-}
-
 th {
-	width: 114px;
+	width: 131px;
 	padding: 6px;
 	background: #f4f5ee;
 	font-size: small;
+}
+
+th:nth-child(5) {
+	width: 45%;
 }
 
 td {
 	font-size: small;
 	border-bottom: solid 0.5px #ebebeb;
 	padding: 8px;
+	line-height: 0;
 }
 
 /* 작성 & 수정 & 삭제 버튼 */
 #write {
 	width: 100%;
 	text-align: right;
+}
+
+
+
+/*
+.wrap{
+	width: 965px;
+	height: 95%;
+    margin: auto;
+    position:relative;
+}
+*/
+
+/* 페이징 */
+.sel {
+	border: none;
+	outline: none;
 }
 
 input:focus {
@@ -144,11 +162,6 @@ input:focus {
 	border: none;
 	width: 96%;
 	height: 86%;
-}
-
-.sel {
-	border: none;
-	outline: none;
 }
 </style>
 
@@ -244,27 +257,35 @@ input:focus {
 		<!-- 오른쪽 하단 전체 크기 -->
 		<div id="hd2_content">
 			<div id="hd2_Cname"></div>
-			<!-- 공백 -->
 			<div id="hd2_Cname">
 				<div id="Cname_box">
-					<span class="material-icons"
+					<span class="material-symbols-outlined"
 						style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">
-						comment </span> 댓글 관리
+						edit_note </span>게시물관리
 				</div>
 			</div>
 
 
-
 			<div id="hd2_CC">
 				<div id="CCbox">
-					<!-- 검색 구분 -->
+
+					<!-- 검색 부분 -->
 					<div id="hd2_search">
 
 						<div class="Sbar1">
 							<select class="sel">
-								<option>카테고리</option>
-								<option>댓글 내용</option>
+								<option>코스별 평가</option>
+								<option>동행 구하기</option>
+								<option>자유게시판</option>
+							</select>
+						</div>
+
+						<div class="Sbar11">
+							<select class="sel">
+								<option>회원번호</option>
+								<option>글번호</option>
 								<option>아이디</option>
+								<option>제목</option>
 							</select>
 						</div>
 						<div class="Sbar2">
@@ -277,7 +298,7 @@ input:focus {
 
 
 
-					<!-- 테이블  -->
+					<!-- 테이블 -->
 					<table>
 						<thead>
 							<tr>
@@ -285,72 +306,79 @@ input:focus {
 								<th colspan="1">회원번호</th>
 								<th colspan="1">카테고리</th>
 								<th colspan="1">아이디</th>
-								<th colspan="5">댓글 내용</th>
+								<th colspan="5">제목</th>
 								<th colspan="1">날짜</th>
 								<th colspan="2"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
-							</tr>
 							
 							<tr>
 								<td colspan="1"><input type="checkbox" /></td>
 								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
+								<td colspan="1">동행 구하기</td>
+								<td colspan="5">scone</td>
+								<td colspan="1">둘레길 걸어보자</td>
+								<td colspan="1">22.05.07</td>
 								<td colspan="2"><span
 									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
+									style="font-size: 14px; cursor: pointer;"> close </span></td>
 							</tr>
-							
 							<tr>
 								<td colspan="1"><input type="checkbox" /></td>
 								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
+								<td colspan="1">동행 구하기</td>
+								<td colspan="5">scone</td>
+								<td colspan="1">둘레길 걸어보자</td>
+								<td colspan="1">22.05.07</td>
 								<td colspan="2"><span
 									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
+									style="font-size: 14px; cursor: pointer;"> close </span></td>
 							</tr>
-							
 							<tr>
 								<td colspan="1"><input type="checkbox" /></td>
 								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
+								<td colspan="1">동행 구하기</td>
+								<td colspan="5">scone</td>
+								<td colspan="1">둘레길 걸어보자</td>
+								<td colspan="1">22.05.07</td>
 								<td colspan="2"><span
 									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
+									style="font-size: 14px; cursor: pointer;"> close </span></td>
 							</tr>
-							
 							<tr>
 								<td colspan="1"><input type="checkbox" /></td>
 								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
+								<td colspan="1">동행 구하기</td>
+								<td colspan="5">scone</td>
+								<td colspan="1">둘레길 걸어보자</td>
+								<td colspan="1">22.05.07</td>
 								<td colspan="2"><span
 									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
+									style="font-size: 14px; cursor: pointer;"> close </span></td>
 							</tr>
-							
+							<tr>
+								<td colspan="1"><input type="checkbox" /></td>
+								<td colspan="1">1</td>
+								<td colspan="1">동행 구하기</td>
+								<td colspan="5">scone</td>
+								<td colspan="1">둘레길 걸어보자</td>
+								<td colspan="1">22.05.07</td>
+								<td colspan="2"><span
+									class="material-icons"
+									style="font-size: 14px; cursor: pointer;"> close </span></td>
+							</tr>
+							<tr>
+								<td colspan="1"><input type="checkbox" /></td>
+								<td colspan="1">1</td>
+								<td colspan="1">동행 구하기</td>
+								<td colspan="5">scone</td>
+								<td colspan="1">둘레길 걸어보자</td>
+								<td colspan="1">22.05.07</td>
+								<td colspan="2"><span
+									class="material-icons"
+									style="font-size: 14px; cursor: pointer;"> close </span></td>
+							</tr>
 							
 						</tbody>
 					</table>
@@ -364,7 +392,7 @@ input:focus {
 
 
 
-				<!--  페이징  -->
+
 				<div id="hd2_paging">
 					<div id="pBtn_GD">
 						<input type="button" value="이전" class="pBtn" />
@@ -388,14 +416,10 @@ input:focus {
 						<input type="button" value="다음" class="pBtn" />
 					</div>
 				</div>
-				<!-- 페이징 -->
 
 			</div>
-			<!-- hd2_CC -->
 		</div>
-		<!-- 오른쪽 하단 전체 크기 hd2_content -->
 	</div>
-	<!-- header2 -->
 
 
 

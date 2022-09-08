@@ -54,12 +54,12 @@ input:focus, select:focus {
     margin-top: 6%;
 }
 
-.baseInfo, .addInfo, .btnBox{
+.bscInfo, .addInfo, .btn{
 	width: 700px;
 	margin: 0 auto;
 }
 
-.baseInfo input, #emailSel{
+.bscInfo input, #emailSel{
 	font-family: 'Pretendard-Regular';
 	display:inline-block;
     padding: 10px 12px;
@@ -73,7 +73,7 @@ input:focus, select:focus {
     margin-bottom: 5px;
 }
 
-#reBtn{
+#cnfmBtn{
 	width: 17%;
 	letter-spacing: 2px;
 	cursor: pointer;
@@ -81,7 +81,8 @@ input:focus, select:focus {
 	border-bottom: none;
 	font-weight: 600;
 }
-#uid {
+
+#email {
 	width: 40%;
 	margin-right: 0;
 }
@@ -110,15 +111,15 @@ input:focus, select:focus {
 	width: 150px;
 }
 
-#ubirth {
+#dtBrt {
 	width: 200px;
 }
 
-.genBox{
+.gen{
 	width: 200px;
 }
 
-#gender{
+#gen{
 	width: 18%;
 }
 
@@ -128,15 +129,15 @@ input:focus, select:focus {
 	text-align: center;
 }
 
-#zipcode {
+#zcd {
 	width: 90px;
 }
 
-#address{
+#adr{
 	width: 50%;
 }
 
-#addressBtn{
+#adrBtn{
 	width: 90px;
 	letter-spacing: 2px;
 	cursor: pointer;
@@ -145,11 +146,11 @@ input:focus, select:focus {
 	font-weight: 600;
 }
 
-#addressDetail{
+#adrDtl{
 	width: 86%;
 }
 
-.btnBox{
+.btn{
 	width: 36%; 
 }
 

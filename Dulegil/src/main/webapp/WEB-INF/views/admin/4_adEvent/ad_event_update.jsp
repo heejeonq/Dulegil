@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이벤트 작성</title>
+<title>Document</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" type="text/css" href="../css/header1.css">
+<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 <style type="text/css">
 #header2 #hd2_content {
 	width: 100%;
@@ -218,8 +218,9 @@ input:focus {
 			<div id="hd2_CC">
 				<div id="CCbox">
 					<div id="Cname">
-						<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>이벤트
-						추가
+					
+						<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_calendar </span>이벤트
+						수정
 					</div>
 					<div id="Ctitle">
 						<div class="CTN">제목</div>
@@ -242,7 +243,7 @@ input:focus {
 					</div>
 					<textarea rows="30" cols="60" id="ct" name="ct" class="textarea"></textarea>
 					<div id="buttons">
-						<input type="button" value="추가" class="myButton" /> <input
+						<input type="button" value="수정" class="myButton" /> <input
 							type="button" value="목록" class="myButton" />
 					</div>
 

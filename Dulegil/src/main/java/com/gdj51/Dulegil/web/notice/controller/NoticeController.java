@@ -14,4 +14,12 @@ public class NoticeController {
 		
 		return mav;
 	}
+	@RequestMapping(value="/noticeDetail")
+	public ModelAndView noticeDetail(ModelAndView mav) {
+		
+		mav.setViewName("notice/notice_detail");
+		
+		return mav;
+	
+	}
 }
