@@ -192,8 +192,28 @@ span.material-symbols-outlined {
 	min-height: calc(100% - 315px);
 }
 
-
 /* Contents*/
+.mainWrap{
+	margin: 50px 0;
+    overflow: hidden;
+}
+
+.tit{
+	
+	margin:80px auto 10px;
+	text-align:left;
+	margin-top:10px;
+	font-size: 20pt;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.col{
+    position: relative;
+    text-align: center;
+    border-top: 2px solid #ddd;
+}
+
 
 /*footer*/
 .footer {
