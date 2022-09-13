@@ -52,8 +52,9 @@
     cursor: pointer;
 }
 
-.faq_answer{
+.faqAns{
 	padding: 0;
+	display:none;
 }
 
 .faqDtl{

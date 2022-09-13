@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +13,6 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	reloadList();
-	
-	if("${param.searchGbn}" !=""){
-		$("#searchGbn").val("${param.searchGbn}");
-	}else{
-		$("#oldGbn").val("0");
-	}
 	
 
 	$("#searchBtn").on("click",function(){
@@ -35,11 +27,6 @@ $(document).ready(function(){
 		reloadList();
 	})
 	
-	$("#loginBtn").on("click",function(){
-		 location.href="login";
-	});
-
-	
 	$("#wriBtn").on("click",function(){
 		//기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
@@ -50,20 +37,6 @@ $(document).ready(function(){
 		
 		
 	});
-	$(".pagination").on("click","span",function(){
-		
-		//기존검색유지		
-		if($("#oldGbn").val() != "") {
-		$("#searchGbn").val($("#oldGbn").val());
-		$("#searchTxt").val($("#oldTxt").val());
-		//전에 입력한 구분과 텍스트를 현재로 데려옴
-		}
-		
-		$("#page").val($(this).attr("page"));
-		
-		reloadList();
-	});
-	
 	$("tbody").on("click","tr",function(){
 		$("#no").val($(this).attr("no"));
 		
@@ -71,7 +44,7 @@ $(document).ready(function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","freeBoardDetail");
+		$("#actionForm").attr("action","ATDetail");
 		$("#actionForm").submit();
 		
 	});
@@ -98,54 +71,15 @@ function reloadList(){
 	});
 	
 }
-
 function drawList(list) {
 	var html = "";
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
-		
-	html +=	"<tr no =\" " + data.NO + "\">";
-	html +=	"<td> " + data.POST_NO + "</td>";
-	html +=	"<td> " +data.TITLE + "</td>";
-	html +=	"<td>" + data.NM + " </td>";
-	html +=	"<td>" + data.DT + " </td>";
-	html +=	"<td>" + data.HIT + "</td>";
-	html +=	"</tr>";
-		
+
 	}
 	
 	$("tbody").html(html); //내가 받은 html로 갈아 엎어라
-} 
- 
-function drawPaging(pd){
-	var html="";
-	
-   html += "<span class=\"first_arw\"page=\"1\"><<</span> ";
-   if($("#page").val() == "1" ) {
-   html += "<span class=\"prev_arw\" page=\"1\" ><</span>   ";
-   }else{
-	   html += "<span class=\"prev_arw\" page=\"" + ($("#page").val() *1 -1 )+ "\" ><</span>   ";
-   }
-   for(var i = pd.startP; i<=pd.endP; i++){
-	   if($("#page").val() * 1 ==i){//현재페이지라면
-		  html += "<span class=\"page_btn_on\" page=\"" + i + "\">" + i + "</span>"   
-	   }else{
-		  html += "<span class=\"page_btn\" page=\"" + i + "\">" + i + "</span>";	   
-	   }	   
-   }
-   if($("#page").val() * 1 == pd.maxP){ //현재 체이지가 마지막 페이지면...
-	   html += "<span class=\"next_arw\" page=\"" + pd.maxP + "\">></span>  ";
-   }else{
-	   html += "<span class=\"next_arw\"  page=\"" + ($("#page").val() * 1 + 1) + "\">></span>  ";
-   }
-   
-   //마지막 페이지는 마지막 페이지
-     html += "<span class=\"end_arw\" page=\"" + pd.maxP + "\">>></span>  ";
-     
-     $(".pagination").html(html);
-   
 }
- 
 </script>
 </head>
 <body>
@@ -161,42 +95,28 @@ function drawPaging(pd){
 			<div class="col"></div>			
 			<div class="midBox">
 				<!-- <div class=box1>글쓰기</div> -->
-			<input type="hidden" id="oldGbn"  value="${param.searchGbn}"/>
-			<input type="hidden" id="oldTxt"  value="${param.searchTxt}"/>
-				
-			<form action="#" id="actionForm" method="post">
-				<input type="hidden" name="no" id="no"/>
-				<input type="hidden" name="page" id="page" value="${page}" />
-				
-				<c:choose>				
-					<c:when test="${!empty sMemNo}">
-						<input type="button" class="btn" value="글쓰기" id="wriBtn"/>
-					</c:when>
-					<c:otherwise>
-						<input type="button" class="btn" value="로그인" id="loginBtn"/>
-					</c:otherwise>				
-				</c:choose>
-
+				<input type="button" class="btn" value="글쓰기" id="wriBtn"/>
 				
 			<div class="searchWrap">
 				<div class="selBox">
-					<select class="sel" name="searchGbn" id="searchGbn">
-						<option selected="selected" >select</option>
-						<option value="0">제목</option>
-						<option value="1">내용</option>
-						<option value="2">작성자</option>
+					<select class="sel">
+						<option selected="selected">select</option>
+						<option>제목</option>
+						<option>내용</option>
+						<option>ID</option>
 					</select>
 				</div>
 				<div class="searchBox">
-					<input type="text" class="serchTxt" name="serchTxt" id="serchTxt"" value="${param.searchTxt }" placeholder="검색하기" />				
-					<div class="search_ico" > <!-- 검색버튼 -->
-					<img src="resources/images/search_icon.png" id="searchBtn"  />
+					<input type="text" class="serchTxt" placeholder="검색하기" />
+					
+					<div class="search_ico" id="searchBtn"">
+					<img src="resources/images/search_icon.png" id="searIcon"  />
 					</div>
 					
 				</div>
 			</div>
 
-			</form>
+
 			</div>
 	<div class="content_free">
 		<table class="table">
@@ -217,7 +137,91 @@ function drawPaging(pd){
 			</tr>		
 		</thead>
 		<tbody>
-		<!-- 위로올림 -->
+		<tr>
+				<td>1</td>
+				<td>같이가실분</td>
+				<td>둘레마스터</td>
+				<td>20220817</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>오늘 날씨가 좋네요</td>
+				<td>김초코</td>
+				<td>20220819</td>
+				<td>4</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td></td>
+				
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>9</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>10</td>
+				<td>같이가실분</td>
+				<td>둘레마스터</td>
+				<td>20220817</td>
+				<td>30</td>
+			</tr>
+			<tr>
+				<td>11</td>
+				<td>같이가실분</td>
+				<td>둘레마스터</td>
+				<td>20220817</td>
+				<td>30</td>
+			</tr>	
+			<tr>
+				<td>12</td>
+				<td>같이가실분</td>
+				<td>둘레마스터</td>
+				<td>20220817</td>
+				<td>30</td>
+			</tr>
 		</tbody>	
 	</table>
 		
@@ -226,7 +230,16 @@ function drawPaging(pd){
 		</div>
 	
 	  <div class="pagination">
-		
+      <span class="first_arw"><<</span>
+      <span class="prev_arw"><</span>
+      <span >1</span>
+      <span >2</span>
+      <span >3</span>
+      <span >4</span>
+      <span >5</span>
+
+      <span class="next_arw" >></span>
+      <span class="end_arw" >>></span>
       </div>
 		
 	</div>

@@ -12,16 +12,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$(".faqAns").hide();
-	
 	$(".qstCon").on("click", function(){
-		if($(this).next().css("display")=="none"){        
-			$(this).next().show();        
-			$(this).children("span").text("[닫기]");      
-		}else{        
-			$(this).next().hide();        
-			$(this).children("span").text("[열기]");      
-		}
+		$(this).next("ul").toggleClass("hide");
 	});
 
 });
@@ -41,7 +33,7 @@ $(document).ready(function(){
 			<div class="col"></div>
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						혼자 걷기 걱정되는 사람에게는 어떤 코스가 좋을까요?
 					</li>
 				</ul>
@@ -57,7 +49,7 @@ $(document).ready(function(){
 				</ul>	
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						둘레길에서 동물을 만나면 어떻게 해야 하나요?
 					</li>
 				</ul>
@@ -81,7 +73,7 @@ $(document).ready(function(){
 				</ul>
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						둘레길을 걸을 때 지켜야 할 안전 수칙은 무엇이 있나요?
 					</li>
 				</ul>
@@ -102,7 +94,7 @@ $(document).ready(function(){
 				</ul>
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						길 여행을 하기 전 무엇을 준비해야 하나요?
 					</li>
 				</ul>
@@ -117,7 +109,7 @@ $(document).ready(function(){
 				</ul>
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						둘레길 지도는 어디서 구할 수 있나요?
 					</li>
 				</ul>
@@ -132,7 +124,7 @@ $(document).ready(function(){
 				</ul>	
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						코스의 시작점과 종점까지는 어떻게 이동해야 하나요?
 					</li>
 				</ul>
@@ -150,7 +142,7 @@ $(document).ready(function(){
 				</ul>	
 				<ul class="faqQst">
 					<li class="qstTit">Q</li>
-					<li class="qstCon" onclick="">
+					<li class="qstCon">
 						완주증명서는 어떻게 해야 받을 수 있나요?
 					</li>
 				</ul>
