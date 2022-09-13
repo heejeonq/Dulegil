@@ -30,6 +30,13 @@ FROM(SELECT B.POST_NO, T.BLTNBOARD_NM, B.TITLE, B.CONTENTS,
 FROM BULLETIN_BOARD B INNER JOIN BOARD_TYPE T
 		ON B.BLTNBOARD_NO = T.BLTNBOARD_NO
 WHERE B.DEL_DT IS NULL
+<choose>
+	<when test="cate != 0" >
+		AND T.BLTNBOARD_NO = #{cate}	
+	</when>
+	<otherwise>
+	</otherwise>
+</choose>
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
 		<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
@@ -41,10 +48,17 @@ WHERE B.DEL_DT IS NULL
 		</when>
 	</choose>		
 </if>
+
 )F
 WHERE F.RNUM BETWEEN #{start} AND #{end}		
 </select>
-	
+
+
+
+<select id="getCateAllList" resultType="hashmap">
+		SELECT *
+		FROM BOARD_TYPE
+	</select>
 
 
 </mapper>
