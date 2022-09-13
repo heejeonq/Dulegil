@@ -4,11 +4,14 @@
 
 <!-- 페이지카운트 -->
 <select id="getCnt" resultType="integer" parameterType="hashmap">
-SELECT COUNT(*) AS CNT
-FROM BOARD_TYPE T INNER JOIN  BULLETIN_BOARD B 
-	ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+SELECT COUNT (*) AS CNT
+FROM
+(SELECT T.BLTNBOARD_NO,POST_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE,HIT,REG_DT
+FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
+ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
 WHERE B.DEL_DT IS NULL
-AND T.BLTNBOARD_NO =3
+AND T.BLTNBOARD_NO =3)G INNER JOIN MEMBER M
+ON G.MEMBER_NO=M.MEMBER_NO
 <!-- 검색어가 널이 또는 '' 가 아니라면 -->
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
@@ -20,42 +23,45 @@ AND T.BLTNBOARD_NO =3
 		AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
 		</when>
 		<when test="searchGbn eq 2">
-		AND NM LIKE '%'|| #{searchTxt}||'%'
+		AND NM LIKE '%'|| #{searchTxt} ||'%'
 		</when>
 	</choose>		
 </if>	
+
 </select>
 
 <!-- 목록 -->
 <select id="getFreeList" parameterType="hashmap" resultType="hashmap">	
-SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT
-FROM(SELECT B.POST_NO,M.MEMBER_NO,M.NM,B.TITLE,B.HIT,
-        CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS
+FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM
+     FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,
+                CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(B.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(B.REG_DT,'YY.MM.DD')
        			END AS DT,
-              ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
-FROM MEMBER M INNER JOIN BULLETIN_BOARD B
-    ON M.MEMBER_NO = B.MEMBER_NO
-WHERE B.DEL_DT IS NULL
-AND BLTNBOARD_NO =3
-<!-- 검색어가 널이 또는 '' 가 아니라면 -->
-<if test="searchTxt != null and searchTxt !=''">
-	<choose>
-		<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
-		<when test="searchGbn eq 0">
-		AND TITLE LIKE '%' || #{searchTxt} || '%'
-		</when>
-		<when test="searchGbn eq 1">
-		AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
-		</when>
-		<when test="searchGbn eq 2">
-		AND NM LIKE '%'|| #{searchTxt}||'%'
-		</when>
-	</choose>		
-</if>	
-)F
-WHERE F.RNUM BETWEEN #{start} AND #{end}
+                ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
+                FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
+                ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+                WHERE B.DEL_DT IS NULL
+                AND T.BLTNBOARD_NO =3 )G  
+        INNER JOIN MEMBER M 
+        ON G.MEMBER_NO = M.MEMBER_NO
+		<if test="searchTxt != null and searchTxt !=''">
+			<choose>
+				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+				<when test="searchGbn eq 0">
+				AND TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+				AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+				</when>
+				<when test="searchGbn eq 2">
+				AND NM LIKE '%'|| #{searchTxt} ||'%'
+				</when>
+			</choose>		
+		</if>
+        )F
+        WHERE F.RNUM BETWEEN #{start} AND #{end}
 </select>
 
 <!-- 게시글등록 -->
