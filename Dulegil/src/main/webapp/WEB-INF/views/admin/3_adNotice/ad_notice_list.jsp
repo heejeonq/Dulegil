@@ -331,13 +331,13 @@ $(document).ready(function(){
 	
 	
 	// 공지 등록 버튼
-	$("#insertBtn").on("click", function){
+	$("#insertBtn").on("click", function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
 		$("#actionForm").attr("action", "adNtWrite");
 		$("#actionForm").submit();
-	}
+	});
 	
 	
 	
@@ -354,7 +354,7 @@ function reloadList(){
 		data : params,
 		success : function(res){
 			drawList(res.list);
-			drawPaging(res.pd);
+			//drawPaging(res.pd);
 			console.log(res);
 
 		},

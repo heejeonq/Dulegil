@@ -196,7 +196,7 @@ function login(){
 		      		console.log(res);
 		      
 		     		 if(res.msg == "success"){	
-		    		  location.href = "adAccountMng1";
+		    		  location.href = "adAccountMng";
 		    		  
 		     		 }else{
 		    		  makeAlert("알림", "아이디나 비밀번호가 틀립니다.")
