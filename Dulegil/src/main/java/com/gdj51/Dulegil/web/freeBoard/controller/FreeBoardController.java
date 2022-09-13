@@ -63,11 +63,11 @@ public class FreeBoardController {
 			params.put("start", Integer.toString(pd.get("start")));
 			params.put("end", Integer.toString(pd.get("end")));
 			
-			List<HashMap<String,String>>list = dao.getList("free.getFreeList",params);
+			List<HashMap<String,String>> list = dao.getList("free.getFreeList",params);
 			//T에 있는 겟리스트를 가져올거여
 		
-			//model.put("list", list);
-			//model.put("pd", pd);
+			model.put("list", list);
+			model.put("pd", pd);
 		
 			return mapper.writeValueAsString(model);
 	}

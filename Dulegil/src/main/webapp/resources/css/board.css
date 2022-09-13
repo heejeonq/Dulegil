@@ -142,6 +142,11 @@
     margin: 0 4px;
     cursor: pointer;
 }
+.page_btn_on{
+	 background-color: #77bdeb;
+    color: white;
+    border-radius:50%;
+}
 
 
 .pagination span:active {
