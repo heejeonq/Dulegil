@@ -54,20 +54,20 @@ public class FreeBoardController {
 			
 			Map<String,Object> model = new HashMap<String,Object>();
 			
-				//int cnt = dao.getInt("free.getCnt",params);
+			int cnt = dao.getInt("free.getCnt",params);
 			
-			//HashMap<String, Integer> pd
-			//= ips.getPagingData(Integer.parseInt(params.get("page")),						
-				//	cnt,10,5);
+			HashMap<String, Integer> pd
+			= ips.getPagingData(Integer.parseInt(params.get("page")),						
+				cnt,10,5);
 			
-			//params.put("start", Integer.toString(pd.get("start")));
-			//params.put("end", Integer.toString(pd.get("end")));
+			params.put("start", Integer.toString(pd.get("start")));
+			params.put("end", Integer.toString(pd.get("end")));
 			
-			//List<HashMap<String,String>>list = dao.getList("T.getTList",params);
+			List<HashMap<String,String>> list = dao.getList("free.getFreeList",params);
 			//T에 있는 겟리스트를 가져올거여
 		
-			//model.put("list", list);
-			//model.put("pd", pd);
+			model.put("list", list);
+			model.put("pd", pd);
 		
 			return mapper.writeValueAsString(model);
 	}
