@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="../css/mainCon.css" />
-<link rel="stylesheet" href="../../css/main.css" />
-<link rel="stylesheet" href="../../css/idpw.css" />
-<link rel="stylesheet" href="../../css/fonts.css" />
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/main.css" />
+<link rel="stylesheet" href="resources/css/idpw.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>서울 둘레길:비밀번호 찾기</title>
 </head>
 <body>
@@ -40,7 +40,7 @@
 				</div>
 				<div class="btnWrap">
 					<p>아이디가 기억나지 않으시나요?</p>
-					<a href="../findIDPW/findID.html">아이디 찾기</a>
+					<a href="findID">아이디 찾기</a>
 				</div>
 			</div>	
 		</div>

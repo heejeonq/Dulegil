@@ -90,10 +90,10 @@ $(document).ready(function(){
 					<a href="join">회원가입</a>
 				</li>
 				<li>
-					<a href="../findIDPW/findID.html">아이디 찾기</a>
+					<a href="findID">아이디 찾기</a>
 				</li>
 				<li>
-					<a href="../findIDPW/findPW.html">비밀번호 찾기</a>
+					<a href="findPW">비밀번호 찾기</a>
 				</li>
 			</ul>
 		</div>
