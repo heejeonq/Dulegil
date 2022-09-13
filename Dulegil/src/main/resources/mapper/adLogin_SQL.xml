@@ -15,9 +15,9 @@ AND PWD = #{pw}
 	<select id="checkMember" parameterType="hashmap" resultType="hashmap">
 		SELECT MEMBER_NO, NM
 		FROM MEMBER
-		WHERE DEL IS NOT NULL 
+		WHERE DEL_DT IS NULL 
 		AND AUTHORITY_NO = 2
-		AND EMAIL = #{email}
-		AND PWD = #{pwd}
+		AND EMAIL = #{loginId}
+		AND PWD = #{loginPwd}
 	</select>
 </mapper>

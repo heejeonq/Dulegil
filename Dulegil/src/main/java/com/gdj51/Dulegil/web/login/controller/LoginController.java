@@ -42,13 +42,13 @@ public class LoginController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> model = new HashMap<String, String>();
 		
-		//암호화
-		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
-		System.out.println(params.get("pwd"));
-		
-		//복호화
-		System.out.println(Utils.decryptAES128(params.get("pwd")));
-		
+//		//암호화
+//		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+//		System.out.println(params.get("pwd"));
+//		
+//		//복호화
+//		System.out.println(Utils.decryptAES128(params.get("pwd")));
+//		
 		
 		HashMap<String, String> data = dao.getMap("adLogin.checkMember", params);
 		if(data != null) {
@@ -74,6 +74,14 @@ public class LoginController {
 		mav.setViewName("redirect:main");
 		return mav;
 	}
+	
+	@RequestMapping(value="/header")
+	public ModelAndView testAHeader(ModelAndView mav) {
+		mav.setViewName("common/header");
+		return mav;
+	}
+	
+
 	
 
 }

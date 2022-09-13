@@ -1,9 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="resources/css/mainCon.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	// 로그인/로그아웃	
+	$("#logout").on("click", function(){
+		location.href ="logout";
+	});
+	
+	$("#login").on("click", function(){
+		location.href = "login";
+	});
+	
+	
 	
 	//알람 버튼
 	$(".alarm").on("click", function(){
@@ -24,12 +36,24 @@ $(document).ready(function(){
 	<div class="header">
 		<div class="util">
 			<ul>
-				<li><a href="login"> 로그인 </a></li>
-				<li>
-				<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
-				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
-				</svg>
-				</li>
+			<c:choose>
+				<c:when test="${empty sMemNm}"><!-- el태그의 empty : 해당 값이 비어있는지 확인 -->
+					
+					<li><a href="login" id="login"> 로그인 </a></li>
+					<li>
+						<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
+						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
+						</svg>
+					</li>
+					<li><a href="join"> 회원가입 </a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="login" id="logout"> 로그아웃 </a></li>
+					<li>
+						<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
+						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
+						</svg>
+					</li>
 				<li><a href="#"> 마이페이지 </a></li>
 				<li>
 				<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
@@ -44,7 +68,12 @@ $(document).ready(function(){
 					</div>
 				</li>
 					
+				</c:otherwise>
+			</c:choose>
+			
 			</ul>
+			
+			
 		</div>
 		<!-- Nav -->
 		<div class="nav">
