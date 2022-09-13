@@ -40,7 +40,7 @@ public class adMemberController {
 		}
 		
 		mav.addObject("page", page);
-		mav. setViewName("admin/2_adMember/ad_comment");
+		mav.setViewName("admin/2_adMember/ad_comment");
 		return mav;
 	}
 
