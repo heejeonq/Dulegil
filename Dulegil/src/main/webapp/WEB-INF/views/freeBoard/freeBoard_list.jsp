@@ -29,8 +29,6 @@ $(document).ready(function(){
 		//신규 상태 적용
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
-		//내가 입력한 값을 전으로 데
-		
 		
 		reloadList();
 	})
@@ -45,7 +43,7 @@ $(document).ready(function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","ATInsert");
+		$("#actionForm").attr("action","FreeInsert");
 		$("#actionForm").submit();
 		
 		
@@ -159,43 +157,36 @@ function drawPaging(pd){
 		<div class="mainWrap">
 			<div class="tit">둘레길 이야기</div>
 			<div class="col"></div>			
-			<div class="midBox">
-				<!-- <div class=box1>글쓰기</div> -->
+			<!-- <div class=box1>글쓰기</div> -->
+			
 			<input type="hidden" id="oldGbn"  value="${param.searchGbn}"/>
 			<input type="hidden" id="oldTxt"  value="${param.searchTxt}"/>
 				
+			<div class="midBox">
 			<form action="#" id="actionForm" method="post">
 				<input type="hidden" name="no" id="no"/>
-				<input type="hidden" name="page" id="page" value="${page}" />
-				
-				<c:choose>				
-					<c:when test="${!empty sMemNo}">
+				<input type="hidden" name="page" id="page" value="${page}" />								
+					<c:if test="${!empty sMemNo}">
 						<input type="button" class="btn" value="글쓰기" id="wriBtn"/>
-					</c:when>
-					<c:otherwise>
-						<input type="button" class="btn" value="로그인" id="loginBtn"/>
-					</c:otherwise>				
-				</c:choose>
+					</c:if>
 
 				
 			<div class="searchWrap">
 				<div class="selBox">
 					<select class="sel" name="searchGbn" id="searchGbn">
-						<option selected="selected" >select</option>
 						<option value="0">제목</option>
 						<option value="1">내용</option>
 						<option value="2">작성자</option>
 					</select>
 				</div>
 				<div class="searchBox">
-					<input type="text" class="serchTxt" name="serchTxt" id="serchTxt"" value="${param.searchTxt }" placeholder="검색하기" />				
+					<input type="text" class="serchTxt" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색하기" />				
 					<div class="search_ico" > <!-- 검색버튼 -->
 					<img src="resources/images/search_icon.png" id="searchBtn"  />
 					</div>
 					
 				</div>
 			</div>
-
 			</form>
 			</div>
 	<div class="content_free">

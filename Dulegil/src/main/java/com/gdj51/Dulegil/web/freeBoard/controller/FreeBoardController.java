@@ -27,7 +27,7 @@ public class FreeBoardController {
 	@Autowired
 	public IPagingService ips;
 		
-	@RequestMapping(value="/freeBoardList")
+	@RequestMapping(value="/freeBoard")
 	public ModelAndView freeBoardList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable{
