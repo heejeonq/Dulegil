@@ -54,7 +54,7 @@ $(document).ready(function(){
 						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 						</svg>
 					</li>
-				<li><a href="#"> 마이페이지 </a></li>
+				<li><a href="mypage_myinfo"> 마이페이지 </a></li>
 				<li>
 				<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
