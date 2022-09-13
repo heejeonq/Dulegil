@@ -17,9 +17,61 @@
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	// 로그아웃 버튼 클릭시
 	$("#logoutBtn").on("click", function() {
 		location.href = "adLogout";
 	});
+	
+	
+	// 메뉴 - 관리자 계정 관리 
+	$("#actMngBtn").on("click", function() {
+		location.href = "adAccountMng";
+	});
+	
+	
+	// 메뉴 - 공지사항
+	$("#ntcBtn").on("click", function() {
+		location.href = "adNtc";
+	});
+	
+	
+	// 메뉴 - 이벤트관리
+	$("#evtBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+	
+	
+	// 메뉴 - 웹사이트 활동 집계
+	$("#webTotalBtn").on("click", function() {
+		location.href = "adWebTotal";
+	});
+	
+	
+	// 메뉴 - 회원관리
+	$("#memMngBtn").on("click", function() {
+		location.href = "adMemMng";
+	});
+	
+	// 메뉴 - 신고 내역 관리
+	$("#memRepBtn").on("click", function() {
+		location.href = "adMemRep";
+	});
+	
+	// 메뉴 - 게시물 관리
+	$("#memPostBtn").on("click", function() {
+		location.href = "adMemPost";
+	});
+	
+	// 메뉴 - 댓글 관리
+	$("#memCmtBtn").on("click", function() {
+		location.href = "adMemCmt";
+	});
+	
+	
+	
+	
+	
 });
 </script>
 </head>
@@ -32,7 +84,7 @@ $(document).ready(function(){
 		<div id="h_1">
 			<div class="btnMembers">manager menu</div>
 
-			<div class="btnAll">
+			<div class="btnAll" id="actMngBtn">
 				<span class="material-symbols-outlined">account_circle </span>
 				<span>관리자 계정 관리</span>
 			</div>
@@ -40,20 +92,20 @@ $(document).ready(function(){
 			
 	
 
-			<div class="btnAll">
-				<span class="material-symbols-outlined"> edit_document </span>
+			<div class="btnAll" id="ntcBtn">
+				<span class="material-symbols-outlined" > edit_document </span>
 				<span>공지사항</span>
 			</div>
 
 
-			<div class="btnAll">
+			<div class="btnAll" id="evtBtn">
 				<span class="material-symbols-outlined"> calendar_month </span>
 				<span>이벤트 관리</span>
 
 			</div>
 
 
-			<div class="btnAll">
+			<div class="btnAll" id="webTotalBtn">
 				<span class="material-symbols-outlined"> bar_chart </span> 
 				<span>웹사이트 활동 집계</span>
 			</div>
@@ -61,25 +113,25 @@ $(document).ready(function(){
 			<div id="empty"></div>
 			<div class="btnMembers">members</div>
 
-			<div class="btnOne">
+			<div class="btnOne" id="memMngBtn">
 				<span class="material-symbols-outlined"> person </span>
 				<span>회원 관리</span>
 			</div>
 
 
-			<div class="btnOne">
+			<div class="btnOne" id="memRepBtn">
 				<span class="material-symbols-outlined"> person_off </span>
 				<span>신고내역 관리</span>
 			</div>
 
 
-			<div class="btnOne">
+			<div class="btnOne" id="memPostBtn">
 				<span class="material-symbols-outlined"> edit_note </span>
 				<span>게시물 관리</span>
 			</div>
 
 
-			<div class="btnOne">
+			<div class="btnOne" id="memCmtBtn">
 				<span class="material-symbols-outlined"> comment </span>
 				<span>댓글 관리</span>
 			</div>
@@ -116,10 +168,12 @@ $(document).ready(function(){
 					<div class="login_banner">
 						<p>관리자 정보</p>
 					</div>
+					
 					<div class="icon">
 						<span class="material-symbols-outlined"
 							style="font-size: 200px; color: #C0C0C0;"> badge </span>
 					</div>
+					
 					<div class="login_box">
 						<div class="id_box">
 							<span class="material-symbols-outlined"
@@ -128,17 +182,20 @@ $(document).ready(function(){
 								maxlength="20" value="${sMemNm}"/>
 
 						</div>
+						
 						<div class="pw_box">
 							<span class="material-symbols-outlined"
 								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
 								lock </span> <input type="text" class="input" placeholder="비밀번호"
 								maxlength="20" value="${sMemPw}" />
 						</div>
-					</div>
+						
+					</div> <!-- login box end -->
 
-				</div>
-			</div>
-		</div>
+				</div> <!-- cc box end -->
+			</div>  <!-- cc end -->
+			
+		</div> <!-- hd2 content end -->
 	</div>
 </body>
 </html>
