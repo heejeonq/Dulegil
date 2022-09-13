@@ -32,7 +32,7 @@ public class adLoginController {
 		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 			mav.setViewName("redirect:adAccountMng");
 		}else {
-			mav.setViewName("admin/0_adLogin/ad_login");
+			mav.setViewName("admin/0_adLogin/ad_Login");
 		}
 		return mav;
 	}
@@ -72,12 +72,7 @@ public class adLoginController {
 	}
 
 
-	
-	
-	
 
-	
-	
 	
 	// 로그아웃
 	@RequestMapping(value="/adLogout")
@@ -89,5 +84,7 @@ public class adLoginController {
 		mav.setViewName("redirect:adLogin");
 		return mav;
 	}
+	
+	
 
 }

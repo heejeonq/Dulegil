@@ -165,7 +165,67 @@ th:nth-child(2), td:nth-child(2) {
 }
 </style>
 
-
+<script type="text/javascript"
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	// 로그아웃 버튼 클릭시
+	$("#logoutBtn").on("click", function() {
+		location.href = "adLogout";
+	});
+	
+	
+	// 메뉴 - 관리자 계정 관리 
+	$("#actMngBtn").on("click", function() {
+		location.href = "adAccountMng";
+	});
+	
+	
+	// 메뉴 - 공지사항
+	$("#ntcBtn").on("click", function() {
+		location.href = "adNtc";
+	});
+	
+	
+	// 메뉴 - 이벤트관리
+	$("#evtBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+	
+	
+	// 메뉴 - 웹사이트 활동 집계
+	$("#webTotalBtn").on("click", function() {
+		location.href = "adWebTotal";
+	});
+	
+	
+	// 메뉴 - 회원관리
+	$("#memMngBtn").on("click", function() {
+		location.href = "adMemMng";
+	});
+	
+	// 메뉴 - 신고 내역 관리
+	$("#memRepBtn").on("click", function() {
+		location.href = "adMemRep";
+	});
+	
+	// 메뉴 - 게시물 관리
+	$("#memPostBtn").on("click", function() {
+		location.href = "adMemPost";
+	});
+	
+	// 메뉴 - 댓글 관리
+	$("#memCmtBtn").on("click", function() {
+		location.href = "adMemCmt";
+	});
+	
+	
+	
+	
+	
+});
+</script>
 
 
 
@@ -184,65 +244,76 @@ th:nth-child(2), td:nth-child(2) {
 		<div id="h_1">
 			<div class="btnMembers">manager menu</div>
 
-			<div class="btnAll">
-				<span class="material-symbols-outlined">account_circle </span> <span>관리자
-					계정 관리</span>
+			<div class="btnAll" id="actMngBtn">
+				<span class="material-symbols-outlined">account_circle </span>
+				<span>관리자 계정 관리</span>
+			</div>
+			
+			
+	
+
+			<div class="btnAll" id="ntcBtn">
+				<span class="material-symbols-outlined" > edit_document </span>
+				<span>공지사항</span>
 			</div>
 
 
-
-
-			<div class="btnAll">
-				<span class="material-symbols-outlined"> edit_document </span> <span>공지사항</span>
-			</div>
-
-
-			<div class="btnAll">
-				<span class="material-symbols-outlined"> calendar_month </span> <span>이벤트
-					관리</span>
+			<div class="btnAll" id="evtBtn">
+				<span class="material-symbols-outlined"> calendar_month </span>
+				<span>이벤트 관리</span>
 
 			</div>
 
 
-			<div class="btnAll">
-				<span class="material-symbols-outlined"> bar_chart </span> <span>웹사이트
-					활동 집계</span>
+			<div class="btnAll" id="webTotalBtn">
+				<span class="material-symbols-outlined"> bar_chart </span> 
+				<span>웹사이트 활동 집계</span>
 			</div>
 
 			<div id="empty"></div>
 			<div class="btnMembers">members</div>
 
-			<div class="btnOne">
-				<span class="material-symbols-outlined"> person </span> <span>회원
-					관리</span>
+			<div class="btnOne" id="memMngBtn">
+				<span class="material-symbols-outlined"> person </span>
+				<span>회원 관리</span>
 			</div>
 
 
-			<div class="btnOne">
-				<span class="material-symbols-outlined"> person_off </span> <span>신고내역
-					관리</span>
+			<div class="btnOne" id="memRepBtn">
+				<span class="material-symbols-outlined"> person_off </span>
+				<span>신고내역 관리</span>
 			</div>
 
 
-			<div class="btnOne">
-				<span class="material-symbols-outlined"> edit_note </span> <span>게시물
-					관리</span>
+			<div class="btnOne" id="memPostBtn">
+				<span class="material-symbols-outlined"> edit_note </span>
+				<span>게시물 관리</span>
 			</div>
 
 
-			<div class="btnOne">
-				<span class="material-symbols-outlined"> comment </span> <span>댓글
-					관리</span>
+			<div class="btnOne" id="memCmtBtn">
+				<span class="material-symbols-outlined"> comment </span>
+				<span>댓글 관리</span>
 			</div>
 		</div>
-	</div>
-	<!-- 헤더 1 -->
+	</div> <!-- 헤더 1 -->
 
 
 
 
 	<div id="header2">
-		<div id="hd2_header"></div>
+		<div id="hd2_header">
+		<!-- 상단바 -->
+		<div id="hd2_header">
+			<div class="hh2_icon">
+				<div>알림</div>
+				<div>
+					<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
+				</div>
+			</div>
+		</div>
+		
+		</div>
 		<div id="hd2_content">
 			<div id="hd2_Cname"></div>
 			<!-- 빈칸용도 -->
