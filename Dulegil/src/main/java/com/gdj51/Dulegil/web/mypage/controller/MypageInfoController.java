@@ -26,6 +26,7 @@ public class MypageInfoController {
 			mav.setViewName("login/login");		
 		}
 		else {
+			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 			
 			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
 			

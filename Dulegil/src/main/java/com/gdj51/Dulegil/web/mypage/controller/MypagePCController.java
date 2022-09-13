@@ -7,15 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MypagePCController {
 
-	@RequestMapping(value = "/mypage_myinfo")
-	public ModelAndView mypage_myinfo(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("mypage/mypage_myinfo");
-
-		return mav;
-
-	}
-
 	@RequestMapping(value = "/mypage_password_check")
 	public ModelAndView mypage_password_check(ModelAndView mav) throws Throwable {
 
