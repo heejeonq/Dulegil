@@ -221,7 +221,7 @@ function change_btn(e) {
 		
 		
 						<!-- DeleteBtn -->
-						<input type="button" name="deleteBtn" id="deleteBtn" class="btn green" value="삭제">
+						<input type="button" name="delBtn" id="delBtn" class="btn green" value="삭제">
 						
 						
 						<!-- Paging -->			
@@ -247,7 +247,7 @@ function change_btn(e) {
 											<option>제목</option>
 											<option>내용</option>
 										</select>
-									<div class="searchBox">
+									<div class="searcBox">
 										<input type="text" class="serchTxt" placeholder="검색하기" />
 										<div class="search_ico" onclick="chk_search();">
 										<img src="resources/images/dod.png" id="searIcon" />

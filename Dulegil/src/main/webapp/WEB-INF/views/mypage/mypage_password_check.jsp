@@ -71,8 +71,6 @@ function change_btn(e) {
 
 
 </script>
-
-
 </head>
 <body>
 <!-- Header -->

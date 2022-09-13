@@ -2,7 +2,7 @@
 
 .btn {
   text-decoration: none;
-  color: white;
+  color: #000;
   height: 35px;
   width: 50px;
   display: inline-block;
@@ -16,7 +16,7 @@
 
 
 .green {
-	background-color: #77bdeb;
+	background-color: #f0c41994 ;
 }
 .btn.green:active {
 	background-color: #4f9acb;

@@ -71,11 +71,11 @@ function change_btn(e) {
 				<div class="area_tit">
 					<span>내 정보</span>
 				</div>
-				<div class="user_box">
-					<div class="user_profile">
+				<div class="mem_box">
+					<div class="mem_profile">
 						<img alt="" src="resources/images/sample3.png">
 					</div>
-					<div class="user_info">
+					<div class="mem_info">
 						<dl>
 							
 							<div>
