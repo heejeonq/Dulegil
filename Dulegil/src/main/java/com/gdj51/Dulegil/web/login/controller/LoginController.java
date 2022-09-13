@@ -27,11 +27,14 @@ public class LoginController {
 
 	@RequestMapping(value = "/login")
 	public ModelAndView login(HttpSession session, ModelAndView mav) throws Throwable {
-
+	
 		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 			mav.setViewName("redirect:main");
 		}
-		mav.setViewName("login/login");
+		else {
+			mav.setViewName("login/login");
+			
+		}
 
 		return mav;
 	}
@@ -76,11 +79,34 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/header")
-	public ModelAndView testAHeader(ModelAndView mav) {
+	public ModelAndView header(ModelAndView mav) {
 		mav.setViewName("common/header");
 		return mav;
 	}
 	
+	@RequestMapping(value="/findID")
+	public ModelAndView findID(ModelAndView mav) {
+		mav.setViewName("login/find_ID");
+		return mav;
+	}
+	
+	@RequestMapping(value="/findPW")
+	public ModelAndView findPW(ModelAndView mav) {
+		mav.setViewName("login/find_PW");
+		return mav;
+	}
+	
+	@RequestMapping(value="/viewID")
+	public ModelAndView viewID(ModelAndView mav) {
+		mav.setViewName("login/view_ID");
+		return mav;
+	}
+	@RequestMapping(value="/viewPW")
+	public ModelAndView viewPW(ModelAndView mav) {
+		mav.setViewName("login/view_PW");
+		return mav;
+	}
+
 
 	
 
