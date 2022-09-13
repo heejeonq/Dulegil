@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MypageController {
+public class MypagePCController {
 
 	@RequestMapping(value = "/mypage_myinfo")
 	public ModelAndView mypage_myinfo(ModelAndView mav) throws Throwable {
@@ -29,15 +29,6 @@ public class MypageController {
 	public ModelAndView mypage_myinfo_u(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("mypage/mypage_myinfo_u");
-
-		return mav;
-
-	}
-
-	@RequestMapping(value = "/mypage_board")
-	public ModelAndView mypage_board(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("mypage/mypage_board");
 
 		return mav;
 
