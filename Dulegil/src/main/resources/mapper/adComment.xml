@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adComment">
+
+<select id="list" resultType="hashmap">
+SELECT M.MEMBER_NO, BT.BLTNBOARD_NM, M.NM, M.EMAIL, C.CONTENTS, C.REG_DT
+FROM MEMBER M INNER JOIN COMMENTS C
+                ON M.MEMBER_NO = C.MEMBER_NO
+               INNER JOIN BULLETIN_BOARD B
+                ON C.POST_NO = B.POST_NO
+               INNER JOIN BOARD_TYPE BT
+                ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
+WHERE C.DEL_DT IS NULL
+</select>
+
+
+
+</mapper>

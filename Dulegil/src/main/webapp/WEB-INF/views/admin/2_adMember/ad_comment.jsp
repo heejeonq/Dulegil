@@ -126,7 +126,7 @@ input:focus {
 	outline: none;
 }
 
-#hdSearch {
+#searchBtn {
 	background-color: #ededed;
 	border-radius: 5px;
 	border: 1px solid #f4f5ee;
@@ -210,7 +210,92 @@ $(document).ready(function(){
 	
 	
 	
-});
+	// 목록 구분 설정
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}
+	
+	reloadList();
+	
+	// 검색 버튼 클릭시
+	$("#searchBtn").on("click", function(){
+		$("#page").val("1");
+		
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	})
+	
+	
+	// 페이징 버튼
+	$(".paging_area").on("click", "div", function(){
+			// 기존 검색상태 유지
+			$("#searchGbn").val($("#oldGbn").val());
+			$("#searchTxt").val($("#oldTxt").val());
+			
+			$("#page").val($(this).attr("page"));
+			reloadList();
+			
+		});
+
+	
+	// 삭제 버튼
+	
+	
+	
+}); // document ready end
+
+
+
+function reloadList(){
+	var params = $("#actionForm").serialize();
+	
+	$.ajax({
+		url:"adCmtAjax",
+		type: "POST",
+		dataType: "json",
+		data : params,
+		success : function(res){
+			drawList(res.list);
+			console.log(res);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+			
+		}
+		
+		
+	});
+	
+}; // reloadList end
+
+
+
+	// 게시글 목록 함수
+	function drawList(list){
+	var html = "";
+	
+	for(var data of list){
+		//"+ +"
+		html += "<tr no=\"" +data.M.MEMBER_NO +"\">";
+		html +="	<td colspan=\"1\"><input type=\"checkbox\" /></td>";
+		html +="	<td colspan=\"1\">"+ data.M.MEMBER_NO +"</td>";
+		html +="	<td colspan=\"1\">"+ data.BT.BLTNBOARD_NM +"</td>";
+		html +="	<td colspan=\"1\">"+ data.M.EMAIL +"</td>";
+		html +="	<td colspan=\"5\">"+ data.C.CONTENTS +"</td>";
+		html +="	<td colspan=\"1\">"+ data.C.REG_DT +"</td>";
+		html +="	<td colspan=\"2\"><span class=\"material-icons\"style=\"font-size: 14px; cursor: pointer; line-height:2;\">"+ close +"</span></td>";
+		html += "</tr>";
+	}
+	
+	$("tbody").html(html);
+}
+
+
+
 </script>
 
 
@@ -317,28 +402,38 @@ $(document).ready(function(){
 
 			<div id="hd2_CC">
 				<div id="CCbox">
+					
+					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
+					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+					
 					<!-- 검색 구분 -->
 					<div id="hd2_search">
-
-						<div class="Sbar1">
-							<select class="sel">
-								<option>카테고리</option>
-								<option>댓글 내용</option>
-								<option>아이디</option>
-							</select>
-						</div>
-						<div class="Sbar2">
-							<input type="text" class="commentBoxT" />
-						</div>
-						<div class="Sbar3">
-							<input type="button" id="hdSearch" value="검색" />
-						</div>
+						<form action="#" id="actionForm" method="post">
+							<input type="hidden" name="no" id="no"/>
+							<input type="hidden" name="page" id="page" value="${page}"/>
+							
+							<div class="Sbar1">
+								<select class="sel" name="searchGbn" id="searchGbn">
+									<option value="0">댓글 내용</option>
+									<option value="1">아이디</option>
+								</select>
+							</div>
+							
+							<div class="Sbar2">
+								<input type="text" class="commentBoxT" name="searchTxt" value="${param.searchTxt}"/>
+							</div>
+							
+							<div class="Sbar3">
+								<input type="button" id="searchBtn" value="검색" />
+							</div>
+						
+						</form>
 					</div>
 
 
 
 					<!-- 테이블  -->
-					<table>
+					<table class="board_table">
 						<thead>
 							<tr>
 								<th colspan="1"><input type="checkbox" /></th>
@@ -362,56 +457,7 @@ $(document).ready(function(){
 									class="material-icons"
 									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
 							</tr>
-							
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
-							</tr>
-							
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
-							</tr>
-							
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
-							</tr>
-							
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행구하기</td>
-								<td colspan="1">scone</td>
-								<td colspan="5">안녕하세요 ㅎㅎ 9월 22날 동행 구해요 심심한 사람들 모이세요~</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer; line-height:2;"> close </span></td>
-							</tr>
-							
-							
+						
 						</tbody>
 					</table>
 					<!-- 작성 삭제 버튼 -->
@@ -425,27 +471,21 @@ $(document).ready(function(){
 
 
 				<!--  페이징  -->
-				<div id="hd2_paging">
+				<div id="hd2_paging" class="paging_area">
 					<div id="pBtn_GD">
+						<input type="button" value="처음" class="pBtn" />
+					</div>
+					<div id="pBtn">
 						<input type="button" value="이전" class="pBtn" />
 					</div>
 					<div id="pBtn">
 						<input type="button" value="1" class="pBtn" />
-					</div>
+					</div>					
 					<div id="pBtn">
-						<input type="button" value="2" class="pBtn" />
-					</div>
-					<div id="pBtn">
-						<input type="button" value="3" class="pBtn" />
-					</div>
-					<div id="pBtn">
-						<input type="button" value="4" class="pBtn" />
-					</div>
-					<div id="pBtn">
-						<input type="button" value="5" class="pBtn" />
+						<input type="button" value="다음" class="pBtn" />
 					</div>
 					<div id="pBtn_GD">
-						<input type="button" value="다음" class="pBtn" />
+						<input type="button" value="끝" class="pBtn" />
 					</div>
 				</div>
 				<!-- 페이징 -->
