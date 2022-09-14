@@ -13,9 +13,12 @@
 }
 
 .emptyBox {
-    width: 80%;
+  
+    width: 90%;
     height: 50px;
     margin: 0 auto;
+    text-align: left;
+
 }
 
 
@@ -42,7 +45,7 @@
 	margin-left:10px;
 }
 
-#delBtn{
+#deleteBtn{
 	margin-top:4px;
 	margin-left:380px;
 }
