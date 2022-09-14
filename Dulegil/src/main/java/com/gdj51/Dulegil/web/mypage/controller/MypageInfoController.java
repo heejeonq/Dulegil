@@ -85,9 +85,25 @@ public class MypageInfoController {
 	
 
 	@RequestMapping(value = "/mypageMyinfoUpdate")
-	public ModelAndView mypage_myinfo_u(ModelAndView mav) throws Throwable {
+	public ModelAndView mypageMyinfoUpdate(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
-		mav.setViewName("mypage/mypage_myinfo_u");
+		
+		//로그인 안했을 경우엔 로그인 페이지로
+		if(session.getAttribute("sMemNm") == null && session.getAttribute("sMemNm") == "") {
+			
+			mav.setViewName("login/login");		
+		}
+		else {
+			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
+			
+			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
+			
+			mav.addObject("data", data);
+			
+			mav.setViewName("mypage/mypage_myinfo_u");
+			
+		}
+	
 
 		return mav;
 
