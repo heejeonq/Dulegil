@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 찾기</title>
 <link rel="stylesheet" href="resources/css/idpw.css" />
+
 </head>
 <body>
 
