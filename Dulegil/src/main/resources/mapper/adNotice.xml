@@ -11,6 +11,15 @@ FROM NOTICE N INNER JOIN MEMBER M
 WHERE N.DEL_DT IS NULL
 </select>
 
+<insert id="insert">
+INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE, MUST_READ_YN)
+VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 1, #{contents}, #{attFile}, 1)
+</insert>
 
+<update id="update">
+</update>
+
+<update id="delete">
+</update>
 
 </mapper>

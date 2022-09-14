@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="../../common/jscss.jsp" flush="true" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -221,7 +223,7 @@ $(document).ready(function(){
 	});
 	
 	
-	
+	function()
 	
 	
 });
@@ -324,6 +326,9 @@ $(document).ready(function(){
 						event_note </span>공지사항
 				</div>
 			</div>
+			
+			
+			
 			<div id="hd2_CC">
 				<div id="CCbox">
 					<table>
@@ -354,6 +359,9 @@ $(document).ready(function(){
 							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
 						</a>
 					</div>
+					
+					
+					
 					<div id="update">
 						<input type="button" value="수정" class="delBtn" />
 					</div>
