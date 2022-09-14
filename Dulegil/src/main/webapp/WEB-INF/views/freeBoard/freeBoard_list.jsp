@@ -43,7 +43,7 @@ $(document).ready(function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","FreeInsert");
+		$("#actionForm").attr("action","freeBoardWrite");
 		$("#actionForm").submit();
 		
 		

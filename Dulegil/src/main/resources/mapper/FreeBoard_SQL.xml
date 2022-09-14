@@ -66,8 +66,8 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM
 
 <!-- 게시글등록 -->
 <insert id="insert" parameterType="hashmap">
-INSERT INTO BULLETIN_BOARD (POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,REG_DT)
-VALUES (COMMUNITY_SEQ.NEXTVAL,3,#{memberNo},#{title},#{contents},SYSDATE)
+INSERT INTO BULLETIN_BOARD (POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,REG_DT,IMG_FILE)
+VALUES (COMMUNITY_SEQ.NEXTVAL,3,#{memberNo},#{title},#{contents},SYSDATE,#{imgFile})
 </insert>
 
 
@@ -85,5 +85,22 @@ AND POST_NO= #{no}
 </update>
 
 <!-- 상세보기 -->
+<select id="getF" parameterType="hashmap" resultType="hashmap">
+SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.IMG_FILE,G.REG_DT
+     FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.BLTNBOARD_NO,B.IMG_FILE,REG_DT,DEL_DT,
+                CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+               THEN TO_CHAR(B.REG_DT, 'HH24:MI')
+               ELSE TO_CHAR(B.REG_DT,'YY.MM.DD')
+                END AS DT,
+                ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
+            FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
+                ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+                WHERE B.DEL_DT IS NULL
+                 AND T.BLTNBOARD_NO =3 )G  
+        INNER JOIN MEMBER M 
+        ON G.MEMBER_NO = M.MEMBER_NO
+      WHERE G.POST_NO=#{no}
+</select>
+
 
 </mapper>
