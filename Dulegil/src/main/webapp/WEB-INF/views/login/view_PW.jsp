@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 변경</title>
-<link rel="stylesheet" href="../css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/idpw.css" />
 </head>
 <body>
@@ -25,7 +24,7 @@
 					<input type="text" id="updatePW" name="updatePW" placeholder="비밀번호" /><br />
 					<input type="text" id="updateRPW" name="updateRPW" placeholder="비밀번호 확인" /><br />
 				</div>
-				<input type="button" id="confirmBtn" value="확인">
+				<input type="button" id="cnfmBtn" value="확인">
 			</div>	
 		</div>
 	</div>

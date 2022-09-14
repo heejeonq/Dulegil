@@ -119,16 +119,19 @@ input:focus, select:focus {
 
 .gen{
 	width: 73%;
+	height: 58px;
 }
 
 .gen input{
 	width: 10%;
+	height: 16px;
 }
 
-.addInfo label{
-	font-size: 10pt;
-	margin: 0;
-	text-align: center;
+.gen label{
+	font-size: 11pt;
+	color: #444;
+	margin-left: -12px;
+	margin-right: 12px;
 }
 
 #zcd {
@@ -136,7 +139,8 @@ input:focus, select:focus {
 }
 
 #adr{
-	width: 50%;
+	width: 45%;
+    margin-left: -10px;
 }
 
 #adrBtn{
@@ -150,7 +154,7 @@ input:focus, select:focus {
 }
 
 #adrDtl{
-	width: 86%;
+	width: 82%;
 }
 
 .btn{
@@ -163,7 +167,7 @@ input:focus, select:focus {
 	font-family: 'Pretendard-Regular';
 	width: 300px;
     height: 50px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 2px;	
     cursor: pointer;

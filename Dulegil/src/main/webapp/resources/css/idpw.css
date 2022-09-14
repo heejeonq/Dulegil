@@ -8,10 +8,14 @@ input:focus, select:focus {
 	outline: none;
 }
 
+.container-main{
+	align-items: center;
+    justify-content: space-around;
+}
+
 .inpCon {
 	width: 500px;
 	border: 1px solid #ddd;
-	margin: auto;
 	background-color: white;
 }
 
@@ -80,7 +84,7 @@ input:focus, select:focus {
 	width: 30%;
 }
 
-#joinBtn{
+#memLgnBtn, #cnfmBtn{
 	display: block;
     width: 430px;
     height: 50px;
@@ -94,12 +98,7 @@ input:focus, select:focus {
     background-color: white;
 }
 
-.viewbtn{
-	width: 405px;
-	margin: 0 auto
-}
-
-#loginBtn, #findPwdBtn{
+#lgnBtn, #findPwdBtn{
 	display: inline-block;
     width: 200px;
     height: 50px;
@@ -112,12 +111,9 @@ input:focus, select:focus {
     margin: 0;
 }
 
-#loginBtn{
+#lgnBtn{
 	margin-right: 5px;
-}
-
-#loginBtn:hover, #findPwdBtn:hover, #cnfmBtn:hover{
-	background-color: #eff3f6;
+	margin-left: 48px;
 }
 
 .btn {

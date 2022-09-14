@@ -131,6 +131,9 @@ input:focus {
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" 
+		src="resources/script/jquery/jquery.form.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	//에디터 연결
@@ -222,7 +225,7 @@ $(document).ready(function(){
 	   	 		if(res.result =="SUCCESS"){//파일전송 성공
 	   	 			//올라간 파일이 존재한다면
 	   	 			if(res.fileName.length > 0){//배열의 갯수가 0보다 크다면
-	   	 				$("#imgFile").val(res.fileName[0]);//올라간 파일명 보관
+	   	 				$("#attFile").val(res.fileName[0]);//올라간 파일명 보관
 	   	 			}
 	   	 		/*
 	   	 		글저장
@@ -245,7 +248,7 @@ $(document).ready(function(){
 	   	                    $("#searchgbn").val("0");
 	   	                    $("#searchTxt").val("");
 	   	                    
-	   	                    $("#backForm").submit();
+	   	                 	location.href = "adNtList"
 	   	                     break;
 	   	                  case "fail" :
 	   	                     makeAlert("알림", "등록에 실패하였습니다.")
@@ -391,7 +394,7 @@ $(document).ready(function(){
 
 					<form action="fileUploadAjax" id="actionForm" method="post"
 						enctype="multipart/form-data">
-						<input type="hidden" name="imgFile" id="imgFile" />
+						<input type="hidden" name="attFile" id="attFile" />
 						<!-- 실 저장된 파일명 보관용 -->
 						<input type="hidden" name="memberNo" id="memberNo"
 							value="${sMemNo}" />
