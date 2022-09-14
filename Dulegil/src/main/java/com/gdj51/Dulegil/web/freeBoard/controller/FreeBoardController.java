@@ -132,19 +132,77 @@ public class FreeBoardController {
 			
 			HashMap<String,String> data = dao.getMap("free.getF",params);
 			
+
+			
 			
 			mav.addObject("data", data);
 			mav.setViewName("freeBoard/freeBoard_detail");
-		} /*
-			 * else { mav.setViewName("redirect:freeBoard"); }
-			 */
+		} 
+			 else { mav.setViewName("redirect:freeBoard"); }
+			
 		
 		
 		return mav;
 	}
 	
+	
+	
+	//댓글
+	@RequestMapping(value="/freeCAction/{gbn}",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String freeCAction(
+			@PathVariable String gbn,
+			@RequestParam HashMap<String,String> params) throws Throwable{
+			ObjectMapper mapper =  new ObjectMapper();
 		
+		Map<String,Object> model = new HashMap<String, Object>();
 		
+		int cnt=0;
+	
+		try {
+		switch(gbn) {
+		case "insert": cnt=dao.insert("free.insertC",params);
+			break;
+		case "update": cnt=dao.update("free.updateC",params);
+			break;
+		case "delete": cnt=dao.update("free.deleteC",params);
+			break;
+		}
+			if(cnt > 0) {
+				model.put("msg","success");
+			}else {
+				model.put("msg","fail");
+			}
+			
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+		
+			
+		return mapper.writeValueAsString(model);	
+}
+		
+	@RequestMapping(value = "/freeBoardUpdate")
+	public ModelAndView freeBoardUpdate
+			(@RequestParam HashMap<String,String> params,
+			ModelAndView mav) throws Throwable{
+		if(params.get("no") != null && params.get("no") != "") {
+			
+			HashMap<String,String> data = dao.getMap("free.getF",params);
+			
+			
+			mav.addObject("data", data);
+			mav.setViewName("freeBoard/freeBoard_update");
+		}else {
+			mav.setViewName("redirect:freeBoard");
+		}
+	
+		return mav;
+	}	
 		
 		
 		
