@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>로그인</title>
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/idpw.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/cmn.css" />
 <script type="text/javascript">

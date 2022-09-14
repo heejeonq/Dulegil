@@ -79,7 +79,7 @@ input:focus, select:focus {
 }
 
 #cnfmBtn{
-	width: 17%;
+	width: 16%;
 	letter-spacing: 2px;
 	cursor: pointer;
 	margin-left: 15px;
@@ -107,7 +107,7 @@ input:focus, select:focus {
     border: 0;
     border-bottom: 1px solid #ddd;
     line-height: 2;
-    font-size: 13px;
+    font-size: 14px;
     color: #444;
     width: 80%;
     margin-bottom: 5px;
@@ -115,6 +115,14 @@ input:focus, select:focus {
 
 #dtBrt {
 	width: 230px;
+}
+
+.gen{
+	width: 73%;
+}
+
+.gen input{
+	width: 10%;
 }
 
 .addInfo label{
@@ -132,7 +140,7 @@ input:focus, select:focus {
 }
 
 #adrBtn{
-	width: 90px;
+	width: 85px;
 	letter-spacing: 2px;
 	cursor: pointer;
 	margin-right: 15px;
