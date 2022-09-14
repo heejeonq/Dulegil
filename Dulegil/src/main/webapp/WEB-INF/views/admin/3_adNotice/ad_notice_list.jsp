@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="../../common/jscss.jsp" flush="true" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,10 +51,10 @@
 /* 오른쪽 하단 크기 */
 #header2 #hd2_CC {
 	width: 92%;
-    height: 80%;
-    background-color: rgb(255, 255, 255);
-    text-align: center;
-    margin: auto;
+	height: 80%;
+	background-color: rgb(255, 255, 255);
+	text-align: center;
+	margin: auto;
 	/*text-align: center;쓰려면 자식 css에 인라인블록*/
 }
 
@@ -69,49 +71,40 @@
 }
 
 /* 테이블 */
-
-
 th {
 	width: 310px;
 	height: 10%;
 	font-size: 13px;
 	padding: 14px;
 	border-bottom: solid 1px #5e5e5e;
-	color:#a1a1a1;
-	
-	}
-	
-
+	color: #a1a1a1;
+}
 
 th:nth-child(2), td:nth-child(2) {
 	width: 65%;
 	text-align: left;
 }
 
-
-tr .tr_td:hover{
-	background-color:#ebebeb;
-	font-weight:700px !important;
-
+tr .tr_td:hover {
+	background-color: #ebebeb;
+	font-weight: 700px !important;
 }
 
 #tr_1 {
 	font-size: 14px;
 }
 
-td{
- font-size:small;
- font-weight: 500;
- border-bottom: solid 0.5px #ebebeb;
- padding: 10px;
- 
+td {
+	font-size: small;
+	font-weight: 500;
+	border-bottom: solid 0.5px #ebebeb;
+	padding: 10px;
 }
 /* 작성 & 수정 & 삭제 버튼 */
 #write {
 	width: 100%;
 	text-align: right;
 }
-
 
 /* 페이징 */
 #header2 #hd2_CC #hd2_paging {
@@ -317,7 +310,7 @@ $(document).ready(function(){
 	});
 	
 	
-	// 글 목록 클릭시 상세보기
+	// 글 목록 클릭시 상세보기 // 체크 박스 선택시 x 
 	$("tbody").on("click", "tr", function(){
 		$("#no").val($(this).attr("no"));
 		$("#searchGbn").val($("#oldGbn").val());
@@ -370,10 +363,10 @@ function drawList(list){
 	for(var data of list){
 		// "+ +"                                                             
 		html += "<tr class=\"tr_td\"no=\"" + data.MEMBER_NO + "\">";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"6\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ data.POST_NO +"</td>";
+		html += "<td colspan=\"6\">"+ data.TITLE +"</td>";
+		html += "<td colspan=\"1\">"+ data.NM +"</td>";
+		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
 		html += "<td colspan=\"1\"><input type=\"checkbox\" /></td>";
 		html += "</tr>";
 		                                                                
@@ -395,58 +388,58 @@ function drawList(list){
 			<div class="btnMembers">manager menu</div>
 
 			<div class="btnAll" id="actMngBtn">
-				<span class="material-symbols-outlined">account_circle </span>
-				<span>관리자 계정 관리</span>
+				<span class="material-symbols-outlined">account_circle </span> <span>관리자
+					계정 관리</span>
 			</div>
-			
-			
-	
+
+
+
 
 			<div class="btnAll" id="ntcBtn">
-				<span class="material-symbols-outlined" > edit_document </span>
-				<span>공지사항</span>
+				<span class="material-symbols-outlined"> edit_document </span> <span>공지사항</span>
 			</div>
 
 
 			<div class="btnAll" id="evtBtn">
-				<span class="material-symbols-outlined"> calendar_month </span>
-				<span>이벤트 관리</span>
+				<span class="material-symbols-outlined"> calendar_month </span> <span>이벤트
+					관리</span>
 
 			</div>
 
 
 			<div class="btnAll" id="webTotalBtn">
-				<span class="material-symbols-outlined"> bar_chart </span> 
-				<span>웹사이트 활동 집계</span>
+				<span class="material-symbols-outlined"> bar_chart </span> <span>웹사이트
+					활동 집계</span>
 			</div>
 
 			<div id="empty"></div>
 			<div class="btnMembers">members</div>
 
 			<div class="btnOne" id="memMngBtn">
-				<span class="material-symbols-outlined"> person </span>
-				<span>회원 관리</span>
+				<span class="material-symbols-outlined"> person </span> <span>회원
+					관리</span>
 			</div>
 
 
 			<div class="btnOne" id="memRepBtn">
-				<span class="material-symbols-outlined"> person_off </span>
-				<span>신고내역 관리</span>
+				<span class="material-symbols-outlined"> person_off </span> <span>신고내역
+					관리</span>
 			</div>
 
 
 			<div class="btnOne" id="memPostBtn">
-				<span class="material-symbols-outlined"> edit_note </span>
-				<span>게시물 관리</span>
+				<span class="material-symbols-outlined"> edit_note </span> <span>게시물
+					관리</span>
 			</div>
 
 
 			<div class="btnOne" id="memCmtBtn">
-				<span class="material-symbols-outlined"> comment </span>
-				<span>댓글 관리</span>
+				<span class="material-symbols-outlined"> comment </span> <span>댓글
+					관리</span>
 			</div>
 		</div>
-	</div> <!-- 헤더 1 -->
+	</div>
+	<!-- 헤더 1 -->
 
 
 
@@ -458,7 +451,8 @@ function drawList(list){
 			<div class="hh2_icon">
 				<div>알림</div>
 				<div>
-					<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
+					<span class="material-symbols-outlined" id="logoutBtn">
+						exit_to_app </span>로그아웃
 				</div>
 			</div>
 		</div>
@@ -469,7 +463,9 @@ function drawList(list){
 			<!-- 상단 빈칸 용도 -->
 			<div id="hd2_Cname">
 				<div id="Cname_box">
-					<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> event_note </span>공지사항 목록
+					<span class="material-symbols-outlined"
+						style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">
+						event_note </span>공지사항 목록
 				</div>
 			</div>
 
@@ -486,26 +482,19 @@ function drawList(list){
 							</tr>
 						</thead>
 						<tbody>
-							
-							<tr class="tr_td">
-								<td colspan="1">1</td>
-								<td colspan="6">둘레길 걸어보자</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="1"><input type="checkbox" /></td>
-							</tr>
-							
+
 						</tbody>
 					</table>
-					
-					
-					
-				<!-- 작성 삭제 버튼 -->
-				<div id="write">
-					<input type="button" value="글쓰기" class="delBtn" id="insertBtn" /> <input
-						type="button" value="삭제" class="delBtn" />
+
+
+
+					<!-- 작성 삭제 버튼 -->
+					<div id="write">
+						<input type="button" value="글쓰기" class="delBtn" id="insertBtn" />
+						<input type="button" value="삭제" class="delBtn" />
+					</div>
 				</div>
-				</div><!-- ccbox -->
+				<!-- ccbox -->
 
 
 
@@ -538,22 +527,23 @@ function drawList(list){
 				</div>
 				<div id="search">
 					<form action="#" id="actionForm" method="post">
-						<input type="hidden" name="no" id="no"/>
-						<input type="hidden" name="page" id="page" value="${page}"/>
-					
-					<div class="Sbar1">
-						<select class="sel" name="searchGbn" id="searchGbn">
-							<option value="0">제목</option>
-							<option value="1">내용</option>
-						</select>
-					</div>
-					
-					<div class="Sbar2">
-						<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt }" />
-					</div>
-					<div class="Sbar3">
-						<input type="button" id="searchBtn" value="검색" />
-					</div>
+						<input type="hidden" name="no" id="no" /> <input type="hidden"
+							name="page" id="page" value="${page}" />
+
+						<div class="Sbar1">
+							<select class="sel" name="searchGbn" id="searchGbn">
+								<option value="0">제목</option>
+								<option value="1">내용</option>
+							</select>
+						</div>
+
+						<div class="Sbar2">
+							<input type="text" class="commentBoxT" name="searchTxt"
+								id="searchTxt" value="${param.searchTxt }" />
+						</div>
+						<div class="Sbar3">
+							<input type="button" id="searchBtn" value="검색" />
+						</div>
 					</form>
 				</div>
 			</div>
