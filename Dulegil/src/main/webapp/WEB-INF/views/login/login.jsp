@@ -8,17 +8,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>로그인</title>
 <link rel="stylesheet" href="resources/css/idpw.css" />
-<link rel="stylesheet" type="text/css" href="resources/css/common/cmn.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/cmn.css" />
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#actionForm").on("keypress", "input", function(event) {
 		if(event.keyCode == 13){
-			$("#loginBtn").click();
+			$("#memLgnBtn").click();
 			return false;
 		}
 	});
 	
-	$("#loginBtn").on("click", function(){
+	$("#memLgnBtn").on("click", function(){
 		if($.trim($("#lgnId").val()) == "") {
 			makeAlert("알림", "아이디를 입력하세요", function(){;
 			$("#lgnId").focus();	
@@ -68,7 +68,7 @@ $(document).ready(function(){
 					<input type="text" id="lgnId" name="lgnId" placeholder="아이디" /><br />
 					<input type="password" id="lgnPwd" name="lgnPwd" placeholder="비밀번호" />
 				</div>
-				<input type="button" id="loginBtn" value="로그인">
+				<input type="button" id="memLgnBtn" value="로그인">
 			</div>
 		</form>
 			<ul class="btn">
@@ -76,10 +76,10 @@ $(document).ready(function(){
 					<a href="./join">회원가입</a>
 				</li>
 				<li>
-					<a href="findIdBtn">아이디 찾기</a>
+					<a href="findId">아이디 찾기</a>
 				</li>
 				<li>
-					<a href="findPwdBtn">비밀번호 찾기</a>
+					<a href="findPwd">비밀번호 찾기</a>
 				</li>
 			</ul>
 		</div>

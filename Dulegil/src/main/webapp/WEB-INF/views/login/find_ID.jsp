@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>아이디 찾기</title>
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/idpw.css" />
 </head>
 <body>
@@ -25,12 +24,12 @@
 					<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
 					<input type="text" id="findPhn" name="findPhn" placeholder="휴대전화번호" />
 
-					<input type="button" id="confirmBtn" value="확인">
+					<input type="button" id="cnfmBtn" value="확인">
 				</div>
 			</div>	
 			<div class="btn">
 				<p>회원정보가 기억나시나요?</p>
-				<a href="findPW">비밀번호 찾기</a>
+				<a href="findPwd">비밀번호 찾기</a>
 				<a href="login">로그인</a>
 			</div>
 		</div>
