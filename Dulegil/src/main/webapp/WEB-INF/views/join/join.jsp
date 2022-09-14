@@ -62,8 +62,14 @@ function sample6_execDaumPostcode() {
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#joinBtn").on("click", function(){
+		$("#email").val($("#id").val() + "@" + $("#emailSel option:selected").val());
+		console.log($("#email").val());
 		action("insert");
 	});
+	
+	
+
+	
 });
 
 function action(flag){
@@ -79,7 +85,6 @@ function action(flag){
         	switch(res.msg) {
         	case "success" : 
         		//내용 초기화
-        	
         		
         		//목록 재조회
         		switch(flag){
@@ -142,16 +147,17 @@ function action(flag){
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input type="text" name="email" id="email" placeholder="(영문소문자/숫자, 4~16자)" />
+							<input type="text" id="id" placeholder="(영문소문자/숫자, 4~16자)" />
+							<input type="hidden" name="email" id="email">
 							<select id="emailSel">
 								<option>직접입력</option>
-								<option>naver.com</option>
-								<option>hanmail.net</option>
-								<option>daum.net</option>
-								<option>nate.com</option>
-								<option>hotmail.com</option>
-								<option>gmail.com</option>
-								<option>icloud.com</option>
+								<option value="naver.com">naver.com</option>
+								<option value="hanmail.net">hanmail.net</option>
+								<option value="daum.net">daum.net</option>
+								<option value="nate.com">nate.com</option>
+								<option value="hotmail.com">hotmail.com</option>
+								<option value="gmail.com">gmail.com</option>
+								<option value="icloud.com">icloud.com</option>
 							</select>
 							<input type="button" name="cnfmBtn" id="cnfmBtn" id="cnfmBtn" value="중복확인" />
 						</td>

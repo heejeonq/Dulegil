@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,16 @@
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>내 정보</title>
+<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	
+
+
+	});
+});
+
+
 function change_btn(e) {
    var btns = document.querySelectorAll(".btnbox");
    btns.forEach(function(btn, i) {
@@ -37,7 +47,7 @@ function change_btn(e) {
 				<a href="#">
 				   <li><button class="btnbox active" onclick="change_btn(event)">내 정보</button></li>
 				</a>
-				<a href="#">
+				<a href="mypagePasswordCheck">
 				   <li><button class="btnbox" onclick="change_btn(event)">개인 정보 수정</button></li>
 				</a>
 				<a href="#">
@@ -54,6 +64,9 @@ function change_btn(e) {
 		
 		<!-- Contents -->
 		<div class="contents">
+
+			<input type="hidden" name="memNo" value="${sMemNo}">
+
 			<div class="mypage_contents">
 				<div class="area_tit">
 					<span>내 정보</span>
@@ -67,27 +80,34 @@ function change_btn(e) {
 							
 							<div>
 								<dt>이름</dt>
-								<dd>구디아카데미</dd>
+								<dd>${data.NM}</dd>
 							</div>
 							<div>
 								<dt>생년월일</dt>
-								<dd>2022.05.09</dd>
+								<dd>${data.DATE_BIRTH}</dd>
 							</div>
 							<div>
 								<dt>성별</dt>
+							<c:choose>
+							<c:when test="${data.GENDER == 0}">
+								<dd>남성</dd>
+							</c:when>
+							<c:otherwise>
 								<dd>여성</dd>
+							</c:otherwise>
+							</c:choose>
 							</div>
 							<div>
 								<dt>휴대전화</dt>
-								<dd>010-1234-5678</dd>
+								<dd>${data.PHONE_NO}</dd>
 							</div>
 							<div>
 								<dt>E-mail</dt>
-								<dd>goodee0205@gmail.com</dd>
+								<dd>${data.EMAIL}</dd>
 							</div>
 							<div>
 								<dt>주소</dt>
-								<dd>서울특별시 금천구 가산동 가산디지털2로 115 대륭테크노타운3차 1109-1호</dd>
+								<dd>${data.ADDRESS} ${data.DETAIL_ADDRESS}</dd>
 							</div>
 						</dl>
 					</div>

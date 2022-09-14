@@ -2,7 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
+<<<<<<< HEAD
 <link rel="stylesheet" href="resources/css/fonts.css" />
+=======
+
+
+>>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
 <script type="text/javascript">
 $(document).ready(function(){
 	// 로그인/로그아웃	
@@ -53,7 +58,7 @@ $(document).ready(function(){
 						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 						</svg>
 					</li>
-				<li><a href="#"> 마이페이지 </a></li>
+				<li><a href="mypageMyinfo"> 마이페이지 </a></li>
 				<li>
 				<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>

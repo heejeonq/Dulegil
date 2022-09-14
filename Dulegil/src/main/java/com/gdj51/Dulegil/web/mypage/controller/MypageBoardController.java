@@ -33,8 +33,9 @@ public class MypageBoardController {
 			page = Integer.parseInt(params.get("page"));
 		}
 
+		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
+		mav.addObject("cate", cate);
 		mav.addObject("page", page);
-
 		mav.setViewName("mypage/mypage_board");
 
 		return mav;
@@ -58,7 +59,9 @@ public class MypageBoardController {
 
 		List<HashMap<String, String>> list = iDao.getList("mypage.getBoardList", params);
 
+		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
 		model.put("list", list);
+		model.put("cate", cate);
 		model.put("pd", pd);
 
 		return mapper.writeValueAsString(model);

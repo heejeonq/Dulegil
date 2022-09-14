@@ -198,7 +198,7 @@ td{
 	position: absolute;
 }
 
-#hdSearch {
+#searchBtn {
 	margin-right: 1%;
 	background-color: #ededed;
 	border-radius: 4px;
@@ -283,9 +283,104 @@ $(document).ready(function(){
 	
 	
 	
+	// 목록 구분 설정
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}
+	
+	reloadList();
 	
 	
-});
+	
+	// 검색 버튼 클릭시
+	$("#searchBtn").on("click", function(){
+		$("#page").val("1");
+		
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	})
+	
+	
+	// 페이징 버튼
+	$(".paging_area").on("click", "div", function(){
+		//기존 검색 상태 유지
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		$("#page").val($(this).attr("page"));
+		reloadLsit();
+		
+	});
+	
+	
+	// 글 목록 클릭시 상세보기
+	$("tbody").on("click", "tr", function(){
+		$("#no").val($(this).attr("no"));
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		$("#actionForm").attr("action", "adNtDetail");
+		$("#actionForm").submit();
+	});
+	
+	
+	
+	
+	// 공지 등록 버튼
+	$("#insertBtn").on("click", function(){
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		$("#actionForm").attr("action", "adNtWrite");
+		$("#actionForm").submit();
+	});
+	
+	
+	
+}); // document.ready end
+
+
+function reloadList(){
+	var params = $("#actionForm").serialize();
+	
+	$.ajax({
+		url : "adNtAjax",
+		type: "POST",
+		dataType: "json",
+		data : params,
+		success : function(res){
+			drawList(res.list);
+			//drawPaging(res.pd);
+			console.log(res);
+
+		},
+		error : function(request, status, error) { //실패했을 때 함수 실행
+			console.log(request.responseText); //실패 상세내역
+		}
+	});
+}
+
+function drawList(list){
+	var html = "";
+	
+	for(var data of list){
+		// "+ +"                                                             
+		html += "<tr class=\"tr_td\"no=\"" + data.MEMBER_NO + "\">";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"6\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"1\"><input type=\"checkbox\" /></td>";
+		html += "</tr>";
+		                                                                
+	}                                                                    
+	$("tbody").html(html);
+};
+
 </script>
 
 </head>
@@ -399,46 +494,15 @@ $(document).ready(function(){
 								<td colspan="1">22.05.07</td>
 								<td colspan="1"><input type="checkbox" /></td>
 							</tr>
-							<tr class="tr_td">
-								<td colspan="1">1</td>
-								<td colspan="6">둘레길 걸어보자</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="1"><input type="checkbox" /></td>
-							</tr>
-							<tr class="tr_td">
-								<td colspan="1">1</td>
-								<td colspan="6">둘레길 걸어보자</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="1"><input type="checkbox" /></td>
-							</tr>
-							<tr class="tr_td">
-								<td colspan="1">1</td>
-								<td colspan="6">둘레길 걸어보자</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="1"><input type="checkbox" /></td>
-							</tr>
-							<tr class="tr_td">
-								<td colspan="1">1</td>
-								<td colspan="6">둘레길 걸어보자</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="1"><input type="checkbox" /></td>
-							</tr>
-							<tr class="tr_td">
-								<td colspan="1">1</td>
-								<td colspan="6">둘레길 걸어보자</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="1"><input type="checkbox" /></td>
-							</tr>
+							
 						</tbody>
 					</table>
+					
+					
+					
 				<!-- 작성 삭제 버튼 -->
 				<div id="write">
-					<input type="button" value="글쓰기" class="delBtn" /> <input
+					<input type="button" value="글쓰기" class="delBtn" id="insertBtn" /> <input
 						type="button" value="삭제" class="delBtn" />
 				</div>
 				</div><!-- ccbox -->
@@ -473,19 +537,24 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<div id="search">
+					<form action="#" id="actionForm" method="post">
+						<input type="hidden" name="no" id="no"/>
+						<input type="hidden" name="page" id="page" value="${page}"/>
+					
 					<div class="Sbar1">
-						<select class="sel">
-							<option>카테고리</option>
-							<option>제목</option>
-							<option>내용</option>
+						<select class="sel" name="searchGbn" id="searchGbn">
+							<option value="0">제목</option>
+							<option value="1">내용</option>
 						</select>
 					</div>
+					
 					<div class="Sbar2">
-						<input type="text" class="commentBoxT" />
+						<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt }" />
 					</div>
 					<div class="Sbar3">
-						<input type="button" id="hdSearch" value="검색" />
+						<input type="button" id="searchBtn" value="검색" />
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>

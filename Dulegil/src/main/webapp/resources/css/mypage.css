@@ -312,7 +312,7 @@ img#preview {
 	display: inline-block;
 	vertical-align: top;
 }
-#pwd{
+.pwd{
 	height: 35px;
 	border: 1px solid #ddd;
 }
@@ -399,9 +399,14 @@ img#preview {
 }
 
 /* Searching */
+.searchform{
+	display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .midbox{
 	margin-top: 30px;
-  
     height: 50px;
 	margin:0 auto;
 	text-align:center; 
@@ -467,9 +472,8 @@ img#preview {
     font-weight: normal;
 }
 .sel {
-    margin-left: -10px;
     border: none;
-    width: 94px;
+    width: 110px;
     height: 32px;
     display: inline-block;
     vertical-align: top;
