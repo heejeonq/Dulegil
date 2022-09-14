@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/mypage.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>개인 정보 수정</title>
 <!-- 주소검색 -->
@@ -60,8 +59,15 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 </script>
-<!--이미지파일 넣기-->
 <script type="text/javascript">
+$(document).ready(function(){
+	var gender = "${data.GENDER}";
+	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
+
+	
+
+});
+<!--이미지파일 넣기-->
 function readURL(input) {
 	 if (input.files && input.files[0]) {
 	   var reader = new FileReader();
@@ -74,18 +80,7 @@ function readURL(input) {
 	 }
   }
   
-function change_btn(e) {
-   var btns = document.querySelectorAll(".btnbox");
-   btns.forEach(function(btn, i) {
-      if(e.currentTarget == btn) {
-         btn.classList.adr("active");
-      }
-      else {
-         btn.classList.remove("active");
-      }
-   });
-   console.log( e.currentTarget );
-}
+
 </script>
 </head>
 <body>
@@ -95,26 +90,7 @@ function change_btn(e) {
 	<!-- Container -->
 	<div class="container-mypage">
 
-		<!-- Sidebar -->
-		<div class="mypageBtn">
-			<ul class="btnsBox">
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">내 정보</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox active" onclick="change_btn(event)">개인 정보 수정</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">게시글 관리</button></li>
-				</a>
-				<a href="#">
-				  <li><button class="btnbox" onclick="change_btn(event)">댓글 관리</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">동행</button></li>
-				</a>      
-			</ul>
-		</div>
+		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		
 		<!-- Contents -->
 		<div class="contents">
@@ -139,7 +115,7 @@ function change_btn(e) {
 						<div class="input">*필수 입력 사항</div>
 						<div class="email">
 							<label for="email"></label>
-							<input type="text" name="email" id="email" value="goodee0205@naver.com" readonly="readonly" >
+							<input type="text" name="email" id="email" value="${data.EMAIL}" readonly="readonly" >
 						</div>
 						<div class="pw01">
 							<label for="pw"></label>
@@ -151,38 +127,38 @@ function change_btn(e) {
 						</div>
 						<div class="name01">
 							<label for="name"></label>
-							<input type="text" name="nm" id="nm" value="구디아카데미">
+							<input type="text" name="nm" id="nm" value="${data.NM}">
 						</div>	
 						<div class="input">*선택 입력 사항</div>
 						<div class="dtBrt01">
 							<label for="dtBrt"></label>
-							<input type="date" name="dtBrt" id="dtBrt" value="2022.05.09" onblur="return chk_num(this.name);">
+							<input type="date" name="dtBrt" id="dtBrt" value="${data.DATE_BIRTH}" onblur="return chk_num(this.name);">
 						</div>
 						<div class="gen01">
 							<div class="g_box">
-							<input type="radio" name="gen" id="gen" value="0"><label for="M">남성</label>
+							<input type="radio" name="gen" value="0" checked="false"><label for="M">남성</label>
 						</div>
 						<div class="g_box">
-							<input type="radio" name="gen" id="gen" value="1" checked=""><label for="F">여성</label>
+							<input type="radio" name="gen"  value="1" checked="false"><label for="F">여성</label>
 						</div>
 						</div>
 						<div class="m_phn">
 							<label for="phn"></label>
-							<input type="text" name="phn" id="phn" value="01012345678" onblur="return chk_num(this.name);">
+							<input type="text" name="phn" id="phn" value="${data.PHONE_NO}" onblur="return chk_num(this.name);">
 						</div>
 						<div class="adr_area">
 							<div class="m_zcd">
 								<label for="zcd"></label>
-								<input type="text" name="zcd" id="zcd">		
+								<input type="text" name="zcd" id="zcd" value="${data.ZIP_CODE}" >		
 							</div>
 							<input type="button" class="adr_btn" name="adrBtn" id="adrBtn" onclick="sample6_execDaumPostcode()" value="주소검색">
 							<div class="adr_01">
 								<label for="adr"></label>
-								<input type="text" name="adr" id="adr">  
+								<input type="text" name="adr" id="adr" value="${data.ADDRESS}">  
 							</div>
 						    <div class="adr_02">
 								<label for="adr"></label>
-								<input type="text" name="adrDtl" name="adrDtl"> 
+								<input type="text" name="adrDtl"  value="${data.DETAIL_ADDRESS}"> 
 							</div>
 						</div>
 					</div>

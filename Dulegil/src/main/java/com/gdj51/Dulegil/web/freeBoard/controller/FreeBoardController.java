@@ -130,14 +130,14 @@ public class FreeBoardController {
 		if(params.get("no") != null && params.get("no") != "") {
 			dao.update("updateTHit",params);
 			
-			HashMap<String,String> data = dao.getMap("free.getT",params);
+			HashMap<String,String> data = dao.getMap("free.getF",params);
 			
 			
 			mav.addObject("data", data);
 			mav.setViewName("freeBoard/freeBoard_detail");
-		}else {
-			mav.setViewName("redirect:freeBoard");
-		}
+		} /*
+			 * else { mav.setViewName("redirect:freeBoard"); }
+			 */
 		
 		
 		return mav;
