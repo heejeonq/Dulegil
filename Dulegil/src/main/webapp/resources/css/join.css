@@ -26,13 +26,17 @@ th, td{
 input:focus, select:focus {
 	outline: none;
 }
+.container-main {
+	align-items: center;
+}
+
 #actionForm{
 	border: 1px solid #ddd;
+	padding: 10px;
 }
 
 .mainWrap{
 	width: 60%;
-	margin: 5% auto;
 }
 
 .mainWrap ul{
