@@ -299,13 +299,13 @@ $(document).ready(function(){
 	
 	
 	// 페이징 버튼
-	$(".paging_area").on("click", "div", function(){
+	$("#hd2_paging").on("click", "div", function(){
 		//기존 검색 상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
 		$("#page").val($(this).attr("page"));
-		reloadLsit();
+		reloadList();
 		
 	});
 	
@@ -347,7 +347,7 @@ function reloadList(){
 		data : params,
 		success : function(res){
 			drawList(res.list);
-			//drawPaging(res.pd);
+			drawPaging(res.pd);
 			console.log(res);
 
 		},
@@ -373,6 +373,63 @@ function drawList(list){
 	}                                                                    
 	$("tbody").html(html);
 };
+
+
+function drawPaging(pd){
+	var html = "";
+	// " + + " 복사
+	
+	// 처음
+	html += "<div id=\"pBtn_GD\">";
+	html += "<input type=\"button\" page=\"1\" value=\"처음\" class=\"pBtn\" />";
+	html += "</div>";
+	
+	//이전
+	if($("#page").val()=="1"){		
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"1\" value=\"이전\" class=\"pBtn\" />";
+		html += "</div>";
+		
+	} else{
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"이전\" class=\"pBtn\" />";
+		html += "</div>";
+	}
+	
+	// 현재 페이지
+	for(var i = pd.startP; i<=pd.endP; i++){
+		if($("#page").val() * 1 == i){
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
+			html += "</div>";		
+		}else{
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
+			html += "</div>";	
+			
+		}
+	}
+	
+	
+	
+	// 다음
+	if($("#page").val() * 1 == pd.maxP){
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\"다음\" class=\"pBtn\" />";
+		html += "</div>";	
+	}else{
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\"다음\" class=\"pBtn\" />";
+		html += "</div>";	
+	}
+	
+	// 끝
+	html += "<div id=\"pBtn\">";
+	html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\"끝\" class=\"pBtn\" />";
+	html += "</div>";
+	
+	$("#hd2_paging").html(html);
+}
 
 </script>
 
@@ -500,35 +557,19 @@ function drawList(list){
 
 
 				<div id="page">
-					<div id="hd2_paging">
-						<div id="pBtn_GD">
-							<input type="button" value="이전" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="1" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="2" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="3" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="4" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="5" class="pBtn" />
-						</div>
-						<div id="pBtn_GD">
-							<input type="button" value="다음" class="pBtn" />
-						</div>
-
+				
+					<div id="hd2_paging" >
+							
 					</div>
+					
 				</div>
+				
+				
+				
 				<div id="search">
 					<form action="#" id="actionForm" method="post">
-						<input type="hidden" name="no" id="no" /> <input type="hidden"
-							name="page" id="page" value="${page}" />
+						<input type="hidden" name="no" id="no" /> 
+						<input type="hidden" name="page" id="page" value="${page}" />
 
 						<div class="Sbar1">
 							<select class="sel" name="searchGbn" id="searchGbn">
