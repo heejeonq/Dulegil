@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-		$("#actionForm").submit();
+
 
 	});
 });
@@ -47,7 +47,7 @@ function change_btn(e) {
 				<a href="#">
 				   <li><button class="btnbox active" onclick="change_btn(event)">내 정보</button></li>
 				</a>
-				<a href="mypage_password_check">
+				<a href="mypagePasswordCheck">
 				   <li><button class="btnbox" onclick="change_btn(event)">개인 정보 수정</button></li>
 				</a>
 				<a href="#">
@@ -64,9 +64,9 @@ function change_btn(e) {
 		
 		<!-- Contents -->
 		<div class="contents">
-		<form action="mypage_myinfo" id="actionForm">
+
 			<input type="hidden" name="memNo" value="${sMemNo}">
-		</form>
+
 			<div class="mypage_contents">
 				<div class="area_tit">
 					<span>내 정보</span>
