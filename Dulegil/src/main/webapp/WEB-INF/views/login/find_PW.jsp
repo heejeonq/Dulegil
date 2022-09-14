@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 찾기</title>
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/idpw.css" />
 </head>
 <body>
@@ -34,11 +33,11 @@
 						<option>gmail.com</option>
 						<option>icloud.com</option>
 					</select>
-					<input type="button" id="confirmBtn" value="확인">
+					<input type="button" id="cnfmBtn" value="확인">
 				</div>
 				<div class="btn">
 					<p>아이디가 기억나지 않으시나요?</p>
-					<a href="findID">아이디 찾기</a>
+					<a href="findId">아이디 찾기</a>
 				</div>
 			</div>	
 		</div>

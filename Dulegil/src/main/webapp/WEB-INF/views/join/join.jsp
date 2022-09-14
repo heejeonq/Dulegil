@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/join.css" />
 <!-- 주소검색 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -60,6 +59,9 @@ function sample6_execDaumPostcode() {
 }
 
 $(document).ready(function() {
+	$("#dtBrt").empty();
+	$("#dtBrt").empty();
+	console.log($("#dtBrt").val());
 	$("#joinBtn").on("click", function(){
 		$("#email").val($("#id").val() + "@" + $("#emailSel option:selected").val());
 		console.log($("#email").val());
@@ -84,6 +86,7 @@ function action(flag){
         		//목록 재조회
         		switch(flag){
         		case "insert" : 
+        			window.history.back;
         			break;
         		case "delete" :
         			//조회 데이터 초기화
@@ -142,7 +145,7 @@ function action(flag){
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input type="text" id="id" placeholder="(영문소문자/숫자, 4~16자)" />
+							<input type="text" id="id" placeholder="(영문소문자/숫자, 5~20자 이내)" />
 							<input type="hidden" name="email" id="email">
 							<select id="emailSel">
 								<option>직접입력</option>
@@ -160,7 +163,7 @@ function action(flag){
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input type="password" name="pwd" id="pwd" placeholder="(영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)" />
+							<input type="password" name="pwd" id="pwd" placeholder="(영문 소문자/숫자 조합, 8자이상 20자 이내)" />
 						</td>
 					</tr>
 					<tr>
@@ -198,7 +201,7 @@ function action(flag){
 					<tr>			
 						<th>성별</th>
 						<td class="gen">
-							<input type="radio" name="gen" id="gen" value="0" checked="checked" />
+							<input type="radio" name="gen" id="gen" value="0"  />
 	      					<label for="m">남자</label>
 							<input type="radio" name="gen" id="gen" value="1" />
 							<label for="f">여자</label>
@@ -207,9 +210,9 @@ function action(flag){
 					<tr>
 						<th rowspan="2">주소</th>
 						<td colspan="3">	
-							<input type="text" name="zcd" id="zcd" value="우편 번호" />
+							<input type="text" name="zcd" id="zcd" placeholder="우편 번호" />
 							<input type="button" name="adrBtn" id="adrBtn" value="주소 검색" onclick="sample6_execDaumPostcode()" />	
-							<input type="text" name="adr" id="adr" value="주소" />
+							<input type="text" name="adr" id="adr" placeholder="주소" />
 						</td>
 					</tr>
 					<tr>

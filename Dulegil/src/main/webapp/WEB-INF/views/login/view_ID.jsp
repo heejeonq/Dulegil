@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>아이디 찾기</title>
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/idpw.css" />
 </head>
 <body>
@@ -25,10 +24,8 @@
 				<p id="viewId">'123dm@naver.com'</p> &nbsp;
 				입니다.
 				</span>
-				<div class="viewBtnWrap">
-					<input type="button" id="loginBtn" value="로그인 하기" />
-					<input type="button" id="findPWBtn" value="비밀번호 찾기" />
-				</div>
+				<input type="button" id="lgnBtn" value="로그인 하기" />
+				<input type="button" id="findPwdBtn" value="비밀번호 찾기" />
 			</div>	
 		</div>
 	</div>

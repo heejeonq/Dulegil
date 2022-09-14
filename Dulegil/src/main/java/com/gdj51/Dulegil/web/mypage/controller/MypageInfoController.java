@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,7 +85,7 @@ public class MypageInfoController {
 
 	
 
-	@RequestMapping(value = "/mypageMyinfoUpdate")
+	@RequestMapping(value = "/mypageMyinfoUpdate", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
 	public ModelAndView mypageMyinfoUpdate(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
 		
@@ -102,6 +103,22 @@ public class MypageInfoController {
 			
 			mav.setViewName("mypage/mypage_myinfo_u");
 			
+			int cnt = 0;
+			try {
+				cnt = dao.update("member.updateMyinfo", params);
+				
+				if(cnt > 0) {
+					mav.addObject("msg", "success");
+				}else {
+					mav.addObject("msg", "fail");
+				}
+				
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				mav.addObject("msg", "error");
+			}
+			
 		}
 	
 
@@ -109,12 +126,5 @@ public class MypageInfoController {
 
 	}
 
-	@RequestMapping(value = "/mypage_comment")
-	public ModelAndView mypage_comment(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("mypage/mypage_comment");
-
-		return mav;
-
-	}
+	
 }

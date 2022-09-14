@@ -60,12 +60,88 @@ function sample6_execDaumPostcode() {
 }
 </script>
 <script type="text/javascript">
+
+
+
+//성별 값 넣기
 $(document).ready(function(){
 	var gender = "${data.GENDER}";
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
 	
-
+	$("#backBtn").on("click", function(){
+		location.href = "mypageMyinfo";
+	})
+	
+	$("#updatemBtn").on("click", function(){
+		
+		if($.trim($("#pwd").val()) == "") {
+			makeAlert("알림", "비밀번호를 입력하세요", function(){;
+				$("#pwd").focus();	
+			});
+		}
+		else if($.trim($("#nm").val()) == "") {
+			makeAlert("알림", "이름을 입력하세요", function(){;
+				$("#nm").focus();	
+			});
+		}
+		
+		else {
+	    	  //1.파일업로드 -> 2. 업로드 파일명 취득 -> 글저장
+	    	  //폼 객체 취득 
+	    	  var form = $("#actionForm");
+	    	  //ajaxForm 적용
+	    	  form.ajaxForm({
+	    		  success: function(res){ //데이터 주고 받기 성공시
+	    			  if(res.result == "SUCCESS"){//파일 전송 성공
+	    				  //올라간 파일이 존재한다면
+	    				  if(res.fileName.length > 0){
+	    					  $("#imgFile").val(res.fileName[0]); //올라간 파일명 보관
+	    				  }
+	    			  
+	   					  /*
+	   					 	글 저장
+	   					  */
+				         var params = $("#actionForm").serialize();
+				         
+				         $.ajax({
+				            url:"mypageMyinfoUpdate", 
+				            type:"POST", 
+				            dataType:"json", 
+				            data : params,
+				            success: function(res) { 
+				            	switch(res.msg) {
+				            	case "success" : 
+				            		location.href = "mypageMyinfo";
+				            		break;
+				            	
+				            	case "fail" :  makeAlert("알림", "수정에 실패하였습니다.");
+				        			break;
+				        		
+				         		case "error" : makeAlert("알림", "수정 중 문제가 발생하였습니다.");
+				     				break;
+				     			}
+				               
+				            }, 
+				            error: function(request, status, error) { 
+				               console.log(request.responseText); 
+				            }
+				         });
+	    			  }else {//문제 발생
+	    				  makeAlert("알림", "파일 업로드에 <br>문제가 발생하였습니다.");
+	    			  }
+	    		  },
+	    		  error : function (){ //에러시
+	    			  makeAlert("알림", "파일 업로드에 <br>문제가 발생하였습니다.");
+	    		  }
+	    	  }); //ajaxForm 설정 끝
+	    	  //ajaxForm 실행
+	    	  form.submit();
+	      }
+	   });
+	
+	
+	
 });
 <!--이미지파일 넣기-->
 function readURL(input) {
@@ -82,6 +158,7 @@ function readURL(input) {
   
 
 </script>
+
 </head>
 <body>
 <!-- Header -->
@@ -97,20 +174,20 @@ function readURL(input) {
 			<div class="area_tit">
 				<span>개인 정보 수정</span>
 			</div>
+			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="imgFile" id="imgFile"> <!-- 실 저장된 파일명 보관용 -->
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
 					<img id="preview">
 					<div>150 x 150 </div>
 			
-					<input type="file" onchange="readURL(this);" id="fileimg">
+					<input type="file" onchange="readURL(this);" name="img">
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">
 						<div class="join_tit">
 						</div>
-					<!--<form name="f" method="post" action="my_edit_proc.asp">
-					<input type="hidden" name="member_idx" value="155782">-->
 					<div class="join_info">
 						<div class="input">*필수 입력 사항</div>
 						<div class="email">
@@ -119,7 +196,7 @@ function readURL(input) {
 						</div>
 						<div class="pw01">
 							<label for="pw"></label>
-							<input type="password" name="pwd" id="pwd" value="12345678">
+							<input type="password" name="pwd" id="pwd" value="12345678" readonly="readonly">
 						</div>
 						<div class="pw02">
 							<label for="pw"></label>
@@ -162,14 +239,16 @@ function readURL(input) {
 							</div>
 						</div>
 					</div>
+					
 					<div class="popup_btn">
-						<input type="button" class="btn green" value="수정하기">
-						<input type="button" class="btn green" value="돌아가기">
+						<input type="button" class="btn green" value="수정하기" id="updatemBtn">
+						<input type="button" class="btn green" value="돌아가기" id="backBtn">
 					</div>
-					<!--</form>-->
+				
 					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 	</div> 
 
