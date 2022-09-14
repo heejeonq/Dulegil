@@ -40,7 +40,7 @@ public class adNoticeController {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
-		int cnt = dao.getInt(null);
+		int cnt = dao.getInt("adNotice.cnt",params);
 		HashMap<String, Integer> pd = ips.getPagingData(page, cnt, 5, 10);
 		
 		
