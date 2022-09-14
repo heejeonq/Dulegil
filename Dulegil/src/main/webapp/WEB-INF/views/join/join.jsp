@@ -60,6 +60,9 @@ function sample6_execDaumPostcode() {
 }
 
 $(document).ready(function() {
+	$("#dtBrt").empty();
+	$("#dtBrt").empty();
+	console.log($("#dtBrt").val());
 	$("#joinBtn").on("click", function(){
 		$("#email").val($("#id").val() + "@" + $("#emailSel option:selected").val());
 		console.log($("#email").val());
@@ -84,6 +87,7 @@ function action(flag){
         		//목록 재조회
         		switch(flag){
         		case "insert" : 
+        			window.history.back;
         			break;
         		case "delete" :
         			//조회 데이터 초기화
@@ -198,7 +202,7 @@ function action(flag){
 					<tr>			
 						<th>성별</th>
 						<td class="gen">
-							<input type="radio" name="gen" id="gen" value="0" checked="checked" />
+							<input type="radio" name="gen" id="gen" value="0"  />
 	      					<label for="m">남자</label>
 							<input type="radio" name="gen" id="gen" value="1" />
 							<label for="f">여자</label>

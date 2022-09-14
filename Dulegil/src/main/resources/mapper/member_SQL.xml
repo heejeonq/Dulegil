@@ -5,7 +5,7 @@
 
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO, DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS )
-		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt}, #{gen}, #{zcd}, #{adr}, #{adrDtl})
+		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt, jdbcType = DATE}, #{gen, jdbcType = VARCHAR}, #{zcd, jdbcType = VARCHAR}, #{adr, jdbcType = VARCHAR}, #{adrDtl, jdbcType = VARCHAR})
 	</insert>
 
 	<select id="getMyinfo" resultType="hashmap" parameterType="hashmap">
@@ -21,5 +21,12 @@
 		AND AUTHORITY_NO = 2
 		AND PWD = #{pwd}
 	</select>
-
+	
+	<update id="updateMyinfo">
+		
+		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt}, GENDER = #{gen}, ZIP_CODE = #{zcd}, 
+		ADDRESS =  #{adr}, DETAIL_ADDRESS = #{adrDtl}, IMG_FILE = NULL
+		WHERE MEMBER_NO = 3
+ 
+	</update>
 </mapper>
