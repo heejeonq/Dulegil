@@ -8,7 +8,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>아이디 찾기</title>
 <link rel="stylesheet" href="resources/css/idpw.css" />
+<script type="text/javascript">
+$(document).ready(function(){
+});
+</script>
 </head>
+
 <body>
 		
 	<!-- Header -->
@@ -19,10 +24,10 @@
 		<div class="inpCon">
 			<div class="view">
 				<span>아이디 찾기</span>
-				<span id="viewMsgId">
+				<span id="viewMsgId"> 
 				고객님의 정보와 일치하는 아이디는 <br/>
-				<p id="viewId">'123dm@naver.com'</p> &nbsp;
-				입니다.
+				<p id="viewId" name="email">${param.email}</p> &nbsp; 
+				입니다. 
 				</span>
 				<input type="button" id="lgnBtn" value="로그인 하기" />
 				<input type="button" id="findPwdBtn" value="비밀번호 찾기" />
