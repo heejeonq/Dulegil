@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,37 +8,37 @@
 <title>FAQ</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/faq.css">
-<link rel="stylesheet" href="resources/css/fonts.css" />
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	$(".qstCon").on("click", function(){
-		$(this).next("ul").toggleClass("hide");
-	});
-
+$(function(){
+	$(".faqAns").css("display", "none");
 });
+
+function faqQst(num){
+	$(".faqAns").css("display", "none");
+	$("#faqAns"+num).css("display", "block");
+	//	document.getElementById("qna_answer_"+num+"").style.display = "block";
+}
 </script>
 </head>
 <body>
 	
 	<!-- Header -->
-		<jsp:include page="../common/header.jsp" flush="true"/>
+	<jsp:include page="../common/header.jsp" flush="true"/>
 
 	<!-- Container -->
 	<div class="container-main">
 		<div class="faq">
 			<div class="faqMainTit">FAQ <br />
-			<div class="faqSubTit">자주하는 질문</div>
+			<a href="javascript:doDisplay();" class="faqSubTit">자주하는 질문</a>
 			</div>
 			<div class="col"></div>
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('1');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						혼자 걷기 걱정되는 사람에게는 어떤 코스가 좋을까요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns1">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 
@@ -47,13 +48,13 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>	
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('2');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						둘레길에서 동물을 만나면 어떻게 해야 하나요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns2">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 
@@ -71,13 +72,13 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('3');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						둘레길을 걸을 때 지켜야 할 안전 수칙은 무엇이 있나요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns3">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 
@@ -92,13 +93,13 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('4');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						길 여행을 하기 전 무엇을 준비해야 하나요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns4">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 
@@ -107,13 +108,13 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('5');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						둘레길 지도는 어디서 구할 수 있나요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns5">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 
@@ -122,13 +123,13 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>	
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('6');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						코스의 시작점과 종점까지는 어떻게 이동해야 하나요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns6">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 
@@ -140,13 +141,13 @@ $(document).ready(function(){
 						</div>
 					</li>
 				</ul>	
-				<ul class="faqQst">
+				<ul class="faqQst" onClick="faqQst('7');">
 					<li class="qstTit">Q</li>
 					<li class="qstCon">
 						완주증명서는 어떻게 해야 받을 수 있나요?
 					</li>
 				</ul>
-				<ul class="faqAns">
+				<ul class="faqAns" id="faqAns7">
 					<li class="faqDtl">
 						<span id="ansTit">A</span>
 						<div class="ansCon"> 

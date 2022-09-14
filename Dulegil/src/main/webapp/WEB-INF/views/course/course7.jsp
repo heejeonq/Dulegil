@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>코스 안내</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="resources/css/course.css" type="text/css">
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	$('ul.infoBtn li').click(function(){
 		var tab_id = $(this).attr('data-tab');
 
@@ -20,7 +19,6 @@ $(document).ready(function(){
 		$(this).addClass('on');
 		$("#"+tab_id).addClass('on');
 	});
-
 });
 </script>
 </head>
