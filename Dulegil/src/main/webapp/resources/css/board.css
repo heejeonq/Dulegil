@@ -461,3 +461,8 @@ titCon:focus,.cosSell:focus {
    vertical-align: top;
    margin:0 10px;
 }
+
+.emptyBox span{
+	font-size:12px;
+	
+}
