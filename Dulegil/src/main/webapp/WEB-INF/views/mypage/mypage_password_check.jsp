@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/mypage.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>비밀 번호 확인</title>
 <script type="text/javascript">
@@ -23,30 +22,25 @@ $(document).ready(function(){
 	
 	$("#confirmBtn").on("click", function(){
 		
-		if($.trim($("#loginId").val()) == "") {
-			makeAlert("알림", "아이디를 입력하세요", function(){;
-				$("#loginId").focus();	
+		if($.trim($("#pwd").val()) == "") {
+			makeAlert("알림", "비밀번호를 입력하세요", function(){;
+				$("#pwd").focus();	
 			});
 		}
-		else if($.trim($("#loginPwd").val()) == ""){
-			makeAlert("알림", "비밀번호를 입력하세요", function(){
-				
-			$("#loginPwd").focus();
-			});
-		}
+		
 		else {
 			var params = $("#actionForm").serialize();
 			$.ajax({
-				url : "memberLoginAjax", //경로
+				url : "PasswordCheckAjax", //경로
 				type : "POST", //전송방식
 				dataType : "json", //데이터 형태
 				data : params, //보낼 데이터
 				success : function(res) {//성공했을 때 결과를 res에 받고 함수 실행
 					if(res.msg == "success"){
-						location.href = "main";
+						location.href = "mypageMyinfoUpdate";
 					}
 					else{
-						makeAlert("알림", "아이디나 비밀번호가 틀립니다.");
+						makeAlert("알림", "비밀번호가 틀립니다.");
 					}
 				},
 				error : function(request, status, error) {
@@ -57,17 +51,7 @@ $(document).ready(function(){
 	});
 });
 
-function change_btn(e) {
-	   var btns = document.querySelectorAll(".btnbox");
-	   btns.forEach(function(btn, i) {
-	      if(e.currentTarget == btn) {
-	         btn.classList.add("active");
-	      }
-	      else {
-	         btn.classList.remove("active");
-	      }
-	   });
-	   console.log( e.currentTarget );
+
 
 
 </script>
@@ -79,26 +63,7 @@ function change_btn(e) {
 	<!-- Container -->
 	<div class="container-mypage">
 
-		<!-- Sidebar -->
-		<div class="mypageBtn">
-			<ul class="btnsBox">
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">내 정보</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox active" onclick="change_btn(event)">개인 정보 수정</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">게시글 관리</button></li>
-				</a>
-				<a href="#">
-				  <li><button class="btnbox" onclick="change_btn(event)">댓글 관리</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">동행</button></li>
-				</a>      
-			</ul>
-		</div>
+		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		         
 		<!-- Contents -->
 		<div class="contents">
@@ -106,18 +71,20 @@ function change_btn(e) {
 				<div class="area_tit">
 					<span>비밀번호 확인</span>		         
 				</div>
-				<div class = "user_box">
-					<div id="introbh">
+				<form action="#" id="actionForm">
+				<div class = "mem_box">
+					<div id="intropwd">
 						<span id="id">${sMemNm}</span>
 						<span id="checkment">님의 개인정보를 보호하기 위해</span><br>
 						<span>비밀번호를 한번 더 확인합니다.</span>
 						<br>
-						<input type="text" class="pwd" id="pwd">
-						<a href="마이페이지-개인정보수정.html">
+						<input type="password" class="pwd" id="pwd" name="pwd">
+			
 						<input type="button" class="btn green" id="confirmBtn" value="확인">
 						</a>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>	

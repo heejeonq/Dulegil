@@ -33,7 +33,6 @@ public class LoginController {
 		}
 		else {
 			mav.setViewName("login/login");
-			
 		}
 
 		return mav;

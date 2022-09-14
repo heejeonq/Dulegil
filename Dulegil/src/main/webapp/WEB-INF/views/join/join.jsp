@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,11 +8,9 @@
 <title>회원 가입</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/join.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <!-- 주소검색 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+<script type="text/javascript">
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -58,18 +58,13 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
-</script>
-<script type="text/javascript">
+
 $(document).ready(function() {
 	$("#joinBtn").on("click", function(){
 		$("#email").val($("#id").val() + "@" + $("#emailSel option:selected").val());
 		console.log($("#email").val());
 		action("insert");
 	});
-	
-	
-
-	
 });
 
 function action(flag){

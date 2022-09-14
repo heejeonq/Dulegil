@@ -15,7 +15,7 @@ input:focus, select:focus {
 	background-color: white;
 }
 
-.loginWrap span {
+.lgn span {
 	font-size: 23px;
 	display: block;
 	text-align: center;
@@ -52,13 +52,13 @@ input:focus, select:focus {
 	margin-bottom: 30px;
 }
 
-.loginBox, .findBox, .updateBox{
+.lgnInfo, .findBox, .updateBox{
 	display: block;
 	width: 430px;
     margin: 0 auto;
 }
 
-.loginBox input, .updateBox input, .findBox input, #emailSel{
+.lgnInfo input, .updateBox input, .findBox input, #emailSel{
     width: 100%;
     padding: 10px 12px;
     box-sizing: border-box;
@@ -79,7 +79,7 @@ input:focus, select:focus {
 	width: 30%;
 }
 
-#confirmBtn{
+#cnfmBtn{
 	display: block;
     width: 430px;
     height: 50px;
@@ -93,12 +93,12 @@ input:focus, select:focus {
     background-color: white;
 }
 
-.viewBtnWrap{
+.viewbtn{
 	width: 405px;
 	margin: 0 auto
 }
 
-#loginBtn, #findPWBtn{
+#loginBtn, #findPwdBtn{
 	display: inline-block;
     width: 200px;
     height: 50px;
@@ -115,11 +115,11 @@ input:focus, select:focus {
 	margin-right: 5px;
 }
 
-#loginBtn:hover, #findPWBtn:hover, #confirmBtn:hover{
+#loginBtn:hover, #findPwdBtn:hover, #cnfmBtn:hover{
 	background-color: #eff3f6;
 }
 
-.btnWrap {
+.btn {
 	width: 430px;
     height: 15px;
     margin: 15px auto 30px;
@@ -128,13 +128,13 @@ input:focus, select:focus {
     letter-spacing: 2px;
 }
 
-.btnWrap p{
+.btn p{
 	float: left;
 	margin: 0;
 	padding-left: 4px;
 }
 
-.btnWrap a{
+.btn a{
 	float: right;
 	margin-left: 22px;
     line-height: 1;
@@ -144,7 +144,7 @@ input:focus, select:focus {
     position: relative;
 }
 
-.btnWrap a+a::before{
+.btn a+a::before{
     content: '';
     position: absolute;
     top: 1px;
@@ -155,14 +155,14 @@ input:focus, select:focus {
     background-color: #ddd;
 }
 
-.btnWrap li{
+.btn li{
 	margin: 0 15px;
     position: relative;
     display: inline-block;
     left: 13px;
 }
 
-.btnWrap li+li::before{
+.btn li+li::before{
     content: '';
     position: absolute;
     top: 2px;

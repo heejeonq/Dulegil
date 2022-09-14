@@ -19,7 +19,7 @@
 		FROM MEMBER
 		WHERE DEL_DT IS NULL 
 		AND AUTHORITY_NO = 2
-		AND PWD = #{loginPwd}
+		AND PWD = #{pwd}
 	</select>
 
 </mapper>

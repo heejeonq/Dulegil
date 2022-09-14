@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +9,7 @@
 <title>서울 둘레길:로그인</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/idpw.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/cmn.css" />
-<!-- Popup CSS -->
-<link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
-
-<script type="text/javascript" 
-		src="resources/script/common/popup.js"></script>
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#actionForm").on("keypress", "input", function(event) {
@@ -23,22 +17,22 @@ $(document).ready(function(){
 			//직접 함수 호출
 			//login();
 			//버튼 이벤트 발생
-			$("#confirmBtn").click();
+			$("#cnfmBtn").click();
 			return false;
 		}
 	});
 	
-	$("#confirmBtn").on("click", function(){
+	$("#cnfmBtn").on("click", function(){
 		
-		if($.trim($("#loginId").val()) == "") {
+		if($.trim($("#id").val()) == "") {
 			makeAlert("알림", "아이디를 입력하세요", function(){;
-				$("#loginId").focus();	
+				$("#id").focus();	
 			});
 		}
-		else if($.trim($("#loginPwd").val()) == ""){
+		else if($.trim($("#pwd").val()) == ""){
 			makeAlert("알림", "비밀번호를 입력하세요", function(){
 				
-			$("#loginPwd").focus();
+			$("#pwd").focus();
 			});
 		}
 		else {
@@ -64,7 +58,6 @@ $(document).ready(function(){
 	});
 });
 
-
 </script>
 </head>
 <body>
@@ -76,29 +69,28 @@ $(document).ready(function(){
 	<div class="container-main">
 		<div class="contents">
 		<form action="#" id=actionForm>
-			<div class="loginWrap">
+			<div class="lgn">
 				<span>회원 로그인</span>
-				<div class="loginBox">
-					<input type="text" id="loginId" name="loginId" placeholder="아이디" /><br />
-					<input type="password" id="loginPwd" name="loginPwd" placeholder="비밀번호" />
+				<div class="lgnInfo">
+					<input type="text" id="id" name="id" placeholder="아이디" /><br />
+					<input type="password" id="pwd" name="pwd" placeholder="비밀번호" />
 				</div>
-				<input type="button" id="confirmBtn" value="로그인">
+				<input type="button" id="loginBtn" value="로그인">
 			</div>
 		</form>
-			<ul class="btnWrap">
+			<ul class="btn">
 				<li>
-					<a href="join">회원가입</a>
+					<a href="joinBtn">회원가입</a>
 				</li>
 				<li>
-					<a href="findID">아이디 찾기</a>
+					<a href="findIdBtn">아이디 찾기</a>
 				</li>
 				<li>
-					<a href="findPW">비밀번호 찾기</a>
+					<a href="findPwdBtn">비밀번호 찾기</a>
 				</li>
 			</ul>
 		</div>
 	</div>
-
 
 	<!-- footer -->
 	<jsp:include page="../common/footer.jsp" flush="true"/>

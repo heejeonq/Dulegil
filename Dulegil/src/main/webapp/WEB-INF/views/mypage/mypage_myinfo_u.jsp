@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/mypage.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>개인 정보 수정</title>
 <!-- 주소검색 -->
@@ -74,18 +73,7 @@ function readURL(input) {
 	 }
   }
   
-function change_btn(e) {
-   var btns = document.querySelectorAll(".btnbox");
-   btns.forEach(function(btn, i) {
-      if(e.currentTarget == btn) {
-         btn.classList.adr("active");
-      }
-      else {
-         btn.classList.remove("active");
-      }
-   });
-   console.log( e.currentTarget );
-}
+
 </script>
 </head>
 <body>
@@ -95,26 +83,7 @@ function change_btn(e) {
 	<!-- Container -->
 	<div class="container-mypage">
 
-		<!-- Sidebar -->
-		<div class="mypageBtn">
-			<ul class="btnsBox">
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">내 정보</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox active" onclick="change_btn(event)">개인 정보 수정</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">게시글 관리</button></li>
-				</a>
-				<a href="#">
-				  <li><button class="btnbox" onclick="change_btn(event)">댓글 관리</button></li>
-				</a>
-				<a href="#">
-				   <li><button class="btnbox" onclick="change_btn(event)">동행</button></li>
-				</a>      
-			</ul>
-		</div>
+		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		
 		<!-- Contents -->
 		<div class="contents">
