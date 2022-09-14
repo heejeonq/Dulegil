@@ -10,5 +10,5 @@
 <link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
 <!-- 폰트 -->
 <link rel="stylesheet" href="resources/css/fonts.css" />
-<!-- 폼c -->
+<!-- 파일업로드 폼 -->
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
