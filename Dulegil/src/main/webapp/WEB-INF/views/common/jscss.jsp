@@ -5,7 +5,7 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <!-- CKEditor -->
 <script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
-<<<<<<< HEAD
+
 <!-- 폼c -->
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <!-- 팝업 js -->
