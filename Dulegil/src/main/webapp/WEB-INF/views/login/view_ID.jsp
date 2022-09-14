@@ -10,6 +10,13 @@
 <link rel="stylesheet" href="resources/css/idpw.css" />
 <script type="text/javascript">
 $(document).ready(function(){
+	$("#lgnBtn").on("click",function(){
+		location.href = "login";
+	});
+	
+	$("#findPwdBtn").on("click",function(){
+		location.href = "findPwd";
+	});
 });
 </script>
 </head>
