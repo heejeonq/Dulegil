@@ -296,6 +296,17 @@ input:focus {
 	transform: rotate(0.04deg);
 	cursor: pointer;
 }
+.pBtn_GD {
+	border: none;
+	border-radius: 100px;
+	font-size: 12px;
+	display: inline-box;
+	font-family: "Gothic A1";
+	font-weight: 700;
+	color: #5a5a5a;
+	transform: rotate(0.04deg);
+	cursor: pointer;
+}
 
 .pBtn:hover {
 	border: none;
