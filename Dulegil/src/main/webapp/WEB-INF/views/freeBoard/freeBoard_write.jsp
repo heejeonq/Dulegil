@@ -16,7 +16,7 @@
 $(document).ready(function(){	
 	//에디터 연결
 	   //CKEDITOR.replace(아이디, 옵션) 
-	      CKEDITOR.replace("con", {
+	      CKEDITOR.replace("contents", {
 	      resize_enabled : false, // resize_enabled : 크기조건기능 활용 여부 
 	      language : "ko", // 사용언어 한국어
 	      enterMode : "2", // 엔터키 처리방법  1:p / 2:br 3:div 인데 두개는 우리가 많이쓰니 2번으로 처리
@@ -31,7 +31,7 @@ $("#listBtn").on("click", function() {
  
 //등록버튼
 $("#insertBtn").on("click", function() {
-    $("#con").val(CKEDITOR.instances['con'].getData())
+    $("#contents").val(CKEDITOR.instances['contents'].getData())
 
     // $.trim(값) : 값 앞 뒤 공백제거
     if ($.trim($("#title").val()) == "") {
@@ -39,9 +39,9 @@ $("#insertBtn").on("click", function() {
           $("#title").focus();
        });
 
-    } else if ($("#con").val() == "") {
+    } else if ($("#contents").val() == "") {
        makeAlert("알림", "내용을 입력하세요.", function() {
-          $("#con").focus();
+          $("#contents").focus();
        });
 
     } else {
@@ -139,6 +139,7 @@ $("#insertBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
+				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
 				 
 				<div class="titNm">제목</div>
 				<div class="titBox">
@@ -150,7 +151,7 @@ $("#insertBtn").on("click", function() {
 			<div class="conWrap">
 				<div class="conNm">내용</div>
 				<div class=contentBox>
-				<textarea rows="19" cols="100" name="con" id="con"></textarea>
+				<textarea rows="19" cols="100" name="contents" id="contents"></textarea>
 				</div>
 	
 	</div>
