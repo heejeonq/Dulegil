@@ -39,7 +39,12 @@ public class adNoticeController {
 		if(params.get("page") != null && params.get("page") != "") {
 			page = Integer.parseInt(params.get("page"));
 		}
-
+		
+		int cnt = dao.getInt(null);
+		HashMap<String, Integer> pd = ips.getPagingData(page, cnt, 5, 10);
+		
+		
+		mav.addObject("pd", pd);
 		mav.addObject("page", page);
 		mav.setViewName("admin/3_adNotice/ad_notice_list");
 
