@@ -8,7 +8,7 @@ input:focus, select:focus {
 	outline: none;
 }
 
-.contents {
+.inpCon {
 	width: 500px;
 	border: 1px solid #ddd;
 	margin: auto;
@@ -22,18 +22,19 @@ input:focus, select:focus {
 	margin: 30px 0;
 }
 
-.viewWrap span, .findWrap span{
+.view span, .find span {
 	width: 430px;
 	font-size: 23px;
 	display: block;
 	text-align: center;
 	margin: 30px auto;
 }
-.viewWrap{
+
+.view {
 	margin-bottom: 30px;
 }
 
-#idmsg, #pwmsg, #idFmsg, #pwFmsg{
+#findMsg, #viewMsgId, #viewMsgPwd{
 	padding: 10px;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -41,24 +42,24 @@ input:focus, select:focus {
 	text-align: left;
 }
 
-#idFmsg{
+#viewMsgId{
 	text-align: center;
 }
 
-#userid{
+#viewId{
 	display: inline-block;
 	font-size: 13pt;
 	font-weight: 600;
 	margin-bottom: 30px;
 }
 
-.lgnInfo, .findBox, .updateBox{
+.lgnInfo, .findInfo, .updInfo{
 	display: block;
 	width: 430px;
     margin: 0 auto;
 }
 
-.lgnInfo input, .updateBox input, .findBox input, #emailSel{
+.lgnInfo input, .findInfo input, .updInfo input, #emailSel{
     width: 100%;
     padding: 10px 12px;
     box-sizing: border-box;
@@ -70,7 +71,7 @@ input:focus, select:focus {
     color: #444;
 }
 
-#findEM {
+#findId {
 	width: 70%;
 }
 
@@ -79,7 +80,7 @@ input:focus, select:focus {
 	width: 30%;
 }
 
-#cnfmBtn{
+#joinBtn{
 	display: block;
     width: 430px;
     height: 50px;

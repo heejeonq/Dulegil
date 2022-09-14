@@ -44,7 +44,7 @@ input:focus, select:focus {
 }
 
 .mainWrap h1{
-	font-size: 23pt;
+	font-size: 20pt;
 	font-weight: 600;
     position: relative;
     color: #333;
@@ -55,7 +55,7 @@ input:focus, select:focus {
 
 .mainWrap p{
 	margin: 6% 7% 2%;
-	font-size: 15pt;
+	font-size: 13pt;
 	font-weight: 600;
 }
 
@@ -107,26 +107,14 @@ input:focus, select:focus {
     border: 0;
     border-bottom: 1px solid #ddd;
     line-height: 2;
-    font-size: 14px;
+    font-size: 13px;
     color: #444;
     width: 80%;
     margin-bottom: 5px;
 }
 
-.addInfo th{
-	width: 150px;
-}
-
 #dtBrt {
-	width: 200px;
-}
-
-.gen{
-	width: 200px;
-}
-
-#gen{
-	width: 18%;
+	width: 230px;
 }
 
 .addInfo label{
@@ -167,7 +155,7 @@ input:focus, select:focus {
 	font-family: 'Pretendard-Regular';
 	width: 300px;
     height: 50px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 2px;	
     cursor: pointer;

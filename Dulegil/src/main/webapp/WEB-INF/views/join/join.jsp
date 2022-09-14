@@ -185,11 +185,17 @@ function action(flag){
 				
 				<p>추가 입력 사항</p>
 				<table class="addInfo">	
+					<colgroup>
+						<col style="width:150px;">
+						<col style="width:auto;">
+					</colgroup>
 					<tr>
 						<th>생년월일</th>
 						<td>
 							<input type="date" name="dtBrt" id="dtBrt">
 						</td>	
+					</tr>
+					<tr>			
 						<th>성별</th>
 						<td class="gen">
 							<input type="radio" name="gen" id="gen" value="0" checked="checked" />
