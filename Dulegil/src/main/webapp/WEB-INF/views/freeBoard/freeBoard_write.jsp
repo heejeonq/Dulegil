@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <jsp:include page="../common/jscss.jsp" flush="true"/>ㅎ
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +10,8 @@
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <title>자유게시판작성</title>
-<link rel="stylesheet" type="text/css"
-   href="resources/css/common/popup.css" />
 <script type="text/javascript" src="resources/script/common/popup.js"></script>
-<!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<!-- CKEditor -->
-<script type="text/javascript" src="resources/script/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){	
 	//에디터 연결
