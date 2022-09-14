@@ -12,11 +12,11 @@
 $(document).ready(function(){
 	$("#cnfmBtn").on("click", function(){
 		if($.trim($("#findNm").val()) == ""){
-			makeAlert("알림", "이름를 입력하세요", function(){
+			makeAlert("알림", "이름를 입력하세요.", function(){
 				$("#findNm").focus();	
 			});
 		}else if($.trim($("#findPhn").val()) == ""){
-			makeAlert("알림", "휴대전화번호를 입력하세요", function(){
+			makeAlert("알림", "휴대전화번호를 입력하세요.", function(){
 				$("#findPhn").focus();
 			});
 		}else{
