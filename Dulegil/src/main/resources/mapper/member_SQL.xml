@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-
-
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO, DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS )
 		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt, jdbcType = DATE}, #{gen, jdbcType = VARCHAR}, #{zcd, jdbcType = VARCHAR}, #{adr, jdbcType = VARCHAR}, #{adrDtl, jdbcType = VARCHAR})
@@ -14,7 +12,7 @@
 		WHERE MEMBER_NO = #{memNo}
 	</select>
 
-		<select id="checkPwd" parameterType="hashmap" resultType="hashmap">
+	<select id="checkPwd" parameterType="hashmap" resultType="hashmap">
 		SELECT MEMBER_NO, NM
 		FROM MEMBER
 		WHERE DEL_DT IS NULL 
@@ -23,10 +21,17 @@
 	</select>
 	
 	<update id="updateMyinfo">
-		
 		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt}, GENDER = #{gen}, ZIP_CODE = #{zcd}, 
 		ADDRESS =  #{adr}, DETAIL_ADDRESS = #{adrDtl}, IMG_FILE = NULL
 		WHERE MEMBER_NO = 3
- 
 	</update>
+	
+	<select id="findMemId" parameterType="hashmap" resultType="hashmap">
+		SELECT EMAIL
+		FROM MEMBER
+		WHERE DEL_DT IS NULL
+		AND NM = #{findNm}
+		AND PHONE_NO = #{findPhn}
+	</select>
+	
 </mapper>

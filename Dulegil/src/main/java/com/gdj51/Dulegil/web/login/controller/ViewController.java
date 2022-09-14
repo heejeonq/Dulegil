@@ -14,7 +14,7 @@ public class ViewController {
 	public IDao dao;
 
 	@RequestMapping(value = "viewId")
-	public ModelAndView findId(ModelAndView mav) throws Throwable {
+	public ModelAndView viewId(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("login/view_ID");
 
@@ -22,7 +22,7 @@ public class ViewController {
 	}
 	
 	@RequestMapping(value = "viewPwd")
-	public ModelAndView findPwd(ModelAndView mav) throws Throwable {
+	public ModelAndView viewPwd(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("login/view_PW");
 

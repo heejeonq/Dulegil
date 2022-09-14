@@ -5,10 +5,13 @@
 
 	<!-- 목록 -->
 	<select id="list" resultType="hashmap">
-		SELECT N.POST_NO, N.TITLE, M.NM, N.REG_DT
-		FROM NOTICE N INNER JOIN MEMBER M
-		ON N.MEMBER_NO = M.MEMBER_NO
-		WHERE N.DEL_DT IS NULL
+		SELECT A.POST_NO, A.TITLE, A.NM, A.REG_DT,A.RNK
+		FROM(	SELECT N.POST_NO, N.TITLE, M.NM, N.REG_DT,
+					ROW_NUMBER()OVER(ORDER BY N.REG_DT) AS RNK 
+				FROM NOTICE N INNER JOIN MEMBER M
+              					  ON N.MEMBER_NO = M.MEMBER_NO
+				WHERE N.DEL_DT IS NULL) A
+		WHERE A.RNK BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 페이징 -->
@@ -19,7 +22,6 @@
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
-
 					AND TITLE LIKE '%' || '#{searchTxt}' || '%'
 				</when>
 				<when test="searchGbn == 1">
