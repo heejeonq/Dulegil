@@ -21,7 +21,6 @@ $(document).ready(function(){
 	});
 	
 	$("#confirmBtn").on("click", function(){
-		
 		if($.trim($("#pwd").val()) == "") {
 			makeAlert("알림", "비밀번호를 입력하세요", function(){;
 				$("#pwd").focus();	
@@ -71,7 +70,7 @@ $(document).ready(function(){
 				<div class = "mem_box">
 					<div id="intropwd">
 						<input type="hidden" name="memNo" value="${sMemNo}">
-						<span id="id" >${sMemNm}</span>
+						<span id="id">${sMemNm}</span>
 						<span id="checkment">님의 개인정보를 보호하기 위해</span><br>
 						<span>비밀번호를 한번 더 확인합니다.</span>
 						<br>

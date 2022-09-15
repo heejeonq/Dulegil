@@ -61,12 +61,7 @@ $(document).ready(function(){
 	var gender = "${data.GENDER}";
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
-	$("#backBtn").on("click", function(){
-		location.href = "mypageMyinfo";
-	})
-	
 	$("#updatemBtn").on("click", function(){
-		
 		if($.trim($("#cnfmPwd").val()) == "") {
 			makeAlert("알림", "비밀번호를 입력하세요", function(){;
 				$("#cnfmPwd").focus();	
@@ -76,8 +71,7 @@ $(document).ready(function(){
 			makeAlert("알림", "이름을 입력하세요", function(){;
 				$("#nm").focus();	
 			});
-		}
-		
+		}	
 		else {
 	    	  //1.파일업로드 -> 2. 업로드 파일명 취득 -> 글저장
 	    	  //폼 객체 취득 
@@ -90,7 +84,6 @@ $(document).ready(function(){
 	    				  if(res.fileName.length > 0){
 	    					  $("#imgFile").val(res.fileName[0]); //올라간 파일명 보관
 	    				  }
-	    			  
 	   					  /*
 	   					 	글 저장
 	   					  */
@@ -130,6 +123,11 @@ $(document).ready(function(){
 	    	  form.submit();
 	      }
 	   });	
+	
+	$("#backBtn").on("click", function(){
+		location.href = "mypageMyinfo";
+	})
+	
 });
 <!--이미지파일 넣기-->
 function readURL(input) {
@@ -145,7 +143,6 @@ function readURL(input) {
   }
   
 </script>
-
 </head>
 <body>
 <!-- Header -->

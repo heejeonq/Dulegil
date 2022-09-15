@@ -74,7 +74,7 @@ AND MEMBER_NO = #{sMemNo}
 WHERE F.RNUM BETWEEN #{start} AND #{end}		
 </select>
 
-<select id="getCommentsList" resultType="hashmap">
+<select id="getCommentList" resultType="hashmap">
 SELECT C.POST_NO, C.TITLE, C.CONTENTS, C.REG_DT
 FROM(SELECT B.POST_NO, B.TITLE, C.CONTENTS,
 	 	CASE WHEN TO_CHAR(C.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
@@ -112,7 +112,7 @@ WHERE C.RNUM BETWEEN #{start} AND #{end}
       WHERE POST_NO IN(${delete})
 </update>
 
-<update id="deleteComments" parameterType="hashmap">
+<update id="deleteComment" parameterType="hashmap">
 	  UPDATE COMMENTS SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
       WHERE POST_NO IN(${delete})
 </update>

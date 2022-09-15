@@ -92,7 +92,7 @@ function reloadList(){
 	   var params = $("#actionForm").serialize();
 	                                                            
 	   $.ajax({                                                 
-	      url:"mypage_commentsAjax",                                     
+	      url:"mypageCommentAjax",                                     
 	      type:"POST",                                          
 	      dataType:"json",                                      
 	      data : params,                                        
@@ -149,6 +149,7 @@ function drawPaging(pd){
      $(".pagination").html(html);
    
 }	
+
 </script>
 </head>
 <body>

@@ -92,7 +92,7 @@ function reloadList(){
 	   var params = $("#actionForm").serialize();
 	                                                            
 	   $.ajax({                                                 
-	      url:"mypage_boardAjax",                                     
+	      url:"mypageBoardAjax",                                     
 	      type:"POST",                                          
 	      dataType:"json",                                      
 	      data : params,                                        
@@ -149,6 +149,7 @@ function drawPaging(pd){
      $(".pagination").html(html);
    
 }	
+
 </script>
 </head>
 <body>
@@ -217,7 +218,7 @@ function drawPaging(pd){
 									<input type="hidden" name="delete" id="delete"/>
 									<input type="hidden" name="page" id="page" value="${page}" />
 									<select class="sel" name="searchGbn" id="searchGbn">
-										<option value="0">제목</option>
+										<option value="0">글제목</option>
 										<option value="1">내용</option>
 									</select>
 									<div class="searchBox">

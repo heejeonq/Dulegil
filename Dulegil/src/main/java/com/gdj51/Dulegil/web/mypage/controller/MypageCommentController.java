@@ -17,7 +17,7 @@ import com.gdj51.Dulegil.common.service.IPagingService;
 import com.gdj51.Dulegil.web.dao.IDao;
 
 @Controller
-public class MypageCommentsController {
+public class MypageCommentController {
 	@Autowired
 	public IDao iDao;
 
@@ -25,33 +25,33 @@ public class MypageCommentsController {
 	public IPagingService ips;
 
 	@RequestMapping(value = "/mypageComment")
-	public ModelAndView mypage_comment(@RequestParam HashMap<String, String> params, ModelAndView mav)
-			throws Throwable {
+	public ModelAndView mypageComment(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
 		int page = 1;
-
 		if (params.get("page") != null && params.get("page") != "") {
 			page = Integer.parseInt(params.get("page"));
 		}
 
 		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
+
 		mav.addObject("cate", cate);
 		mav.addObject("page", page);
-		mav.setViewName("mypage/mypage_comments");
+		mav.setViewName("mypage/mypage_comment");
 
 		return mav;
 
 	}
 
-	@RequestMapping(value = "/mypage_commentsAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/mypageCommentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String mypage_commentsAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String mypageCommentAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		int delete = 0;
 		try {
-			delete = iDao.delete("mypage.deleteComments", params);
+			delete = iDao.delete("mypage.deleteComment", params);
 			if (delete > 0) {
 				System.out.println("success");
 			} else {
@@ -71,9 +71,10 @@ public class MypageCommentsController {
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 
-		List<HashMap<String, String>> list = iDao.getList("mypage.getCommentsList", params);
+		List<HashMap<String, String>> list = iDao.getList("mypage.getCommentList", params);
 
 		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
+
 		model.put("list", list);
 		model.put("cate", cate);
 		model.put("pd", pd);

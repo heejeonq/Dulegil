@@ -25,15 +25,15 @@ public class MypageBoardController {
 	public IPagingService ips;
 
 	@RequestMapping(value = "/mypageBoard")
-	public ModelAndView mypage_board(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
+	public ModelAndView mypageBoard(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
 		int page = 1;
-
 		if (params.get("page") != null && params.get("page") != "") {
 			page = Integer.parseInt(params.get("page"));
 		}
 
 		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
+
 		mav.addObject("cate", cate);
 		mav.addObject("page", page);
 		mav.setViewName("mypage/mypage_board");
@@ -42,10 +42,11 @@ public class MypageBoardController {
 
 	}
 
-	@RequestMapping(value = "/mypage_boardAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/mypageBoardAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String mypage_boardAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String mypageBoardAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		int delete = 0;
@@ -73,6 +74,7 @@ public class MypageBoardController {
 		List<HashMap<String, String>> list = iDao.getList("mypage.getBoardList", params);
 
 		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
+
 		model.put("list", list);
 		model.put("cate", cate);
 		model.put("pd", pd);
