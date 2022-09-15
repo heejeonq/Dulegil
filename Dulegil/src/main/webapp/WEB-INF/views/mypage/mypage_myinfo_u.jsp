@@ -15,7 +15,6 @@ function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
             var addr = ''; // 주소 변수
@@ -44,12 +43,9 @@ function sample6_execDaumPostcode() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
-               
-            
-            } else {
-                
+            } else { 
+            	
             }
-
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('zcd').value = data.zonecode;
             document.getElementById("adr").value = addr;
@@ -60,15 +56,11 @@ function sample6_execDaumPostcode() {
 }
 </script>
 <script type="text/javascript">
-
-
-
 //성별 값 넣기
 $(document).ready(function(){
 	var gender = "${data.GENDER}";
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
-	
 	$("#backBtn").on("click", function(){
 		location.href = "mypageMyinfo";
 	})
@@ -120,8 +112,7 @@ $(document).ready(function(){
 				        		
 				         		case "error" : makeAlert("알림", "수정 중 문제가 발생하였습니다.");
 				     				break;
-				     			}
-				               
+				     			}  
 				            }, 
 				            error: function(request, status, error) { 
 				               console.log(request.responseText); 
@@ -138,10 +129,7 @@ $(document).ready(function(){
 	    	  //ajaxForm 실행
 	    	  form.submit();
 	      }
-	   });
-	
-	
-	
+	   });	
 });
 <!--이미지파일 넣기-->
 function readURL(input) {
@@ -156,7 +144,6 @@ function readURL(input) {
 	 }
   }
   
-
 </script>
 
 </head>
@@ -166,7 +153,6 @@ function readURL(input) {
 
 	<!-- Container -->
 	<div class="container-mypage">
-
 		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		
 		<!-- Contents -->
@@ -182,7 +168,6 @@ function readURL(input) {
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-			
 					<input type="file" onchange="readURL(this);" name="img">
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
@@ -240,12 +225,10 @@ function readURL(input) {
 							</div>
 						</div>
 					</div>
-					
 					<div class="popup_btn">
 						<input type="button" class="btn green" value="수정하기" id="updatemBtn">
 						<input type="button" class="btn green" value="돌아가기" id="backBtn">
 					</div>
-				
 					</div>
 				</div>
 			</div>
@@ -254,7 +237,6 @@ function readURL(input) {
 	</div> 
 
 <!-- footer -->
-	<jsp:include page="../common/footer.jsp" flush="true"/>
-	 
-  </body>
-  </html>
+<jsp:include page="../common/footer.jsp" flush="true"/>
+ </body>
+ </html>

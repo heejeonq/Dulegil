@@ -51,9 +51,6 @@ $(document).ready(function(){
 	});
 });
 
-
-
-
 </script>
 </head>
 <body>
@@ -62,7 +59,6 @@ $(document).ready(function(){
 
 	<!-- Container -->
 	<div class="container-mypage">
-
 		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		         
 		<!-- Contents -->
@@ -80,9 +76,7 @@ $(document).ready(function(){
 						<span>비밀번호를 한번 더 확인합니다.</span>
 						<br>
 						<input type="password" class="pwd" id="pwd" name="pwd">
-			
 						<input type="button" class="btn green" id="confirmBtn" value="확인">
-						</a>
 					</div>
 				</div>
 				</form>
@@ -91,6 +85,6 @@ $(document).ready(function(){
 	</div>	
 			
 <!-- footer -->
-	<jsp:include page="../common/footer.jsp" flush="true"/>
+<jsp:include page="../common/footer.jsp" flush="true"/>
 </body>
 </html>

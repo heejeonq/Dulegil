@@ -237,6 +237,6 @@ function drawPaging(pd){
 	</div>
 
 <!-- footer -->
-	<jsp:include page="../common/footer.jsp" flush="true"/>
-  </body>
-  </html>
+<jsp:include page="../common/footer.jsp" flush="true"/>
+ </body>
+ </html>

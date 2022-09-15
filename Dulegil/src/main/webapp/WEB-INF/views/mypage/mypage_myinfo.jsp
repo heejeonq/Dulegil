@@ -6,11 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link rel="stylesheet" href="resources/css/mypage.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>내 정보</title>
-
 </head>
 <body>
 <!-- Header -->
@@ -18,14 +16,11 @@
 
 	<!-- Container -->
 	<div class="container-mypage">
-
 		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		
 		<!-- Contents -->
 		<div class="contents">
-
-			<input type="hidden" name="memNo" value="${sMemNo}">
-
+			<input type="hidden" name="memNo" value="${sMemNo}"/>
 			<div class="mypage_contents">
 				<div class="area_tit">
 					<span>내 정보</span>
@@ -36,7 +31,6 @@
 					</div>
 					<div class="mem_info">
 						<dl>
-							
 							<div>
 								<dt>이름</dt>
 								<dd>${data.NM}</dd>
@@ -76,6 +70,6 @@
 	</div>
 
 <!-- footer -->
-	<jsp:include page="../common/footer.jsp" flush="true"/>
+<jsp:include page="../common/footer.jsp" flush="true"/>
 </body>
 </html>
