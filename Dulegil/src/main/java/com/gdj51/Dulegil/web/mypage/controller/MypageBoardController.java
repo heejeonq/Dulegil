@@ -39,7 +39,6 @@ public class MypageBoardController {
 		mav.setViewName("mypage/mypage_board");
 
 		return mav;
-
 	}
 
 	@RequestMapping(value = "/mypageBoardAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")

@@ -39,7 +39,6 @@ public class MypageCommentController {
 		mav.setViewName("mypage/mypage_comment");
 
 		return mav;
-
 	}
 
 	@RequestMapping(value = "/mypageCommentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
