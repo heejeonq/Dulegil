@@ -72,15 +72,21 @@ VALUES (COMMUNITY_SEQ.NEXTVAL,3,#{memberNo},#{title},#{contents},SYSDATE,#{imgFi
 
 
 <!-- 게시글 삭제 -->
-
+<update id="delete" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO= #{no}
+</update>
 
 <!-- 게시글 수정 -->
-
+<update id="update"  parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE={imgFile}
+WHERE POST_NO=#{no}
+</update>
 
 <!-- 조회수 -->
 <update id="updateTHit" parameterType="hashmap">
 UPDATE BULLETIN_BOARD SET HIT = HIT+1
-WHERE BLTNBOARD_NO ='3'
+WHERE BLTNBOARD_NO =3
 AND POST_NO= #{no}
 </update>
 
@@ -101,6 +107,8 @@ SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G
         ON G.MEMBER_NO = M.MEMBER_NO
       WHERE G.POST_NO=#{no}
 </select>
+
+
 
 
 </mapper>
