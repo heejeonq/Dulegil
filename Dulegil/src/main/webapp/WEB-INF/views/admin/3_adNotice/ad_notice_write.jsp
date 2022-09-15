@@ -248,6 +248,7 @@ $(document).ready(function(){
 	   	                    $("#searchgbn").val("0");
 	   	                    $("#searchTxt").val("");
 	   	                    
+	   	                    
 	   	                 	location.href = "adNtList"
 	   	                     break;
 	   	                  case "fail" :
@@ -288,12 +289,12 @@ $(document).ready(function(){
 	    history.back();
 	 });
 	
-	// 체크 메인 걸기
-	if($("#mainCheck").is(":checked")){
-		$("#mainCheck").val(0);
-	}else{
-		$("#mainCheck").val(1);		
+	
+	// 메인 체크 0 이 메인 1 이 체크 안됨
+	if(document.getElementById("mainCheck").checked){
+		document.getElementById("mainCheck_hidden").disabled = true;
 	}
+		
 });
 </script>
 </head>
@@ -408,7 +409,8 @@ $(document).ready(function(){
 						<div id="Ctitle">
 							<div class="CTN">메인으로 띄우기</div>
 							<div class="checkbox">
-								<input type="checkbox" class="commentBoxT" id="mainCheck" name="mainCheck">
+								<input type="checkbox" id="mainCheck" name="mainCheck" value="0" class="commentBoxT">
+								<input type="hidden" id="mainCheck_hidden" name="mainCheck" value="1">
 							</div>
 						</div>
 

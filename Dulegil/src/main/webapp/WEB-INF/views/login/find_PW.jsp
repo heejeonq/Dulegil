@@ -8,7 +8,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 찾기</title>
 <link rel="stylesheet" href="resources/css/idpw.css" />
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#cnfmBtn").on("click", function(){
+		if($.trim($("#findNm").val()) == ""){
+			makeAlert("알림", "이름를 입력하세요.", function(){
+				$("#findNm").focus();	
+			});
+		}else if($.trim($("#findId").val()) == ""){
+			makeAlert("알림", "아이디를 입력하세요.", function(){
+				$("#findId").focus();
+			});
+		}else{
+			var params = $("#actionForm").serialize();
+			$.ajax({
+				url:"findPwdAjax", 
+				type:"POST", 
+				dataType:"json", 
+				data : params,
+				success: function(res) { 
+					if(res.msg == "success"){
+						$("#cnfmBtn").on("click", function(){
+							$("#email").val($("#id").val() + "@" + $("#emailSel option:selected").val());
+							
+							
+							$("#no").val(res.data.MEMBER_NO);
+							$("#actionForm").attr("action", "viewPwd");
+							$("#actionForm").submit();
+						});	
+					}else{
+						makeAlert("알림", "등록된 정보가 없습니다.");
+					}
+				}, 
+				error: function(request, status, error) { 
+					console.log(request.responseText); 
+				}
+			});
+		}
+	});	
+});
+</script>
 </head>
 <body>
 
@@ -22,18 +61,21 @@
 				<span>비밀번호 찾기</span>
 				<span id="findMsg">비밀번호는 가입시 입력하신 이름과 아이디를 통해 찾을 수 있습니다.</span>
 				<div class="findInfo">
-					<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
-					<input type="text" id="findId" name="findId" placeholder="아이디" />
-					<select id="emailSel">
-						<option>직접입력</option>
-						<option>naver.com</option>
-						<option>hanmail.net</option>
-						<option>daum.net</option>
-						<option>nate.com</option>
-						<option>hotmail.com</option>
-						<option>gmail.com</option>
-						<option>icloud.com</option>
-					</select>
+					<form action="#" id="actionForm" method="post">
+						<input type="hidden" id="no" name="no" />
+						<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
+						<input type="text" id="findId" name="findId" placeholder="아이디" />
+						<select id="emailSel">
+							<option>직접입력</option>
+							<option>naver.com</option>
+							<option>hanmail.net</option>
+							<option>daum.net</option>
+							<option>nate.com</option>
+							<option>hotmail.com</option>
+							<option>gmail.com</option>
+							<option>icloud.com</option>
+						</select>
+					</form>
 					<input type="button" id="cnfmBtn" value="확인">
 				</div>
 				<div class="btn">
