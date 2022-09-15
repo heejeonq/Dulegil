@@ -11,17 +11,40 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#cnfmBtn").on("click",function(){
-		if($.trim($("#updatePW").val()) == ""){
+		if($.trim($("#updPwd").val()) == ""){
 			makeAlert("알림", "비밀번호를 입력하세요.", function(){
-				$("#updatePW").focus();	
+				$("#updPwd").focus();	
 			});
-		}else if($("#updateRPW").val() != $("#updatePW").val()){
+		}else if($("#updRPwd").val() != $("#updPwd").val()){
 			makeAlert("알림", "비밀번호가 일치하지 않습니다.", function(){
-				$("#updateRPW").focus();
+				$("#updRPwd").focus();
 			});
 		}else{
-			alert("비밀번호가 변경되었습니다.");
-			location.href = "login";
+			var params = $("#actionForm").serialize();
+			
+			$.ajax({
+				url:"updPwdAjax", 
+				type:"POST", 
+				dataType:"json", 
+				data : params,
+				success: function(res) { 
+					switch (res.msg) {
+					case "success":
+						makeAlert("알림", "비밀번호가 변경되었습니다.");
+						location.href = "login"; 
+						break;
+					case "fail":
+						makeAlert("알림", "수정에 실패하였습니다.");
+						break;
+					case "error": 
+						makeAlert("알림", "수정 중 문제가 발행하였습니다.");
+						break;
+					}
+				}, 
+				error: function(request, status, error) { 
+					console.log(request.responseText); 
+				}
+			});
 		}	
 	});	
 });
@@ -39,8 +62,11 @@ $(document).ready(function(){
 				<span>비밀번호 변경</span>
 				<span id="viewMsgPwd">변경할 비밀번호를 입력해주세요.</span>
 				<div class="updInfo">
-					<input type="password" id="updatePW" name="updatePW" placeholder="비밀번호" /><br />
-					<input type="password" id="updateRPW" name="updateRPW" placeholder="비밀번호 확인" /><br />
+					<form action="#" id="actionForm" method="post">
+						<input type="hidden" name="no" value="${param.MEMBER_NO}" />
+						<input type="password" id="updPwd" name="updPwd" placeholder="비밀번호" /><br />
+						<input type="password" id="updRPwd" name="updRPwd" placeholder="비밀번호 확인" /><br />
+					</form>
 				</div>
 				<input type="button" id="cnfmBtn" value="확인">
 			</div>	

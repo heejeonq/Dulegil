@@ -34,4 +34,16 @@
 		AND PHONE_NO = #{findPhn}
 	</select>
 	
+	<select id="findMemPwd" parameterType="hashmap" resultType="hashmap">
+		SELECT MEMBER_NO
+		FROM MEMBER
+		WHERE NM = #{findNm}
+		AND EMAIL = #{findId}
+	</select>
+	
+	<select id="updMemPwd"  parameterType="hashmap">
+		UPDATE MEMBER SET PWD = #{updPwd}
+		WHERE MEMBER_NO=#{no}
+	</select>
+	
 </mapper>
