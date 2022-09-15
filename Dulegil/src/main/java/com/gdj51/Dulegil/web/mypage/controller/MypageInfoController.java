@@ -100,12 +100,7 @@ public class MypageInfoController {
 	public ModelAndView mypageMyinfoUpdate(HttpSession session, @RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
 		// 로그인 안했을 경우엔 로그인 페이지로
-<<<<<<< HEAD
-		if (session.getAttribute("sMemNm") == null && session.getAttribute("sMemNm") == "") {
-=======
 		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
-
->>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
 			mav.setViewName("login/login");
 		} else {
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
