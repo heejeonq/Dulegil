@@ -32,7 +32,7 @@
 				</div>
 				<div class="mem_box">
 					<div class="mem_profile">
-						<img alt="" src="resources/images/sample3.png">
+						<img alt="" src="resources/upload/${data.IMG_FILE}">
 					</div>
 					<div class="mem_info">
 						<dl>

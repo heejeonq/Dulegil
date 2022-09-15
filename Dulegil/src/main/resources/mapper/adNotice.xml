@@ -6,12 +6,22 @@
 	<!-- 목록 -->
 	<select id="list" resultType="hashmap">
 		SELECT A.POST_NO, A.TITLE, A.NM, A.REG_DT,A.RNK
-		FROM(	SELECT N.POST_NO, N.TITLE, M.NM, N.REG_DT,
-					ROW_NUMBER()OVER(ORDER BY N.REG_DT) AS RNK 
+		FROM(	SELECT N.POST_NO, N.TITLE, N.CONTENTS, M.NM, N.REG_DT,
+					ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
 				FROM NOTICE N INNER JOIN MEMBER M
               					  ON N.MEMBER_NO = M.MEMBER_NO
 				WHERE N.DEL_DT IS NULL) A
 		WHERE A.RNK BETWEEN #{start} AND #{end}
+		<if test="searchTxt != null and searchTxt !='' ">
+			<choose>
+				<when test="searchGbn == 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 1">
+					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
 	</select>
 
 	<!-- 페이징 -->
@@ -22,10 +32,10 @@
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
-					AND TITLE LIKE '%' || '#{searchTxt}' || '%'
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchGbn == 1">
-					AND CONTENTS LIKE '%' || '#{searchTxt}' || '%'
+					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
 
 				</when>
 			</choose>
@@ -37,7 +47,7 @@
 	<insert id="insert" parameterType="hashmap">
 		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE,
 		MUST_READ_YN)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 1, #{contents}, #{attFile}, 1)
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 1, #{contents}, #{attFile}, #{mainCheck})
 	</insert>
 
 
@@ -48,6 +58,7 @@
 
 	<!-- 삭제 -->
 	<update id="delete">
+	UPDATE NOTICE SET DEL_DT = SYSDATE
 	</update>
 
 </mapper>

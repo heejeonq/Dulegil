@@ -76,12 +76,21 @@ input:focus, select:focus {
 }
 
 #findId {
-	width: 70%;
+	width: 161px;
+	margin-right: 2px;
 }
 
-#emailSel {
+#at{
+	display: inline-block;
+	margin: 0 2px;
+	font-size: 16px;
+    color: #444;
+}
+
+#emailSel, #emailId {
 	height: 49px;
-	width: 30%;
+	width: 120px;
+	margin-left: 4px;
 }
 
 #memLgnBtn, #cnfmBtn{
