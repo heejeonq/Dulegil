@@ -86,7 +86,7 @@ function action(flag){
         		//목록 재조회
         		switch(flag){
         		case "insert" : 
-        			window.history.back;
+        			window.history.back();
         			break;
         		case "delete" :
         			//조회 데이터 초기화

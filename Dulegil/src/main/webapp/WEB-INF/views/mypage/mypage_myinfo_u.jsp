@@ -75,9 +75,9 @@ $(document).ready(function(){
 	
 	$("#updatemBtn").on("click", function(){
 		
-		if($.trim($("#pwd").val()) == "") {
+		if($.trim($("#cnfmPwd").val()) == "") {
 			makeAlert("알림", "비밀번호를 입력하세요", function(){;
-				$("#pwd").focus();	
+				$("#cnfmPwd").focus();	
 			});
 		}
 		else if($.trim($("#nm").val()) == "") {
@@ -105,7 +105,7 @@ $(document).ready(function(){
 				         var params = $("#actionForm").serialize();
 				         
 				         $.ajax({
-				            url:"mypageMyinfoUpdate", 
+				            url:"mypageAjax/myinfoUpdate", 
 				            type:"POST", 
 				            dataType:"json", 
 				            data : params,
@@ -115,7 +115,7 @@ $(document).ready(function(){
 				            		location.href = "mypageMyinfo";
 				            		break;
 				            	
-				            	case "fail" :  makeAlert("알림", "수정에 실패하였습니다.");
+				            	case "fail" :  makeAlert("알림", "비밀번호가 틀립니다.");
 				        			break;
 				        		
 				         		case "error" : makeAlert("알림", "수정 중 문제가 발생하였습니다.");
@@ -175,11 +175,12 @@ function readURL(input) {
 				<span>개인 정보 수정</span>
 			</div>
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="imgFile" id="imgFile"> <!-- 실 저장된 파일명 보관용 -->
+				<input type="hidden" name="memNo" value="${sMemNo}">
+				<input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}"> <!-- 실 저장된 파일명 보관용 -->
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
-					<img id="preview">
+					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
 			
 					<input type="file" onchange="readURL(this);" name="img">
@@ -196,7 +197,7 @@ function readURL(input) {
 						</div>
 						<div class="pw01">
 							<label for="pw"></label>
-							<input type="password" name="pwd" id="pwd" value="12345678" readonly="readonly">
+							<input type="password" name="pwd" id="pwd" value="${data.PWD}" readonly="readonly">
 						</div>
 						<div class="pw02">
 							<label for="pw"></label>

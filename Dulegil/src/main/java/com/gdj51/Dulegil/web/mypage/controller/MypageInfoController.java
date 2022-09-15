@@ -21,31 +21,30 @@ import com.gdj51.Dulegil.web.dao.IDao;
 public class MypageInfoController {
 	@Autowired
 	public IDao dao;
-	
+
 	@RequestMapping(value = "/mypageMyinfo")
-	public ModelAndView mypageMyinfo(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
+	public ModelAndView mypageMyinfo(HttpSession session, @RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
 
-		//로그인 안했을때 마이페이지 클릭했을 때 로그인 페이지로
-		if(session.getAttribute("sMemNm") == null && session.getAttribute("sMemNm") == "") {
-			
-			mav.setViewName("login/login");		
-		}
-		else {
+		// 로그인 안했을때 마이페이지 클릭했을 때 로그인 페이지로
+		if (session.getAttribute("sMemNm") == null && session.getAttribute("sMemNm") == "") {
+
+			mav.setViewName("login/login");
+		} else {
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
-			
+
 			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
-			
+
 			mav.addObject("data", data);
-			
+
 			mav.setViewName("mypage/mypage_myinfo");
-			
+
 		}
 
-		
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/mypagePasswordCheck")
 	public ModelAndView mypagePasswordCheck(ModelAndView mav) throws Throwable {
 
@@ -54,14 +53,14 @@ public class MypageInfoController {
 		return mav;
 
 	}
-	
-	@RequestMapping(value = "/PasswordCheckAjax", method = RequestMethod.POST, 
-			produces = "text/json;charset=UTF-8")
+
+	@RequestMapping(value = "/mypageAjax/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String PasswordCheckAjax (HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String mypageAjax(@PathVariable String gbn, HttpSession session,
+			@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> model = new HashMap<String, String>();
-		
+		Map<String, Object> model = new HashMap<String, Object>();
+
 //		//암호화
 //		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 //		System.out.println(params.get("pwd"));
@@ -69,62 +68,64 @@ public class MypageInfoController {
 //		//복호화
 //		System.out.println(Utils.decryptAES128(params.get("pwd")));
 //		
-		
-		HashMap<String, String> data = dao.getMap("member.checkPwd", params);
-		if(data != null) {
+
+		HashMap<String, String> data = new HashMap<String, String>();
+
+		int cnt = 0;
+		try {
+			switch (gbn) {
+			case "passwordCheck":
+				data = dao.getMap("member.checkPwd", params);
+				if (data != null) {
+					model.put("msg", "success");
+				}
+				else {
+					model.put("msg", "fail");
+				}
+
+				break;
+			case "myinfoUpdate":
+				cnt = dao.update("member.updateMyinfo", params);
+				if (cnt > 0) {
+					model.put("msg", "success");
+				} else {
+					model.put("msg", "fail");
+				}
+				break;
+
+			default:
+				break;
+			}
 	
-			model.put("msg", "success");
-			
-		}
-		else {
-			model.put("msg", "failed");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
 		}
 		return mapper.writeValueAsString(model);
 	}
-	
 
-	
+	@RequestMapping(value = "/mypageMyinfoUpdate", produces = "test/json;charset=UTF-8")
+	public ModelAndView mypageMyinfoUpdate(HttpSession session, @RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
 
-	@RequestMapping(value = "/mypageMyinfoUpdate", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
-	public ModelAndView mypageMyinfoUpdate(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
+		// 로그인 안했을 경우엔 로그인 페이지로
+		if (session.getAttribute("sMemNm") == null && session.getAttribute("sMemNm") == "") {
 
-		
-		//로그인 안했을 경우엔 로그인 페이지로
-		if(session.getAttribute("sMemNm") == null && session.getAttribute("sMemNm") == "") {
-			
-			mav.setViewName("login/login");		
-		}
-		else {
+			mav.setViewName("login/login");
+		} else {
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
-			
+
 			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
-			
+
 			mav.addObject("data", data);
-			
+
 			mav.setViewName("mypage/mypage_myinfo_u");
-			
-			int cnt = 0;
-			try {
-				cnt = dao.update("member.updateMyinfo", params);
-				
-				if(cnt > 0) {
-					mav.addObject("msg", "success");
-				}else {
-					mav.addObject("msg", "fail");
-				}
-				
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-				mav.addObject("msg", "error");
-			}
-			
+
 		}
-	
 
 		return mav;
 
 	}
 
-	
 }

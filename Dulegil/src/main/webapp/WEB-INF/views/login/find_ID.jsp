@@ -57,11 +57,11 @@ $(document).ready(function(){
 				<span id="findMsg">아이디는 가입시 입력하신 이름과 휴대전화번호을 통해 찾을 수 있습니다.</span>
 				<div class="findInfo">
 					<form action="#" id="actionForm" method="post">
-					<input type="hidden" id="email" name="email" />
-					<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
-					<input type="text" id="findPhn" name="findPhn" placeholder="휴대전화번호" />
+						<input type="hidden" id="email" name="email" />
+						<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
+						<input type="text" id="findPhn" name="findPhn" placeholder="휴대전화번호" />
 					</form>
-					<input type="button" id="cnfmBtn" value="확인">
+					<input type="button" id="cnfmBtn" value="확인" />
 				</div>
 			</div>	
 			<div class="btn">
