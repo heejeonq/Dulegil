@@ -620,14 +620,14 @@ table.standard td a:hover{
 	text-decoration:underline #aaa;
 }
 table.standard td:nth-child(3){font-weight:500; color:#333; text-align:center; }
-#mem_img > img {
+.mem_img > img {
 	width: 70px;
 	height: 70px;
 }
-#mem_id{
+.mem_id{
 	font-size: 13px;
 }
-#join_title {
+.join_title {
 	line-height: 30px;
     font-size: 15px;
     font-weight: 500;

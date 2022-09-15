@@ -3,12 +3,12 @@
 
 /* Main Color */
 .cmn_btn, .cmn_btn_ml, .cmn_btn_mr, .cmn_btn_mb, .page_btn_on, .popup_title {
-	background-color: #70adf9;
+	background-color: #f0c41994;
 	color: #FFFFFF;
 }
 /* Main Color on active */
 .cmn_btn:active, .cmn_btn_ml:active, .cmn_btn_mr:active, .cmn_btn_mb:active, .page_btn_on:active {
-	background-color: #8fbef9;
+	background-color: #f0c41994;
 }
 
 
@@ -78,7 +78,7 @@
 	text-indent: 5px;
 	vertical-align: middle;
 	border: 1px solid #d7d7d7;
-	outline-color: #70adf9;
+	outline-color: #f0c41994; 
 }
 
 /* Board */
@@ -114,7 +114,7 @@
 }
 
 .board_table .board_table_hover:hover {
-	color: #4B94F2;
+	color: #f0c41994;
 	text-decoration: underline;
 }
 
@@ -147,7 +147,7 @@
 	text-indent: 5px;
 	vertical-align: middle;
 	border: 1px solid #d7d7d7;
-	outline-color: #70adf9;
+	outline-color: #f0c41994;
 }
 
 /* paging */

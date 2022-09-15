@@ -171,7 +171,7 @@ $("#updateBtn").on("click", function() {
 						<input type="hidden" name="att" id="att" />			
 						<input type="file" class="file" name="attFile"/>
 					
-						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div>
+						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div> 
 					</div>
 					</c:when>
 					<c:otherwise>

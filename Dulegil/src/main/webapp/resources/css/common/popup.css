@@ -8,12 +8,12 @@ html, body {
 
 /* Main Color */
 .cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb, .popup_title {
-	background-color: #70adf9;
+	background-color: #f0c41994;
 	color: #FFFFFF;
 }
 /* Main Color on active */
 .cmn_popup_btn:active, .cmn_popup_btn_ml:active, .cmn_popup_btn_mr:active, .cmn_popup_btn_mb:active {
-	background-color: #8fbef9;
+	background-color: #f0c41994;
 }
 
 .cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb {
