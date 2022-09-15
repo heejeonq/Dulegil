@@ -104,9 +104,11 @@ public class MypageAccopanyController {
 		
 		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 		
-		List<HashMap<String, String>> list = dao.getList("accompany.applyMemList", params);
+		List<HashMap<String, String>> list1 = dao.getList("accompany.applyMemList", params);
+		List<HashMap<String, String>> list2 = dao.getList("accompany.chatList", params);
 
-		model.put("list", list);
+		model.put("list1", list1);
+		model.put("list2", list2);
 		
 		
 		return mapper.writeValueAsString(model);

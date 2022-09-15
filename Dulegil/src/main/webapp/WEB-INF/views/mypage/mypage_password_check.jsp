@@ -75,6 +75,7 @@ $(document).ready(function(){
 				<div class = "mem_box">
 					<div id="intropwd">
 						<input type="hidden" name="memNo" value="${sMemNo}">
+						<input type="hidden" name="memNm" value="${sMemNm}">
 						<span id="id" >${sMemNm}</span>
 						<span id="checkment">님의 개인정보를 보호하기 위해</span><br>
 						<span>비밀번호를 한번 더 확인합니다.</span>

@@ -70,8 +70,9 @@ function action(flag){
        	case "success" : 
        		switch(flag){
        		case "insert" : 
-       			makeAlert("알림", "회원가입이 완료되었습니다.")
-       			window.history.back();
+       			location.href = "main";
+       			makeAlert("알림", "회원가입이 완료되었습니다.");
+       		
        		break;
        		case "delete" :
        			$("#page").val("1");
