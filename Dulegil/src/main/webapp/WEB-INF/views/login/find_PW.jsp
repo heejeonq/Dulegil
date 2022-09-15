@@ -26,7 +26,7 @@ function emailSelect(ele){
 
 $(document).ready(function(){
 	$("#cnfmBtn").on("click", function(){
-		$("#email").val($("#id").val() + "@" + $("#emailId").val());
+		$("#email").val($("#findId").val() + "@" + $("#emailId").val());
 		
 		if($.trim($("#findNm").val()) == ""){
 			makeAlert("알림", "이름를 입력하세요.", function(){
