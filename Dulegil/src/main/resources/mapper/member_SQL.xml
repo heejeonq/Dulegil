@@ -48,5 +48,11 @@
 		UPDATE MEMBER SET PWD = #{updPwd}
 		WHERE MEMBER_NO = #{no}
 	</select>
+	
+	<select id="chkMemId" parameterType="hashmap" resultType="hashmap">
+		SELECT EMAIL
+		FROM MEMBER
+		WHERE EMAIL LIKE #{email}
+	</select>
 
 </mapper>

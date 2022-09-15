@@ -16,7 +16,6 @@ $(function(){
 function faqQst(num){
 	$(".faqAns").css("display", "none");
 	$("#faqAns"+num).css("display", "block");
-	//	document.getElementById("qna_answer_"+num+"").style.display = "block";
 }
 </script>
 </head>
