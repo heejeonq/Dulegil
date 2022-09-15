@@ -31,7 +31,7 @@ $(document).ready(function(){
 		else {
 			var params = $("#actionForm").serialize();
 			$.ajax({
-				url : "PasswordCheckAjax", //경로
+				url : "mypageAjax/passwordCheck", //경로
 				type : "POST", //전송방식
 				dataType : "json", //데이터 형태
 				data : params, //보낼 데이터
@@ -74,7 +74,8 @@ $(document).ready(function(){
 				<form action="#" id="actionForm">
 				<div class = "mem_box">
 					<div id="intropwd">
-						<span id="id">${sMemNm}</span>
+						<input type="hidden" name="memNo" value="${sMemNo}">
+						<span id="id" >${sMemNm}</span>
 						<span id="checkment">님의 개인정보를 보호하기 위해</span><br>
 						<span>비밀번호를 한번 더 확인합니다.</span>
 						<br>
