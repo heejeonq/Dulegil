@@ -7,7 +7,7 @@
 	</insert>
 
 	<select id="getMyinfo" resultType="hashmap" parameterType="hashmap">
-		SELECT MEMBER_NO, EMAIL, NM, PHONE_NO, TO_CHAR(DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, IMG_FILE
+		SELECT MEMBER_NO, EMAIL, PWD, NM, PHONE_NO, TO_CHAR(DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, IMG_FILE
 		FROM MEMBER
 		WHERE MEMBER_NO = #{memNo}
 	</select>
@@ -18,12 +18,14 @@
 		WHERE DEL_DT IS NULL 
 		AND AUTHORITY_NO = 2
 		AND PWD = #{pwd}
+		AND MEMBER_NO = #{memNo}
 	</select>
 	
 	<update id="updateMyinfo">
-		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt}, GENDER = #{gen}, ZIP_CODE = #{zcd}, 
-		ADDRESS =  #{adr}, DETAIL_ADDRESS = #{adrDtl}, IMG_FILE = NULL
-		WHERE MEMBER_NO = 3
+		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt, jdbcType = DATE}, GENDER = #{gen, jdbcType = VARCHAR}, ZIP_CODE = #{zcd, jdbcType = VARCHAR}, 
+		ADDRESS =  #{adr, jdbcType = VARCHAR}, DETAIL_ADDRESS = #{adrDtl, jdbcType = VARCHAR}, IMG_FILE = #{imgFile, jdbcType = VARCHAR}
+		WHERE MEMBER_NO = #{memNo}
+		AND PWD = #{cnfmPwd}
 	</update>
 	
 	<select id="findMemId" parameterType="hashmap" resultType="hashmap">
@@ -34,6 +36,7 @@
 		AND PHONE_NO = #{findPhn}
 	</select>
 	
+<<<<<<< HEAD
 	<select id="findMemPwd" parameterType="hashmap" resultType="hashmap">
 		SELECT MEMBER_NO
 		FROM MEMBER
@@ -45,5 +48,8 @@
 		UPDATE MEMBER SET PWD = #{updPwd}
 		WHERE MEMBER_NO=#{no}
 	</select>
+=======
+	
+>>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
 	
 </mapper>

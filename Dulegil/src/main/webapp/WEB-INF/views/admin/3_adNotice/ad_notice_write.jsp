@@ -288,7 +288,12 @@ $(document).ready(function(){
 	    history.back();
 	 });
 	
-	
+	// 체크 메인 걸기
+	if($("#mainCheck").is(":checked")){
+		$("#mainCheck").val(0);
+	}else{
+		$("#mainCheck").val(1);		
+	}
 });
 </script>
 </head>
@@ -403,7 +408,7 @@ $(document).ready(function(){
 						<div id="Ctitle">
 							<div class="CTN">메인으로 띄우기</div>
 							<div class="checkbox">
-								<input type="checkbox" class="commentBoxT">
+								<input type="checkbox" class="commentBoxT" id="mainCheck" name="mainCheck">
 							</div>
 						</div>
 
