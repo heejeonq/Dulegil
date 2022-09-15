@@ -24,7 +24,7 @@ public class MypageCommentsController {
 	@Autowired
 	public IPagingService ips;
 
-	@RequestMapping(value = "/mypage_comments")
+	@RequestMapping(value = "/mypageComment")
 	public ModelAndView mypage_comment(@RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
 
@@ -48,6 +48,19 @@ public class MypageCommentsController {
 	@ResponseBody
 	public String mypage_commentsAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
+
+		int delete = 0;
+		try {
+			delete = iDao.delete("mypage.deleteComments", params);
+			if (delete > 0) {
+				System.out.println("성공");
+			} else {
+				System.out.println("실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("에러");
+		}
 
 		Map<String, Object> model = new HashMap<String, Object>();
 

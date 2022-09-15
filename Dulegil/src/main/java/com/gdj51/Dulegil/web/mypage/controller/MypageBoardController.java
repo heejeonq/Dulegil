@@ -24,7 +24,7 @@ public class MypageBoardController {
 	@Autowired
 	public IPagingService ips;
 
-	@RequestMapping(value = "/mypage_board")
+	@RequestMapping(value = "/mypageBoard")
 	public ModelAndView mypage_board(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
 
 		int page = 1;
@@ -47,6 +47,19 @@ public class MypageBoardController {
 	@ResponseBody
 	public String mypage_boardAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
+
+		int delete = 0;
+		try {
+			delete = iDao.delete("mypage.deleteBoard", params);
+			if (delete > 0) {
+				System.out.println("성공");
+			} else {
+				System.out.println("실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("에러");
+		}
 
 		Map<String, Object> model = new HashMap<String, Object>();
 
@@ -81,9 +94,7 @@ public class MypageBoardController {
 	 * 
 	 * try {
 	 * 
-	 * switch (gbn) {
-	 * 
-	 * case "delete": cnt = iDao.delete("mypage.deleteBoard", params); break; }
+	 * cnt = iDao.delete("mypage.deleteBoard", params);
 	 * 
 	 * if (cnt > 0) { model.put("msg", "success"); } else { model.put("msg",
 	 * "fail"); }
@@ -92,7 +103,6 @@ public class MypageBoardController {
 	 * 
 	 * return mapper.writeValueAsString(model); }
 	 */
-
 	@RequestMapping(value = "/mypage_boardDetail")
 	public ModelAndView mypage_boardDetail(ModelAndView mav) {
 

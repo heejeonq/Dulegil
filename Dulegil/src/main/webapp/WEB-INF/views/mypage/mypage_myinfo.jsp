@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>내 정보</title>
 
-
 </head>
 <body>
 <!-- Header -->

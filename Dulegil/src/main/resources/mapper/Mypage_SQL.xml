@@ -30,12 +30,11 @@ WHERE C.DEL_DT IS NULL
 		AND TITLE LIKE '%' || #{searchTxt} || '%'
 		</when>
 		<when test="searchGbn eq 1">
-		AND COMMENTS LIKE '%'|| #{searchTxt}||'%'
+		AND C.CONTENTS LIKE '%'|| #{searchTxt}||'%'
 		</when>
 	</choose>		
 </if>	
 </select>
-
 
 <select id="getBoardList" resultType="hashmap">
 SELECT F.POST_NO,F.BLTNBOARD_NM,F.TITLE,F.REG_DT, F.CONTENTS
@@ -48,6 +47,7 @@ FROM(SELECT B.POST_NO, T.BLTNBOARD_NM, B.TITLE, B.CONTENTS,
 FROM BULLETIN_BOARD B INNER JOIN BOARD_TYPE T
 		ON B.BLTNBOARD_NO = T.BLTNBOARD_NO
 WHERE B.DEL_DT IS NULL
+AND MEMBER_NO = #{sMemNo}
 <choose>
 	<when test="cate != 0" >
 		AND T.BLTNBOARD_NO = #{cate}	
@@ -70,7 +70,6 @@ WHERE B.DEL_DT IS NULL
 WHERE F.RNUM BETWEEN #{start} AND #{end}		
 </select>
 
-
 <select id="getCommentsList" resultType="hashmap">
 SELECT C.POST_NO, C.TITLE, C.CONTENTS, C.REG_DT
 FROM(SELECT B.POST_NO, B.TITLE, C.CONTENTS,
@@ -82,6 +81,7 @@ FROM(SELECT B.POST_NO, B.TITLE, C.CONTENTS,
 FROM BULLETIN_BOARD B INNER JOIN COMMENTS C
 		ON B.POST_NO = C.POST_NO
 WHERE C.DEL_DT IS NULL
+AND C.MEMBER_NO = #{sMemNo}
 <choose>
 	<when test="cate != 0" >
 		AND B.BLTNBOARD_NO = #{cate}	
@@ -96,7 +96,7 @@ WHERE C.DEL_DT IS NULL
 		AND TITLE LIKE '%' || #{searchTxt} || '%'
 		</when>
 		<when test="searchGbn eq 1">
-		AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+		AND C.CONTENTS LIKE '%'|| #{searchTxt}||'%'
 		</when>
 	</choose>		
 </if>
@@ -104,16 +104,19 @@ WHERE C.DEL_DT IS NULL
 WHERE C.RNUM BETWEEN #{start} AND #{end}		
 </select>
 
-
 <select id="getCateAllList" resultType="hashmap">
 		SELECT *
 		FROM BOARD_TYPE
-	</select>
+</select>
 
-<!-- <update id="deleteBoard" parameterType="hashmap">
-	 UPDATE BULLETIN_BOARD SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
-      WHERE POST_NO = #{no}
-	</update>-->
+<update id="deleteBoard" parameterType="hashmap">
+	  UPDATE BULLETIN_BOARD SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
+      WHERE POST_NO IN(${delete})
+</update>
 
+<update id="deleteComments" parameterType="hashmap">
+	  UPDATE COMMENTS SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
+      WHERE POST_NO IN(${delete})
+</update>
 
 </mapper>
