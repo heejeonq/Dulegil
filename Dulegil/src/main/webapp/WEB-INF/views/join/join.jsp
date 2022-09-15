@@ -35,6 +35,7 @@ function sample6_execDaumPostcode() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
             } else {
+            	
             }
 
             document.getElementById('zcd').value = data.zonecode;
@@ -70,8 +71,9 @@ function action(flag){
        	case "success" : 
        		switch(flag){
        		case "insert" : 
-       			makeAlert("알림", "회원가입이 완료되었습니다.")
-       			window.history.back();
+       			makeAlert("알림", "회원가입이 완료되었습니다.", function() {
+       				location.href='main';
+       			});
        		break;
        		case "delete" :
        			$("#page").val("1");
@@ -125,12 +127,12 @@ $(document).ready(function() {
 				data : params,
 				success: function(res) { 
 					if(res.msg == "success"){
-						makeAlert("알림", "사용할 수 없는 아이디 입니다.");
+						makeAlert("알림", "사용할 수 없는 아이디입니다.");
 						$("#id").val("");
 						$("#emailId").val("");
 						$("#emailSel").val("1");
 					}else{
-						makeAlert("알림", "사용 가능한 아이디 입니다.");
+						makeAlert("알림", "사용 가능한 아이디입니다.");
 						$("#chkId").val("1");
 					}
 				}, 
