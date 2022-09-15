@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,26 +37,40 @@ public class ViewController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/updPwdAjax", 
-			   method = RequestMethod.POST,
-			 produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/viewAction/{gbn}", 
+			method = RequestMethod.POST, 
+			produces = "test/json;charset=UTF-8")
 	@ResponseBody
-	public String updPwdAjax(
+	public String viewAction(@PathVariable String gbn, 
 			@RequestParam HashMap<String, String> params) throws Throwable {
+
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		Map<String, Object> model = new HashMap<String, Object>();
+
+		int cnt = 0;
 		
-		HashMap<String, String> data = dao.getMap("member.updMemPwd", params);
-		
-		if(data != null) {
-			model.put("data", data);
-			model.put("msg", "success");
-		
-		}else {
-			model.put("msg", "failed");
+		try {
+			switch (gbn) {
+			case "update":	
+				cnt = dao.insert("member.updMemPwd", params);
+			break;
+			default:
+			break;
+			}
+			
+			if(cnt > 0) {
+				model.put("msg", "success");
+			}else {
+				model.put("msg", "fail");
+			}
+			
 		}
-		
+		catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+
 		return mapper.writeValueAsString(model);
 	}
 }

@@ -72,16 +72,16 @@
 
 /* 테이블 */
 th {
-	width: 310px;
+	width: 10%;
 	height: 10%;
 	font-size: 13px;
-	padding: 14px;
+	padding: 11px;
 	border-bottom: solid 1px #5e5e5e;
 	color: #a1a1a1;
 }
 
 th:nth-child(2), td:nth-child(2) {
-	width: 65%;
+	width: 30%;
 	text-align: left;
 }
 
@@ -175,7 +175,7 @@ width: 6%;
 }
 
 .Sbar2 {
-	width: 13%;
+	width: 25%;
 	height: 46%;
 	display: inline-block;
 	text-align: left;
@@ -202,18 +202,17 @@ width: 6%;
 }
 
 #searchBtn {
-
-	background-color: #ededed;
-	border-radius: 4px;
-	border: 1px solid #f4f5ee;
-	display: inline-block;
-	cursor: pointer;
-	color: #5e5e5e;
-	font-family: Arial;
-	font-weight: 700;
-	width: 100%;
+background-color: #ededed;
+    border-radius: 0px;
+    border: #ededed;
+    display: inline-block;
+    cursor: pointer;
+    color: #5e5e5e;
+    font-family: Arial;
+    font-weight: 700;
+    width: 100%;
     height: 100%;
-	position: absolute;
+    position: inherit;
 }
 
 input:focus {
@@ -346,6 +345,18 @@ $(document).ready(function(){
 	});
 	
 	
+	// th 전체 선택 박스 클릭시 -> td 전체 선택 
+	 $('input:checkbox[name="allCheck"]').change(function(){
+        $('input:checkbox[name="Check"]').each(function(){
+            $(this).prop("checked",$('input:checkbox[name="allCheck"]').prop("checked"));
+        });
+    });
+
+	// td에서 체크 하나 풀면 th 체크박스 해제
+
+	
+	// 체크 밸류 리스트 가져가기
+
 	
 }); // document.ready end
 
@@ -380,7 +391,7 @@ function drawList(list){
 		html += "<td colspan=\"6\">"+ data.TITLE +"</td>";
 		html += "<td colspan=\"1\">"+ data.NM +"</td>";
 		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
-		html += "<td colspan=\"1\"><input type=\"checkbox\" /></td>";
+		html += "<td colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\" /></td>";
 		html += "</tr>";
 		                                                                
 	}                                                                    
@@ -548,7 +559,7 @@ function drawPaging(pd){
 								<th colspan="6">글제목</th>
 								<th colspan="1">작성자</th>
 								<th colspan="1">작성일</th>
-								<th colspan="1">삭제</th>
+								<th colspan="1"><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -580,9 +591,21 @@ function drawPaging(pd){
 				
 				
 				<div id="search">
+				
+				<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+				
+				<!-- 기존 검색 내용 유지용 -->
+				<input type="hidden" id="oldGbn" value="${param.searchGbn}"/>
+				<input type="hidden" id="oldTxt" value="${param.searchTxt}"/>
+	
 					<form action="#" id="actionForm" method="post">
 						<input type="hidden" name="no" id="no" /> 
 						<input type="hidden" name="page" id="page" value="${page}" />
+						
+
+						
+
 
 						<div class="Sbar1">
 							<select class="sel" name="searchGbn" id="searchGbn">
