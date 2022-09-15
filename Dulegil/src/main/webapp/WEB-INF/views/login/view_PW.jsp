@@ -15,9 +15,9 @@ $(document).ready(function(){
 			makeAlert("알림", "비밀번호를 입력하세요.", function(){
 				$("#updPwd").focus();	
 			});
-		}else if($("#updRPwd").val() != $("#updPwd").val()){
+		}else if($("#updCnfmPwd").val() != $("#updPwd").val()){
 			makeAlert("알림", "비밀번호가 일치하지 않습니다.", function(){
-				$("#updRPwd").focus();
+				$("#updCnfmPwd").focus();
 			});
 		}else{
 			var params = $("#actionForm").serialize();
@@ -65,7 +65,7 @@ $(document).ready(function(){
 					<form action="#" id="actionForm" method="post">
 						<input type="hidden" name="no" value="${param.no}" />
 						<input type="password" id="updPwd" name="updPwd" placeholder="비밀번호" /><br />
-						<input type="password" id="updRPwd" name="updRPwd" placeholder="비밀번호 확인" /><br />
+						<input type="password" id="updCnfmPwd" name="updCnfmPwd" placeholder="비밀번호 확인" /><br />
 					</form>
 				</div>
 				<input type="button" id="cnfmBtn" value="확인">
