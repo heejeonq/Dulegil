@@ -11,6 +11,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#cnfmBtn").on("click", function(){
+		$("#email").val($("#findId").val() + "@" 
+				+ $("#emailSel option:selected").val());
+		
 		if($.trim($("#findNm").val()) == ""){
 			makeAlert("알림", "이름를 입력하세요.", function(){
 				$("#findNm").focus();	
@@ -28,14 +31,9 @@ $(document).ready(function(){
 				data : params,
 				success: function(res) { 
 					if(res.msg == "success"){
-						$("#cnfmBtn").on("click", function(){
-							$("#email").val($("#id").val() + "@" + $("#emailSel option:selected").val());
-							
-							
-							$("#no").val(res.data.MEMBER_NO);
-							$("#actionForm").attr("action", "viewPwd");
-							$("#actionForm").submit();
-						});	
+						$("#no").val(res.data.MEMBER_NO);
+						$("#actionForm").attr("action", "viewPwd");
+						$("#actionForm").submit();
 					}else{
 						makeAlert("알림", "등록된 정보가 없습니다.");
 					}
@@ -65,6 +63,7 @@ $(document).ready(function(){
 						<input type="hidden" id="no" name="no" />
 						<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
 						<input type="text" id="findId" name="findId" placeholder="아이디" />
+						<input type="hidden" name="email" id="email">
 						<select id="emailSel">
 							<option>직접입력</option>
 							<option>naver.com</option>
