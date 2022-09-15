@@ -10,10 +10,9 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/mypage.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
-<title>게시글 관리</title>
+<title>댓글 관리</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	
 
 	reloadList();
 	
@@ -67,7 +66,7 @@ $(document).ready(function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","freeBoardDetail");
+		$("#actionForm").attr("action","freeBoaDetail");
 		$("#actionForm").submit();
 		
 	});
@@ -85,21 +84,6 @@ $(document).ready(function(){
 		reloadList();
 	});
 
-	function drop_selected(){ // 리스트에서 선택 삭제
-		var chklist = "";
-		if(document.form.deleteCheck.length){
-		for(var i=0;i<form.deleteCheck.length;i++){
-		if(form.deleteCheck[i].checked){
-		if(chklist){
-		chklist += "|";
-		}
-		chklist += form.deleteCheck[i].value;
-		}
-		}
-		}
-		form.chklist.value = chklist;
-	}
-	
 	//목록의 삭제 버튼 클릭시
 	/*$("tbody").on("click", ".delBtn", function(){
 		var no = $(this).parent().parent().attr("no");
@@ -136,8 +120,6 @@ function change_btn(e) {
    console.log( e.currentTarget );
 }
 
-
-
 function reloadList(){
 	
 	$("#cate").val($("#cateNo").val());
@@ -145,7 +127,7 @@ function reloadList(){
 	   var params = $("#actionForm").serialize();
 	                                                            
 	   $.ajax({                                                 
-	      url:"mypage_boardAjax",                                     
+	      url:"mypage_commentsAjax",                                     
 	      type:"POST",                                          
 	      dataType:"json",                                      
 	      data : params,                                        
@@ -166,8 +148,8 @@ function drawList(list){
 	   for(var data of list) { 
 	      html += "<tr>";
 	      html += "<td class=\"title\" no=\"" + data.POST_NO + "\">" + data.POST_NO + "</td>";
-	      html += "<td class=\"title\" no=\"" + data.POST_NO + "\">" + data.BLTNBOARD_NM + "</td>";
 	      html += "<td class=\"title\" no=\"" + data.POST_NO + "\">" + data.TITLE + "</td>";
+	      html += "<td class=\"title\" no=\"" + data.POST_NO + "\">" + data.CONTENTS + "</td>";
 	      html += "<td>" + data.REG_DT + "</td>";
 	      html += "<td> <input type=\"checkbox\" name=deleteCheck </td>";
 	      html += "</tr>";
@@ -238,20 +220,17 @@ function drawPaging(pd){
 		<div class="contents">
 			<div class="mypage_contents">
 				<div class="area_tit">
-					<span>게시글 관리</span>
-			
+					<span>댓글 관리</span>
 					<select class="sel sel_right" id="cateNo">
 						<option value="0">전체</option>
    					  	<c:forEach var="data" items="${cate}">
    	  					<option value="${data.BLTNBOARD_NO}">${data.BLTNBOARD_NM}</option>
    	  				</c:forEach>
    	 				 </select>
-							
-				
-	        		<div class = intro>
+					<div class = intro>
 						<table class="table">
-							
-							<colgroup>
+						
+						<colgroup>
 							<!-- 번호 -->
 							<col width="100" /> 
 							<!-- 게시판이름 -->
@@ -264,26 +243,169 @@ function drawPaging(pd){
 							<col width="100" />
 							</colgroup>
 							
+						
 							<thead>
 							<tr>
 								<th>번호</th>
-								<th>게시판이름</th>
 								<th>글제목</th>
+								<th>댓글내용</th>
 								<th>작성일</th>
 								<th>삭제</th>
 							</tr>
 							</thead>
 							<tbody>
-							</tbody>
+							<!-- <tr>
+								<td>1</td>
+								<td>2코스 15일..</td>
+								<td>저요!! 제가 갈래요!!!</td>
+								<td>22.07.08</td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>오늘 날씨가...</td>
+								<td>전 너무 덥지만 좋았어요^^</td>
+								<td>22.06.02</td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>오늘 날씨가...</td>
+								<td>너무 더웠어요...</td>
+								<td>22.06.01</td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>12</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>13</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>14</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>15</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>16</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>17</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>18</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>19</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>
+							<tr>
+								<td>20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><input type="checkbox" name="delete"></td>
+							</tr>-->
+							</tbody>  
 						</table>
-						
+		
+		
 						<!-- DeleteBtn -->
 					 	<input type="button" name="delBtn" id="delBtn" class="btn green" value="삭제">
 						
 						<!-- Paging -->			
 						<div class="pagination">
 					    </div>
-					          
+					         
+				
 					    <!-- Searching -->  
 						<div>
 							<div>  
@@ -295,8 +417,8 @@ function drawPaging(pd){
 									<input type="hidden" name="page" id="page" value="${page}" />
 									<input type="hidden" name="cate" id="cate"/>
 										<select class="sel" name="searchGbn" id="searchGbn">
-											<option value="0">제목</option>
-											<option value="1">내용</option>
+											<option value="0">글제목</option>
+											<option value="1">댓글내용</option>
 										</select>
 									<div class="searchBox">
 										<input type="text" class="serchTxt" name="searchTxt" id="searchTxt" value="${param.searchTxt }" placeholder="검색하기" />				
@@ -305,6 +427,8 @@ function drawPaging(pd){
 										</div>
 									</div>
 								</form>
+								
+								
 								</div>
 							</div>
 						</div>
@@ -313,7 +437,8 @@ function drawPaging(pd){
 			</div>
 		</div>
 	</div>
-	
+
+
 <!-- footer -->
 	<jsp:include page="../common/footer.jsp" flush="true"/>
   </body>

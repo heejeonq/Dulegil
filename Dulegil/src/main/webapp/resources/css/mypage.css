@@ -611,9 +611,8 @@ table.standard th{
 	color:#000;
     padding:6px; 
 }
-table.standard th:nth-child(1){width:6%;}
-table.standard th:nth-child(2){width:12%;}
-table.standard th:nth-child(3){width:50%;}
+
+
 table.standard td{
 	text-align:center;
 	font-size:13px;
