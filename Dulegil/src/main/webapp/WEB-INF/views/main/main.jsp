@@ -71,7 +71,7 @@ $(document).ready(function (){
 		dataType: "json",//데이터 형태
 		success : function(res) { //성공했을 때 결과를 res에 받고 함수 실행
 
-				$("[name='duleMap']").on("mouseenter", "area", function(){
+				$("[name='duleMap']").on("mouseover", "area", function(){
 					for(var i=0; i<res.length; i++){
 							if($(this).attr("title") == res[i].title){
 								$(".course_no span").text(res[i].title);
@@ -83,16 +83,16 @@ $(document).ready(function (){
 								$("#courseP2").attr("src", "resources/images/" +res[i].courseP2 +".jpg");
 								$("#courseP3").attr("src", "resources/images/" +res[i].courseP3 +".jpg");
 								$(".map_line img").attr("src", "resources/images/" + (i+1) + "코스.png" );
-
 						}
 					} 
 					
 				});
-				$("[name='duleMap']").on("mouseleave", "area", function(){
+				$("[name='duleMap']").on("mouseout", "area", function(){
 					for(var i=0; i<res.length; i++){
 						$(".map_line img").attr("src", "" );
 					}
 				});	
+				
 		
 		}, 
 		error : function(req, status, error){ // 실패했을 때 함수 실행
@@ -127,14 +127,14 @@ $(document).ready(function (){
 			<div class="map_img">
 				<img alt="서울둘레길 지도" src="resources/images/map.png" usemap="#duleMap">
 				<map name="duleMap">
-				    <area target="" alt="1코스" title="1코스" href="" coords="588,27,615,49,677,91,662,165,624,174,609,109,581,87,551,34" shape="poly">
-				    <area target="" alt="2코스" title="2코스" href="" coords="658,180,614,198,662,230,641,257,642,318,677,304,704,255,710,227" shape="poly">
-				    <area target="" alt="3코스" title="3코스" href="" coords="648,326,721,296,762,300,790,331,795,380,761,437,745,481,720,500,675,469,702,455,707,399,738,353,713,354,663,376" shape="poly">
-				    <area target="" alt="4코스" title="4코스" href="" coords="662,448,676,505,629,515,567,534,487,510,444,481,497,448,592,456" shape="poly">
-				    <area target="" alt="5코스" title="5코스" href="" coords="429,483,395,472,364,490,342,500,317,530,308,553,317,574,346,575,384,561,413,532,428,523" shape="poly">
-				    <area target="" alt="6코스" title="6코스" href="" coords="290,565,306,508,289,478,270,446,290,393,313,348,254,310,220,307,207,333,253,352,229,399,218,457,242,511,260,560" shape="poly">
-				    <area target="" alt="7코스" title="7코스" href="" coords="212,278,296,314,327,279,327,222,329,177,321,150,293,149,283,206,271,240,232,243" shape="poly">
-				    <area target="" alt="8코스" title="8코스" href="" coords="335,134,397,141,402,181,448,169,471,166,472,109,506,50,530,29,551,96,527,135,504,204,441,223,382,243,336,215" shape="poly">
+				    <area target="" alt="1코스" title="1코스" href="course1" coords="542,87,562,58,602,78,646,110,633,168,633,224,591,135" shape="poly">
+				    <area target="" alt="2코스" title="2코스" href="course2" coords="630,236,654,198,688,214,691,275,676,336,653,347,625,277" shape="poly">
+				     <area target="" alt="3코스" title="3코스" href="course3" coords="717,348,677,345,675,316,728,292,782,309,780,358,770,409,760,454,723,492,689,517,678,476,721,381" shape="poly">
+				    <area target="" alt="4코스" title="4코스" href="course4" coords="674,525,649,495,599,502,541,518,492,505,463,520,464,554,506,557,595,566" shape="poly">
+				    <area target="" alt="5코스" title="5코스" href="course5" coords="445,553,441,505,395,515,348,528,316,557,320,596,399,579" shape="poly">
+				    <area target="" alt="6코스" title="6코스" href="course6" coords="299,573,312,527,295,486,292,338,221,301,190,312,227,373,264,551" shape="poly">
+				    <area target="" alt="7코스" title="7코스" href="course7" coords="242,297,190,280,227,248,267,253,279,187,288,145,304,174,327,212,307,299,260,299" shape="poly">
+				    <area target="" alt="8코스" title="8코스" href="course8" coords="337,195,312,148,361,139,390,181,444,145,475,90,522,31,545,88,522,115,480,210,372,245" shape="poly">
 				</map>
 				<div class="map_line">
 				<img src="" >
