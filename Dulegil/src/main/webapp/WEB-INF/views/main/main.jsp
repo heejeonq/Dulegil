@@ -71,7 +71,7 @@ $(document).ready(function (){
 		dataType: "json",//데이터 형태
 		success : function(res) { //성공했을 때 결과를 res에 받고 함수 실행
 
-				$("[name='duleMap']").on("mouseenter", "area", function(){
+				$("[name='duleMap']").on("mouseover", "area", function(){
 					for(var i=0; i<res.length; i++){
 							if($(this).attr("title") == res[i].title){
 								$(".course_no span").text(res[i].title);
@@ -87,7 +87,7 @@ $(document).ready(function (){
 					} 
 					
 				});
-				$("[name='duleMap']").on("mouseleave", "area", function(){
+				$("[name='duleMap']").on("mouseout", "area", function(){
 					for(var i=0; i<res.length; i++){
 						$(".map_line img").attr("src", "" );
 					}
