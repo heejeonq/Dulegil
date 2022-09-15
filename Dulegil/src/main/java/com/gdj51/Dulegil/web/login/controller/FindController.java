@@ -83,6 +83,4 @@ public class FindController {
 		
 		return mapper.writeValueAsString(model);
 	}
-	
-
 }

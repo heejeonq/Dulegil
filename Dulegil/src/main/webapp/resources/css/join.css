@@ -19,24 +19,20 @@ th, td{
 	color: #555;
 }
 
-.bscInfo tr td{
-	width: 73%;
-}
-
 input:focus, select:focus {
 	outline: none;
 }
+
 .container-main {
 	align-items: center;
 }
 
 #actionForm{
-	border: 1px solid #ddd;
 	padding: 10px;
 }
 
 .mainWrap{
-	width: 60%;
+	width: 70%;
 }
 
 .mainWrap ul{
@@ -49,7 +45,7 @@ input:focus, select:focus {
     position: relative;
     color: #333;
     text-align: center;
-	margin-top: 7%;
+	margin-top: 5%;
 	margin-bottom: 10%;
 }
 
@@ -59,7 +55,7 @@ input:focus, select:focus {
 	font-weight: 600;
 }
 
-.bscInfo, .addInfo, .btn{
+.bscInfo, .addInfo{
 	width: 700px;
 	margin: 0 auto;
 }
@@ -74,29 +70,36 @@ input:focus, select:focus {
     line-height: 2;
     font-size: 14px;
     color: #444;
-    width: 70%;
+    width: 82%;
     margin-bottom: 5px;
 }
 
-#cnfmBtn{
-	width: 16%;
-	letter-spacing: 2px;
-	cursor: pointer;
-	margin-left: 15px;
-	border-bottom: none;
-	font-weight: 600;
-	background-color: #f0c41994; 
-}
-
 #id {
-	width: 40%;
+	width: 195px;
 	margin-right: 0;
 }
 
-#emailSel {
-	width: 30%;
+#at{
+	display: inline-block;
+	margin: 0 2px;
+	font-size: 16px;
+    color: #444;
+}
+
+#emailSel, #emailId {
+	width: 115px;
 	height: 49px;
 	margin-left: 0;
+}
+
+#cnfmBtn{
+	width: 80px;
+	letter-spacing: 2px;
+	cursor: pointer;
+	border-bottom: none;
+	font-weight: 600;
+	background-color: #f0c41994; 
+	margin-left: 2px;
 }
 
 .addInfo input{
@@ -109,7 +112,6 @@ input:focus, select:focus {
     line-height: 2;
     font-size: 14px;
     color: #444;
-    width: 80%;
     margin-bottom: 5px;
 }
 
@@ -117,34 +119,28 @@ input:focus, select:focus {
 	width: 230px;
 }
 
-.gen{
-	width: 73%;
+.gender{
 	height: 58px;
 }
 
-.gen input{
-	width: 10%;
+.gender input{
+	width: 3%;
 	height: 16px;
 }
 
-.gen label{
+.gender label{
 	font-size: 11pt;
-	color: #444;
-	margin-left: -12px;
+	color: #666;
+	margin-left: 2px;
 	margin-right: 12px;
 }
 
 #zcd {
-	width: 90px;
-}
-
-#adr{
-	width: 45%;
-    margin-left: -10px;
+	width: 120px;
 }
 
 #adrBtn{
-	width: 85px;
+	width: 80px;
 	letter-spacing: 2px;
 	cursor: pointer;
 	margin-right: 15px;
@@ -153,8 +149,13 @@ input:focus, select:focus {
 	background-color: #f0c41994; 
 }
 
+#adr{
+	width: 245px;
+    margin-left: -10px;
+}
+
 #adrDtl{
-	width: 82%;
+	width: 460px;
 }
 
 .btn{
@@ -165,7 +166,7 @@ input:focus, select:focus {
 
 #joinBtn{
 	font-family: 'Pretendard-Regular';
-	width: 300px;
+	width: 200px;
     height: 50px;
     font-size: 15px;
     font-weight: 600;

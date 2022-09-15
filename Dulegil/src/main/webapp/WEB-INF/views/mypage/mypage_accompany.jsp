@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/mypage.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>동행</title>
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min"></script>
 <script>
 $(document).ready(function(){
+	reloadList();
+	//신고하기
 	$(".singo span").on("click", function(){
 		if($(this).parent().children(".singo_contents").css("display") == "none"){
 			$(this).parent().children(".singo_contents").css("display", "flex");
@@ -22,19 +23,113 @@ $(document).ready(function(){
 		}
 		
 	});
-});
-function change_btn(e) {
-	var btns = document.querySelectorAll(".btnbox");
-	btns.forEach(function(btn, i) {
-		if(e.currentTarget == btn) {
-			btn.classList.add("active");
-		}
-		else {
-			btn.classList.remove("active");
+
+	function action(flag){
+		//con의 <를 웹문자로 변환
+		$("#nm").val($("#nm").val().replace(/</gi, "&lt;"));
+		//con의 >를 웹문자로 변환
+		$("#nm").val($("#nm").val().replace(/>/gi, "&gt;"));
+		//Javascript Object에서의 [] : 해당 키값으로 내용을 불러오거나 넣을 수 있다 
+		// 							 Java의 Map에서 get, put 역할
+		 var params = $("#actionForm").serialize();
+	     
+	     $.ajax({
+	        url:"categoryAction/" + flag, 
+	        type:"POST", 
+	        dataType:"json", 
+	        data : params,
+	        success: function(res) { 
+	        	switch(res.msg) {
+	        	case "success" : 
+	        		//내용 초기화
+	        		$("#con").val("");
+	        		$("#no").val("");
+	        		
+	        		//목록 재조회
+	        		switch(flag){
+	        		case "insert" : 
+	        			break;
+	        		case "delete" :
+	        			//조회 데이터 초기화
+	        			$("#page").val("1");
+	        			$("#searchGbn").val("0");
+	        			$("#searchText").val("");
+	        			$("#oldGbn").val("0");
+	        			$("#oldText").val("");
+	        			break;
+	        		case "update" :
+	        			//기존값 유지
+	        			$("#oldGbn").val($("#searchGbn").val());
+	        			$("#oldText").val($("#searchText").val());
+	        			//입력내용 초기화
+	        			$("#nm").val("");
+	        			$("#no").val("");
+	        			
+	        			$(".insert").show();
+	        			$(".update").hide();
+	        			break;
+	        		}
+	        		reloadList();
+	        		break;
+	        	
+	        	case "fail" :  makeAlert("알림", msg[flag] + "에 실패하였습니다.");
+	    			break;
+	    		
+	     		case "error" : makeAlert("알림", msg[flag] + " 중 문제가 발생하였습니다.");
+	 				break;
+	 			}
+	           
+	        }, 
+	        error: function(request, status, error) { 
+	           console.log(request.responseText); 
+	        }
+	     });// Ajax End
+	} 
+function reloadList() {
+	var params = $("#searchForm").serialize();
+	
+	console.log(params);
+	$.ajax({
+		url : "accompanyList", //경로
+		type : "POST", //전송방식
+		dataType : "json", //데이터 형태
+		data : params, //보낼 데이터
+		success : function(res) {//성공했을 때 결과를 res에 받고 함수 실행
+			drawList(res.list);
+		},
+		error : function(request, status, error) {
+			console.log(request.responseText); //실패 상세 내역
 		}
 	});
-	console.log( e.currentTarget );
+		
+		
+	}
+function drawList(list){
+	var html = "";
+	
+	for(var data of list){                                                          
+		html += "<table class=\"standard\">                                            ";
+		html += "	<tr>                                                                ";
+		html += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
+		html += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
+		html += "	</tr>                                                               ";
+		html += "	<tr>                                                            ";
+		html += "		<td class=\"mem_img\"><img src=\"resources/upload/" + ${data.IMG_FILE} "\"></td>    ";
+		html += "		<td class=\"mem_id\">" + data.NM +"</td>                                     ";
+		html += "		<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>                                      ";
+		html += "		<td class=\"mem_age\">" + data.AGE +"</td>                                        ";
+		html += "		<td>" + data.GENDER +"</td>                                                   ";
+		html += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\">        ";
+		html += "		<input type=\"button\" value=\"거절\" class=\"btn green\"></td>   ";
+		html += "		</tr>                                                               ";
+		html += "</table>";
+		
+	}
+	$(".join_mem_list").html(html);
 }
+
+});
+
 </script>
 </head>
 <body>
@@ -44,43 +139,27 @@ function change_btn(e) {
 	<!-- Container -->
 	<div class="container-mypage">
 
-		<!-- Sidebar -->
-		<div class="mypageBtn">
-			<ul class="btnsBox">
-						<a href="#">
-						   <li><button class="btnbox" onclick="change_btn(event)">내 정보</button></li>
-						</a>
-						<a href="#">
-						   <li><button class="btnbox" onclick="change_btn(event)">개인 정보 수정</button></li>
-						</a>
-						<a href="#">
-						   <li><button class="btnbox" onclick="change_btn(event)">게시글 관리</button></li>
-						</a>
-						<a href="#">
-						  <li><button class="btnbox" onclick="change_btn(event)">댓글 관리</button></li>
-						</a>
-						<a href="#">
-						   <li><button class="btnbox active" onclick="change_btn(event)">동행</button></li>
-						</a>      
-						</ul>
-					</div>
+		<jsp:include page="mypage_tab.jsp"></jsp:include>
 					
 		<!-- Contents -->
 		<div class="contents">
+			<form action="#" id="searchForm">
+			<input type="hidden" name="memNo">
+			</form>
 			<div class="mypage_contents">
 				<div class="mypage_area1">
 					<div class="area_tit"><span>신청자 목록</span></div>
-					<div class="join_user_list">
+					<div class="join_mem_list">
 					<table class="standard">
 						<tr>
 							<th colspan="2">1코스</th>
 							<th colspan="5">같이 둘레길</th>
 						</tr>
 							<tr>
-							<td id=user_img><img src="resources/images/sample1.jpg"></td>
-							<td id=user_id>신청자id</td>
-							<td id=user_lvl>신뢰도</td>
-							<td id=user_age>나이</td>
+							<td class=mem_img><img src="resources/images/sample1.jpg"></td>
+							<td class=mem_id>신청자id</td>
+							<td class=mem_lvl>신뢰도</td>
+							<td class=mem_age>나이</td>
 							<td>성별</td>
 							<td><input type="button" value="수락" class="btn green">
 								<input type="button" value="거절" class="btn green"></td>
@@ -92,10 +171,10 @@ function change_btn(e) {
 							<th colspan="5">같이 둘레길</th>
 						</tr>
 							<tr>
-							<td id=user_img><img src="resources/images/sample2.jpg"></td>
-							<td id=user_id>신청자id</td>
-							<td id=user_lvl>신뢰도</td>
-							<td id=user_age>나이</td>
+							<td id=mem_img><img src="resources/images/sample2.jpg"></td>
+							<td id=mem_id>신청자id</td>
+							<td id=mem_lvl>신뢰도</td>
+							<td id=mem_age>나이</td>
 							<td>성별</td>
 							<td><input type="button" value="수락" class="btn green">
 								<input type="button" value="거절" class="btn green"></td>
@@ -180,13 +259,13 @@ function change_btn(e) {
 				</div>
 				<div class="mypage_area">
 					<div class="area_tit"><span>동행 상대 평가</span></div>
-					<table class="user_rate">
+					<table class="mem_rate">
 						<tr>
-							<th colspan="6"  id=join_title>같이 둘레길1</th>
+							<th colspan="6"  class=join_title>같이 둘레길1</th>
 						</tr>
 						<tr>
-							<td rowspan="2" id="user_img"><img src="resources/images/sample1.jpg"></td>
-							<td id="user_id" class="item">에디님</td>
+							<td rowspan="2" id="mem_img"><img src="resources/images/sample1.jpg"></td>
+							<td id="mem_id" class="item">에디님</td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -251,13 +330,13 @@ function change_btn(e) {
 							<td></td>
 						</tr>
 				</table>
-					<table class="user_rate">
+					<table class="mem_rate">
 							<tr>
-								<th colspan="6"  id=join_title>같이 둘레길2</th>
+								<th colspan="6"  class=join_title>같이 둘레길2</th>
 							</tr>
 							<tr>
-								<td rowspan="2" id="user_img"><img src="../css/images/sample2.jpg"></td>
-								<td id="user_id" class="item">뽀로로님</td>
+								<td rowspan="2" id="mem_img"><img src="../css/images/sample2.jpg"></td>
+								<td id="mem_id" class="item">뽀로로님</td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -322,8 +401,8 @@ function change_btn(e) {
 								<td></td>
 							</tr>	
 							<tr>
-								<td rowspan="2" id="user_img"><img src="../css/images/sample3.png"></td>
-								<td id="user_id" class="item">루피님</td>
+								<td rowspan="2" id="mem_img"><img src="../css/images/sample3.png"></td>
+								<td id="mem_id" class="item">루피님</td>
 								<td></td>
 								<td></td>
 								<td></td>
