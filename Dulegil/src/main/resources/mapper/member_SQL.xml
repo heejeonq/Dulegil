@@ -36,7 +36,6 @@
 		AND PHONE_NO = #{findPhn}
 	</select>
 	
-<<<<<<< HEAD
 	<select id="findMemPwd" parameterType="hashmap" resultType="hashmap">
 		SELECT MEMBER_NO
 		FROM MEMBER
@@ -48,8 +47,5 @@
 		UPDATE MEMBER SET PWD = #{updPwd}
 		WHERE MEMBER_NO=#{no}
 	</select>
-=======
-	
->>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
-	
+
 </mapper>
