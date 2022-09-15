@@ -53,13 +53,13 @@ public class MypageCommentsController {
 		try {
 			delete = iDao.delete("mypage.deleteComments", params);
 			if (delete > 0) {
-				System.out.println("성공");
+				System.out.println("success");
 			} else {
-				System.out.println("실패");
+				System.out.println("fail");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러");
+			System.out.println("error");
 		}
 
 		Map<String, Object> model = new HashMap<String, Object>();

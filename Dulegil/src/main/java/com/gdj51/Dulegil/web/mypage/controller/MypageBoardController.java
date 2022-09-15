@@ -52,18 +52,18 @@ public class MypageBoardController {
 		try {
 			delete = iDao.delete("mypage.deleteBoard", params);
 			if (delete > 0) {
-				System.out.println("성공");
+				System.out.println("success");
 			} else {
-				System.out.println("실패");
+				System.out.println("fail");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("에러");
+			System.out.println("error");
 		}
 
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		int cnt = iDao.getInt("mypage.getCnt", params);
+		int cnt = iDao.getInt("mypage.getBCnt", params);
 
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 5);
 
@@ -79,36 +79,4 @@ public class MypageBoardController {
 
 		return mapper.writeValueAsString(model);
 	}
-
-	/*
-	 * @RequestMapping(value = "/mypage_boardAction/{gbn}", method =
-	 * RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	 * 
-	 * @ResponseBody public String mypage_boardAction(@PathVariable String
-	 * gbn, @RequestParam HashMap<String, String> params) throws Throwable {
-	 * ObjectMapper mapper = new ObjectMapper();
-	 * 
-	 * Map<String, Object> model = new HashMap<String, Object>();
-	 * 
-	 * int cnt = 0;
-	 * 
-	 * try {
-	 * 
-	 * cnt = iDao.delete("mypage.deleteBoard", params);
-	 * 
-	 * if (cnt > 0) { model.put("msg", "success"); } else { model.put("msg",
-	 * "fail"); }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); model.put("msg", "error"); }
-	 * 
-	 * return mapper.writeValueAsString(model); }
-	 */
-	@RequestMapping(value = "/mypage_boardDetail")
-	public ModelAndView mypage_boardDetail(ModelAndView mav) {
-
-		mav.setViewName("mypage/mypage_boardDetail");
-
-		return mav;
-	}
-
 }

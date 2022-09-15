@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
 
-<select id="getCnt" resultType="integer" parameterType="hashmap">
+<select id="getCateAllList" resultType="hashmap">
+		SELECT *
+		FROM BOARD_TYPE
+</select>
+
+<select id="getBCnt" resultType="integer" parameterType="hashmap">
 SELECT COUNT(*) AS CNT
 FROM BOARD_TYPE T INNER JOIN  BULLETIN_BOARD B 
 	ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
@@ -57,7 +62,6 @@ AND MEMBER_NO = #{sMemNo}
 </choose>
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
-		<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
 		<when test="searchGbn eq 0">
 		AND TITLE LIKE '%' || #{searchTxt} || '%'
 		</when>
@@ -91,7 +95,6 @@ AND C.MEMBER_NO = #{sMemNo}
 </choose>
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
-		<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
 		<when test="searchGbn eq 0">
 		AND TITLE LIKE '%' || #{searchTxt} || '%'
 		</when>
@@ -102,11 +105,6 @@ AND C.MEMBER_NO = #{sMemNo}
 </if>
 )C
 WHERE C.RNUM BETWEEN #{start} AND #{end}		
-</select>
-
-<select id="getCateAllList" resultType="hashmap">
-		SELECT *
-		FROM BOARD_TYPE
 </select>
 
 <update id="deleteBoard" parameterType="hashmap">
