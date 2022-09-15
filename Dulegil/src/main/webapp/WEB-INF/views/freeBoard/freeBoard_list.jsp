@@ -102,7 +102,7 @@ function drawList(list) {
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
 		
-	html +=	"<tr no =\" " + data.POST_NO + "\">";
+	html +=	"<tr no =\"" + data.POST_NO + "\">";
 	html +=	"<td> " + data.POST_NO + "</td>";
 	html +=	"<td> " +data.TITLE + "</td>";
 	html +=	"<td>" + data.NM + " </td>";

@@ -8,6 +8,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 변경</title>
 <link rel="stylesheet" href="resources/css/idpw.css" />
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#cnfmBtn").on("click",function(){
+		if($.trim($("#updatePW").val()) == ""){
+			makeAlert("알림", "비밀번호를 입력하세요.", function(){
+				$("#updatePW").focus();	
+			});
+		}else if($("#updateRPW").val() != $("#updatePW").val()){
+			makeAlert("알림", "비밀번호가 일치하지 않습니다.", function(){
+				$("#updateRPW").focus();
+			});
+		}else{
+			alert("비밀번호가 변경되었습니다.");
+			location.href = "login";
+		}	
+	});	
+});
+</script>
 </head>
 <body>
 		
@@ -19,10 +37,10 @@
 		<div class="inpCon">
 			<div class="view">
 				<span>비밀번호 변경</span>
-				<span id="viewMsgPwd">변경 할 비밀번호를 입력해주세요.</span>
+				<span id="viewMsgPwd">변경할 비밀번호를 입력해주세요.</span>
 				<div class="updInfo">
-					<input type="text" id="updatePW" name="updatePW" placeholder="비밀번호" /><br />
-					<input type="text" id="updateRPW" name="updateRPW" placeholder="비밀번호 확인" /><br />
+					<input type="password" id="updatePW" name="updatePW" placeholder="비밀번호" /><br />
+					<input type="password" id="updateRPW" name="updateRPW" placeholder="비밀번호 확인" /><br />
 				</div>
 				<input type="button" id="cnfmBtn" value="확인">
 			</div>	

@@ -268,16 +268,17 @@
 
 .commentDe {
 	width: 100%;
-	height: 85px;
+	height: auto;
 	font-size: 14px;
 	text-align: left;
 }
 
 .date {
-	width: 100%;
-	font-size: 10px;
-	color: grey;
-	float: left;
+    text-align: left;
+    width: 100%;
+    font-size: 10px;
+    color: grey;
+    margin-top: 16PX;
 }
 
 .moreBtn {

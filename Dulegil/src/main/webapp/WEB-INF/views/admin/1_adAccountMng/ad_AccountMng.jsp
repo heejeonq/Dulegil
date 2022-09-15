@@ -32,7 +32,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
-		location.href = "adNtc";
+		location.href = "adNtList";
 	});
 	
 	

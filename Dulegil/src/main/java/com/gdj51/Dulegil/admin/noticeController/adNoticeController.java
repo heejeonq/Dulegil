@@ -34,17 +34,15 @@ public class adNoticeController {
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
 
-		int page = 1;
+	int page = 1;
 
 		if(params.get("page") != null && params.get("page") != "") {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
-		int cnt = dao.getInt("adNotice.cnt",params);
-		HashMap<String, Integer> pd = ips.getPagingData(page, cnt, 5, 10);
 		
 		
-		mav.addObject("pd", pd);
+	
 		mav.addObject("page", page);
 		mav.setViewName("admin/3_adNotice/ad_notice_list");
 
@@ -66,10 +64,17 @@ public class adNoticeController {
 			@RequestParam HashMap<String, String> params)throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
-
+		
+		int cnt = dao.getInt("adNotice.cnt",params);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
+		
+		params.put("start", Integer.toString(pd.get("start")));
+		params.put("end", Integer.toString(pd.get("end")));
+		
 		List<HashMap<String, String>> list = dao.getList("adNotice.list", params);
 
 		model.put("list", list);
+		model.put("pd", pd);
 		
 		return mapper.writeValueAsString(model);
 	}

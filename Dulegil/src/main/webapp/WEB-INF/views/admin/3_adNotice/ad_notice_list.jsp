@@ -99,6 +99,7 @@ td {
 	font-weight: 500;
 	border-bottom: solid 0.5px #ebebeb;
 	padding: 10px;
+	text-align: center;s
 }
 /* 작성 & 수정 & 삭제 버튼 */
 #write {
@@ -125,15 +126,22 @@ td {
 #header2 #hd2_CC #hd2_paging #pBtn_GD {
 	width: 15px;
 	height: 15px;
-	margin-right: 30px;
-	margin-top: 1%;
+	margin-right: 11px;
 	display: inline-block;
+	border: none;
+	font-size: 12px;
 }
 
 .pBtn {
 	border: none;
 	font-size: 12px;
 	background-color: white;
+	display: inline-box;
+}
+.pBtn_GD {
+	border: none;
+	font-size: 12px;
+	background-color: #ECECEC;
 	display: inline-box;
 }
 
@@ -157,11 +165,13 @@ td {
 }
 
 .Sbar3 {
+width: 6%;
 	height: 46%;
 	display: inline-block;
 	text-align: left;
 	vertical-align: top;
 	position: relative;
+	border: 1px solid #ddd;
 }
 
 .Sbar2 {
@@ -186,13 +196,13 @@ td {
 
 .commentBoxT {
 	border: none;
-	width: 96%;
-	height: 86%;
+	width: 100%;
+    height: 100%;
 	position: absolute;
 }
 
 #searchBtn {
-	margin-right: 1%;
+
 	background-color: #ededed;
 	border-radius: 4px;
 	border: 1px solid #f4f5ee;
@@ -200,10 +210,10 @@ td {
 	cursor: pointer;
 	color: #5e5e5e;
 	font-family: Arial;
-	font-size: 13px;
-	padding: 5px 27px;
-	text-decoration: none;
 	font-weight: 700;
+	width: 100%;
+    height: 100%;
+	position: absolute;
 }
 
 input:focus {
@@ -217,6 +227,9 @@ input:focus {
 .sel {
 	border: none;
 	outline: none;
+	position:absolute;
+	width: 100%;
+    height: 100%;
 }
 </style>
 <script type="text/javascript"
@@ -299,13 +312,13 @@ $(document).ready(function(){
 	
 	
 	// 페이징 버튼
-	$(".paging_area").on("click", "div", function(){
+	$("#hd2_paging").on("click", ".pBtn", function(){
 		//기존 검색 상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
 		$("#page").val($(this).attr("page"));
-		reloadLsit();
+		reloadList();
 		
 	});
 	
@@ -347,7 +360,7 @@ function reloadList(){
 		data : params,
 		success : function(res){
 			drawList(res.list);
-			//drawPaging(res.pd);
+			drawPaging(res.pd);
 			console.log(res);
 
 		},
@@ -373,6 +386,63 @@ function drawList(list){
 	}                                                                    
 	$("tbody").html(html);
 };
+
+
+function drawPaging(pd){
+	var html = "";
+	// " + + " 복사
+	
+	// 처음
+	html += "<div id=\"pBtn\">";
+	html += "<input type=\"button\" page=\"1\" value=\"<<\" class=\"pBtn\" />";
+	html += "</div>";
+	
+	//이전
+	if($("#page").val()=="1"){		
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"1\" value=\"<\" class=\"pBtn\" />";
+		html += "</div>";
+		
+	} else{
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"<\" class=\"pBtn\" />";
+		html += "</div>";
+	}
+	
+	// 현재 페이지
+	for(var i = pd.startP; i<=pd.endP; i++){
+		if($("#page").val() * 1 == i){
+			html += "<div id=\"pBtn_GD\">";
+			html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn_GD\" />";
+			html += "</div>";		
+		}else{
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
+			html += "</div>";	
+			
+		}
+	}
+	
+	
+	
+	// 다음
+	if($("#page").val() * 1 == pd.maxP){
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">\" class=\"pBtn\" />";
+		html += "</div>";	
+	}else{
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\">\" class=\"pBtn\" />";
+		html += "</div>";	
+	}
+	
+	// 끝
+	html += "<div id=\"pBtn\">";
+	html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">>\" class=\"pBtn\" />";
+	html += "</div>";
+	
+	$("#hd2_paging").html(html);
+}
 
 </script>
 
@@ -499,36 +569,20 @@ function drawList(list){
 
 
 
-				<div id="page">
-					<div id="hd2_paging">
-						<div id="pBtn_GD">
-							<input type="button" value="이전" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="1" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="2" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="3" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="4" class="pBtn" />
-						</div>
-						<div id="pBtn">
-							<input type="button" value="5" class="pBtn" />
-						</div>
-						<div id="pBtn_GD">
-							<input type="button" value="다음" class="pBtn" />
-						</div>
-
+				<div>
+				
+					<div id="hd2_paging" >
+							
 					</div>
+					
 				</div>
+				
+				
+				
 				<div id="search">
 					<form action="#" id="actionForm" method="post">
-						<input type="hidden" name="no" id="no" /> <input type="hidden"
-							name="page" id="page" value="${page}" />
+						<input type="hidden" name="no" id="no" /> 
+						<input type="hidden" name="page" id="page" value="${page}" />
 
 						<div class="Sbar1">
 							<select class="sel" name="searchGbn" id="searchGbn">

@@ -181,9 +181,9 @@ function login(){
       makeAlert("알림", "아이디를 입력하세요.", function(){
       $("#id").focus();	  
       });
-   }else if ($.trim ($("#pw").val()) == ""){
+   }else if ($.trim ($("#pwd").val()) == ""){
 	   makeAlert("알림","비밀번호를 입력하세요",  function(){
-      $("#pw").focus();
+      $("#pwd").focus();
 	   });
    }else{
 	   var params = $("#actionForm").serialize();	
@@ -196,7 +196,7 @@ function login(){
 		      		console.log(res);
 		      
 		     		 if(res.msg == "success"){	
-		    		  location.href = "adAccountMng1";
+		    		  location.href = "adAccountMng";
 		    		  
 		     		 }else{
 		    		  makeAlert("알림", "아이디나 비밀번호가 틀립니다.")
@@ -248,7 +248,7 @@ function login(){
 					<div class="pw_box">
 						<span class="material-symbols-outlined"
 								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;"> lock </span> 
-						<input type="password" name="pw" id="pw" class="input"
+						<input type="password" name="pwd" id="pwd" class="input"
 								placeholder="PASSWORD" maxlength="20" />
 					</div>
 					
