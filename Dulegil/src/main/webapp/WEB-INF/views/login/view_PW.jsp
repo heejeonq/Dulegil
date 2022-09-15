@@ -23,14 +23,14 @@ $(document).ready(function(){
 			var params = $("#actionForm").serialize();
 			
 			$.ajax({
-				url:"updPwdAjax", 
+				url:"viewAction/update", 
 				type:"POST", 
 				dataType:"json", 
 				data : params,
 				success: function(res) { 
 					switch (res.msg) {
 					case "success":
-						makeAlert("알림", "비밀번호가 변경되었습니다.");
+						alert("비밀번호가 변경되었습니다.");
 						location.href = "login"; 
 						break;
 					case "fail":
@@ -45,7 +45,7 @@ $(document).ready(function(){
 					console.log(request.responseText); 
 				}
 			});
-		}	
+		}
 	});	
 });
 </script>
@@ -63,7 +63,7 @@ $(document).ready(function(){
 				<span id="viewMsgPwd">변경할 비밀번호를 입력해주세요.</span>
 				<div class="updInfo">
 					<form action="#" id="actionForm" method="post">
-						<input type="hidden" name="no" value="${param.MEMBER_NO}" />
+						<input type="hidden" name="no" value="${param.no}" />
 						<input type="password" id="updPwd" name="updPwd" placeholder="비밀번호" /><br />
 						<input type="password" id="updRPwd" name="updRPwd" placeholder="비밀번호 확인" /><br />
 					</form>
