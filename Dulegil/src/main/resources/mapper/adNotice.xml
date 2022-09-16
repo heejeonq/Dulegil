@@ -57,8 +57,11 @@
 
 
 	<!-- 삭제 -->
-	<update id="delete">
+	<update id="delete" parameterType="hashmap">
+
 	UPDATE NOTICE SET DEL_DT = SYSDATE
+	WHERE POST_NO = #{no}
+
 	</update>
 
 </mapper>

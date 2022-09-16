@@ -185,6 +185,7 @@ function action(flag){
 		<div class="ti_ttt">
 			<div class="tit_writer">
 			<c:if test="${!empty data.M_IMG}">
+			
 			<img src="resources/upload/${data.M_IMG}" />
 			</c:if>
 			 ${data.NM}</div><span>&nbsp;&nbsp;</span>
@@ -196,6 +197,7 @@ function action(flag){
 		<div class="emptyBox"></div>
 		<div class= "imgg">
 		<c:if test="${!empty data.B_IMG}">
+		
 		<img src="resources/upload/${data.B_IMG}" /><br/>
 		</c:if>
 		<div class="te"> ${data.CONTENTS}</div>

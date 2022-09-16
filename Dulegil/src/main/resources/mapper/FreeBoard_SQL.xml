@@ -108,6 +108,21 @@ SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G
       WHERE G.POST_NO=#{no}
 </select>
 
+<!-- 댓글리스트 -->
+
+<!-- 댓글추가 -->
+<insert id="insertC" parameterType="hashmap">		
+INSERT INTO COMMENTS(COMMENT_NO,POST_NO,MEMBER_NO,CONTENTS AS CCON)
+VALUES (COMMENT_SEQ.NEXTVAL,#{postNo},#{memberNo},#{ccon});
+</insert>
+
+<!-- 댓글수정 -->
+
+<!-- 댓글삭제 -->
+
+<!-- 댓글 페이지?더보기 -->
+
+
 
 
 

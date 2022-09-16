@@ -177,8 +177,10 @@
 }
 
 .tit_writer img{
-	width: 20px;
-	height: 20px;
+	width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    border-radius: 15px;
 }
 
 .contentBox{
@@ -302,11 +304,33 @@
 
 
 /*write*/
+
 .titWrap,.cosWrap,.datWrap,.MyWrap{
 	height: 37px;
 	margin: 15px auto;
 }
+.fileDelBtn{	
+    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
 
+}
+.fileInserBtn{
+	    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
+	
+}
 .dateBox{
 vertical-align: top;
     width: 800px;
@@ -436,6 +460,7 @@ titCon:focus,.cosSell:focus {
 .fileT {
 	font-size: 12px;
 	margin-top: 5px;
+	width:170px;
 }
 
 .cosSell{
