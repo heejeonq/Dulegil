@@ -6,7 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/calendar.css" />
+<link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
 <title>전체일정</title>
+<script src='fullcalendar/main.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		initialView: 'dayGridMonth'
+	});
+	calendar.render();
+});
+</script>
 </head>
 <body>
 
@@ -18,7 +29,6 @@
 		<div class="mainWrap">
 			<div class="tit">둘레길 전체 일정</div>
 			<div class="col"></div>
-			
 			<div class="evt">
 				<div class="mth">
 					<input type="button" id="prevBtn" value="이전" />
@@ -27,10 +37,8 @@
 				</div>
 				<p>둘레길에서 진행되는 행사 및 프로그램 일정을 확인 할 수 있습니다.</p>
 				
-				<div class="calendar"></div>
-				
+				<div id='calendar'></div>
 			</div>
-			<div class="col"></div>
 		</div>
 	</div>
 

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .evt{
-	margin: 2% 0;
+	margin: 20px 0;
 }
 
 .evt p, .evt th, .evt td{
@@ -11,7 +11,7 @@
 .mth{
 	display: flex;
     justify-content: center;
-    margin-top: 5%;
+    margin-top: 30px;
 }
 
 #mthTit{
