@@ -27,11 +27,9 @@ function faqQst(num){
 	<div class="container-main">
 		<div class="mainWrap">
 			<div class="tit">FAQ</div>
+			<p>FAQ를 통해서 원하는 답변을 쉽고 빠르게 찾아보세요.</p>
 			<div class="col"></div>
 			<div class="faq">
-				<p>FAQ를 통해서 원하시는 답변을 쉽고 빠르게 찾아보세요. &nbsp;
-					둘레길 관련 질문 중 가장 빈도수가 높은 질문들을 모아, 
-					친절한 답변과 함께 제공해드리고 있습니다.</p>
 				<ul class="faqQst" onClick="faqQst('1');">
 					<li class="qstTit" id="faqQst1">Q</li>
 					<li class="qstCon" id="faqQst1">

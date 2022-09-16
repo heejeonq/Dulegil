@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>전체일정상세</title>
-<link rel="stylesheet" href="resources/css/calendar.css" />
+<link rel="stylesheet" href="resources/css/event.css" />
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#listBtn").on("click", function(){
