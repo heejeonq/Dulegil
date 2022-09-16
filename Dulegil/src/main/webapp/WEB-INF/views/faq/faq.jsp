@@ -5,9 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ</title>
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/faq.css">
+<title>FAQ</title>
 <script type="text/javascript">
 $(function(){
 	$(".faqAns").css("display", "none");
@@ -26,14 +25,16 @@ function faqQst(num){
 
 	<!-- Container -->
 	<div class="container-main">
-		<div class="faq">
-			<div class="faqMainTit">FAQ <br />
-			<a href="javascript:doDisplay();" class="faqSubTit">자주하는 질문</a>
-			</div>
+		<div class="mainWrap">
+			<div class="tit">FAQ</div>
 			<div class="col"></div>
+			<div class="faq">
+				<p>FAQ를 통해서 원하시는 답변을 쉽고 빠르게 찾아보세요. &nbsp;
+					둘레길 관련 질문 중 가장 빈도수가 높은 질문들을 모아, 
+					친절한 답변과 함께 제공해드리고 있습니다.</p>
 				<ul class="faqQst" onClick="faqQst('1');">
-					<li class="qstTit">Q</li>
-					<li class="qstCon">
+					<li class="qstTit" id="faqQst1">Q</li>
+					<li class="qstCon" id="faqQst1">
 						혼자 걷기 걱정되는 사람에게는 어떤 코스가 좋을까요?
 					</li>
 				</ul>
@@ -147,29 +148,30 @@ function faqQst(num){
 					</li>
 				</ul>
 				<ul class="faqAns" id="faqAns7">
-					<li class="faqDtl">
-						<span id="ansTit">A</span>
-						<div class="ansCon"> 
-						서울 둘레길 8개 코스를 돌면서 28개의 완주인증 스탬프를 모두 받아오시면 완주 증명서를 발급 해 드립니다.<br/>
-						<br/>
-						발급 장소 및 시간<br/>
-						1. 서울둘레길 안내센터 (창포원)<br/>
-						주소 : 서울시 도봉구 마들로 916 (도봉동 4-2) 1층 서울둘레길 안내센터<br/>
-						찾아오시는 길 : 지하철 7호선 도봉산역 2번 출구 30m (창포원 공원 내)<br/>
-						발급가능시간 : 화,수,목,금,토,일 *주말가능* 9시~18시<br/>
-						(점심시간 11시 30분 ~ 13시 ,월요일 정기휴무 및 법정공휴일 휴무)<br/>
-						안내문의 ☞ 02-779-7902~4<br/>
-						<br/>
-						2. 서울둘레길 안내센터 (양재)<br/>
-						주소 : 서울시 서초구 매헌로99 양재시민의숲 서울둘레길안내센터<br/>
-						찾아오시는 길 : 지하철 신분당선 양재시민의숲역 5번출구<br/>
-						발급가능시간 : 화,수,목,금,토 *9시 ~ 18시<br/>
-						(점심시간 11시30분 ~ 13시, 일·월요일 정기휴무 및 법정공휴일 휴무)<br/>
-						안내문의 ☞ 070-4465-7905<br/>
-						</div>
-					</li>
-				</ul>
-		</div>	
+						<li class="faqDtl">
+							<span id="ansTit">A</span>
+							<div class="ansCon"> 
+							서울 둘레길 8개 코스를 돌면서 28개의 완주인증 스탬프를 모두 받아오시면 완주 증명서를 발급 해 드립니다.<br/>
+							<br/>
+							발급 장소 및 시간<br/>
+							1. 서울둘레길 안내센터 (창포원)<br/>
+							주소 : 서울시 도봉구 마들로 916 (도봉동 4-2) 1층 서울둘레길 안내센터<br/>
+							찾아오시는 길 : 지하철 7호선 도봉산역 2번 출구 30m (창포원 공원 내)<br/>
+							발급가능시간 : 화,수,목,금,토,일 *주말가능* 9시~18시<br/>
+							(점심시간 11시 30분 ~ 13시 ,월요일 정기휴무 및 법정공휴일 휴무)<br/>
+							안내문의 ☞ 02-779-7902~4<br/>
+							<br/>
+							2. 서울둘레길 안내센터 (양재)<br/>
+							주소 : 서울시 서초구 매헌로99 양재시민의숲 서울둘레길안내센터<br/>
+							찾아오시는 길 : 지하철 신분당선 양재시민의숲역 5번출구<br/>
+							발급가능시간 : 화,수,목,금,토 *9시 ~ 18시<br/>
+							(점심시간 11시30분 ~ 13시, 일·월요일 정기휴무 및 법정공휴일 휴무)<br/>
+							안내문의 ☞ 070-4465-7905<br/>
+							</div>
+						</li>
+					</ul>
+			</div>	
+		</div>
 	</div>
 
 	<!-- footer -->

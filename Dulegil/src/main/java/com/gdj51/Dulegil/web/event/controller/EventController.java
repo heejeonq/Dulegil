@@ -14,4 +14,12 @@ public class EventController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/eventDtl")
+	public ModelAndView eventDtl(ModelAndView mav) throws Throwable {
+
+		mav.setViewName("event/event_detail");
+
+		return mav;
+	}
 }

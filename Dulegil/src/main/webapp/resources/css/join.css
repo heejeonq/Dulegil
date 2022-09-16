@@ -29,6 +29,7 @@ input:focus, select:focus {
 
 #actionForm{
 	padding: 10px;
+	border: 1px solid #ddd;
 }
 
 .mainWrap{

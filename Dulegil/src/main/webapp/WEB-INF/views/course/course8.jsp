@@ -25,7 +25,7 @@ $(document).ready(function(){
 <body>
 
 	<!-- Header -->
-		<jsp:include page="../common/header.jsp" flush="true"/>
+	<jsp:include page="../common/header.jsp" flush="true"/>
 	
 	<!-- Container -->
 	<div class="container-main">
@@ -261,7 +261,7 @@ $(document).ready(function(){
 								<p>빨래골은 삼각산 골짜기에서 흘러내리는 물의 양이 많아 ‘무너미’라 불리던 곳이다. 물이 많아 자연적으로 마을이 형성되어 인근 주민들의 쉼터와 빨래터로 이용되었고, 
 								      당시 대궐의 궁중 무수리들이 빨래터와 휴식처로 이용하면서 ‘빨래골’이라는 명칭이 유래되었으며 지금도 일반인들에게 널리 통용되고 있는 지명이다.</p>
 							</div>
-							<div class="info">
+							<div class="infoDtl">
 								<img src="https://gil.seoul.go.kr/view/point/2013/10/26/26712190676481024.JPG" alt="419국립묘지" width="275px;" height="188px;">
 								<p id="infoArdTit">419국립묘지</p>
 								<p>1963년 9월 20일 약 3,000평으로 건립되었다. 한가운데 4·19혁명의 기상을 상징하는 높이 7척의 탑주 일곱 개가 솟아 있고, 
@@ -312,7 +312,7 @@ $(document).ready(function(){
 						</div>						
 					</div>
 				</div>
-				
+				<div class="col"></div>
 			</div>
 		</div>
 	</div>		
