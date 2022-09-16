@@ -112,7 +112,7 @@
 					<img src="resources/images/detailViewIcon.png" />
 				</div>
 			<div class="idBox">
-				<img src="resources/images/sample2.jpg" class="bbo"/> 지존루피
+				<img src="resources/images/sample2.jpg" class="pimg"/> 지존루피
 		    </div>			
 		    <div class="commentDe">와 저도 가보고싶어요와 저도 가보고싶어요<br/>
 		    		다음에 갈땐 나도 데려가요가요가요가요<br/>

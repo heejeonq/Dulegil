@@ -11,14 +11,27 @@
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/freeBorDet.css" />
 <title>자유게시판상세</title>
+<style>
+.update{
+	display:none;
+}
+.commentBox span{
+	font-size:13px;
+    line-height: 50px;
+    color: #808080;
+    float:left;
+}
+</style>
 <!-- 제이쿼리 -->
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	reloadList();
+	//게시글 버튼
 	$("#listBtn").on("click",function(){
 		$("#actionForm").attr("action","freeBoard")
 		$("#actionForm").submit();
 	});
+	
 	
 	$("#deleteBtn").on("click",function(){
 
@@ -56,7 +69,7 @@ $(document).ready(function(){
 
 							},
 							error : function(request, status, error) { //실패했을 때 함수 실행
-								console.log(request, responseText); //실패 상세내영
+								console.log(request.responseText); //실패 상세내영
 							}
 
 						});
@@ -72,12 +85,28 @@ $(document).ready(function(){
 			$("#actionForm").attr("action", "freeBoardUpdate");
 			$("#actionForm").submit();
 		});
+		
+		
+		//댓글버튼
+		
+		$(".box3 #loginBtn").on("click",function(){
+			location.href="login"
+		});
+		
+		$(".box3 #insertCBtn").on("click",function(){
+		
+			 if ($.trim($("#ccon").val()) == "") {
+		            makeAlert("알림", "내용을 입력하세요.", function() {
+		               $("#ccon").focus();
+		            });
+
+		         }else{
+					action("insert");	 			
+		         }
+		});
 	});
 
 	//document
-
-
-
 
 
 
@@ -89,14 +118,14 @@ var msg = {
 
 function action(flag){
 	//con의 <들을 웹문자로 변환
-	$("#con").val($("#con").val().replace(/</gi, "&lt;"));
+	$("#ccon").val($("#ccon").val().replace(/</gi, "&lt;"));
 	
-	$("#con").val($("#con").val().replace(/>/gi, "&gt;"));
+	$("#ccon").val($("#ccon").val().replace(/>/gi, "&gt;"));
 	console.log(msg[flag]);
 	//Javascript Object에서의 [] : 해당 키값으로 내용을 불러오거나 넣을 수 있다.
 	//							 Java의 Map에서의 get,put 역할
 
-	 var params = $("#actionForm").serialize();   
+	 var params = $("#commentsForm").serialize();   
       $.ajax({
          url:"freeCAction/" + flag, //경로 주소 새로생기면 컨트롤러 가
          type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
@@ -106,8 +135,7 @@ function action(flag){
          
          switch(res.msg){         
          case "success" :
-        	 //내용 초기화
-        	 $("#con").val("");
+        	 $("#ccon").val("");
         	 
         		reloadList();
             //목록 재조회
@@ -115,20 +143,20 @@ function action(flag){
             	case "insert" :  
             	case "delete":
             		//조회 데이터 초기화
-            		$("#page").val("1");
-            		$("#searchGbn").val("0");
-            		$("#searchText").val("");
-            		$("#oldGbn").val("0");
-            		$("#oldText").val("");
+            		//$("#page").val("1");
+            		//$("#searchGbn").val("0");
+            		//$("#searchText").val("");
+            		//$("#oldGbn").val("0");
+                 	//	$("#oldText").val("");
             		break;
             	case "update":
             		//기존값 유지
-            		$("#searchGbn").val($("#oldGbn").val());
-					$("#searchText").val($("#oldText").val()); 
+            	//	$("#searchGbn").val($("#oldGbn").val());
+				//	$("#searchText").val($("#oldText").val()); 
 					
 					//입력내용 초기화
-					$("#no").val("");		
-					$("#con").val("");		
+					$("#cno").val("");		
+					$("#ccon").val("");		
 					//등록버튼 나타나기 + 수정,취소 버튼 감추기
 					$(".insert").show();
 					$(".update").hide();
@@ -149,11 +177,56 @@ function action(flag){
       
          },
          error :function(request, status, error) { //실패했을 때 함수 실행 isfp
-            console.log(request,responseText); //실패 상세내역
+            console.log(request.responseText); //실패 상세내역
          }
          
       });	//Ajax end
 }//action Function End
+
+function reloadList(){	
+	var params = $("#commentsForm").serialize();
+	
+	$.ajax({
+		url : "commentAjax", //경로
+		type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
+		dataType : "json",
+		data : params,
+		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
+			drawList(res.list);
+		},
+		error : function(request, status, error) { //실패했을 때 함수 실행
+			console.log(request.responseText); //실패 상세내용
+		}
+
+	});
+}
+ function drawList(list) {
+	var html = ""; //변수선언
+	
+	for(var data of list){ // " +  + " 1(내용) 대신 넣자
+                                                               
+		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
+		html += " <div class=\"iconBox\">";
+		html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+		html += " </div>";
+		html += " <div class=\"idBox\">";
+		html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "    ";
+	    html += " </div>";
+	    html += " <div class=\"commentDe\">" + data.CCONTENTS + "</div>";
+  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>"; 		
+ 		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
+ 			html += "<span class=\"upB\" >수정</span> ";
+ 			html += "<span class=\"delB\" >삭제</span>";
+ 		}
+ 		html += " </div>";
+		
+	}
+	
+	$(".mainview4").html(html); //tbody에 html로 갈아 엎어줘
+
+} 
+
+
 
 </script>
 </head>
@@ -225,6 +298,7 @@ function action(flag){
 				<span class="reporTit">신고하기</span>			
 			</div>
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >
+			
 			<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 			<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if>
@@ -237,42 +311,67 @@ function action(flag){
 			</div>
 		<div class="emptyBox"></div>
 		<div class="emptyBox"></div>
-			
+		
+		<!-- 댓글 -->	
 			
 		<hr/>
 			<div class= mainview3>
+			<form action="#" id="commentsForm" method="post">
+			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
+			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
+			<input type="hidden" name="no" id="no" value="${param.no}">	
+				
 				<div class="box3">
 					<div class="comment">comment</div>
 					
-					<div class="commentBox">
-					<input type="text" class=commentBoxT id="con" name="con" placeholder="댓글을 입력하세요" />
-					</div>
 					
-					<input type="button" class="regBtn" id="insertBtn" value="등록"/>
+					<c:choose>
+					<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
+					<div class="commentBox">
+						<span class=commentBoxT>로그인이 필요한 서비스 입니다.</div>
+						 <input type="button" class="regBtn" id="loginBtn" value="로그인"/>
+					</c:when>
+					
+					<c:otherwise><!-- 로그인시 -->	
+					<div class="commentBox">
+					
+						
+						<input type="text" class=commentBoxT id="ccon" name="ccon" placeholder="댓글을 입력하세요" />
+					</form>
+					</div>
+														
+				   <input type="button" class="regBtn" id="insertCBtn" value="등록"/>
+					</div>
+				   
+		   			<div class="update">
+						<div class="btn" id="updateBtn">수정</div><br/>
+						<div class="btn" id="cancelBtn">취소</div>
+					</div>
+				   </c:otherwise>
+				   
+				   
+				   
+				   
+				   
+				   </c:choose>
+				   
 				</div>
 				<div class="coll"></div>
 			</div>
 			
 			
-			
-			<div class="mainview4">
-			<div class="iconBox">
-			<img src="resources/upload/${data.C_IMG}" /><br/>
-			</div>
-			<div class="idBox">
-			<img src="resources/images/sample2.jpg" class="bbo"/> ${data.CNM}
-		    </div>			
-		    <div class="commentDe">${data.CCONTENTS}
-
-		    </div>
-		    <div class="date">${data.CDT}</div>
-		   <div class="more">
-				<input type="button" class="moreBtn" value="더보기+" />
-			</div>
-			</div>
-			
-			
+		
+				<div class="mainview4">	
 				
+				<!-- 위로올림 -->
+				
+				</div>
+				<div class="more">
+					<input type="button" class="moreBtn" value="더보기+" />
+					
+		 
+				</div>
+
 		
 
 	
