@@ -260,7 +260,7 @@ $(document).ready(function(){
 						</div>			
 					</div>
 				</div>
-				
+				<div class="col"></div>
 			</div>
 		</div>
 	</div>		

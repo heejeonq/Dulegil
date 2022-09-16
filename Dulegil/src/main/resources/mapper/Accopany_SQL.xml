@@ -19,19 +19,9 @@
 </select>
 
 <select id="chatList" resultType="hashmap" parameterType="hashmap">
-	SELECT BLT.MEMBER_NO, M.MEMBER_NO, M.IMG_FILE, M.NM, M.RELIABILITY, BA.ACCOMPANY_DT, BLT.TITLE,
-      	   BC.COURSE_NO,BLT.POST_NO,M.GENDER, TRUNC(MONTHS_BETWEEN(SYSDATE, M.DATE_BIRTH)/12) AS AGE,
-      	   BA.PUBLIC_GENDER, BA.PUBLIC_AGE
-	FROM BULLETIN_BOARD BLT INNER JOIN BOARD_COURSE BC
-	                                ON BLT.POST_NO = BC.POST_NO
-	                        INNER JOIN BOARD_ACCOMPANY BA
-	                                ON BC.POST_NO = BA.POST_NO
-	                        INNER JOIN ACCOMPANY_APPLY AA
-	                                ON AA.POST_NO = BLT.POST_NO
-	                        INNER JOIN MEMBER M
-	                                ON AA.MEMBER_NO = M.MEMBER_NO
-	                        INNER JOIN MEMBER M
-	                                ON BLT.MEMBER_NO = M.MEMBER_NO
-	WHERE BLT.MEMBER_NO = #{memNo}                             
+	SELECT TITLE 
+	FROM BULLETIN_BOARD
+	WHERE MEMBER_NO = #{memNo}
+	AND BLTNBOARD_NO = 2                             
 </select>
 </mapper>

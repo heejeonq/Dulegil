@@ -27,7 +27,6 @@ $(document).ready(function(){
 	<!-- Header -->
 	<jsp:include page="../common/header.jsp" flush="true"/>
 	
-	
 	<!-- Container -->
 	<div class="container-main">
 		<div class="mainWrap">
@@ -287,7 +286,7 @@ $(document).ready(function(){
 						</div>	
 					</div>
 				</div>
-				
+				<div class="col"></div>
 			</div>
 		</div>
 	</div>		

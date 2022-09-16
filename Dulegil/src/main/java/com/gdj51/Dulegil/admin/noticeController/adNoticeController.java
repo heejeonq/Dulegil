@@ -132,7 +132,7 @@ public class adNoticeController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.put("msg", "error");
+			model.put("msg", "exception");
 		}
 
 		return mapper.writeValueAsString(model);

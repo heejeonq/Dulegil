@@ -95,7 +95,7 @@ function reloadList() {
 		dataType : "json", //데이터 형태
 		data : params, //보낼 데이터
 		success : function(res) {//성공했을 때 결과를 res에 받고 함수 실행
-			drawList(res.list);
+			drawList(res.list1, res.list2);
 		},
 		error : function(request, status, error) {
 			console.log(request.responseText); //실패 상세 내역
@@ -104,28 +104,38 @@ function reloadList() {
 		
 		
 	}
-function drawList(list){
-	var html = "";
+function drawList(list1, list2){
+	var html1 = "";
+	var html2 = "";
 	
-	for(var data of list){                                                          
-		html += "<table class=\"standard\">                                            ";
-		html += "	<tr>                                                                ";
-		html += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
-		html += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
-		html += "	</tr>                                                               ";
-		html += "	<tr>                                                            ";
-		html += "		<td class=\"mem_img\"><img src=\"resources/upload/" + ${data.IMG_FILE} "\"></td>    ";
-		html += "		<td class=\"mem_id\">" + data.NM +"</td>                                     ";
-		html += "		<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>                                      ";
-		html += "		<td class=\"mem_age\">" + data.AGE +"</td>                                        ";
-		html += "		<td>" + data.GENDER +"</td>                                                   ";
-		html += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\">        ";
-		html += "		<input type=\"button\" value=\"거절\" class=\"btn green\"></td>   ";
-		html += "		</tr>                                                               ";
-		html += "</table>";
+	//동행 신청자 리스트
+	for(var data of list1){                                                          
+		html1 += "<table class=\"standard\">                                            ";
+		html1 += "	<tr>                                                                ";
+		html1 += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
+		html1 += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
+		html1 += "	</tr>                                                               ";
+		html1 += "	<tr>                                                            ";
+		html1 += "		<td class=\"mem_img\"><img src=\"resources/upload/" + ${data.IMG_FILE} "\"></td>    ";
+		html1 += "		<td class=\"mem_id\">" + data.NM +"</td>                                     ";
+		html1 += "		<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>                                      ";
+		html1 += "		<td class=\"mem_age\">" + data.AGE +"</td>                                        ";
+		html1 += "		<td>" + data.GENDER +"</td>                                                   ";
+		html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\">        ";
+		html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\"></td>   ";
+		html1 += "		</tr>                                                               ";
+		html1 += "</table>";
 		
 	}
-	$(".join_mem_list").html(html);
+	//채팅 목록
+	for(var data of list2){        
+		html2 += "<li>" + data.TITLE +"</li>";
+		html2 += "<input type=\"button\" value=\"x\">"; 
+	}
+	
+	
+	$(".join_mem_list").html(html1);
+	$(".join_mem_list").html(html1);
 }
 
 });
@@ -150,36 +160,7 @@ function drawList(list){
 				<div class="mypage_area1">
 					<div class="area_tit"><span>신청자 목록</span></div>
 					<div class="join_mem_list">
-					<table class="standard">
-						<tr>
-							<th colspan="2">1코스</th>
-							<th colspan="5">같이 둘레길</th>
-						</tr>
-							<tr>
-							<td class=mem_img><img src="resources/images/sample1.jpg"></td>
-							<td class=mem_id>신청자id</td>
-							<td class=mem_lvl>신뢰도</td>
-							<td class=mem_age>나이</td>
-							<td>성별</td>
-							<td><input type="button" value="수락" class="btn green">
-								<input type="button" value="거절" class="btn green"></td>
-						</tr>
-					</table>
-					<table class="standard">
-						<tr>
-							<th colspan="2">1코스</th>
-							<th colspan="5">같이 둘레길</th>
-						</tr>
-							<tr>
-							<td id=mem_img><img src="resources/images/sample2.jpg"></td>
-							<td id=mem_id>신청자id</td>
-							<td id=mem_lvl>신뢰도</td>
-							<td id=mem_age>나이</td>
-							<td>성별</td>
-							<td><input type="button" value="수락" class="btn green">
-								<input type="button" value="거절" class="btn green"></td>
-						</tr>
-					</table>
+					
 					</div>
 				</div>
 					<div class="mypage_area1">
