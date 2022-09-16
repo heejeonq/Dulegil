@@ -79,7 +79,7 @@ WHERE POST_NO= #{no}
 
 <!-- 게시글 수정 -->
 <update id="update"  parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE AS B_IMG={bIMG}
+UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE=#{imgFile}
 WHERE POST_NO=#{no}
 </update>
 

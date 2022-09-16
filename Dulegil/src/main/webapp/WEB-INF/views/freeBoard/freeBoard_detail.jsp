@@ -213,12 +213,13 @@ function reloadList(){
 		html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "    ";
 	    html += " </div>";
 	    html += " <div class=\"commentDe\">" + data.CCONTENTS + "</div>";
-  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>"; 		
+  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
+ 		
  		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
  			html += "<span class=\"upB\" >수정</span> ";
  			html += "<span class=\"delB\" >삭제</span>";
  		}
- 		html += " </div>";
+ 			html += " </div>";
 		
 	}
 	

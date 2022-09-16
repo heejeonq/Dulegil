@@ -103,11 +103,11 @@ public class FreeBoardController {
 	
 		try {
 		switch(gbn) {
-		case "insert": cnt=dao.insert("free.insertC",params);
+		case "insert": cnt=dao.insert("free.insert",params);
 			break;
-		case "update": cnt=dao.update("free.updateC",params);
+		case "update": cnt=dao.update("free.update",params);
 			break;
-		case "delete": cnt=dao.update("free.deleteC",params);
+		case "delete": cnt=dao.update("free.delete",params);
 			break;
 		}
 			if(cnt > 0) {

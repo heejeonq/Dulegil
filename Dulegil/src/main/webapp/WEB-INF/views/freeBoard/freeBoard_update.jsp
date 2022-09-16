@@ -173,6 +173,7 @@ $("#updateBtn").on("click", function() {
 			<form action="freeBoard" id="backForm" method="post">
 		  		<!-- 전화면에서 넘어온 페이지정보 -->
 		   		<input type="hidden" id="page" name="page" value="${param.page}"/>
+		   		<input type="hidden" name="no" value="${data.POST_NO}" />
 		      	<!-- 전화면에서 넘어온 검색 정보 -->
 		      	<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
 		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
@@ -183,7 +184,8 @@ $("#updateBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
+				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<input type="hidden" name="no" value="${data.POST_NO}" /> <!-- 실 저장된 파일명 보관용 -->
 				 
 				<div class="titNm">제목</div>
 				<div class="titBox">
