@@ -197,7 +197,7 @@ public class FreeBoardController {
 			
 			mav.addObject("data", data);
 	
-			mav.setViewName("freeBoard/freeBoard_update2");
+			mav.setViewName("freeBoard/freeBoard_update");
 		}else {
 			mav.setViewName("redirect:freeBoard");
 		}

@@ -71,6 +71,7 @@ function action(flag){
        	case "success" : 
        		switch(flag){
        		case "insert" : 
+       			
        			makeAlert("알림", "회원가입이 완료되었습니다.", function() {
        				location.href='main';
        			});

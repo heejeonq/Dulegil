@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
  <jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,32 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
-<title>자유게시판작성</title>
+<title>자유게시판수정</title>
+<style type="text/css">
+
+
+.imgFile{
+	display:none;
+}
+.attold span{
+width: 90%;
+ 	font-size: 13px;
+    line-height: 30px;
+    color: gray;
+    border-bottom: 1px solid gray;
+}
+.fileDelBtn{	
+    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
+
+}
+</style>
 <script type="text/javascript" src="resources/script/common/popup.js"></script>
 
 <script type="text/javascript">
@@ -25,22 +50,35 @@ $(document).ready(function(){
 	      height : 400
 	      });
 	
-//목록버튼
+	
+	
+	
+	
+//취소버튼
 $("#cancelBtn").on("click", function() {
-    history.back();
+	$("#backForm").submit();
  });
  
-
-$("#fileDelBtn").on("click",function(){
+ //파일삭제버튼
+$(".fileDelBtn").on("click",function(){
 	//기존파일 내역 영역 제거
-	$(".IMGOld").remove();
+	$(".attOld").remove();
+	
 	//기존 값 제거
 	$("#imgFile").val("");
 	//파일선택 영역 제공
 	$(".imgFile").show();
+	
+	
 });
+ 
+ 
+ 
 //등록버튼
 $("#updateBtn").on("click", function() {
+	//CKEDITOR의 값 취득
+	//CKEDITOR.instance[아이디] : CKEDITOR중 아이디가 같은것을 찾겠다.
+	//.getdata(): 작성중인 내용을 취득한다.
     $("#contents").val(CKEDITOR.instances['contents'].getData())
 
     // $.trim(값) : 값 앞 뒤 공백제거
@@ -64,7 +102,7 @@ $("#updateBtn").on("click", function() {
    	 		if(res.result =="SUCCESS"){//파일전송 성공
    	 			//올라간 파일이 존재한다면
    	 			if(res.fileName.length > 0){//배열의 갯수가 0보다 크다면
-   	 				$("#bImg").val(res.fileName[0]);//올라간 파일명 보관
+   	 				$("#imgFile").val(res.fileName[0]);//올라간 파일명 보관
    	 			}
    	 		/*
    	 		글저장
@@ -82,14 +120,14 @@ $("#updateBtn").on("click", function() {
    	                 
    	                  switch(res.msg){
    	                  
-   	                  case "success" :
+   	                  case "success" :   	                    
    	                    $("#backForm").submit();
    	                     break;
    	                  case "fail" :
-   	                     makeAlert("알림", "수정에 실패하였습니다.")
+   	                     makeAlert("알림", "등록에 실패하였습니다.")
    	                     break;
    	                  case "error" :                     
-   	                     makeAlert("알림", "수정중 문제가 발생하였습니다.")
+   	                     makeAlert("알림", "등록중 문제가 발생하였습니다.")
    	                     break;
    	                  }
    	                  
@@ -149,7 +187,7 @@ $("#updateBtn").on("click", function() {
 				 
 				<div class="titNm">제목</div>
 				<div class="titBox">
-				<input type="text" class="titCon" name="title" id="title" value="${data.TITLE}"/>
+				<input type="text" class="titCon" name="title" id="title"value="${data.TITLE}" />
 				</div>
 			</div>
 
@@ -157,8 +195,10 @@ $("#updateBtn").on("click", function() {
 			<div class="conWrap">
 				<div class="conNm">내용</div>
 				<div class=contentBox>
-				<textarea rows="19" cols="100" name="contents" id="contents">				
-				<img src="resources/upload/${data.B_IMG}"/>
+				<textarea rows="19" cols="100" name="contents" id="contents">
+
+					<img src="resources/upload/${data.B_IMG}"/>
+
 				${data.CONTENTS}
 				</textarea>
 				</div>
@@ -169,48 +209,49 @@ $("#updateBtn").on("click", function() {
 				<hr width="80%"/>
 			<div class="filWrap">
 				<div class="filNm">대표이미지</div>
-				<div class="filBox">
+					<div class="filBox">
+				<c:choose>
+					<c:when test="${empty data.B_IMG}">
+					<!-- 파일 없을때 -->
+						<input type="file" class="file" name="attFile"/>					
+						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div> 
+						<input type="hidden" name="imgFile" id="imgFile" />			
+					</c:when>
+					<c:otherwise>
+					<!-- 파일 있을때 -->
 				
-					<c:choose>
-						<c:when test="${empty data.B_IMG}">
-						<!-- 파일없을때 -->
-							<input type="hidden" name="imgFile" id="imgFile" />
-							<input type="file" class="file" name="attFile"/>
-							<div class="fileT">*이미지 파일만 첨부하여 주세요.</div>						
-						</c:when>
-						
-						
-						<c:otherwise>
-						<!-- 파일있을때 -->
-							<span class="IMGOld"><!-- 기존파일 -->
-								<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
-								<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
-								<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
-								${fileName}
-							<div class="cmn_btn_ml float_right_btn" id="fileDelBtn">파일 삭제</div> 
-							</span>	
-						
-											
-						<span class="imgFile"> <!-- 기존파일 삭제후 새파일 용도 -->
-							<input type="file" name="attFile"/>
-							<input type="hidden" name="bImg" id="att" value="${data.B_IMG}"/>
-						</span>
-						</c:otherwise>
+					<span class="attOld"><!-- 기존파일 -->
+						<span>
+							<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
 					
-					</c:choose>
-					
-					
-				</div>
+							<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
+							<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
+							<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
+							${fileName}
+						</span>	
+							<span class="fileDelBtn">파일삭제</span>						
+					</span>
+														
+					<span class="imgFile"> <!-- 기존파일 삭제후 새파일 용도 -->			
+						<input type="file" class="file" name="attFile"/>
+						<input type="hidden" name="imgFile" id="imgFile" value="${data.B_IMG}"/>
+						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div> 
+					</span>
+					</c:otherwise>
+				</c:choose>
+				
+					</div>
+				
 			</div>
 			
 			</form>
 				
 				<div class="btnWrap">
 					<div class="btnBox">
-					<input type="button" class="btn" id="insertBtn" value="등록">
+					<input type="button" class="btn" id="updateBtn" value="수정">
 					</div>
 					<div class="btnBox">
-					<input type="button" class="btn" id="listBtn" value="목록">
+					<input type="button" class="btn" id="cancelBtn" value="취소">
 					</div>
 				</div>
 
