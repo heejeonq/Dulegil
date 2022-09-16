@@ -353,9 +353,12 @@ $(document).ready(function(){
     });
 
 	// td에서 체크 하나 풀면 th 체크박스 해제
+	
+	
+	
+		
 
 	
-	// 체크 밸류 리스트 가져가기
 
 	
 }); // document.ready end
@@ -379,19 +382,19 @@ function reloadList(){
 			console.log(request.responseText); //실패 상세내역
 		}
 	});
-}
+};
 
 function drawList(list){
 	var html = "";
 	
 	for(var data of list){
 		// "+ +"                                                             
-		html += "<tr class=\"tr_td\"no=\"" + data.MEMBER_NO + "\">";
+		html += "<tr class=\"tr_td\"no=\"" + data.POST_NO + "\">";
 		html += "<td colspan=\"1\">"+ data.POST_NO +"</td>";
 		html += "<td colspan=\"6\">"+ data.TITLE +"</td>";
 		html += "<td colspan=\"1\">"+ data.NM +"</td>";
 		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
-		html += "<td colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\" /></td>";
+		html += "<td colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"1\" /> <input type=\"hidden\" id=\"Check_hidden\" name=\"Check_hidden\" value=\"1\" /></td>";
 		html += "</tr>";
 		                                                                
 	}                                                                    
@@ -453,6 +456,16 @@ function drawPaging(pd){
 	html += "</div>";
 	
 	$("#hd2_paging").html(html);
+}
+
+
+
+// 체크박스 삭제
+$("#deleteBtn").on("click", function(){
+	var arr = new Array();
+	$("input[name='Check']:checked").each(function(){
+		arr.push($(this).val())
+	});
 }
 
 </script>
@@ -572,7 +585,9 @@ function drawPaging(pd){
 					<!-- 작성 삭제 버튼 -->
 					<div id="write">
 						<input type="button" value="글쓰기" class="delBtn" id="insertBtn" />
-						<input type="button" value="삭제" class="delBtn" />
+						
+						
+						<input type="button" value="삭제" class="delBtn" id="deleteBtn" value="${param.check }" />
 					</div>
 				</div>
 				<!-- ccbox -->
@@ -636,3 +651,4 @@ function drawPaging(pd){
 
 </body>
 </html>
+

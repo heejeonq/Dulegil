@@ -30,7 +30,7 @@ function change_btn(e) {
 				<a href="mypageComment">
 				  <li><button class="btnbox" onclick="change_btn(event)">댓글 관리</button></li>
 				</a>
-				<a href="mypageAccopany">
+				<a href="mypageAccompany">
 				   <li><button class="btnbox" onclick="change_btn(event)">동행</button></li>
 				</a>      
 			</ul>

@@ -26,7 +26,7 @@ function emailSelect(ele){
 
 $(document).ready(function(){
 	$("#cnfmBtn").on("click", function(){
-		$("#email").val($("#id").val() + "@" + $("#emailId").val());
+		$("#email").val($("#findId").val() + "@" + $("#emailId").val());
 		
 		if($.trim($("#findNm").val()) == ""){
 			makeAlert("알림", "이름를 입력하세요.", function(){
@@ -35,6 +35,10 @@ $(document).ready(function(){
 		}else if($.trim($("#findId").val()) == ""){
 			makeAlert("알림", "아이디를 입력하세요.", function(){
 				$("#findId").focus();
+			});
+		}else if($.trim($("#emailId").val()) == ""){
+			makeAlert("알림", "이메일 주소를 입력하세요.", function(){
+				$("#emailId").focus();
 			});
 		}else{
 			var params = $("#actionForm").serialize();
@@ -75,8 +79,8 @@ $(document).ready(function(){
 				<div class="findInfo">
 					<form action="#" id="actionForm" method="post">
 						<input type="hidden" id="no" name="no" />
-						<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
 						<input type="hidden" name="email" id="email">
+						<input type="text" id="findNm" name="findNm" placeholder="이름" /><br />
 						<input type="text" id="findId" name="findId" placeholder="아이디" />
 						<p id="at">@</p> 
 						<input type="text" id="emailId" name="emailId" placeholder="직접입력" />

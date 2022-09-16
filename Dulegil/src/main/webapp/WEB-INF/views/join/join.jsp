@@ -35,6 +35,7 @@ function sample6_execDaumPostcode() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
             } else {
+            	
             }
 
             document.getElementById('zcd').value = data.zonecode;
@@ -57,7 +58,91 @@ function emailSelect(ele){
     }
 }
 
+function action(flag){
+	 var params = $("#actionForm").serialize();
+    
+    $.ajax({
+       url:"joinAction/" + flag, 
+       type:"POST", 
+       dataType:"json", 
+       data : params,
+       success: function(res) { 
+       	switch(res.msg) {
+       	case "success" : 
+       		switch(flag){
+       		case "insert" : 
+       			makeAlert("알림", "회원가입이 완료되었습니다.", function() {
+       				location.href='main';
+       			});
+       		break;
+       		case "delete" :
+       			$("#page").val("1");
+       			$("#searchGbn").val("0");
+       			$("#searchText").val("");
+       			$("#oldGbn").val("0");
+       			$("#oldText").val("");
+       		break;
+       		case "update" :
+       			$("#oldGbn").val($("#searchGbn").val());
+       			$("#oldText").val($("#searchText").val());
+       			$("#con").val("");
+       			$("#no").val("");
+       			$(".insert").show();
+       			$(".update").hide();
+       		break;
+       		}
+       	break;
+       	
+       	case "fail" :  alert("알림", msg[flag] + "에 실패하였습니다.");
+   			break;
+   		
+    		case "error" : alert("알림", msg[flag] + " 중 문제가 발생하였습니다.");
+				break;
+			}
+       }, 
+       error: function(request, status, error) { 
+          console.log(request.responseText); 
+       }
+    });
+} 
+
 $(document).ready(function() {
+	$("#cnfmBtn").on("click", function(){
+		$("#chkId").val("0");
+		$("#email").val($("#id").val() + "@" + $("#emailId").val());
+		if($.trim($("#id").val()) == ""){
+			makeAlert("알림", "아이디를 입력하세요.", function(){
+				$("#id").focus();	
+			});
+		}else if($.trim($("#emailId").val()) == ""){
+			makeAlert("알림", "이메일을 입력하세요.", function(){
+				$("#emailId").focus();
+			});
+		}else{
+			var params = $("#actionForm").serialize();
+			$.ajax({
+				url:"chkIdAjax", 
+				type:"POST", 
+				dataType:"json", 
+				data : params,
+				success: function(res) { 
+					if(res.msg == "success"){
+						makeAlert("알림", "사용할 수 없는 아이디입니다.");
+						$("#id").val("");
+						$("#emailId").val("");
+						$("#emailSel").val("1");
+					}else{
+						makeAlert("알림", "사용 가능한 아이디입니다.");
+						$("#chkId").val("1");
+					}
+				}, 
+				error: function(request, status, error) { 
+					console.log(request.responseText); 
+				}
+			});
+		}
+	});
+	
 	$("#joinBtn").on("click", function(){
 		$("#email").val($("#id").val() + "@" + $("#emailId").val());
 		
@@ -66,8 +151,11 @@ $(document).ready(function() {
 				$("#id").focus();	
 			});
 		}else if($.trim($("#emailId").val()) == ""){
-			makeAlert("알림", "이메일을 입력하세요.", function(){
+			makeAlert("알림", "이메일 주소를 입력하세요.", function(){
 				$("#emailId").focus();
+			});
+		}else if($.trim($("#chkId").val()) == "0"){ 
+			makeAlert("알림", "아이디 중복확인을 해주세요.", function(){
 			});
 		}else if($.trim($("#pwd").val()) == ""){
 			makeAlert("알림", "비밀번호를 입력하세요.", function(){
@@ -90,56 +178,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#idCnfmBtn").on("click", function(){
-		
-	});
 });
-
-function action(flag){
-	 var params = $("#actionForm").serialize();
-     
-     $.ajax({
-        url:"joinAction/" + flag, 
-        type:"POST", 
-        dataType:"json", 
-        data : params,
-        success: function(res) { 
-        	switch(res.msg) {
-        	case "success" : 
-        		switch(flag){
-        		case "insert" : 
-        			window.history.back();
-        		break;
-        		case "delete" :
-        			$("#page").val("1");
-        			$("#searchGbn").val("0");
-        			$("#searchText").val("");
-        			$("#oldGbn").val("0");
-        			$("#oldText").val("");
-        		break;
-        		case "update" :
-        			$("#oldGbn").val($("#searchGbn").val());
-        			$("#oldText").val($("#searchText").val());
-        			$("#con").val("");
-        			$("#no").val("");
-        			$(".insert").show();
-        			$(".update").hide();
-        		break;
-        		}
-        	break;
-        	
-        	case "fail" :  alert("알림", msg[flag] + "에 실패하였습니다.");
-    			break;
-    		
-     		case "error" : alert("알림", msg[flag] + " 중 문제가 발생하였습니다.");
- 				break;
- 			}
-        }, 
-        error: function(request, status, error) { 
-           console.log(request.responseText); 
-        }
-     });
-} 
 </script>
 </head>
 <body>
@@ -162,7 +201,7 @@ function action(flag){
 						<th>아이디</th>
 						<td>
 							<input type="hidden" name="email" id="email">
-						 	<input type="text" name="id" id="id" placeholder="영문소문자/숫자, 5~20자 이내" /> 
+						 	<input type="text" name="id" id="id" placeholder="영문소문자/숫자, 5~20자 이내" maxlength="20" /> 
 							<p id="at">@</p> 
 							<input type="text" name="emailId" id="emailId" placeholder="직접 입력" />
 							<select id="emailSel" name="emailSel" onChange="emailSelect(this)">
@@ -173,20 +212,20 @@ function action(flag){
 								<option value="nate.com">nate.com</option>
 								<option value="icloud.com">icloud.com</option>
 							</select>
-							<input type="hidden" name="chkId" value="chkId" />
-							<input type="button" name="cnfmBtn" id="cnfmBtn" value="중복 확인" onclick="cnfmId()" />
+							<input type="hidden" name="chkId" id="chkId" value="0">
+							<input type="button" name="cnfmBtn" id="cnfmBtn" value="중복확인" onclick="cnfmId()" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input type="password" name="pwd" id="pwd" placeholder="영문 소문자/숫자 조합, 8자이상 20자 이내" />
+							<input type="password" name="pwd" id="pwd" placeholder="영문 소문자/숫자 조합, 8자이상 20자 이내"  maxlength="20" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
 						<td>
-							<input type="password" name="cnfmPwd" id="cnfmPwd" />
+							<input type="password" name="cnfmPwd" id="cnfmPwd" maxlength="20" />
 						</td>
 					</tr>
 					<tr>
@@ -198,7 +237,7 @@ function action(flag){
 					<tr>
 						<th>휴대전화</th>
 						<td>
-							<input type="text" name="phn" id="phn" placeholder="- 없이 입력하세요" />
+							<input type="text" name="phn" id="phn" placeholder="- 없이 입력하세요" maxlength="11" />
 						</td>
 					</tr>
 				</table>
@@ -217,7 +256,7 @@ function action(flag){
 					</tr>
 					<tr>			
 						<th>성별</th>
-						<td class="gen">
+						<td class="gender">
 							<input type="radio" name="gen" id="gen" value="0" checked="checked" />
 	      					<label for="m">남자</label>
 							<input type="radio" name="gen" id="gen" value="1" />
