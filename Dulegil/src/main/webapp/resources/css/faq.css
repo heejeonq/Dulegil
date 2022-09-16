@@ -1,9 +1,18 @@
 @charset "UTF-8";
+.mainWrap{
+	margin-bottom: 0;
+}
 
 .faq{
 	overflow: hidden;
-	margin-bottom: 10%;
-	width: 100%;
+	width: 100%
+}
+
+.mainWrap p{
+	display: inline-block; 
+	font-size: 12pt;
+    text-align: left;
+    padding-left: 10px;
 }
 
 .faqMainTit{
@@ -16,19 +25,6 @@
 	font-weight: 800;
 }
 
-.faqSubTit{
-	font-size: 22px;
-	font-family: 'Pretendard-Regular';
-	font-weight: 600;
-	color: #666;
-}
-
-.col{
-    position: relative;
-    text-align: center;
-    border-top: 2px solid #666;
-}
-
 .faqQst{
 	padding: 0;
 }
@@ -37,7 +33,7 @@
     width: 10%;
     height: 60px;
     border-bottom: 1px solid #ddd;
-    font-size: 18px;
+    font-size: 12pt;
     line-height: 60px;
     color: #000;
     display: inline-block;
@@ -47,7 +43,7 @@
 
 .qstCon {
     width: 90%;
-    font-size: 15px;
+    font-size: 11pt;
     text-align: left;
     cursor: pointer;
 }
@@ -74,7 +70,7 @@
     height: auto;
     font-size: 23px;
     color: #333;
-    font-size: 18px;
+    font-size: 12pt;
     display: inline-block;
     text-align: center;
     float: left;
@@ -83,7 +79,7 @@
 
 .ansCon {
 	width: 90%;
-    font-size: 15px;
+    font-size: 11pt;
     line-height: 27px;
     text-align: left;
 }

@@ -24,17 +24,6 @@ $(document).ready(function(){
 	      height : 400
 	      });
 	
-	      $('#file').change(function(evt) {
-	    	    fileList = $(this)[0].files;  //파일 대상이 리스트 형태로 넘어온다.
-	    	    for(var i=0;i < fileList.length;i++){
-	    	        var file = fileList[i];
-	    	        const formData = new FormData();
-	    	        formData.append('유니크한아이디', file);  //파일을 더해준다.
-	    	        //만약 여기서 유니크한이이디를 사용하여 테그(노드)를 만든다면
-	    	        //각각 파일에 대해 프로그래싱이 가능하다.
-	    	        $('프로그래스 상태를 나타낼 테그').append('유니크한 아이디를 가진 객체');
-	    	    }
-	    	});
 	
 //목록버튼
 $("#listBtn").on("click", function() {

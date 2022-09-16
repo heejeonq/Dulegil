@@ -223,7 +223,50 @@ $(document).ready(function(){
 	});
 	
 	
-	function()
+	
+	
+	
+	
+	
+	// 목록 버튼
+	$("#backListBtn").on("click", function(){
+		$("#detailForm").attr("action", "adNtList");
+		$("#detailForm").submit();
+	})
+	
+	
+	// 수정 버튼
+	$("#updateBtn").on("click", function(){
+		$("#no").val($(this).attr("no"));
+		$("#detailForm").attr("action", "adNtUpdate");
+		$("#detailForm").submit();
+		
+	})
+	
+	// 디테일 그리기 function
+	function drawDetail(detail){
+		var html = "";
+		
+		for(var data of detail){
+			// "+ +"
+			html += "<tr no=\""+ data.POST_NO +"\">                ";
+			html += "	<td colspan=\"1\">"+ data.POST_NO +"</td>  ";
+			html += "	<td colspan=\"6\">"+ data.TITLE +"</td>  ";
+			html += "	<td colspan=\"1\">"+ data.NM +"</td>  ";
+			html += "	<td colspan=\"1\">"+ data.REG_DT +"</td>  ";
+			html += "	<td colspan=\"1\">"+ data.HIT +"</td>  ";
+			html += "</tr>                            ";
+			
+			html += "<div no=\""+ data.POST_NO +"\" id=\"gongzi\"> ";
+			html += "	<a>"+ data.CONTENTS +"</a>                 ";
+			html += "</div>                                        ";
+		}
+		$("tbody").html(html);
+		$("#gongzi").html(html);
+		
+	}
+	
+	//
 	
 	
 });
@@ -342,28 +385,30 @@ $(document).ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td colspan="1">01</td>
-								<td colspan="6">둘레길 긴급 공지사항</td>
-								<td colspan="1">관리자</td>
-								<td colspan="1">22.06.30</td>
-								<td colspan="1">1000</td>
-							</tr>
+			<tr no= "${data.POST_NO}">               
+				<td colspan=1>${data.POST_NO}</td>
+				<td colspan=6>${data.TITLE}</td>  
+				<td colspan=1>${data.NM }</td>  
+				<td colspan=1>${data.REG_DT}</td> 
+				<td colspan=1>${data.HIT}</td>  
+			</tr> 
+			
+			                                  
+		
 						</tbody>
 					</table>
 
 					<div id="gongzi">
-						<a> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-							여기는 공지사항 입니다. <br /> 여기는 공지사항 입니다. <br />
-						</a>
+			<div no="${data.POST_NO}" id="gongzi"> 
+				<a>${data.CONTENTS}</a>                
+			</div>      
 					</div>
 					
 					
-					
+					<form id="detailForm" action="#" method="post">
+					<input type="hidden" id="no" name="no" value="${param.no}"/>
 					<div id="update">
-						<input type="button" value="수정" class="delBtn" />
+						<input type="button" id="updateBtn" value="수정" class="delBtn" />
 					</div>
 				</div>
 				<!-- ccbox -->
@@ -371,10 +416,14 @@ $(document).ready(function(){
 
 				<div id="search">
 					<div class="Sbar3">
-						<input type="button" class="delBtn" value="목록" />
+						<input type="button" id="backListBtn" class="delBtn" value="목록" />
 					</div>
 				</div>
+				
+				</form>
 			</div>
+			
+			
 		</div>
 
 

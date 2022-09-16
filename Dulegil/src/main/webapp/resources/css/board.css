@@ -199,6 +199,8 @@
 	width:90%;
 	height: 50px;
 	border: 1px solid #ddd;
+	text-align:left;
+	
 }
 
 .commentBoxT {
@@ -258,9 +260,12 @@
 	text-align: left;
 }
 
-.bbo {
-	width: 20px;
-	height: 20px;
+.pimg {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
 .fox {
@@ -282,7 +287,18 @@
     color: grey;
     margin-top: 16PX;
 }
+.upB{
+	font-size:10px;
+	color: grey;
+	cursor:pointer;
+	margin: 0px 10px;
+}
+.delB{
+	font-size:10px;
+	color: grey;
+	cursor:pointer;
 
+}
 .moreBtn {
 	font-size: 11px;
 	padding: 8px 30px 8px 30px;

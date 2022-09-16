@@ -42,12 +42,21 @@
 		</if>
 	</select>
 
-
+	<!-- 디테일 -->
+	<select id="detail" parameterType="hashmap" resultType="hashmap">
+	SELECT N.POST_NO, N.TITLE, N.CONTENTS, M.NM, N.REG_DT, N.HIT				
+	FROM NOTICE N INNER JOIN MEMBER M
+              		ON N.MEMBER_NO = M.MEMBER_NO
+	WHERE N.DEL_DT IS NULL
+	AND N.POST_NO=#{no}
+	</select>
+	
+	
 	<!-- 작성 -->
 	<insert id="insert" parameterType="hashmap">
 		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE,
 		MUST_READ_YN)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 1, #{contents}, #{attFile}, #{mainCheck})
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 109, #{contents}, #{attFile}, #{mainCheck})
 	</insert>
 
 
@@ -60,7 +69,7 @@
 	<update id="delete" parameterType="hashmap">
 
 	UPDATE NOTICE SET DEL_DT = SYSDATE
-	WHERE POST_NO = #{no}
+	WHERE POST_NO IN (${no})
 
 	</update>
 

@@ -27,11 +27,14 @@ public class FreeBoardController {
 	
 	@Autowired
 	public IPagingService ips;
-		
+	
+	//리스트
 	@RequestMapping(value="/freeBoard")
 	public ModelAndView freeBoardList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable{
+		
+		
 		int page = 1;
 		
 		if(params.get("page")!= null && params.get("page")!= "" ) {
@@ -44,6 +47,7 @@ public class FreeBoardController {
 		
 		return mav;
 	}
+	
 	
 	@RequestMapping(value="/FreeListAjax",
 			method = RequestMethod.POST,
@@ -73,6 +77,7 @@ public class FreeBoardController {
 			return mapper.writeValueAsString(model);
 	}
 	
+	//글쓰기 업뎃 수정
 	@RequestMapping(value="/freeBoardWrite")
 	public ModelAndView freeBoardWrite(
 			@RequestParam HashMap<String,String> params,
@@ -121,21 +126,39 @@ public class FreeBoardController {
 		return mapper.writeValueAsString(model);	
 }
 	
+	@RequestMapping(value = "/freeBoardUpdate")
+	public ModelAndView freeBoardUpdate
+			(@RequestParam HashMap<String,String> params,
+			ModelAndView mav) throws Throwable{
+		if(params.get("no") != null && params.get("no") != "") {
+			
+			HashMap<String,String> data = dao.getMap("free.getF",params);
+			
+			
+			mav.addObject("data", data);
+	
+			mav.setViewName("freeBoard/freeBoard_update");
+		}else {
+			mav.setViewName("redirect:freeBoard");
+		}
+	
+		return mav;
+	}	
 	
 	
+	//상세보기
 	@RequestMapping(value="/freeBoardDetail")
 	public ModelAndView freeBoardDetail
 			(@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable {
 		if(params.get("no") != null && params.get("no") != "") {
 			dao.update("updateTHit",params);
+						
+			HashMap<String,String> data = dao.getMap("free.getF",params);	
 			
-			HashMap<String,String> data = dao.getMap("free.getF",params);
-			
-
-			
-			
+					
 			mav.addObject("data", data);
+			
 			mav.setViewName("freeBoard/freeBoard_detail");
 		} 
 			 else { mav.setViewName("redirect:freeBoard"); }
@@ -180,31 +203,34 @@ public class FreeBoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msg", "error");
-		}
-		
+		}		
 			
 		return mapper.writeValueAsString(model);	
 }
 		
-	@RequestMapping(value = "/freeBoardUpdate")
-	public ModelAndView freeBoardUpdate
-			(@RequestParam HashMap<String,String> params,
-			ModelAndView mav) throws Throwable{
-		if(params.get("no") != null && params.get("no") != "") {
-			
-			HashMap<String,String> data = dao.getMap("free.getF",params);
-			
-			
-			mav.addObject("data", data);
-	
-			mav.setViewName("freeBoard/freeBoard_update");
-		}else {
-			mav.setViewName("redirect:freeBoard");
-		}
-	
-		return mav;
+	@RequestMapping(value="/commentAjax",
+			method=RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentAjax(
+			@RequestParam HashMap<String,String> params) throws Throwable{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object>model = new HashMap<String,Object>();
+
+
+		List<HashMap<String,String>>list = dao.getList("free.getCList",params);
+		
+		model.put("list", list);
+				
+		
+		return mapper.writeValueAsString(model);
+		
+		
 	}	
-		
-		
+
+	
+
 		
 }
