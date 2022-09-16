@@ -7,17 +7,20 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/calendar.css" />
 <link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
+<script src='resources/css/fullcalendar/main.js'></script>
 <title>전체일정</title>
-<script src='fullcalendar/main.js'></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		initialView: 'dayGridMonth'
-	});
-	calendar.render();
-});
-</script>
+    <script src='fullcalendar/main.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
 </head>
 <body>
 
@@ -46,4 +49,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	<jsp:include page="../common/footer.jsp" flush="true"/>
 	
 </body>
+
 </html>
