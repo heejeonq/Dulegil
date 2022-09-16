@@ -31,10 +31,11 @@ public class MypageInfoController {
 			mav.setViewName("login/login");
 
 		} else {
+			
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
 			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
-
+			session.setAttribute("sMemNm", data.get("NM"));
 			mav.addObject("data", data);
 			mav.setViewName("mypage/mypage_myinfo");
 		}
@@ -42,9 +43,17 @@ public class MypageInfoController {
 	}
 
 	@RequestMapping(value = "/mypagePasswordCheck")
-	public ModelAndView mypagePasswordCheck(ModelAndView mav) throws Throwable {
+	public ModelAndView mypagePasswordCheck(HttpSession session, ModelAndView mav) throws Throwable {
 
-		mav.setViewName("mypage/mypage_password_check");
+		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
+
+			mav.setViewName("login/login");
+
+		} else {
+			
+			mav.setViewName("mypage/mypage_password_check");
+			
+		}
 
 		return mav;
 	}

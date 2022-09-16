@@ -346,16 +346,105 @@ $(document).ready(function(){
 	
 	
 	// th 전체 선택 박스 클릭시 -> td 전체 선택 
-	 $('input:checkbox[name="allCheck"]').change(function(){
-        $('input:checkbox[name="Check"]').each(function(){
-            $(this).prop("checked",$('input:checkbox[name="allCheck"]').prop("checked"));
-        });
-    });
+	// $('input:checkbox[name="allCheck"]').change(function(){
+    //    $('input:checkbox[name="Check"]').each(function(){
+    //        $(this).prop("checked",$('input:checkbox[name="allCheck"]').prop("checked"));
+    //    });
+   // });
 
-	// td에서 체크 하나 풀면 th 체크박스 해제
+	// thead 체크박스
+	$("thead").on("click", "#allCheck", function(){
+		if($(this).is(":checked")){
+			$("tbody #Check").prop("checked", true);
+		}else{
+			$("tbody #Check").prop("checked", false);			
+		}
+		
+		var arr = [];
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		$("#no").val(arr);
+	});	
+	
+	
+	// tbody 체크박스
+	$("tbody").on("click", "#Check", function(){
+		var arr = [];
+		
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == $("tbody #Check").length){
+			$("thead #allChecked", true)
+		}else{
+			$("thead #allCheck").prop("checked", false);
+		}
+			// arr에 체크된 곳에 no 값을 넣어줌
+			$("#no").val(arr);		
+	});
+	
+	// 삭제
+	$("#deleteBtn").on("click", function(){
+		var arr = [];
+		
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == ""){
+			makeAlert("알림", "삭제할 공지사항을 선택해주세요.");
+		}else{
+			makePopup({
+				title : "알림",
+				contents : "삭제 하시겠습니까?",
+				buttons	: [{
+					name : "삭제",
+					func : function(){
+						// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
+						var params = $("#actionForm").serialize();
+						
+						$.ajax({
+							url : "adNtAction/delete",
+							type :"POST",
+							dataType :"json",
+							data:params,
+							success : function(res){
+								// 성공했을 때 결과를 res에 받고 함수 실행
+								
+								switch(res.msg){
+								case "success" :
+									reloadList();
+									break;
+								case "fail" :
+									makeAlert("알림", "삭제에 실패했습니다.")
+									break;
+								case "exception" :
+									makeAlert("알림", "삭제 중 문제가 발생했습니다.")
+									break;
+								}
+							},
+							error : function(request, status, error){
+								console.log(request.responseText);
+								
+							}
+						});
+						
+						closePopup();
+					}
+				},{
+					name : "취소"
+				}]	
+			})
+		}
+	});
+	
+	
+		
 
 	
-	// 체크 밸류 리스트 가져가기
 
 	
 }); // document.ready end
@@ -379,19 +468,19 @@ function reloadList(){
 			console.log(request.responseText); //실패 상세내역
 		}
 	});
-}
+};
 
 function drawList(list){
 	var html = "";
 	
 	for(var data of list){
 		// "+ +"                                                             
-		html += "<tr class=\"tr_td\"no=\"" + data.MEMBER_NO + "\">";
-		html += "<td colspan=\"1\">"+ data.POST_NO +"</td>";
-		html += "<td colspan=\"6\">"+ data.TITLE +"</td>";
-		html += "<td colspan=\"1\">"+ data.NM +"</td>";
-		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
-		html += "<td colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\" /></td>";
+		html += "<tr class=\"tr_td\"no=\"" + data.POST_NO + "\">";
+		html += "<td  colspan=\"1\">"+ data.POST_NO +"</td>";
+		html += "<td  colspan=\"6\">"+ data.TITLE +"</td>";
+		html += "<td  colspan=\"1\">"+ data.NM +"</td>";
+		html += "<td  colspan=\"1\">"+ data.REG_DT +"</td>";
+		html += "<td  onclick=\"event.stopPropagation()\" colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"1\" /> <input type=\"hidden\" id=\"Check_hidden\" name=\"Check_hidden\" value=\"1\" /></td>";
 		html += "</tr>";
 		                                                                
 	}                                                                    
@@ -454,6 +543,10 @@ function drawPaging(pd){
 	
 	$("#hd2_paging").html(html);
 }
+
+
+
+
 
 </script>
 
@@ -572,7 +665,9 @@ function drawPaging(pd){
 					<!-- 작성 삭제 버튼 -->
 					<div id="write">
 						<input type="button" value="글쓰기" class="delBtn" id="insertBtn" />
-						<input type="button" value="삭제" class="delBtn" />
+						
+						
+						<input type="button" value="삭제" class="delBtn" id="deleteBtn" value="${param.check }" />
 					</div>
 				</div>
 				<!-- ccbox -->
@@ -636,3 +731,4 @@ function drawPaging(pd){
 
 </body>
 </html>
+
