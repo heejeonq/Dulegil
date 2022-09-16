@@ -47,7 +47,7 @@
 	<insert id="insert" parameterType="hashmap">
 		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE,
 		MUST_READ_YN)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 1, #{contents}, #{attFile}, #{mainCheck})
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 109, #{contents}, #{attFile}, #{mainCheck})
 	</insert>
 
 
@@ -60,7 +60,7 @@
 	<update id="delete" parameterType="hashmap">
 
 	UPDATE NOTICE SET DEL_DT = SYSDATE
-	WHERE POST_NO = #{no}
+	WHERE POST_NO IN (${no})
 
 	</update>
 
