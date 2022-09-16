@@ -268,13 +268,13 @@ $(document).ready(function(){
 						</div>						
 					</div>
 				</div>
-				
+				<div class="col"></div>
 			</div>
 		</div>
 	</div>		
 
 	<!-- footer -->
-<jsp:include page="../common/header.jsp" flush="true"/>
+	<jsp:include page="../common/footer.jsp" flush="true"/>
 
 </body>
 </html>

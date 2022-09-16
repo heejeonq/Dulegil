@@ -1,17 +1,21 @@
 @charset "UTF-8";
+
 * {
 	box-sizing: border-box;
 	color: #000;
 }
+
 body {
 	margin: 0;
 	padding: 0;
 	font-size: 0;
 	min-width: 1200px;
 }
+
 html, body {
 	height: 100%;
 }
+
 a {
 	text-decoration: none;
 	font-weight: 600;
@@ -22,19 +26,22 @@ ul {
 	margin: 0;
 	padding: 0;
 }
+
 /*Header*/
 .header {
 	background-size: cover;
     background-color: #fffce1;
 }
+
 .util {
 	height: 40px;
 	padding-right: 10%;
-
 }
+
 .util ul {
 	text-align: right;
 }
+
 .util ul li{
 	display: inline-block;
 	padding: 0 10px;
@@ -42,14 +49,16 @@ ul {
 	font-family: 'Pretendard-Regular';
 	font-size: 11pt;
 	cursor: pointer;
-	
 }
+
 .util ul li a {
     color: #1b1b1b;
 }
+
 .alarm :active .alarm_contents{
 	display: block;
 }
+
 .alarm_contents {
 	width: 300px;
     height: 300px;
@@ -63,13 +72,14 @@ ul {
 	overflow: scroll;
     overflow-x: hidden;
     box-shadow: 1px 1px 3px #777;
-
 }
+
 .alarm_img {
 	width: 25px;
 	position: relative;
     top: 4px;
 }
+
 .alarm_num {
 	background-color: rgb(255, 0, 0);
 	color: #fff;
@@ -77,28 +87,28 @@ ul {
     border-radius: 50%;
     padding: 0 5px;
 }
+
 span.material-symbols-outlined {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 /*Nav*/
 .nav {
-	    display:flex;
-	    justify-content:center;
-	    height: 124px;
-	    
-	    
-	    
+	display:flex;
+	justify-content:center;
+	height: 124px;
 }
+
 .logo {
 	display: inline-flex;
-	
 }
+
 .logo img {
 	display: inline-block;
     height: 80%;
 	float: left;
 }
+
 .logo span {
     font-size: 25pt;
     letter-spacing: -3pt;
@@ -107,34 +117,37 @@ span.material-symbols-outlined {
     position: relative;
     top: 25px;
 }
+
 .gnb {
 	display: inline-flex;
     position: relative;
     align-items: flex-end;
     margin-left: 22px;
 }
-.gnb > ul {
 
+.gnb > ul {
 	padding-bottom: 50px;
 }
+
 .gnb > ul > li {
 	position: relative;
 	display: inline-block;
 	margin: 0;
 }
+
 .gnb > ul  >li > a {
     font-family: 'Pretendard-Regular';
     font-size: 16pt;
     font-weight: 600;
     padding: 0 35px;
 }
+
 .gnb > ul  >li > a:hover{
 	color:#073;
 }
 	
-.gnb > ul  >li > a:hover:before
-{
-    position: absolute;
+.gnb > ul  >li > a:hover:before{
+	position: absolute;
     width: 100%;
     height: 2px;
     left: 0px;
@@ -143,7 +156,6 @@ span.material-symbols-outlined {
     background: #000;
     opacity: 0.2;
 }
-
 
 .gnb > ul > li:hover .gnb_dropdown {
 	display: block;
@@ -163,11 +175,10 @@ span.material-symbols-outlined {
 
 .gnb_dropdown li{
 	padding: 10px 10px;
-	
 }
+
 .gnb_dropdown li a {
 	font-size: 11pt;
-	
 }
 
 /*Container*/
@@ -199,78 +210,79 @@ span.material-symbols-outlined {
 }
 
 .tit{
-	
-	margin:80px auto 10px;
-	text-align:left;
-	margin-top:10px;
-	font-size: 20pt;
-	font-weight: 600;
-	margin-bottom: 10px;
+	text-align: left;
+    margin-top: 10px;
+    font-size: 22pt;
+    font-weight: 600;
+    padding: 10px 5px;
+    margin-bottom: 1%;
 }
 
 .col{
-    position: relative;
-    text-align: center;
-    border-top: 2px solid #ddd;
+	position: relative;
+	text-align: center;
+	border-top: 1px solid #ddd;
 }
-
 
 /*footer*/
 .footer {
 	display: flex;
-   justify-content: center;
-   width: 100%;
-   padding:2%
+	justify-content: center;
+	width: 100%;
+	padding:2%
 }
 
 .footer_container {
-    margin-left: 236px;
+	margin-left: 236px;
 }
+
 .footer_section {
-   width: 1200px;
-   position: relative;
+	width: 1200px;
+	position: relative;
 }
+
 .footer_section div a{
-   font-size: 16px;
-   font-weight: 500;
-   font-family: 'Pretendard-Regular';
+	font-size: 16px;
+	font-weight: 500;
+	font-family: 'Pretendard-Regular';
 }
 
 .footer_logo {
-   display: inline-block;
-   padding: 10px 80px 50px 20px;
-   float: left;
+	display: inline-block;
+	padding: 10px 80px 50px 20px;
+	float: left;
 }
 .footer_logo img {
-   width:180px;
+	width:180px;
 }
 
 .footer_address {
-   color: #000;
-   font-size: 14px;
-   line-height: 1.5;
-   font-weight: 500;
-   font-family: 'Pretendard-Regular';
+	color: #000;
+	font-size: 14px;
+	line-height: 1.5;
+	font-weight: 500;
+	font-family: 'Pretendard-Regular';
 }
 
 .footer_address dt {
-   display: inline-block;
-   color: #000;
-   font-size: 15px;
-   line-height: 1.5;
+	display: inline-block;
+	color: #000;
+	font-size: 15px;
+	line-height: 1.5;
 }
 
 .footer_address dd {
-   display: inline-block;
-   color: #333;
-   font-size: 13px;
-   line-height: 1.5;
+	display: inline-block;
+	color: #333;
+	font-size: 13px;
+	line-height: 1.5;
 }
 
 .footer_address dt {
-   font-weight: 500;
-   margin-right: 6px;
+	font-weight: 500;
+	margin-right: 6px;
 }
+
 .footer_address dd {
-   margin: 0;
+	margin: 0;
 }
