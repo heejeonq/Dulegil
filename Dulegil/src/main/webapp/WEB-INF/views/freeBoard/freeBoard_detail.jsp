@@ -104,6 +104,70 @@ $(document).ready(function(){
 					action("insert");	 			
 		         }
 		});
+		
+		
+		//목록 삭제버튼 클릭시
+		$(".mainview4").on("click",".delB",function(){
+			var commentNo= $(this).parent().parent().attr("commentNo");
+			
+			makePopup({
+				title:"알림",
+				contents : "삭제하시겠습니까?",
+				buttons : [{
+					name:"삭제",
+					func:function() {
+						$("#commentNo").val(commentNo);
+						action("delete");
+						closePopup()//제일위의 팝업닫기
+					}			
+				
+				},{
+					name : "취소"
+				}]
+			});
+		});
+		
+		
+		
+ 		//목록의 수정버튼 클릭시
+		$(".mainview4").on("click",".upB",function(){
+		var no= $(this).parent().parent().attr("no");
+		
+		makePopup({
+			title:"알림",
+			contents : "삭제하시겠습니까?",
+			buttons : [{
+				name:"수정",
+				func:function() {
+					$("#no").val(no);
+					action("delete");
+					closePopup()//제일위의 팝업닫기
+				}			
+			
+			},{
+				name : "취소"
+			}]
+		});
+	});
+	
+	//수정영역의 취소버튼
+	$("thead #cancelBtn").on("click",function(){
+		//입력내용 초기화
+		$("#no").val("");		
+		$("#con").val("");		
+		//등록버튼 나타나기 + 수정,취소 버튼 감추기
+		$(".insert").show();
+		$(".update").hide();
+	});
+	
+	//수정영역의 수정버튼
+	$("thead #updateBtn").on("click",function(){
+		action("update");
+		
+	});
+		
+		
+		
 	});
 
 	//document
@@ -183,6 +247,8 @@ function action(flag){
       });	//Ajax end
 }//action Function End
 
+
+//댓글 reloadlist
 function reloadList(){	
 	var params = $("#commentsForm").serialize();
 	
@@ -340,8 +406,9 @@ function reloadList(){
 						<input type="text" class=commentBoxT id="ccon" name="ccon" placeholder="댓글을 입력하세요" />
 					</form>
 					</div>
-														
+					<span class="insert">									
 				   <input type="button" class="regBtn" id="insertCBtn" value="등록"/>
+				   </span>
 					</div>
 				   
 		   			<div class="update">
