@@ -5,13 +5,12 @@
 
 .faq{
 	overflow: hidden;
-	width: 100%;
-	margin-top: 2%;
+	width: 100%
 }
 
-.faq p{
+.mainWrap p{
+	display: inline-block; 
 	font-size: 12pt;
-	font-weight: 600;
     text-align: left;
     padding-left: 10px;
 }
@@ -84,8 +83,3 @@
     line-height: 27px;
     text-align: left;
 }
-
-#faqQst1 {
-	border-top: 1px solid #ddd;
-}
-

@@ -2,39 +2,29 @@
 
 .evt{
 	margin: 20px 0;
+	text-align: center;
 }
 
-.evt p, .evt th, .evt td{
+.evt th, .evt td{
 	font-size: 11pt;
 }
 
-.mth{
-	display: flex;
-    justify-content: center;
-    margin-top: 30px;
+.mainWrap p{
+	display: inline-block; 
+	font-size: 12pt;
+    text-align: left;
+    padding-left: 10px;
 }
 
-#mthTit{
-	font-size: 30pt;
-	margin: 0 30px;
-}
-
-#prevBtn, #nxtBtn{
-	background-color: #f0c41994;
-	border: none;
-	cursor: pointer;
-}
-
-.evt p{
+.evtCal{
 	text-align: center;
-	margin: 3% 0;
 }
-
-.calendar{
-	height: 700px;
-	border: 1px solid #ddd;
-	margin: 2% 0 5%;
-	font-size: 15pt;
+#calendar{
+	width: 100%;
+	margin: 20px 0;
+	font-size: 12pt;
+	display: inline-block;
+	padding: 5px;
 }
 
 .evtTit {

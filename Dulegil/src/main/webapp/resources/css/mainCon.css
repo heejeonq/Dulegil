@@ -215,6 +215,7 @@ span.material-symbols-outlined {
 }
 
 .tit{
+	display: inline-block;
 	text-align: left;
     margin-top: 10px;
     font-size: 22pt;
