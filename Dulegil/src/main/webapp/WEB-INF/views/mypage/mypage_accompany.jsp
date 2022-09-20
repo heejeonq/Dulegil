@@ -16,7 +16,7 @@ $(document).ready(function(){
 	
 	
 	//신고하기
-	$("#memRate").on("click", ".singo span", function(){
+	$("#memRate").on("click", ".singo img", function(){
 	
 		if($(this).parent().children(".singo_contents").css("display") == "none"){
 			$(this).parent().children(".singo_contents").css("display", "flex");
@@ -243,12 +243,12 @@ function drawList2(memList){
 	//신뢰도평가멤버 리스트
 	for(var data of memList){  
 		html2 += "	<tr>                                                                                         ";
-		html2 += "		<td rowspan=\"2\" id=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>                  ";
+		html2 += "		<td rowspan=\"2\" class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>                  ";
 		html2 += "		<td id=\"mem_id\" class=\"item\">" + data.NM +"</td>                                               ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td></td>                                                                                ";
-		html2 += "		<td class=\"singo\"><span>...</span>                                                       ";
+		html2 += "		<td class=\"singo\"><img src=\"resources/images/detailViewIcon.png\" />                                                       ";
 		html2 += "			<div class=\"singo_contents\">                                                         ";
 		html2 += "				<label><input type=\"radio\" value=\"성희롱\">성희롱</label>                         ";
 		html2 += "				<label><input type=\"radio\" value=\"욕설\">욕설</label>                             ";

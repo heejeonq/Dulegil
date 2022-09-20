@@ -642,6 +642,7 @@ table.standard td:nth-child(3){font-weight:500; color:#333; text-align:center; }
 table.mem_rate {
     margin-bottom: 10px;
 }
+
 .mem_rate tr {
 	width: 100%;
 	font-size: 15pt;
@@ -661,7 +662,6 @@ table.mem_rate {
 .mem_rate td:nth-child(6){
 	
 	float:right;
-	margin-right: 10px;	
 }
 .mem_rate_list {
 	border-bottom: 1px solid #777;
