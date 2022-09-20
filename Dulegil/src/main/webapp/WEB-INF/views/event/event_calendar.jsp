@@ -19,15 +19,15 @@ $(document).ready(function(){
 		    failure: function(res) {
 		        console.log(res.xhr.responseText);
 		    }
+		},
+		eventClick: function(info) {
+		    $("#no").val(info.event.extendedProps.post_no);
+		    $("#actionForm").attr("action", "eventDtl");
+		    $("#actionForm").submit();
 		}
 	});
 	calendar.render();
 	
-	$("tbody").on("click",".fc-event-main",function(){
-		$("#no").val($(this).attr("no"));
-		$("#actionForm").attr("action","eventDtl");
-		$("#actionForm").submit();
-	});
 });
 
 </script>
@@ -46,9 +46,8 @@ $(document).ready(function(){
 			
 			<div class="evtCal">
 				<form action="#" id="actionForm" method="post">
-					<div id="calendar">
-						<input type="hidden" id="no" name="no" />
-					</div>
+					<input type="hidden" id="no" name="no" />
+					<div id="calendar"></div>
 				</form>
 			</div>
 		</div>
