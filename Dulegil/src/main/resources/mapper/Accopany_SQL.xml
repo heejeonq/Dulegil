@@ -7,6 +7,7 @@
       	   BA.PUBLIC_GENDER, BA.PUBLIC_AGE
 	FROM BULLETIN_BOARD BLT INNER JOIN BOARD_COURSE BC
 	                                ON BLT.POST_NO = BC.POST_NO
+	                                AND BLT.DEL_DT IS NULL
 	                        INNER JOIN BOARD_ACCOMPANY BA
 	                                ON BC.POST_NO = BA.POST_NO
 	                        INNER JOIN ACCOMPANY_APPLY AA
@@ -15,13 +16,131 @@
 	                                ON AA.MEMBER_NO = M.MEMBER_NO
 	                        INNER JOIN MEMBER M
 	                                ON BLT.MEMBER_NO = M.MEMBER_NO
-	WHERE BLT.MEMBER_NO = #{memNo}                             
+	WHERE BLT.MEMBER_NO = #{memNo}  
+	AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD')                      
 </select>
 
 <select id="chatList" resultType="hashmap" parameterType="hashmap">
 	SELECT TITLE 
 	FROM BULLETIN_BOARD
 	WHERE MEMBER_NO = #{memNo}
-	AND BLTNBOARD_NO = 2                             
+	AND BLTNBOARD_NO = 2     
+	AND BULLETIN_BOARD.DEL_DT IS NULL                           
 </select>
+
+<select id="myApply" resultType="hashmap" parameterType="hashmap">
+	SELECT AA.STATE_NO, TO_CHAR(AA.REG_DT,'YYYY.MM.DD') AS REG_DT, BB.TITLE, MEM.NM, BC.COURSE_NO, BB.POST_NO
+	FROM ACCOMPANY_APPLY AA INNER JOIN MEMBER M
+	                                ON AA.MEMBER_NO = M.MEMBER_NO
+	                        INNER JOIN BULLETIN_BOARD BB
+	                                ON AA.POST_NO = BB.POST_NO
+	                                AND BB.DEL_DT IS NULL
+	                        INNER JOIN BOARD_COURSE BC
+	                                ON BB.POST_NO = BC.POST_NO
+	                        INNER JOIN MEMBER MEM
+	                                ON MEM.MEMBER_NO = BB.MEMBER_NO  
+	 WHERE M.MEMBER_NO = #{memNo}                                                                                           
+</select>
+
+<update id="applyMemUpdate" parameterType="hashmap">
+	UPDATE ACCOMPANY_APPLY SET STATE_NO = #{stateNo}
+    WHERE MEMBER_NO = #{memNo}
+    AND POST_NO = #{postNo}
+</update>
+
+<select id="accompanyHistory" resultType="hashmap" parameterType="hashmap">
+	
+	SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY.MM.DD') AS ACCOMPANY_DT 
+    FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                   ON BB.POST_NO = BC.POST_NO
+                           INNER JOIN BOARD_ACCOMPANY BA
+                                   ON BB.POST_NO = BA.POST_NO
+                     <![CDATA[    AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') < TO_CHAR(SYSDATE, 'YY.MM.DD')  ]]> 
+                           INNER JOIN ACCOMPANY_APPLY AA
+                                   ON AA.POST_NO =BB.POST_NO
+                                  AND STATE_NO = 2
+                           INNER JOIN MEMBER MEM 
+                                   ON MEM.MEMBER_NO = AA.MEMBER_NO
+                           INNER JOIN MEMBER AM 
+                                   ON BB.MEMBER_NO = AM.MEMBER_NO
+    WHERE MEM.MEMBER_NO = #{memNo} OR AM.MEMBER_NO = #{memNo}
+    ORDER BY ACCOMPANY_DT DESC                                                                                          
+	
+</select>	
+
+<select id="accompanyMemList" resultType="hashmap" parameterType="hashmap">
+	
+ <!--내가 동행글 작성자일 때  -->
+    SELECT AM.NM, BB.POST_NO, AM.IMG_FILE
+    FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                   ON BB.POST_NO = BC.POST_NO
+                           INNER JOIN BOARD_ACCOMPANY BA
+                                   ON BB.POST_NO = BA.POST_NO
+                   <![CDATA[      AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') < TO_CHAR(SYSDATE, 'YY.MM.DD') ]]> 
+                           INNER JOIN ACCOMPANY_APPLY AA
+                                   ON AA.POST_NO =BB.POST_NO
+                                  AND STATE_NO = 2
+                           INNER JOIN MEMBER AM 
+                                   ON AM.MEMBER_NO = AA.MEMBER_NO
+                           INNER JOIN MEMBER MEM 
+                                   ON BB.MEMBER_NO = MEM.MEMBER_NO
+   WHERE MEM.MEMBER_NO = #{memNo}
+   AND BB.POST_NO = #{postNo}
+   UNION
+   <!-- 내가 신청자일 때  -->
+  SELECT M.NM, A.POST_NO, M.IMG_FILE
+   FROM MEMBER M INNER JOIN (
+   SELECT ACMP, ABC.POST_NO
+   FROM (
+   SELECT BB.MEMBER_NO, BB.POST_NO, AA.MEMBER_NO AS ACMP, BB.TITLE
+   FROM ACCOMPANY_APPLY AA INNER JOIN BULLETIN_BOARD BB
+                                   ON AA.POST_NO = BB.POST_NO             
+   ) ABC INNER JOIN
+   
+   (SELECT M.MEMBER_NO, AA.POST_NO
+   FROM MEMBER M INNER JOIN ACCOMPANY_APPLY AA
+                        ON M.MEMBER_NO = AA.MEMBER_NO
+                        AND STATE_NO = 2
+                        AND M.MEMBER_NO = #{memNo}
+      ) CBA ON ABC.POST_NO = CBA.POST_NO 
+     UNION 
+      
+    SELECT ACMP, ABC.POST_NO
+   FROM (
+   SELECT AA.MEMBER_NO, BB.POST_NO, BB.MEMBER_NO AS ACMP, BB.TITLE
+   FROM ACCOMPANY_APPLY AA INNER JOIN BULLETIN_BOARD BB
+                                   ON AA.POST_NO = BB.POST_NO       
+   ) ABC INNER JOIN
+   
+   (SELECT M.MEMBER_NO, AA.POST_NO
+   FROM MEMBER M INNER JOIN ACCOMPANY_APPLY AA
+                        ON M.MEMBER_NO = AA.MEMBER_NO
+                        AND STATE_NO = 2
+                        AND M.MEMBER_NO = #{memNo}
+      ) CBA ON ABC.POST_NO = CBA.POST_NO  
+      ) A ON A.ACMP = M.MEMBER_NO
+    WHERE M.MEMBER_NO != #{memNo} 
+    AND A.POST_NO = #{postNo}                                                                             
+	
+</select>	
+
+<select id="accompanyRate" resultType="hashmap" parameterType="hashmap">
+	
+	SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY.MM.DD') AS ACCOMPANY_DT 
+    FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                   ON BB.POST_NO = BC.POST_NO
+                           INNER JOIN BOARD_ACCOMPANY BA
+                                   ON BB.POST_NO = BA.POST_NO
+                     <![CDATA[    AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') < TO_CHAR(SYSDATE, 'YY.MM.DD')  ]]> 
+                           INNER JOIN ACCOMPANY_APPLY AA
+                                   ON AA.POST_NO =BB.POST_NO
+                                  AND STATE_NO = 2
+                           INNER JOIN MEMBER MEM 
+                                   ON MEM.MEMBER_NO = AA.MEMBER_NO
+                           INNER JOIN MEMBER AM 
+                                   ON BB.MEMBER_NO = AM.MEMBER_NO
+    WHERE MEM.MEMBER_NO = #{memNo} OR AM.MEMBER_NO = #{memNo}
+    ORDER BY ACCOMPANY_DT DESC                                                                                          
+	
+</select>	
 </mapper>

@@ -36,6 +36,10 @@
 								<dd>${data.NM}</dd>
 							</div>
 							<div>
+								<dt>신뢰도</dt>
+								<dd>${data.RELIABILITY}</dd>
+							</div>
+							<div>
 								<dt>생년월일</dt>
 								<dd>${data.DATE_BIRTH}</dd>
 							</div>

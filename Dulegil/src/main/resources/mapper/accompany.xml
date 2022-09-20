@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accom">
+<!-- 페이지카운트 -->
+<select id="getCnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT (*) AS CNT
+FROM
+(SELECT T.BLTNBOARD_NO,POST_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE,HIT,REG_DT
+FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
+ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+WHERE B.DEL_DT IS NULL
+AND T.BLTNBOARD_NO =2)G INNER JOIN MEMBER M
+ON G.MEMBER_NO=M.MEMBER_NO
+INNER JOIN BOARD_COURSE B
+        ON G.POST_NO=B.POST_NO
+        INNER JOIN COURSE C
+       ON B.COURSE_NO= C.COURSE_NO
+<!-- 검색어가 널이 또는 '' 가 아니라면 -->
+<if test="searchTxt != null and searchTxt !=''">
+	<choose>
+		<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+		<when test="searchGbn eq 0">
+		AND TITLE LIKE '%' || #{searchTxt} || '%'
+		</when>
+		<when test="searchGbn eq 1">
+		AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+		</when>
+		<when test="searchGbn eq 2">
+		AND NM LIKE '%'|| #{searchTxt} ||'%'
+		</when>
+		<when test="searchGbn eq 3">
+		AND C.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
+		OR C.COURSE_NM LIKE '%'|| #{searchTxt} ||'%'
+		</when>
+	</choose>		
+</if>	
+</select>
+<!-- 목록 -->
+<select id="getAccomList" parameterType="hashmap" resultType="hashmap">	
+SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS,F.IMG_FILE,F.COURSE_NO,F.COURSE_NM,NVL(F.CNT,0)AS GOOD,ROW_NUMBER() OVER(ORDER BY F.POST_NO DESC) AS RNUM  
+FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,B.COURSE_NO,C.COURSE_NM,CNT
+     FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.IMG_FILE,
+                CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+            	THEN TO_CHAR(B.REG_DT, 'HH24:MI')
+            	ELSE TO_CHAR(B.REG_DT,'YY.MM.DD')
+       			END AS DT,
+                ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
+                FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
+                ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+                WHERE B.DEL_DT IS NULL
+                AND T.BLTNBOARD_NO =2 )G  
+        INNER JOIN MEMBER M 
+        ON G.MEMBER_NO = M.MEMBER_NO
+        INNER JOIN BOARD_COURSE B
+        ON G.POST_NO=B.POST_NO
+        INNER JOIN COURSE C
+       ON B.COURSE_NO= C.COURSE_NO 
+      LEFT OUTER JOIN 
+      (SELECT COUNT(*)AS CNT,POST_NO
+      FROM GOOD
+      GROUP BY POST_NO)
+      GC ON B.POST_NO=GC.POST_NO
+      )F
+       WHERE F.RNUM BETWEEN #{start} AND #{end}
+       <if test="searchTxt != null and searchTxt !=''">
+	<choose>
+		<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+		<when test="searchGbn eq 0">
+		AND TITLE LIKE '%' || #{searchTxt} || '%'
+		</when>
+		<when test="searchGbn eq 1">
+		AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+		</when>
+		<when test="searchGbn eq 2">
+		AND NM LIKE '%'|| #{searchTxt} ||'%'
+		</when>
+		<when test="searchGbn eq 3">
+		AND COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
+		OR COURSE_NM LIKE '%'|| #{searchTxt} ||'%'
+		</when>
+	</choose>		
+</if>	
+</select>
+
+<!-- 게시글등록 -->
+<insert id="insert" parameterType="hashmap">
+INSERT ALL
+INTO BOARD_COURSE(POST_NO,COURSE_NO) VALUES (COMMUNITY_SEQ.NEXTVAL,#{courseNo})
+INTO BULLETIN_BOARD(POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE,REG_DT) VALUES(COMMUNITY_SEQ.NEXTVAL,2,#{memberNo},#{title}',#{contents},#{imgFile},SYSDATE)
+SELECT * FROM DUAL
+</insert>
+
+<!-- 게시글삭제 -->
+<update id="delete" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO= #{no}
+</update>
+
+<!-- 게시글수정 -->
+<update id="update"  parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE=#{imgFile}
+WHERE POST_NO=#{no}
+</update>
+
+<!-- 조회수 -->
+<!-- <update id="updateTHit" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET HIT = HIT+1
+WHERE BLTNBOARD_NO =2
+AND POST_NO= #{no}
+</update> -->
+
+<!-- 상세보기 -->
+<select id="getAC" parameterType="hashmap" resultType="hashmap">
+SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_FILE,BB.HIT,BB.REG_DT,
+        NVL(CNT,0)AS GOOD
+FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
+              INNER JOIN BULLETIN_BOARD BB ON BC.POST_NO=BB.POST_NO  
+              INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
+              LEFT OUTER JOIN (
+              SELECT COUNT(*)AS CNT,POST_NO
+              FROM GOOD
+              GROUP BY POST_NO) G
+              ON BB.POST_NO= G.POST_NO 
+WHERE BB.POST_NO=#{no}
+</select>
+
+
+</mapper>

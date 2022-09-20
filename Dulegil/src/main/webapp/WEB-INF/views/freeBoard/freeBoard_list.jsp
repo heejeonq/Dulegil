@@ -31,11 +31,7 @@ $(document).ready(function(){
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
-	})
-	
-	$("#loginBtn").on("click",function(){
-		 location.href="login";
-	});
+	})	
 
 	
 	$("#wriBtn").on("click",function(){
@@ -217,7 +213,7 @@ function drawPaging(pd){
 		</div>
 	
 	  <div class="pagination">
-		
+		<!-- 위로 -->
       </div>
 		
 	</div>
