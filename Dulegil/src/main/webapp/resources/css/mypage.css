@@ -54,7 +54,7 @@ table {
 	font-family: 'Pretendard-Regular';
 	border-radius: 3px;
  }
- .btnbox:hover, .btnbox.active {
+ .tab_on {
 	background-color:#f0c41994; 
 	color: #000;
  }
