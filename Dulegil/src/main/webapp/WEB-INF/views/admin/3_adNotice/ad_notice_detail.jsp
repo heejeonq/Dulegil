@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../../common/jscss.jsp" flush="true" />
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사랑 상세</title>
+<title>공지사항 상세</title>
 <link
 	href="https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900"
 	rel="stylesheet">
@@ -157,7 +157,7 @@ th:nth-child(2), td:nth-child(2) {
 }
 
 #gongzi {
-	height: 74%;
+	height: 55%;
 	border-bottom: solid 1px #ededed;
 	background-color: white;
 	color: #444;
@@ -237,11 +237,60 @@ $(document).ready(function(){
 	
 	// 수정 버튼
 	$("#updateBtn").on("click", function(){
-		$("#no").val($(this).attr("no"));
+		//$("#no").val($(this).attr("no"));
 		$("#detailForm").attr("action", "adNtUpdate");
 		$("#detailForm").submit();
 		
 	})
+	
+	// 삭제 버튼
+	$("#deleteBtn").on("click", function(){
+		
+		
+		
+		makePopup({
+			title : "알림",
+			contents : "삭제 하시겠습니까?",
+			buttons : [{
+				name : "삭제",
+				func :  function(){
+					var params = $("#detailForm").serialize();
+					
+					$.ajax({
+						url : "adNtAction/detailDelete",
+						type : "POST",
+						dataType : "json",
+						data : params,
+						success : function(res){
+							
+							switch(res.msg){
+							case "success" :
+								location.href = "adNtList"
+								break;
+							
+							case "fail" :
+								makeAlert("알림", "삭제에 실패했습니다.")
+								break;
+							
+							case "exception" :
+								makeAlert("알림", "삭제 중 문제가 발생했습니다.")
+							}
+						},
+						error : function(request, status, error){
+							console.log(request.responseText);
+						}
+					});
+					
+					closePopup();
+				}
+			},{
+				name : "취소"
+			}]
+		
+		})
+		
+
+	});
 	
 	// 디테일 그리기 function
 	function drawDetail(detail){
@@ -266,7 +315,7 @@ $(document).ready(function(){
 		
 	}
 	
-	//
+	
 	
 	
 });
@@ -290,74 +339,75 @@ $(document).ready(function(){
 			<div class="btnMembers">manager menu</div>
 
 			<div class="btnAll" id="actMngBtn">
-				<span class="material-symbols-outlined">account_circle </span>
-				<span>관리자 계정 관리</span>
+				<span class="material-symbols-outlined">account_circle </span> <span>관리자
+					계정 관리</span>
 			</div>
-			
-			
-	
+
+
+
 
 			<div class="btnAll" id="ntcBtn">
-				<span class="material-symbols-outlined" > edit_document </span>
-				<span>공지사항</span>
+				<span class="material-symbols-outlined"> edit_document </span> <span>공지사항</span>
 			</div>
 
 
 			<div class="btnAll" id="evtBtn">
-				<span class="material-symbols-outlined"> calendar_month </span>
-				<span>이벤트 관리</span>
+				<span class="material-symbols-outlined"> calendar_month </span> <span>이벤트
+					관리</span>
 
 			</div>
 
 
 			<div class="btnAll" id="webTotalBtn">
-				<span class="material-symbols-outlined"> bar_chart </span> 
-				<span>웹사이트 활동 집계</span>
+				<span class="material-symbols-outlined"> bar_chart </span> <span>웹사이트
+					활동 집계</span>
 			</div>
 
 			<div id="empty"></div>
 			<div class="btnMembers">members</div>
 
 			<div class="btnOne" id="memMngBtn">
-				<span class="material-symbols-outlined"> person </span>
-				<span>회원 관리</span>
+				<span class="material-symbols-outlined"> person </span> <span>회원
+					관리</span>
 			</div>
 
 
 			<div class="btnOne" id="memRepBtn">
-				<span class="material-symbols-outlined"> person_off </span>
-				<span>신고내역 관리</span>
+				<span class="material-symbols-outlined"> person_off </span> <span>신고내역
+					관리</span>
 			</div>
 
 
 			<div class="btnOne" id="memPostBtn">
-				<span class="material-symbols-outlined"> edit_note </span>
-				<span>게시물 관리</span>
+				<span class="material-symbols-outlined"> edit_note </span> <span>게시물
+					관리</span>
 			</div>
 
 
 			<div class="btnOne" id="memCmtBtn">
-				<span class="material-symbols-outlined"> comment </span>
-				<span>댓글 관리</span>
+				<span class="material-symbols-outlined"> comment </span> <span>댓글
+					관리</span>
 			</div>
 		</div>
-	</div> <!-- 헤더 1 -->
+	</div>
+	<!-- 헤더 1 -->
 
 
 
 
 	<div id="header2">
 		<div id="hd2_header">
-		<!-- 상단바 -->
-		<div id="hd2_header">
-			<div class="hh2_icon">
-				<div>알림</div>
-				<div>
-					<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
+			<!-- 상단바 -->
+			<div id="hd2_header">
+				<div class="hh2_icon">
+					<div>알림</div>
+					<div>
+						<span class="material-symbols-outlined" id="logoutBtn">
+							exit_to_app </span>로그아웃
+					</div>
 				</div>
 			</div>
-		</div>
-		
+
 		</div>
 		<div id="hd2_content">
 			<div id="hd2_Cname"></div>
@@ -369,9 +419,9 @@ $(document).ready(function(){
 						event_note </span>공지사항
 				</div>
 			</div>
-			
-			
-			
+
+
+
 			<div id="hd2_CC">
 				<div id="CCbox">
 					<table>
@@ -385,45 +435,47 @@ $(document).ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-			<tr no= "${data.POST_NO}">               
-				<td colspan=1>${data.POST_NO}</td>
-				<td colspan=6>${data.TITLE}</td>  
-				<td colspan=1>${data.NM }</td>  
-				<td colspan=1>${data.REG_DT}</td> 
-				<td colspan=1>${data.HIT}</td>  
-			</tr> 
-			
-			                                  
-		
+							<tr no="${data.POST_NO}">
+								<td colspan=1>${data.POST_NO}</td>
+								<td colspan=6>${data.TITLE}</td>
+								<td colspan=1>${data.NM }</td>
+								<td colspan=1>${data.REG_DT}</td>
+								<td colspan=1>${data.HIT}</td>
+							</tr>
+
+
+
 						</tbody>
 					</table>
 
 					<div id="gongzi">
-			<div no="${data.POST_NO}" id="gongzi"> 
-				<a>${data.CONTENTS}</a>                
-			</div>      
+						<div no="${data.POST_NO}" id="gongzi_">
+							<a>${data.CONTENTS}</a>
+							
+						</div>
 					</div>
-					
-					
+
+
 					<form id="detailForm" action="#" method="post">
-					<input type="hidden" id="no" name="no" value="${param.no}"/>
-					<div id="update">
-						<input type="button" id="updateBtn" value="수정" class="delBtn" />
-					</div>
+						<input type="hidden" id="no" name="no" value="${data.POST_NO}"/>
+						<div id="update">
+							<input type="button" id="updateBtn" value="수정" class="delBtn" />
+							<input type="button" id="deleteBtn" value="삭제" class="delBtn"  />
+						</div>
+						<div id="search">
+							<div class="Sbar3">
+								<input type="button" id="backListBtn" class="delBtn" value="목록" />
+							</div>
+						</div>
 				</div>
 				<!-- ccbox -->
 
 
-				<div id="search">
-					<div class="Sbar3">
-						<input type="button" id="backListBtn" class="delBtn" value="목록" />
-					</div>
-				</div>
-				
+
 				</form>
 			</div>
-			
-			
+
+
 		</div>
 
 
