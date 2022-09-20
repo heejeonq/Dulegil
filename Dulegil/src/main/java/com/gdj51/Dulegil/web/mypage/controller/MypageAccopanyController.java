@@ -62,29 +62,22 @@ public class MypageAccopanyController {
 		int cnt = 0;
 		try {
 			switch (gbn) {
-			case "passwordCheck":
-				data = dao.getMap("member.checkPwd", params);
-				if (data != null) {
-					model.put("msg", "success");
-				}
-				else {
-					model.put("msg", "fail");
-				}
+			case "applyMemUpdate": cnt = dao.update("accompany.applyMemUpdate", params);
 
 				break;
-			case "myinfoUpdate":
-				cnt = dao.update("member.updateMyinfo", params);
-				if (cnt > 0) {
-					model.put("msg", "success");
-				} else {
-					model.put("msg", "fail");
-				}
+			case "rateUpdate": cnt = dao.update("accompany.rateUpdate", params);
 				break;
 
 			default:
 				break;
 			}
 	
+			if(cnt > 0) {
+				model.put("msg", "success");
+			}
+			else {
+				model.put("msg", "fail");
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,10 +100,33 @@ public class MypageAccopanyController {
 		List<HashMap<String, String>> list1 = dao.getList("accompany.applyMemList", params);
 		List<HashMap<String, String>> list2 = dao.getList("accompany.chatList", params);
 		List<HashMap<String, String>> list3 = dao.getList("accompany.myApply", params);
-
+		List<HashMap<String, String>> list4 = dao.getList("accompany.accompanyHistory", params);
+		List<HashMap<String, String>> list5 = dao.getList("accompany.accompanyRate", params);
+		
 		model.put("list1", list1);
 		model.put("list2", list2);
 		model.put("list3", list3);
+		model.put("list4", list4);
+		model.put("list5", list5);
+
+		
+		
+		return mapper.writeValueAsString(model);
+	}
+	
+	@RequestMapping(value="accompanyMemList", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
+	@ResponseBody
+	public String accompanyMemList (HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
+
+		List<HashMap<String, String>> memList = dao.getList("accompany.accompanyMemList", params);
+
+
+		model.put("memList", memList);
 		
 		
 		return mapper.writeValueAsString(model);

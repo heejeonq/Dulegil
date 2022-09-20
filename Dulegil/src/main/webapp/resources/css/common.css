@@ -24,3 +24,7 @@
 .gray {
 	background-color: #78808c;
 }
+
+.btn.green:disabled {
+	background-color: #fdc806;
+}

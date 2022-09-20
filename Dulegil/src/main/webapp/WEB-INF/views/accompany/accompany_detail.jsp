@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +10,22 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/withDulDet.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행상세</title>
+<style>
+.update{
+	display:none;
+}
+.commentBox span{
+	font-size:13px;
+    line-height: 50px;
+    color: #808080;
+    float:left;
+}
+</style>
 <!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-
 <script>
 $(document).ready(function(){
+	reloadList();
 	$(".moreBtn").on("click",function(){
 		$(".moreBtn").show();
 	})
@@ -35,7 +47,7 @@ $(document).ready(function(){
       
       <div class="midBox">
       <div class="emptyBox"></div>
-      <div class="tit_tt">같이 돌아요</div>
+      <div class="tit_tt">${data.TITLE}</div>
       <div class="tit_tt">
          <div class="tit_cos">
          <img src="resources/images/gitIcon.png" />
@@ -65,7 +77,7 @@ $(document).ready(function(){
          
          <div class="tit_date">
          작성일  
-         2022-08-08</div>
+         ${data.REG_DT}</div>
          
       </div>
       

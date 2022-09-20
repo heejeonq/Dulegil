@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .evt{
-	margin: 20px 0;
+	margin-top: 20px;
 	text-align: center;
 }
 
@@ -24,7 +24,7 @@
 	margin: 20px 0;
 	font-size: 12pt;
 	display: inline-block;
-	padding: 5px;
+	padding: 10px;
 }
 
 .evtTit {
@@ -51,6 +51,7 @@
     line-height: 24px;
     word-spacing: -0.04em;
     padding: 40px 7px;
+    text-align:left;
 }
 
 .btn{
@@ -59,13 +60,15 @@
 }
 
 #listBtn{
-	width: 200px;
-    height: 50px;
-    font-size: 16px;
+	font-family: 'Pretendard-Regular';
+	width: 75px;
+    height: 45px;
+    font-size: 11pt;
     font-weight: 600;
     letter-spacing: 2px;	
     cursor: pointer;
     margin: 40px 0;
-    border: 1px solid #ddd;
     background-color: #f0c41994;
+    border: none;
+    border-radius: 5px;
 }

@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	<insert id="insertMember" parameterType="hashmap">
-		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO, DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS )
-		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt, jdbcType = DATE}, #{gen, jdbcType = VARCHAR}, #{zcd, jdbcType = VARCHAR}, #{adr, jdbcType = VARCHAR}, #{adrDtl, jdbcType = VARCHAR})
+		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO, DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, IMG_FILE )
+		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt, jdbcType = DATE}, #{gen, jdbcType = VARCHAR}, #{zcd, jdbcType = VARCHAR}, #{adr, jdbcType = VARCHAR}, #{adrDtl, jdbcType = VARCHAR}, 'profile_img.png')
 	</insert>
 
 	<select id="getMyinfo" resultType="hashmap" parameterType="hashmap">
-		SELECT MEMBER_NO, EMAIL, PWD, NM, PHONE_NO, TO_CHAR(DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, IMG_FILE
+		SELECT MEMBER_NO, EMAIL, PWD, NM, PHONE_NO, TO_CHAR(DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, IMG_FILE, RELIABILITY
 		FROM MEMBER
 		WHERE MEMBER_NO = #{memNo}
 	</select>
