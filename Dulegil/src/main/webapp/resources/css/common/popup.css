@@ -8,11 +8,10 @@ html, body {
 
 /* Main Color */
 .cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb, .popup_title {
-	background-color: #f0c41994;
-	color: #FFFFFF;
+	background-color: #f7f7f7;
 }
 /* Main Color on active */
-.cmn_popup_btn:active, .cmn_popup_btn_ml:active, .cmn_popup_btn_mr:active, .cmn_popup_btn_mb:active {
+.cmn_popup_:active, .cmn_popup__ml:active, .cmn_popup__mr:active, .cmn_popup_btn_mb:active {
 	background-color: #f0c41994;
 }
 
@@ -27,17 +26,18 @@ html, body {
 
 .cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb {
 	display: inline-block;
-	vertical-align: top;
-	padding: 0px 10px;
-	min-width: 30px;
-	height: 30px;
-	line-height: 30px;
-	font-size: 10pt;
-	font-weight: bold;
-	text-align: center;
-	border-radius: 2px;
-	cursor: pointer;
-	text-indent: 0px;
+    vertical-align: top;
+    margin-top: 10px;
+    padding: 0px 10px;
+    min-width: 60px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 10pt;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+    text-indent: 0px;
+    background-color: #f0c41994;
 }
 
 .cmn_popup_btn_ml {
@@ -77,22 +77,21 @@ html, body {
 
 .popup {
 	display: inline-block;
-	width: 400px;
+	width: 350px;
 	height: 200px;
 	box-shadow: 0px 0px 4px 0px #4f4f4f;
 	position: absolute;
-	top: calc(50% - 100px);
-	left: calc(50% - 200px);
+	top: calc(53% - 100px);
+	left: calc(50% - 172px);
 	z-index: 100;
-	background-color: #f4f4f4;
+	background-color:white;
 	border-radius: 2px;
 }
 
 .popup_title {
-	height: 40px;
-	line-height: 40px;
-	font-size: 11pt;
-	font-weight: bold;
+	height: 30px;
+	line-height: 30px;
+	font-size: 10pt;
 	text-indent: 10px;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
@@ -100,20 +99,18 @@ html, body {
 }
 
 .popup_cont {
-	width: calc(100% - 20px);
-	height: calc(100% - 100px);
-	padding: 10px;
+	height: calc(110% - 140px);
+	padding: 13px;
 	background-color: #ffffff;
-	/* 표준 폰트 크기 */
-	font-size: 10.5pt;
+	font-size: 11pt;
     box-sizing: content-box;
 }
 
 .popup_btn_area {
 	width: 100%;
 	height: 35px;
-	text-align: right;
+	text-align: center;
 	padding-top: 5px;
-	box-shadow: inset 0px 0px 2px 0px #b7b7b7;
     box-sizing: content-box;
+    background-color: white;
 }

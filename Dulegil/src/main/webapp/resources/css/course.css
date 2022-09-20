@@ -25,7 +25,7 @@ th:first-child, td:first-child, .container-main dt:first-child, .container-main 
   }
   
 th, .container-main dt{
-	background-color: #bbd1bc;
+	background-color: #f7f7f7;
 }
 
 .crsBtn{
@@ -34,11 +34,12 @@ th, .container-main dt{
 	text-align: center;
 }
 
-.crsBtn span{
+.crsBtn li{
+	display: inline-block;
 	width: 150px;
 	height: 50px;
-	display: inline-block;
 	border: 1px solid #ddd;
+	border-right: none;
     vertical-align: top;
     font-size: 13pt;
     text-align: center;
@@ -47,8 +48,21 @@ th, .container-main dt{
     font-weight: 500;
 }
 
-.crsBtn span.on{
+.crsBtn li:last-child{
+	border-right: 1px solid #ddd;
+}
+
+.crsBtn li.on{
 	background: #f0c41994;
+	border: none;
+}
+
+.crsBtn li.on:hover{
+	color: #000;
+}
+
+.crsBtn li:hover{
+	color: #f0c41994;
 }
 
 .crsTit{
@@ -156,15 +170,27 @@ th, .container-main dt{
   	display: inline-block;
   	width: 200px;
 	padding: 10px;
-	margin-right:10px;
 	font-size: 13pt;
 	text-align: center;
 	cursor: pointer;
 	border: 1px solid #ddd;
+	border-right: none;
 }
 
 ul.infoBtn li.on{
 	background: #f0c41994;
+}
+
+ul.infoBtn li.on:hover{
+	color: #000;
+}
+
+ul.infoBtn li:hover{
+	color: #f0c41994;
+}
+
+.infoBtn li:last-child{
+	border-right: 1px solid #ddd;
 }
 
 .infoDtl{

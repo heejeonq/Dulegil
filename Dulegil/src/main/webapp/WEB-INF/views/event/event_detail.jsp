@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체일정상세</title>
 <link rel="stylesheet" href="resources/css/event.css" />
+<title>전체일정</title>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#listBtn").on("click", function(){
@@ -24,30 +24,33 @@ $(document).ready(function() {
 	<div class="container-main">
 		<div class="mainWrap">
 			<div class="tit">둘레길 전체 일정</div>
+			<p>둘레길에서 진행되는 행사 및 프로그램 일정을 확인 할 수 있습니다.</p>
 			<div class="col"></div>
-		
+			<%-- <form action="#" id= "actionForm" method="post">
+				<input type="hidden" name="no" value="${data.POST_NO}" />
+			</form> --%>
 			<table class="evt">
 				<colgroup>
-					<col style="width:840px;">
-					<col style="width:150px;">
-					<col style="width:130px;">
-					<col style="width:80px;">
+					<col style="width:910px;">
+					<col style="width:100px;">
+					<col style="width:120px;">
+					<col style="width:70px;">
 				</colgroup>
 				<thead class="evtTit">
 					<tr>
-						<th id="evtMainTit" colspan="4">${E.TITLE}</th>
+						<th id="evtMainTit" colspan="4">${data.TITLE}</th>
 					</tr>
 					<tr id="dh">
 						<td></td>	
-						<td>작성자:${M.NM}</td>
-						<td>등록일:${E.REG_DT}</td>
-						<td>조회수:${E.HIT}</td>
+						<td>작성자:${data.NM}</td>
+						<td>등록일:${data.REG_DT}</td>
+						<td>조회수:${data.HIT}</td>
 					</tr>
 				</thead>
 				
 				<tbody class="evtCon">
 					<tr>
-						<td>${E.CONTENTS}</td>
+						<td colspan="4">${data.CONTENTS}</td>
 					</tr>
 				</tbody>
 			</table>

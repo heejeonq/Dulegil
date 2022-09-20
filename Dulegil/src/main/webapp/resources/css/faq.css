@@ -56,13 +56,13 @@
 .faqDtl{
 	width: 100%;
     height: auto;
-    background: #bbd1bc;
     text-align: justify;
     display: block;
     float: left;
     overflow:hidden;
     word-break: break-all;
     border-bottom: 1px solid #ddd;
+    background-color:#f7f7f7; 
 }
 
 #ansTit, .ansCon{

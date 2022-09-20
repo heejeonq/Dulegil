@@ -7,16 +7,29 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/event.css" />
 <link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
-<script src='resources/css/fullcalendar/main.js'></script>
 <title>전체일정</title>
+<script src='resources/css/fullcalendar/main.js'></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function(){
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
-		initialView: 'dayGridMonth'
+		events : {
+		    url: 'evtListAjax',
+		    method: 'POST',
+		    failure: function(res) {
+		        console.log(res.xhr.responseText);
+		    }
+		}
 	});
 	calendar.render();
+	
+	$("tbody").on("click",".fc-event-main",function(){
+		$("#no").val($(this).attr("no"));
+		$("#actionForm").attr("action","eventDtl");
+		$("#actionForm").submit();
+	});
 });
+
 </script>
 </head>
 <body>
@@ -32,7 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="col"></div>
 			
 			<div class="evtCal">
-				<div id='calendar'></div>
+				<form action="#" id="actionForm" method="post">
+					<div id="calendar">
+						<input type="hidden" id="no" name="no" />
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
