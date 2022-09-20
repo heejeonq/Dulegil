@@ -161,7 +161,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
-		location.href = "adNtc";
+		location.href = "adNtList";
 	});
 	
 	
@@ -397,7 +397,9 @@ $(document).ready(function(){
 							style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;">
 							edit_square </span>공지사항 작성
 					</div>
-
+					
+					
+					<!-- 파일업로드 폼 -->
 					<form action="fileUploadAjax" id="actionForm" method="post"
 						enctype="multipart/form-data">
 						<input type="hidden" name="attFile" id="attFile" />
@@ -405,7 +407,9 @@ $(document).ready(function(){
 						<input type="hidden" name="memberNo" id="memberNo"
 							value="${sMemNo}" />
 						<!-- 실 저장된 파일명 보관용 -->
-
+						
+						
+						<!-- 메인띄우기 -->
 						<div id="Ctitle">
 							<div class="CTN">메인으로 띄우기</div>
 							<div class="checkbox">
@@ -414,23 +418,28 @@ $(document).ready(function(){
 							</div>
 						</div>
 
-
+						<!-- 제목 -->
 						<div id="Ctitle" style="margin-bottom:5px;">
 							<div class="CTN">제목</div>
 							<div class="CTC">
 								<input type="text" name="title" id="title" class="commentBoxT">
 							</div>
 						</div>
-
+						
+						<!-- 글 내용 -->
 						<textarea rows="30" cols="60" name="contents" id="contents"
 							class="textarea"></textarea>
-							
+						
+						
+						<!-- 파일 첨부 -->
 						<div class="filWrap">
 							<div class="filBox">
 								<input type="file" class="file" name="attFile" id="attFile" />	
 							</div>
 						</div>
 					</form>
+					
+					<!-- 버튼 -->
 					<div id="buttons">
 						<input type="button" id="insertBtn" value="작성" class="myButton" />
 						<input type="button" id="listBtn" value="목록" class="myButton" />

@@ -122,6 +122,8 @@ public class adNoticeController {
 			break;
 			case "delete": cnt=dao.update("adNotice.delete", params);
 			break;
+			case "detailDelete": cnt=dao.update("adNotice.detailDelete", params);
+			break;
 
 			}
 			if(cnt>0) {
@@ -139,7 +141,7 @@ public class adNoticeController {
 	}
 
 
-
+	
 
 
 
@@ -164,6 +166,25 @@ public class adNoticeController {
 	}
 
 
+	
+	// 수정
+		@RequestMapping(value = "/adNtUpdate")
+		public ModelAndView adNtUpdate(
+				@RequestParam HashMap<String, String> params,
+				ModelAndView mav) throws Throwable {
+			
+			if(params.get("no") != null && params.get("no") != "") {
+				HashMap<String, String> data = dao.getMap("adNotice.detail", params);
+
+				mav.addObject("data", data);
+				mav.setViewName("admin/3_adNotice/ad_notice_update");
+			}else {
+				mav.setViewName("redirect:adNtList");
+			}
+
+
+			return mav;
+		}
 
 
 

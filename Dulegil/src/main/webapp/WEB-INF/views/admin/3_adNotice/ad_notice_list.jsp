@@ -386,13 +386,19 @@ $(document).ready(function(){
 			$("#no").val(arr);		
 	});
 	
+	
+	
 	// 삭제
 	$("#deleteBtn").on("click", function(){
 		var arr = [];
 		
+		
+		// 내가 체크박스에 값 1 넣어놔서 tr의 no 취득하기
 		$("tbody #Check:checked").each(function(){
-			arr.push($(this).val());
+			arr.push($(this).parent().parent().attr("no"));
 		});
+		console.log(arr);
+		$("#delNo").val(arr);
 		
 		if(arr.length == ""){
 			makeAlert("알림", "삭제할 공지사항을 선택해주세요.");
@@ -405,12 +411,12 @@ $(document).ready(function(){
 					func : function(){
 						// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
 						var params = $("#actionForm").serialize();
-						
+						console.log(params);
 						$.ajax({
 							url : "adNtAction/delete",
 							type :"POST",
 							dataType :"json",
-							data:params,
+							data : params,
 							success : function(res){
 								// 성공했을 때 결과를 res에 받고 함수 실행
 								
@@ -664,10 +670,8 @@ function drawPaging(pd){
 
 					<!-- 작성 삭제 버튼 -->
 					<div id="write">
-						<input type="button" value="글쓰기" class="delBtn" id="insertBtn" />
-						
-						
-						<input type="button" value="삭제" class="delBtn" id="deleteBtn" value="${param.check }" />
+						<input type="button" value="글쓰기" class="delBtn" id="insertBtn" />	
+						<input type="button" value="삭제" class="delBtn" id="deleteBtn" />
 					</div>
 				</div>
 				<!-- ccbox -->
@@ -695,7 +699,8 @@ function drawPaging(pd){
 				<input type="hidden" id="oldTxt" value="${param.searchTxt}"/>
 	
 					<form action="#" id="actionForm" method="post">
-						<input type="hidden" name="no" id="no" /> 
+						<input type="hidden" id="no" name="no"/><!-- 상세보기 -->
+						<input type="hidden" id="delNo" name="delNo"/><!-- 목록 체크박스 삭제 -->
 						<input type="hidden" name="page" id="page" value="${page}" />
 						
 
