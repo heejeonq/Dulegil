@@ -62,29 +62,22 @@ public class MypageAccopanyController {
 		int cnt = 0;
 		try {
 			switch (gbn) {
-			case "passwordCheck":
-				data = dao.getMap("member.checkPwd", params);
-				if (data != null) {
-					model.put("msg", "success");
-				}
-				else {
-					model.put("msg", "fail");
-				}
+			case "applyMemUpdate": cnt = dao.update("accompany.applyMemUpdate", params);
 
 				break;
-			case "myinfoUpdate":
-				cnt = dao.update("member.updateMyinfo", params);
-				if (cnt > 0) {
-					model.put("msg", "success");
-				} else {
-					model.put("msg", "fail");
-				}
+			case "rateUpdate": cnt = dao.update("accompany.rateUpdate", params);
 				break;
 
 			default:
 				break;
 			}
 	
+			if(cnt > 0) {
+				model.put("msg", "success");
+			}
+			else {
+				model.put("msg", "fail");
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

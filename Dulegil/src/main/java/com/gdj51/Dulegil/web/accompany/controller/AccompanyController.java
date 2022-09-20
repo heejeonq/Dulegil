@@ -72,16 +72,28 @@ public class AccompanyController {
 	
 	
 	
+	//상세보기
+		@RequestMapping(value="/accompanyDetail")
+		public ModelAndView accompanyDetail
+				(@RequestParam HashMap<String,String> params,
+				ModelAndView mav) throws Throwable {
+			if(params.get("no") != null && params.get("no") != "") {
+				dao.update("updateTHit",params);
+							
+				HashMap<String,String> data = dao.getMap("accom.getAC",params);	
+				
+						
+				mav.addObject("data", data);
+				
+				mav.setViewName("accompany/accompany_detail");
+			} 
+				 else { mav.setViewName("accompany"); }
+				
+			
+			
+			return mav;
+		}
 	
-	
-	
-	@RequestMapping(value="/accompanyDetail")
-	public ModelAndView AccompanyDetail(ModelAndView mav) {
-		
-		mav.setViewName("accompany/accompany_detail");
-		
-		return mav;
-	}
 	@RequestMapping(value="/accompanyWrite")
 	public ModelAndView AccompanyWrite(ModelAndView mav) {
 		

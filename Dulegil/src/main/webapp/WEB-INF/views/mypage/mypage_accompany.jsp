@@ -29,55 +29,49 @@ $(document).ready(function(){
 	});
 	
 	$(".join_mem_list").on("click", "#acceptBtn" , function(){
-		("#stateNo").val(2);
 		
-	
-		
-		action("update");
+		var memNo = $(this).parent().parent().attr("memNo");
+		var postNo = $(this).parent().parent().attr("postNo");
+		$("#applyMemNo").val(memNo);
+		$("#applyPostNo").val(postNo);
+		$("#stateNo").val(2);
+
+
+		action("applyMemUpdate");
 	});
-	$("#rejectBtn").on("click", function(){
+	
+	$(".join_mem_list").on("click", "#rejectBtn" , function(){
+		var memNo = $(this).parent().parent().attr("memNo");
+		var postNo = $(this).parent().parent().attr("postNo");
+		$("#applyMemNo").val(memNo);
+		$("#applyPostNo").val(postNo);
 		
+		$("#stateNo").val(0);
+		action("applyMemUpdate");
 	});
 
 	function action(flag){
 
 		 var params = $("#actionForm").serialize();
-	     
+	     console.log(params);
+	
+	
 	     $.ajax({
-	        url:"categoryAction/" + flag, 
+	        url:"accompanyAjax/" + flag, 
 	        type:"POST", 
 	        dataType:"json", 
 	        data : params,
 	        success: function(res) { 
 	        	switch(res.msg) {
 	        	case "success" : 
-	        		//내용 초기화
-	        		$("#con").val("");
-	        		$("#no").val("");
-	        		
-	        		//목록 재조회
-	        		switch(flag){
-	        		case "insert" : 
-	        			break;
-	        		case "delete" :
-	        		
-	        
-	        			break;
-	        		case "update" :
-	        			//기존값 유지
-	        		
-	        			
-	        			$(".insert").show();
-	        			$(".update").hide();
-	        			break;
-	        		}
+
 	        		reloadList();
 	        		break;
 	        	
-	        	case "fail" :  makeAlert("알림", msg[flag] + "에 실패하였습니다.");
+	        	case "fail" :  makeAlert("알림",  "에 실패하였습니다.");
 	    			break;
 	    		
-	     		case "error" : makeAlert("알림", msg[flag] + " 중 문제가 발생하였습니다.");
+	     		case "error" : makeAlert("알림", " 중 문제가 발생하였습니다.");
 	 				break;
 	 			}
 	           
@@ -139,23 +133,36 @@ function drawList(list1, list2, list3, list4, list5){
 	//동행 신청자 리스트
 	for(var data of list1){                                                          
 		html1 += "<table class=\"standard\">                                            ";
-		html1 += "<form action=\"#\" id=\"actionForm\">";
-		html1 += "<input type=\"hidden\" name=\"postNo\" value=\"" + data.POST_NO + "\"> ";
-		html1 += "<input type=\"hidden\" name=\"memNo\" value=\"" + data.MEMBER_NO + "\"> ";
-		html1 += "<input type=\"hidden\" name=\"stateNo\" id=\"stateNo\"> ";
-		html1 += "</form>";
 		html1 += "	<tr>                                                                ";
 		html1 += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
 		html1 += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
 		html1 += "	</tr>                                                               ";
-		html1 += "	<tr>                                                              ";
-		html1 += "		<td class=\"mem_img\"><img src=\"resources/upload/" + ${data.IMG_FILE} "\"></td>    ";
+		html1 += "	<tr memNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">                                                              ";
+		html1 += "		<td class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>    ";
 		html1 += "		<td class=\"mem_id\">" + data.NM +"</td>                                     ";
 		html1 += "		<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>                                      ";
-		html1 += "		<td class=\"mem_age\">" + data.AGE +"</td>                                        ";
-		html1 += "		<td>" + data.GENDER +"</td>                                                   ";
-		html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">        ";
-		html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>   ";
+		if(data.PUBLIC_AGE == 0){
+			html1 += "		<td class=\"mem_age\">" + data.AGE +"세</td>                                        ";			
+		}
+		else {
+			html1 += "		<td class=\"mem_age\">나이 비공개</td>                                        ";			
+		}
+		if(data.PUBLIC_GENGER == 0){
+			html1 += "		<td>" + data.GENDER +"</td>                                                   ";
+		}
+		else {
+			html1 += "		<td class=\"mem_age\">성별 비공개</td>                                        ";			
+		}
+		//stateno가 2일때 수락버튼 비활성화 0일때 거절 버튼 비활성화
+		if(data.STATE_NO == 2){
+			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\" disabled=\"disabled\">        ";
+			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>   ";
+		}	
+		else if(data.STATE_NO == 0) {
+			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">        ";
+			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\" disabled=\"disabled\"></td>   ";
+			
+		}
 		html1 += "		</tr>                                                               ";
 		html1 += "</table>";
 	
@@ -263,7 +270,7 @@ function drawList2(memList){
 		html2 += "		<td colspan=\"2\">                                                                         ";
 		html2 += "			<div class=\"startRadio\">                                                             ";
 		html2 += "				<label class=\"startRadio__box\">                                                  ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
+		html2 += "					<input type=\"radio\" name=\"star\" value=\"0.5\">                                       ";
 		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 1개</span></span>       ";
 		html2 += "				</label>                                                                         ";
 		html2 += "				<label class=\"startRadio__box\">                                                  ";
@@ -304,7 +311,7 @@ function drawList2(memList){
 		html2 += "				</label>                                                                         ";
 		html2 += "			</div>                                                                               ";
 		html2 += "		</td>                                                                                    ";
-		html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\"></td>                            ";
+		html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\" ></td>                            ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "	</tr>";	
@@ -329,11 +336,18 @@ function drawList2(memList){
 		<!-- Contents -->
 		<div class="contents">
 			<form action="#" id="searchForm">
-			<input type="hidden" name="memNo">
-			<input type="hidden" name="postNo" id="postNo">
+				<input type="hidden" name="memNo">
+				<input type="hidden" name="postNo" id="postNo">
 			</form>
+			<form action="#" id="actionForm">
+				<input type="hidden" name="memNo" id="applyMemNo">
+				<input type="hidden" name="postNo" id="applyPostNo">
+				<input type="hidden" name="stateNo" id="stateNo">
+			</form>
+
 			<div class="mypage_contents">
 				<div class="mypage_area1">
+			
 					<div class="area_tit"><span>신청자 목록</span></div>
 					<div class="join_mem_list">
 					
