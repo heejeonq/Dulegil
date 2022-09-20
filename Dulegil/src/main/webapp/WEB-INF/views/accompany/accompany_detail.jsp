@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +10,22 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/withDulDet.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>동행상세</title>
+<style>
+.update{
+	display:none;
+}
+.commentBox span{
+	font-size:13px;
+    line-height: 50px;
+    color: #808080;
+    float:left;
+}
+</style>
 <!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-
 <script>
 $(document).ready(function(){
+	reloadList();
 	$(".moreBtn").on("click",function(){
 		$(".moreBtn").show();
 	})
