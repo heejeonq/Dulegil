@@ -35,13 +35,13 @@ WHERE A.RNK BETWEEN #{start} AND ${end}
 <!-- 페이징 -->
 	<select id="cnt" parameterType="hashmap" resultType="integer">	
 		SELECT COUNT(*) AS CNT
-FROM MEMBER M INNER JOIN COMMENTS C
+		FROM MEMBER M INNER JOIN COMMENTS C
                 			ON M.MEMBER_NO = C.MEMBER_NO
                			INNER JOIN BULLETIN_BOARD B
                 			ON C.POST_NO = B.POST_NO
                			INNER JOIN BOARD_TYPE BT
                 			ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
-WHERE C.DEL_DT IS NULL	
+		WHERE C.DEL_DT IS NULL	
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">

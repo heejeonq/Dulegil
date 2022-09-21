@@ -22,6 +22,7 @@
 <!-- 폰트 -->
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/admin.css">
+
 <style type="text/css">
 
 /*오른쪽 전체 크기*/
@@ -240,7 +241,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
