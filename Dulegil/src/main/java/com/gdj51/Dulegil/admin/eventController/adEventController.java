@@ -16,27 +16,11 @@ public class adEventController {
 	
 	@Autowired
 	public IPagingService ips;
-
-	@RequestMapping(value = "adEvtCal")
-	public ModelAndView adEvtCal(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("admin/4_adEvent/ad_event_calendar");
-
-		return mav;
-	}
 	
 	@RequestMapping(value = "adEvtDtl")
 	public ModelAndView adEvtDtl(ModelAndView mav) throws Throwable {
 
 		mav.setViewName("admin/4_adEvent/ad_event_detail");
-
-		return mav;
-	}
-	
-	@RequestMapping(value = "adEvtList")
-	public ModelAndView adEvtList(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("admin/4_adEvent/ad_event_list");
 
 		return mav;
 	}
