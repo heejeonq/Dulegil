@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +10,286 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/cosRevDet.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
+
 <title>코스후기상세</title>
+<style>
+.update{
+	display:none;
+}
+.commentBox span{
+	font-size:13px;
+    line-height: 50px;
+    color: #808080;
+    float:left;
+}
+</style>
 <!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	reloadList();
+	//게시글 버튼
+	$("#listBtn").on("click",function(){
+		$("#actionForm").attr("action","freeBoard")
+		$("#actionForm").submit();
+	});
+	
+	
+	$("#deleteBtn").on("click",function(){
+
+	makePopup({
+				title : "알림",
+				contents : "삭제하시겠습니까?",
+				buttons : [ {
+					name : "삭제",
+					func : function() {
+						var params = $("#actionForm").serialize();
+						$.ajax({
+							url : "FREEAction/delete", //경로
+							type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
+							dataType : "json",
+							data : params,
+							success : function(res) {
+								switch (res.msg) {// 성공했을 때 결과를 res에 받고 함수 실행
+								 case "success" :
+		        	                    $("#page").val("1");
+		        	                    $("#searchgbn").val("0");
+		        	                    $("#searchTxt").val("");
+		        	                    
+		        	                    
+		        	                    $("#actionForm").attr("action","freeBoard");									
+		        	                    $("#actionForm").submit();									
+									
+									break;
+								case "failed":
+									makeAlert("알림", "삭제에 실패했습니다");
+									break;
+								case "error":
+									makeAlert("알림", "삭제중 문제가 발생했습니다");
+									break;
+								}
+
+							},
+							error : function(request, status, error) { //실패했을 때 함수 실행
+								console.log(request.responseText); //실패 상세내영
+							}
+
+						});
+
+					}
+				}, {
+					name : "취소"
+				} ]
+			});
+		});
+
+		$("#updateBtn").on("click", function() {
+			$("#actionForm").attr("action", "freeBoardUpdate");
+			$("#actionForm").submit();
+		});
+		
+		
+		//댓글버튼
+		
+		$(".box3 #loginBtn").on("click",function(){
+			location.href="login"
+		});
+		
+		$(".box3 #insertCBtn").on("click",function(){
+		
+			 if ($.trim($("#ccon").val()) == "") {
+		            makeAlert("알림", "내용을 입력하세요.", function() {
+		               $("#ccon").focus();
+		            });
+
+		         }else{
+					action("insert");	 			
+		         }
+		});
+		
+		
+		//목록 삭제버튼 클릭시
+		$(".mainview4").on("click",".delB",function(){
+			
+			var commentNo= $(this).parent().attr("commentNo");
+
+			
+			makePopup({
+				title:"알림",
+				contents : "삭제하시겠습니까?",
+				buttons : [{
+					name:"삭제",
+					func:function() {
+						$("#commentNo").val(commentNo);
+						action("delete");
+						closePopup()//제일위의 팝업닫기
+					}			
+				
+				},{
+					name : "취소"
+				}]
+			});
+		});
+		
+		
+		
+ 		//목록의 수정버튼 클릭시
+		$(".mainview4").on("click",".upB",function(){
+			
+		var commentNo= $(this).parent().attr("commentNo");
+		$("#commentNo").val(commentNo);
+		
+		var ccon = $(this).parent().children().eq(2).html();
+		$("#ccon").val(ccon);
+		
+		$(".insert").hide();
+		$(".update").css("display","inline-block");
+	//	$(".update").show();
+		
+		});
+	
+	//수정영역의 취소버튼
+	$(".box3 #cancelCBtn").on("click",function(){
+		//입력내용 초기화
+		$("#commentNo").val("");		
+		$("#ccon").val("");		
+		//등록버튼 나타나기 + 수정,취소 버튼 감추기
+		$(".insert").show();
+		$(".update").hide();
+	});
+	
+	//수정영역의 수정버튼
+	$(".box3 #updateCBtn").on("click",function(){
+		action("update");
+		
+	});
+		
+		
+		
+	});
+
+	//document
+
+
+
+var msg = {
+		"insert" : "등록",
+		"update" : "수정",
+		"delete" : "삭제",
+}
+
+function action(flag){
+	//con의 <들을 웹문자로 변환
+	$("#ccon").val($("#ccon").val().replace(/</gi, "&lt;"));
+	
+	$("#ccon").val($("#ccon").val().replace(/>/gi, "&gt;"));
+	console.log(msg[flag]);
+	//Javascript Object에서의 [] : 해당 키값으로 내용을 불러오거나 넣을 수 있다.
+	//							 Java의 Map에서의 get,put 역할
+
+	 var params = $("#commentsForm").serialize();   
+      $.ajax({
+         url:"freeCAction/" + flag, //경로 주소 새로생기면 컨트롤러 가
+         type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
+         dataType: "json", //
+         data: params, //json 으로 보낼데이터
+         success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행
+         
+         switch(res.msg){         
+         case "success" :
+        	 $("#ccon").val("");
+        	 
+        		reloadList();
+            //목록 재조회
+            switch(flag) {
+            	case "insert" :  
+            	case "delete":
+            		//조회 데이터 초기화
+            		//$("#page").val("1");
+            		//$("#searchGbn").val("0");
+            		//$("#searchText").val("");
+            		//$("#oldGbn").val("0");
+                 	//	$("#oldText").val("");
+            		break;
+            	case "update":
+            		//기존값 유지
+            	//	$("#searchGbn").val($("#oldGbn").val());
+				//	$("#searchText").val($("#oldText").val()); 
+					
+					//입력내용 초기화
+					$("#cno").val("");		
+					$("#ccon").val("");		
+					//등록버튼 나타나기 + 수정,취소 버튼 감추기
+					$(".insert").show();
+					$(".update").hide();
+            		break;
+            }
+            
+            reloadList();
+            
+            break;
+         case "fail" :
+            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+            break;
+         case "error" :                     
+            makeAlert("알림", msg[flag]+"중 문제가 발생하였습니다.")
+            break;
+         }
+         
+      
+         },
+         error :function(request, status, error) { //실패했을 때 함수 실행 isfp
+            console.log(request.responseText); //실패 상세내역
+         }
+         
+      });	//Ajax end
+}//action Function End
+
+
+//댓글 reloadlist
+function reloadList(){	
+	var params = $("#commentsForm").serialize();
+	
+	$.ajax({
+		url : "commentAjax", //경로
+		type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
+		dataType : "json",
+		data : params,
+		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
+			drawList(res.list);
+		},
+		error : function(request, status, error) { //실패했을 때 함수 실행
+			console.log(request.responseText); //실패 상세내용
+		}
+
+	});
+}
+ function drawList(list) {
+	var html = ""; //변수선언
+	
+	for(var data of list){ // " +  + " 1(내용) 대신 넣자
+                                                               
+		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
+		html += " <div class=\"iconBox\">";
+		html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+		html += " </div>";
+		html += " <div class=\"idBox\">";
+		html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "";
+	    html += " </div>";
+	    html += " <div class=\"commentDe\">" + data.CCONTENTS + "</div>";
+  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
+ 		
+ 		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
+ 			html += "<span class=\"upB\">수정</span> ";
+ 			html += "<span class=\"delB\">삭제</span>";
+ 		}
+ 			html += " </div>";
+		
+	}
+	
+	$(".mainview4").html(html); //tbody에 html로 갈아 엎어줘
+	
+	
+} 
 
 </script>
 
@@ -22,6 +300,14 @@
 
 	<!-- Container -->
 	<div class="container-main">
+	
+			<form action="#" id= "actionForm" method="post">
+			<input type="hidden" name="no" value="${data.POST_NO}" />
+			<input type="hidden" name="gbn" value="d" />
+			<input type="hidden" name="page" value= "${param.page}" />
+			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
+			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+		</form>
 
 		<div class="mainWrap">
 			<div class="tit">코스 별 후기</div>
@@ -29,11 +315,12 @@
 			
 			<div class="midBox">
 		<div class="emptyBox"></div>
-		<div class="tit_tt">서울 둘레길 완주</div>
+		<div class="tit_tt">${data.TITLE}</div>
+		
 		<div class="tit_tt">
 			<div class="tit_cos">
 			<img src="resources/images/gitIcon.png" />
-			1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분
+			${data.COURSE_NO} 코스- ${data.COURSE_NM}	노원구,도봉구	18.6km	8시간 10분
 			<img src="../../css/images/gitIcon.png" />
 			</div>
 		</div>
