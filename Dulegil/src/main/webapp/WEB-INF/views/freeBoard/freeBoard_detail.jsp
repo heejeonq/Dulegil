@@ -108,7 +108,9 @@ $(document).ready(function(){
 		
 		//목록 삭제버튼 클릭시
 		$(".mainview4").on("click",".delB",function(){
+			
 			var commentNo= $(this).parent().attr("commentNo");
+
 			
 			makePopup({
 				title:"알림",
@@ -276,8 +278,8 @@ function reloadList(){
   	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
  		
  		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
- 			html += "<span class=\"upB\" >수정</span> ";
- 			html += "<span class=\"delB\" >삭제</span>";
+ 			html += "<span class=\"upB\">수정</span> ";
+ 			html += "<span class=\"delB\">삭제</span>";
  		}
  			html += " </div>";
 		
