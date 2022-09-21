@@ -19,6 +19,15 @@ $(document).ready(function(){
 		$(this).addClass('on');
 		$("#"+tab_id).addClass('on');
 	});
+	
+	$.ajax({
+		  method: "POST",
+		  url: "some.php",
+		  data: { name: "John", location: "Boston" }
+		})
+		  .done(function( msg ) {
+		    alert( "Data Saved: " + msg );
+		  });
 });
 </script>
 </head>
@@ -33,32 +42,16 @@ $(document).ready(function(){
 			<div class="tit">코스 별 상세 안내</div>
 			<div class="col"></div>
 			
-			<div class="crsBtn">
-				<a href="course1">
-					<span class="on">1코스</span>
-				</a>
-				<a href="course2">
-					<span>2코스</span>
-				</a>
-				<a href="course3">
-					<span>3코스</span>
-				</a>
-				<a href="course4">
-					<span>4코스</span>
-				</a>
-				<a href="course5">
-					<span>5코스</span>
-				</a>
-				<a href="course6">
-					<span>6코스</span>
-				</a>
-				<a href="course7">
-					<span>7코스</span>
-				</a>
-				<a href="course8">
-					<span>8코스</span>
-				</a>
-			</div>
+			<ul class="crsBtn">
+				<li class="on">1코스</li>
+				<li onclick="document.location.href='course2'">2코스</li>
+				<li onclick="document.location.href='course3'">3코스</li>
+				<li onclick="document.location.href='course4'">4코스</li>
+				<li onclick="document.location.href='course5'">5코스</li>
+				<li onclick="document.location.href='course6'">6코스</li>
+				<li onclick="document.location.href='course7'">7코스</li>
+				<li onclick="document.location.href='course8'">8코스</li>
+			</ul>
 			
 			<div class="crsTit">
 				<img src="https://gil.seoul.go.kr/walk/images/sub/sc2.png" alt="코스">

@@ -32,8 +32,8 @@ public class JoinController {
 	}
 
 	@RequestMapping(value = "/joinAction/{gbn}", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
+	
 	@ResponseBody
-
 	public String joinAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -75,8 +75,7 @@ public class JoinController {
 			   method = RequestMethod.POST,
 			 produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String chkIdAjax(
-			@RequestParam HashMap<String, String> params) throws Throwable {
+	public String chkIdAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		Map<String, Object> model = new HashMap<String, Object>();

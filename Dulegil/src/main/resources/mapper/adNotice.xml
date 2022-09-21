@@ -56,7 +56,17 @@
 	<insert id="insert" parameterType="hashmap">
 		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE,
 		MUST_READ_YN)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 109, #{contents}, #{attFile}, #{mainCheck})
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 109, #{contents}, #{attFile}, 
+		<choose>
+			<when test="mainCheck == 0">
+				0
+			</when>
+			<otherwise>
+				1
+			</otherwise>
+		</choose>
+		
+		)
 	</insert>
 
 
