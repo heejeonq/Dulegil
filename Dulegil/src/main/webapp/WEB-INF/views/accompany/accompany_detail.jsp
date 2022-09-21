@@ -47,7 +47,7 @@ $(document).ready(function(){
       
       <div class="midBox">
       <div class="emptyBox"></div>
-      <div class="tit_tt">같이 돌아요</div>
+      <div class="tit_tt">${data.TITLE}</div>
       <div class="tit_tt">
          <div class="tit_cos">
          <img src="resources/images/gitIcon.png" />
@@ -77,7 +77,7 @@ $(document).ready(function(){
          
          <div class="tit_date">
          작성일  
-         2022-08-08</div>
+         ${data.REG_DT}</div>
          
       </div>
       

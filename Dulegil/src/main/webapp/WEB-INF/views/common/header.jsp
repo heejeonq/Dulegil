@@ -60,10 +60,12 @@ $(document).ready(function(){
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 				</svg>
 				</li>
-				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num">1</span>
+				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num">${cnt}</span>
 					<div class="alarm_contents">
 						<ul>
-							<li>abc123님이 동행을 신청하였습니다</li>
+							<c:forEach var="data" items="${data}">
+								<li>${data.NM}님이 동행을 신청하였습니다</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</li>

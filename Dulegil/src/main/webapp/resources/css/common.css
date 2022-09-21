@@ -19,8 +19,12 @@
 	background-color: #f0c41994 ;
 }
 .btn.green:active {
-	background-color: #4f9acb;
+	background-color: #fdc806;
 }
 .gray {
 	background-color: #78808c;
+}
+
+.btn.green:disabled {
+	background-color: #D1B757;
 }

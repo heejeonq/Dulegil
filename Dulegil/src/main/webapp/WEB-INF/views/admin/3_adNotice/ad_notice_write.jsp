@@ -131,9 +131,8 @@ input:focus {
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" 
+<script type="text/javascript" 
 		src="resources/script/jquery/jquery.form.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function(){
 	//에디터 연결
@@ -290,10 +289,7 @@ $(document).ready(function(){
 	 });
 	
 	
-	// 메인 체크 0 이 메인 1 이 체크 안됨
-	if(document.getElementById("mainCheck").checked){
-		document.getElementById("mainCheck_hidden").disabled = true;
-	}
+	
 		
 });
 </script>
@@ -414,7 +410,6 @@ $(document).ready(function(){
 							<div class="CTN">메인으로 띄우기</div>
 							<div class="checkbox">
 								<input type="checkbox" id="mainCheck" name="mainCheck" value="0" class="commentBoxT">
-								<input type="hidden" id="mainCheck_hidden" name="mainCheck" value="1">
 							</div>
 						</div>
 

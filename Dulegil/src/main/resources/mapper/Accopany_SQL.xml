@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="accompany">
 <select id="applyMemList" resultType="hashmap" parameterType="hashmap">
-	SELECT BLT.MEMBER_NO, M.MEMBER_NO, M.IMG_FILE, M.NM, M.RELIABILITY, BA.ACCOMPANY_DT, BLT.TITLE,
+	SELECT BLT.MEMBER_NO, M.MEMBER_NO AS MEM_NO, M.IMG_FILE, M.NM, M.RELIABILITY, BA.ACCOMPANY_DT, BLT.TITLE,
       	   BC.COURSE_NO,BLT.POST_NO,M.GENDER, TRUNC(MONTHS_BETWEEN(SYSDATE, M.DATE_BIRTH)/12) AS AGE,
-      	   BA.PUBLIC_GENDER, BA.PUBLIC_AGE
+      	   BA.PUBLIC_GENDER, BA.PUBLIC_AGE, AA.STATE_NO
 	FROM BULLETIN_BOARD BLT INNER JOIN BOARD_COURSE BC
 	                                ON BLT.POST_NO = BC.POST_NO
 	                                AND BLT.DEL_DT IS NULL
@@ -34,11 +34,14 @@
 	                                ON AA.MEMBER_NO = M.MEMBER_NO
 	                        INNER JOIN BULLETIN_BOARD BB
 	                                ON AA.POST_NO = BB.POST_NO
-	                                AND BB.DEL_DT IS NULL
+	                               AND BB.DEL_DT IS NULL
 	                        INNER JOIN BOARD_COURSE BC
 	                                ON BB.POST_NO = BC.POST_NO
+	                        INNER JOIN BOARD_ACCOMPANY BA
+	                                ON BA.POST_NO = BC.POST_NO
+	                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD') 
 	                        INNER JOIN MEMBER MEM
-	                                ON MEM.MEMBER_NO = BB.MEMBER_NO  
+	                                ON MEM.MEMBER_NO = BB.MEMBER_NO 
 	 WHERE M.MEMBER_NO = #{memNo}                                                                                           
 </select>
 
