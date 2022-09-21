@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이벤트 달력</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
@@ -20,8 +19,10 @@
 <link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- 달력 -->
+<link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
+<title>이벤트 달력</title>
 <style type="text/css">
-
 /*오른쪽 전체 크기*/
 #header2 #hd2_content {
 	width: 100%;
@@ -267,7 +268,8 @@ th:nth-child(2), td:nth-child(2) {
 	vertical-align: top;
 }
 </style>
-
+<!-- 달력 -->
+<script src='resources/css/fullcalendar/main.js'></script>
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -278,30 +280,25 @@ $(document).ready(function(){
 		location.href = "adLogout";
 	});
 	
-	
 	// 메뉴 - 관리자 계정 관리 
 	$("#actMngBtn").on("click", function() {
 		location.href = "adAccountMng";
 	});
-	
 	
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
 		location.href = "adNtc";
 	});
 	
-	
 	// 메뉴 - 이벤트관리
 	$("#evtBtn").on("click", function() {
 		location.href = "adEvt";
 	});
 	
-	
 	// 메뉴 - 웹사이트 활동 집계
 	$("#webTotalBtn").on("click", function() {
 		location.href = "adWebTotal";
 	});
-	
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
@@ -323,16 +320,28 @@ $(document).ready(function(){
 		location.href = "adMemCmt";
 	});
 	
-	
-	
-	
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		events : {
+		    url: 'evtListAjax',
+		    method: 'POST',
+		    failure: function(res) {
+		        console.log(res.xhr.responseText);
+		    }
+		},
+		eventClick: function(info) {
+		    $("#no").val(info.event.extendedProps.post_no);
+		    $("#actionForm").attr("action", "eventDtl");
+		    $("#actionForm").submit();
+		}
+	});
+	calendar.render();
 	
 });
 </script>
 </head>
 <body>
-
-		<!--  header 1  -->
+	<!--  header 1  -->
 	<div id="header1">
 		<div id="logo"></div>
 		<div id="time"></div>
@@ -344,22 +353,16 @@ $(document).ready(function(){
 				<span class="material-symbols-outlined">account_circle </span>
 				<span>관리자 계정 관리</span>
 			</div>
-			
-			
-	
 
 			<div class="btnAll" id="ntcBtn">
 				<span class="material-symbols-outlined" > edit_document </span>
 				<span>공지사항</span>
 			</div>
 
-
 			<div class="btnAll" id="evtBtn">
 				<span class="material-symbols-outlined"> calendar_month </span>
 				<span>이벤트 관리</span>
-
 			</div>
-
 
 			<div class="btnAll" id="webTotalBtn">
 				<span class="material-symbols-outlined"> bar_chart </span> 
@@ -374,29 +377,22 @@ $(document).ready(function(){
 				<span>회원 관리</span>
 			</div>
 
-
 			<div class="btnOne" id="memRepBtn">
 				<span class="material-symbols-outlined"> person_off </span>
 				<span>신고내역 관리</span>
 			</div>
-
 
 			<div class="btnOne" id="memPostBtn">
 				<span class="material-symbols-outlined"> edit_note </span>
 				<span>게시물 관리</span>
 			</div>
 
-
 			<div class="btnOne" id="memCmtBtn">
 				<span class="material-symbols-outlined"> comment </span>
 				<span>댓글 관리</span>
 			</div>
 		</div>
-	</div> <!-- 헤더 1 -->
-
-
-
-
+	</div> 
 
 	<div id="header2">
 		<!-- 상단바 -->
@@ -405,11 +401,9 @@ $(document).ready(function(){
 				<div>알림</div>
 				<div>
 					<span class="material-symbols-outlined"> exit_to_app </span>로그아웃
-
 				</div>
 			</div>
 		</div>
-
 
 		<div id="hd2_content">
 			<!-- 왼쪽 박스 -->
@@ -417,10 +411,9 @@ $(document).ready(function(){
 				<div id="hd2_Cname"></div>
 				<!-- 상단 빈칸 용도 -->
 
-
 				<div id="hd2_CC">
+					<!-- ccbox -->
 					<div id="CCbox">
-
 						<div id="hd2_Cname">
 							<div id="Cname_box">
 								<span class="material-symbols-outlined"
@@ -429,82 +422,7 @@ $(document).ready(function(){
 							</div>
 						</div>
 						<!-- 이벤트 달력 -->
-
-						<div class="date">
-							<span class="material-icons"> chevron_left </span> <span
-								id="month">9월</span> <span class="material-icons">
-								chevron_right </span>
-						</div>
-
-
-						<div class="eventCal">
-							<table id="event_Cal">
-								<thead>
-									<tr>
-										<th>월</th>
-										<th>화</th>
-										<th>수</th>
-										<th>목</th>
-										<th>금</th>
-										<th>토</th>
-										<th>일</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td>1</td>
-										<td>2</td>
-										<td>3</td>
-										<td>4</td>
-
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>6</td>
-										<td>7</td>
-										<td>8</td>
-										<td>9</td>
-										<td>10</td>
-										<td>11</td>
-
-									</tr>
-									<tr>
-										<td>12</td>
-										<td>13</td>
-										<td>14</td>
-										<td>15</td>
-										<td>16</td>
-										<td>17</td>
-										<td>18</td>
-
-									</tr>
-									<tr>
-										<td>19</td>
-										<td>20</td>
-										<td>21</td>
-										<td>22</td>
-										<td>23</td>
-										<td>24</td>
-										<td>25</td>
-
-									</tr>
-									<tr>
-										<td>26</td>
-										<td>27</td>
-										<td>28</td>
-										<td>29</td>
-										<td>30</td>
-										<td></td>
-										<td></td>
-
-									</tr>
-								</tbody>
-							</table>
-						</div>
-
+						<div id="calendar"></div>
 
 						<!-- 작성 삭제 버튼 -->
 						<div id="write">
@@ -512,12 +430,7 @@ $(document).ready(function(){
 								type="button" value="삭제" class="delBtn" />
 						</div>
 					</div>
-					<!-- ccbox -->
-
-
-
-
-
+					
 					<div id="page">
 						<div id="hd2_paging">
 							<div id="pBtn_GD">
@@ -544,7 +457,6 @@ $(document).ready(function(){
 						</div>
 					</div>
 
-
 					<div id="search">
 						<div class="Sbar1">
 							<select class="sel">
@@ -561,10 +473,9 @@ $(document).ready(function(){
 						</div>
 					</div>
 					<!-- 서치 -->
-
-
 				</div>
 			</div>
+			
 			<!-- 오른쪽 박스 -->
 			<div class="wrap_2">
 
@@ -594,7 +505,6 @@ $(document).ready(function(){
 					</div>
 				</div>
 
-
 				<div id="search">
 					<div class="Sbar1">
 						<select class="sel">
@@ -610,17 +520,9 @@ $(document).ready(function(){
 						<input type="button" id="hdSearch" value="검색" />
 					</div>
 				</div>
-				<!-- 서치 -->
+				
 			</div>
 		</div>
-
-
 	</div>
-
-
-
-
-
-
 </body>
 </html>

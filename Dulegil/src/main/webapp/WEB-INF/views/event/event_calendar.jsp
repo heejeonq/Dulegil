@@ -29,7 +29,6 @@ $(document).ready(function(){
 	calendar.render();
 	
 });
-
 </script>
 </head>
 <body>

@@ -1,6 +1,4 @@
-
-
-
+@charset "UTF-8";
 
 thead{
 	height: 55px;
@@ -111,19 +109,23 @@ tbody tr:hover {
 
 .content_cosRev{
   	display: inline-block;
-	height: 800px;
+	height: auto;
 	font-size: 30px;
 	margin: 0 auto;
 	text-align: center;
 	margin-bottom: 100px;
+	width: 1200px;
+	text-align: left;
 }
 .content_bst{
-	  	display: inline-block;
-	height: 800px;
+	display: inline-block;
+	height: auto;
 	font-size: 30px;
 	margin: 0 auto;
 	text-align: center;
 	margin-bottom: 100px;
+	width: 1200px;
+	text-align: left;
 	
 }
 
@@ -139,14 +141,15 @@ tbody tr:hover {
 
 
 .c_box{
-	margin: 10px;
-	display: inline-block;
-	vertical-align: top;
-	border: 1px solid #ddd;
-	width: 22%;
-	height: 45%;
-	font-size: 10px;
-	cursor: pointer;
+    margin: 10px;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #ddd;
+    width: 264px;
+    height: 360px;
+    font-size: 10px;
+    cursor: pointer;
+    position:relative
 }
 .c_b_photo{
 	width: 100%;
@@ -167,6 +170,10 @@ tbody tr:hover {
     text-align: left;
     float: right;
     padding-left: 5px;
+}
+.c_b_tit{
+	font-size:14px;
+	height: 6%;
 }
 .c_b_lv {
 	width: 100%;
