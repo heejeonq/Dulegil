@@ -1,6 +1,4 @@
-
-
-
+@charset "UTF-8";
 
 thead{
 	height: 55px;
@@ -151,6 +149,7 @@ tbody tr:hover {
     height: 360px;
     font-size: 10px;
     cursor: pointer;
+    position:relative
 }
 .c_b_photo{
 	width: 100%;
