@@ -1,0 +1,46 @@
+@charset "UTF-8";
+* {
+	box-sizing: border-box;
+	color: #000;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+	min-width: 1200px;
+}
+html, body {
+	height: 100%;
+}
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+/*Container*/
+.mainView{
+	margin-top: 10px;
+    /* text-align:center; */
+    overflow: hidden;
+}
+
+.tit{
+	margin:80px auto 10px;
+	text-align:left;
+	margin-top:10px;
+	font-size: 20pt;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.col{
+    position: relative;
+    text-align: center;
+    border-top: 2px solid #ddd;
+}

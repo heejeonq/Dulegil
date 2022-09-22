@@ -12,6 +12,7 @@ SELECT COUNT(*) AS CNT
 FROM BOARD_TYPE T INNER JOIN  BULLETIN_BOARD B 
 	ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
 WHERE B.DEL_DT IS NULL
+AND B.MEMBER_NO = #{sMemNo}
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
 		<when test="searchGbn eq 0">
@@ -29,6 +30,7 @@ SELECT COUNT(*) AS CNT
 FROM COMMENTS C INNER JOIN  BULLETIN_BOARD B 
 	ON C.POST_NO = B.POST_NO
 WHERE C.DEL_DT IS NULL
+AND C.MEMBER_NO = #{sMemNo}
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
 		<when test="searchGbn eq 0">
@@ -117,21 +119,5 @@ WHERE C.RNUM BETWEEN #{start} AND #{end}
       WHERE POST_NO IN(${delete})
 </update>
 
-<select id="alarmCnt" parameterType="hashmap" resultType="Integer">
-SELECT COUNT(*)
-FROM BULLETIN_BOARD B INNER JOIN ACCOMPANY_APPLY A
-ON B.POST_NO = A.POST_NO
-WHERE B.MEMBER_NO = #{memNo}
-</select>
-
-<select id="AANm" parameterType="hashmap" resultType="hashmap">
-SELECT M.NM
-FROM MEMBER M INNER JOIN 
-(SELECT A.MEMBER_NO
-FROM BULLETIN_BOARD B INNER JOIN ACCOMPANY_APPLY A
-ON B.POST_NO = A.POST_NO
-WHERE B.MEMBER_NO = #{memNo})BA
-ON M.MEMBER_NO = BA.MEMBER_NO
-</select>
 
 </mapper>

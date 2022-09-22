@@ -1,0 +1,264 @@
+@charset "UTF-8";
+
+thead{
+	height: 55px;
+    background-color: #eff3f6;
+}
+tr{
+	height:47px;
+	border-bottom : 1px solid #ddd;
+}
+
+.content{
+  	display: inline-block;
+	height: 800px;
+	font-size: 30px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 100px;
+     	
+}
+
+.table{
+	width:100%;
+	margin:0 auto;
+	border-collapse : collapse;	
+	border-top : 2px solid #444444;
+	border-bottom : 2px solid #444444;
+	text-align : center;
+}
+
+tbody td:nth-child(2) {
+	text-align : center;
+}
+
+thead tr {
+	font-weight : bold;
+}
+
+
+tbody tr:hover {
+	background-color :#eff3f6;
+	cursor : pointer;
+}
+
+
+
+.noticCon{
+	width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+
+}
+.listTit{
+	width: 100%;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 28px;
+    color: #222;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: break-word;
+    letter-spacing: -1px;
+    position: relative;
+    display: inline-block;
+    text-align:left;
+}
+.labelNotic{
+	width: 70px;
+    height: 26px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #82c8a0;
+    border: 1px solid #82c8a0;
+    border-radius: 30px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    float: left;
+}
+.num{
+	 font-size: 14px;
+	  display: inline-block;
+}
+.p:hover{
+	color:#82c8a0;
+}
+
+.date{
+	width: 100px;
+    font-size: 14px;
+    line-height: 26px;
+    color: #666;
+    font-weight: 300;
+    letter-spacing: 0px;
+    position: relative;
+    display: inline-block;
+    text-align: right;
+    float: right;
+}
+.file{
+	float:right;
+}
+
+/*코스별후기*/
+
+.content_cosRev{
+  	display: inline-block;
+	height: auto;
+	font-size: 30px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 100px;
+	width: 1200px;
+	text-align: left;
+}
+.content_bst{
+	display: inline-block;
+	height: auto;
+	font-size: 30px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 100px;
+	width: 1200px;
+	text-align: left;
+	
+}
+
+.numbox{
+    width: 1200px;
+    height: 70px;
+	margin:0 auto;
+	text-align:center;
+}
+
+
+
+
+
+.c_box{
+    margin: 10px;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #ddd;
+    width: 264px;
+    height: 360px;
+    font-size: 10px;
+    cursor: pointer;
+    position:relative
+}
+.c_b_photo{
+	width: 100%;
+	height:70%;
+		
+}
+#c_photo{
+	vertical-align: top;
+	width: 100%;
+	height: 100%;
+	
+}
+.c_b_tit,.c_b_coss,.c_b_date,.c_b_id{
+	width: 100%;
+    height: 5%;
+    font-size: 12px;
+    line-height: 25px;
+    text-align: left;
+    float: right;
+    padding-left: 5px;
+}
+.c_b_tit{
+	font-size:14px;
+	height: 6%;
+}
+.c_b_lv {
+	width: 100%;
+    height: 20px;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: left;
+    padding-left: 5px;
+    margin-top: 5px;
+}
+.c_b_like2,.c_b_view2{
+	display: inline-block;
+	vertical-align: top
+}
+
+
+.c_b_like, .c_b_views{
+	height: 100%;
+	width:60px;
+	
+	display: inline-block;
+	vertical-align: top; 
+	
+}
+
+
+.numbox2{
+	display: inline-block;
+	margin-top:10px;
+	
+}
+
+/*명예의전당*/
+
+.monSelBox {
+	text-align: center;
+	padding:15px;
+}
+
+.monthSel {
+	font-size: 20px;
+	display: inline-block;
+}
+
+.midT {
+	font-size: 20px;
+	display: inline-block;
+}
+
+#Medal {
+	position: absolute;
+	vertical-align: top;
+	float: left;
+	margin-left: -147px;
+	margin-top: -1px;
+	width: 64px;
+}
+.content_bst{
+	  	display: inline-block;
+	height: 800px;
+	font-size: 30px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 100px;
+	
+}
+/*동행구하기*/
+.content_Acc{
+	display: inline-block;
+    font-size: 14px;
+    margin: 12px auto 0px;
+    text-align: center;
+    width: 100%;
+	
+}
+/*자유게시판*/
+.content_free{
+	display: inline-block;
+    font-size: 14px;
+    margin: 12px auto 0px;
+    text-align: center;
+    width: 100%;	
+}
+
+
+
+
+

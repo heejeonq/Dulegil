@@ -1,0 +1,165 @@
+.tit_cos, .tit_writer, .tit_date,.tit_Ddate{
+   display: inline-block;
+   vertical-align: top;
+   font-size:15px;
+   color:grey;
+   line-height:50px;
+   margin:0px 5px 0px 5px;
+}
+.age,.gender,.trust{
+      display: inline-block;
+   vertical-align: top;
+   margin:0px 5px 0px 5px;
+}
+.tit_cos{
+   font-size:20px;
+      color:black;   
+}
+.tit_Ddate{
+   font-size:20px;
+   color:black;   
+}
+.intro{
+   width:100%;
+   height:50px;
+}
+.age,.gender ,.trust{
+      display: inline-block;
+   vertical-align: top;
+   font-size:15px;
+   color:grey;
+   line-height:50px;
+   
+}
+
+
+
+.emptyBox {
+    width: 80%;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.imgg{
+   width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.te{
+   width:1000px;
+   padding:20px;
+   font-size:14px;
+   text-align:left;
+   margin:0 auto;
+}
+.box{
+   height: 100px;
+   margin: 0 auto;      
+}
+.box2{
+    width: 90%;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 10px;
+
+}
+
+#delBtn  {   
+   margin-top:4px;
+   margin-left: 10px;
+   
+
+}
+#upBtn{
+   
+   margin-top:4px;
+   margin-left:464px;
+}
+
+#listBtn{
+   float: right;
+   margin-left:50px;
+   margin-top:4px;
+}
+
+
+
+.upBtn, .delBtn{
+   float:right;
+   margin-left:5px;   
+}
+.DulList{
+   width: 80%;
+   height:78px;
+   overflow-y: scroll;
+    margin: 30px auto;
+    font-size:12px;
+    border: none;
+}
+.withM{
+   border:1px solid #ddd;
+   height:100%;
+   line-height:33px;
+   font-size:12px;
+   text-align:center;
+}
+
+th{
+   width:1%;
+   height:35px;
+   border:none;
+   border-collapse: collapse;
+   font-size:15px;
+   text-align:left;
+   
+}
+td{
+   border:none;
+   width:1%;
+   height:35px;
+}
+.btnBox{
+   margin:0 auto;
+}
+
+
+.reporTit,.withMTit{
+   font-size: 12px;
+}
+
+
+.reporBtn,.withMBtn {
+   display: inline-block;
+   vertical-align: top;
+   font-size: 11px;
+   width: 90px;
+   height:41px;
+   border: 1px solid #ddd;
+   cursor: pointer;
+   border-radius: 3px;
+   box-shadow: 0 0 #87a86f;
+   padding: 9px;
+   float: left;
+   margin:5px;
+   
+}
+.withMTitW{
+   margin-top:-2px;
+   display: inline-block
+}
+.report img, .withMB img {
+   transition: all ease 0.25s;
+   
+}
+.withMB img{
+   width:20px;
+    vertical-align: bottom;
+}
+
+.report img:hover, .withMB img:hover {
+   transform: rotate(45deg);
+}
+
+
+

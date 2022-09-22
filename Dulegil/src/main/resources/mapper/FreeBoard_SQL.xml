@@ -32,8 +32,8 @@ ON G.MEMBER_NO=M.MEMBER_NO
 
 <!-- 목록 -->
 <select id="getFreeList" parameterType="hashmap" resultType="hashmap">	
-SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS,F.IMG_FILE,F.IMG_FILE
-FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE
+SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS,F.IMG_FILE,F.IMG_FILE,NVL(F.CNT,0)AS CNT
+FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,CC.CNT
      FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.IMG_FILE,
                 CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(B.REG_DT, 'HH24:MI')
@@ -41,12 +41,19 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE
        			END AS DT,
                 ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
                 FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
-                ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
+                ON T.BLTNBOARD_NO = B.BLTNBOARD_NO                
                 WHERE B.DEL_DT IS NULL
                 AND T.BLTNBOARD_NO =3 )G  
         INNER JOIN MEMBER M 
         ON G.MEMBER_NO = M.MEMBER_NO
-		<if test="searchTxt != null and searchTxt !=''">
+        LEFT OUTER JOIN(SELECT COUNT(*)AS CNT,POST_NO
+                        FROM COMMENTS
+                        WHERE DEL_DT IS NULL
+                        GROUP BY POST_NO)
+                     CC ON G.POST_NO=CC.POST_NO
+        )F
+        WHERE F.RNUM BETWEEN #{start} AND #{end}
+        <if test="searchTxt != null and searchTxt !=''">
 			<choose>
 				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
 				<when test="searchGbn eq 0">
@@ -60,8 +67,6 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE
 				</when>
 			</choose>		
 		</if>
-        )F
-        WHERE F.RNUM BETWEEN #{start} AND #{end}
 </select>
 
 <!-- 게시글등록 -->
@@ -92,7 +97,7 @@ AND POST_NO= #{no}
 
 <!-- 상세보기 -->
 <select id="getF" parameterType="hashmap" resultType="hashmap">
-SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.IMG_FILE AS B_IMG,M.IMG_FILE AS M_IMG
+(SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.IMG_FILE AS B_IMG,M.IMG_FILE AS M_IMG
      FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.BLTNBOARD_NO,B.IMG_FILE,REG_DT,DEL_DT,
                 CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
                THEN TO_CHAR(B.REG_DT, 'HH24:MI')
@@ -105,23 +110,34 @@ SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G
                  AND T.BLTNBOARD_NO =3 )G  
         INNER JOIN MEMBER M 
         ON G.MEMBER_NO = M.MEMBER_NO
-      WHERE G.POST_NO=#{no}
+      WHERE G.POST_NO=#{no})
 </select>
-
-<!-- 댓글리스트 -->
-<select id="getCList"  parameterType="hashmap" resultType="hashmap">
-SELECT COMMENT_NO,POST_NO,C.CONTENTS AS CCONTENTS,
-     CASE WHEN TO_CHAR(C.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
-				THEN TO_CHAR(C.REG_DT, 'HH24:MI')
-				ELSE TO_CHAR(C.REG_DT, 'YY.MM.DD')
-                END AS CREG_DT,
-     M.MEMBER_NO AS CMEMBER_NO,M.NM AS CNM,M.IMG_FILE AS P_IMG,     
-     ROW_NUMBER() OVER(ORDER BY COMMENT_NO DESC) AS RCUM
+<!-- 댓글 카운트 -->
+<select id="getCCnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT(*)AS CNT
 FROM COMMENTS C INNER JOIN MEMBER M
      ON C.MEMBER_NO=M.MEMBER_NO
      AND C.DEL_DT IS NULL
      AND M.DEL_DT IS NULL
      WHERE POST_NO=#{no}
+</select>
+
+<!-- 댓글리스트 -->
+<select id="getCList"  parameterType="hashmap" resultType="hashmap">
+ SELECT F.COMMENT_NO,F.POST_NO,F.CCONTENTS,F.CREG_DT,F.CMEMBER_NO,F.CNM,F.P_IMG,F.RCNUM
+FROM (SELECT COMMENT_NO,POST_NO,C.CONTENTS AS CCONTENTS,
+     CASE WHEN TO_CHAR(C.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+				THEN TO_CHAR(C.REG_DT, 'HH24:MI')
+				ELSE TO_CHAR(C.REG_DT, 'YY.MM.DD')
+                END AS CREG_DT,
+     M.MEMBER_NO AS CMEMBER_NO,M.NM AS CNM,M.IMG_FILE AS P_IMG,     
+     ROW_NUMBER() OVER(ORDER BY COMMENT_NO DESC) AS RCNUM
+FROM COMMENTS C INNER JOIN MEMBER M
+     ON C.MEMBER_NO=M.MEMBER_NO
+     AND C.DEL_DT IS NULL
+     AND M.DEL_DT IS NULL
+     WHERE POST_NO=#{no})F
+   WHERE F.RCNUM BETWEEN #{start} AND #{end}
 </select>
 
 <!-- 댓글추가 -->
@@ -141,9 +157,6 @@ WHERE COMMENT_NO = #{commentNo}
 UPDATE COMMENTS SET DEL_DT = SYSDATE
 WHERE COMMENT_NO =#{commentNo}
 </delete>
-
-<!-- 댓글 페이지?더보기 -->
-
 
 
 

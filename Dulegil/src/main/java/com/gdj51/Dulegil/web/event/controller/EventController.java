@@ -50,6 +50,8 @@ public class EventController {
 		
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
+		
+		if(params.get("no") != null && params.get("no") != "") {
 			
 			dao.update("evt.evtHit", params);
 			
@@ -58,6 +60,9 @@ public class EventController {
 			mav.addObject("data", data);
 			
 			mav.setViewName("event/event_detail");
+		}else {
+			mav.setViewName("redirect:event");
+		}
 	
 		return mav;
 
