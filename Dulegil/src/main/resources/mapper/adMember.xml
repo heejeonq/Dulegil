@@ -64,20 +64,16 @@ AND M.AUTHORITY_NO = 2
 			AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
 		</when>
 		<when test="searchGbn == 1">
-			AND NM LIKE '%' || #{searchTxt} || '%'
-		
+			AND NM LIKE '%' || #{searchTxt} || '%'		
 		</when>
 		<when test="searchGbn == 2">
-			AND GENDER LIKE '%' || #{searchTxt} || '%'
-		
+			AND GENDER LIKE '%' || #{searchTxt} || '%'		
 		</when>
 		<when test="searchGbn == 3">
-			AND ADDRESS LIKE '%' || #{searchTxt} || '%'
-		
+			AND ADDRESS LIKE '%' || #{searchTxt} || '%'		
 		</when>
 		<when test="searchGbn == 4">
-			AND SCOURE LIKE '%' || #{searchTxt} || '%'
-		
+			AND SCOURE LIKE '%' || #{searchTxt} || '%'		
 		</when>
 	</choose>
 </if> 
