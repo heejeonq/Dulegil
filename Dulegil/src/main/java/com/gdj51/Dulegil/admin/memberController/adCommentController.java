@@ -21,7 +21,7 @@ import com.gdj51.Dulegil.web.dao.IDao;
 import com.mysql.fabric.xmlrpc.base.Data;
 
 @Controller
-public class adMemberController {
+public class adCommentController {
 	@Autowired
 	public IDao dao;
 
@@ -29,8 +29,8 @@ public class adMemberController {
 
 	
 	// 리스트 취득
-	@RequestMapping(value="/adMemList")
-	public ModelAndView adMemList(
+	@RequestMapping(value="/adCmtList")
+	public ModelAndView adCmtList(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
@@ -42,7 +42,7 @@ public class adMemberController {
 		}
 		
 		mav.addObject("page", page);
-		mav.setViewName("admin/2_adMember/ad_member");
+		mav.setViewName("admin/2_adMember/ad_comment");
 		return mav;
 	}
 
@@ -50,23 +50,23 @@ public class adMemberController {
 
 
 	// 아작스
-	@RequestMapping(value="/adMemAjax",
+	@RequestMapping(value="/adCmtAjax",
 			method=RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String adMemAjax(
+	public String adCmtAjax(
 			@RequestParam HashMap<String, String> params)throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		int cnt = dao.getInt("adMember.cnt",params);
+		int cnt = dao.getInt("adComment.cnt",params);
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 		
-		List<HashMap<String, String>> list = dao.getList("adMember.list", params);
+		List<HashMap<String, String>> list = dao.getList("adComment.list", params);
 
 		model.put("list", list);
 		model.put("pd", pd);
@@ -74,12 +74,12 @@ public class adMemberController {
 	}
 	
 	
-	// 회원 ajax
-	@RequestMapping(value="/adMemAction/{gbn}",
+	// 댓글 삭제 
+	@RequestMapping(value="/adCmtAction/{gbn}",
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String adMemAction(
+	public String adCmtAction(
 			@PathVariable String gbn,
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
@@ -89,9 +89,9 @@ public class adMemberController {
 		
 		try {
 			switch(gbn) {
-			case "delete" : cnt=dao.update("adMember.delete",params);
+			case "checkDel" : cnt=dao.update("adComment.checkDel",params);
 			break;
-			case "update" : cnt=dao.update("adMember.update",params);
+			case "del" : cnt=dao.update("adComment.del",params);
 			break;
 			}
 			if(cnt>0) {
@@ -108,27 +108,5 @@ public class adMemberController {
 		return mapper.writeValueAsString(model);
 	}
 
-	
-	
-	
-	// 리스트 취득
-		@RequestMapping(value="/adMemUpdateList")
-		public ModelAndView adMemUpdateList(
-				@RequestParam HashMap<String, String> params,
-				ModelAndView mav) throws Throwable{
-
-
-			int page = 1;
-
-			if(params.get("page") != null && params.get("page") != "") {
-				page = Integer.parseInt(params.get("page"));
-			}
-			
-			mav.addObject("page", page);
-			mav.setViewName("admin/2_adMember/ad_member_update");
-			return mav;
-		}
-
-		
 
 }

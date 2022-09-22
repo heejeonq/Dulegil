@@ -256,7 +256,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 댓글 관리
 	$("#memCmtBtn").on("click", function() {
-		location.href = "adMemCmt";
+		location.href = "adCmtList";
 	});
 	
 	
@@ -457,7 +457,7 @@ $(document).ready(function(){
 				},{
 					name : "취소"
 				}]	
-			})
+			}); // makePop
 		}
 	});
 
@@ -679,13 +679,12 @@ function reloadList(){
 			<div id="hd2_CC">
 				<div id="CCbox">
 
-					<input type="hidden" id="searchGbn" name="searchGbn"
-						value="${param.searchGbn}" /> <input type="hidden" id="searchTxt"
-						name="searchTxt" value="${param.searchTxt}" />
+					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
+					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 
 					<!-- 기존 검색 내용 유지용 -->
-					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> <input
-						type="hidden" id="oldTxt" value="${param.searchTxt}" />
+					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+					<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 
 					<!-- 검색 구분 -->
 					<div id="hd2_search">
@@ -705,8 +704,7 @@ function reloadList(){
 							</div>
 
 							<div class="Sbar2">
-								<input type="text" class="commentBoxT" name="searchTxt"
-									value="${param.searchTxt}" />
+								<input type="text" class="commentBoxT" name="searchTxt" value="${param.searchTxt}" />
 							</div>
 
 							<div class="Sbar3">

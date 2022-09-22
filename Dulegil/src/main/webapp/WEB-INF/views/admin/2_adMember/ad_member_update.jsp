@@ -264,65 +264,6 @@ input:focus {
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	// 로그아웃 버튼 클릭시
-	$("#logoutBtn").on("click", function() {
-		location.href = "adLogout";
-	});
-	
-	
-	// 메뉴 - 관리자 계정 관리 
-	$("#actMngBtn").on("click", function() {
-		location.href = "adAccountMng";
-	});
-	
-	
-	// 메뉴 - 공지사항
-	$("#ntcBtn").on("click", function() {
-		location.href = "adNtList";
-	});
-	
-	
-	// 메뉴 - 이벤트관리
-	$("#evtBtn").on("click", function() {
-		location.href = "adEvt";
-	});
-	
-	
-	// 메뉴 - 웹사이트 활동 집계
-	$("#webTotalBtn").on("click", function() {
-		location.href = "adWebTotal";
-	});
-	
-	
-	// 메뉴 - 회원관리
-	$("#memMngBtn").on("click", function() {
-		location.href = "adMemList";
-	});
-	
-	// 메뉴 - 신고 내역 관리
-	$("#memRepBtn").on("click", function() {
-		location.href = "adMemRep";
-	});
-	
-	// 메뉴 - 게시물 관리
-	$("#memPostBtn").on("click", function() {
-		location.href = "adMemPost";
-	});
-	
-	// 메뉴 - 댓글 관리
-	$("#memCmtBtn").on("click", function() {
-		location.href = "adCmtList";
-	});
-	
-	
-	
-	
-	
-});
-</script>
 <!-- 팝업 js -->
 <script type="text/javascript" src="resources/script/common/popup.js"></script>
 <script type="text/javascript"
@@ -426,69 +367,32 @@ $(document).ready(function(){
 	
 	
 	
-	// thead 체크박스
-	$("thead").on("click", "#allCheck", function(){
-		if($(this).is(":checked")){
-			$("tbody #Check").prop("checked", true);
-		}else{
-			$("tbody #Check").prop("checked", false);			
-		}
-		
-		var arr = [];
-		$("tbody #Check:checked").each(function(){
-			arr.push($(this).val());
-		});
-		
-		$("#no").val(arr);
-	});	
 	
 	
-	// tbody 체크박스 선택시 값 보내기
-	$("tbody").on("click", "#Check", function(){
-		var arr = [];
-		
-		$("tbody #Check:checked").each(function(){
-			arr.push($(this).val());
-		});
-		
-		if(arr.length == $("tbody #Check").length){
-			$("thead #allChecked", true)
-		}else{
-			$("thead #allCheck").prop("checked", false);
-		}
-			// arr에 체크된 곳에 no 값을 넣어줌
-			$("#no").val(arr);		
-	});
-	
-	
-	
-	// 개별 삭제
-	$("tbody").on("click", "#delBtn", function() {
-		//$("#no").val($(this).val());
-		//console.log($("#no").val());
-		//console.log($(this).val());
-		
+	// 개별 수정
+	$("tbody").on("click", "#update", function() {
 
-		// 안됨
-		//var no = $(this).val();
-		//$("#no").val(no);	
 		
-		// xml ${no}도 됨 
-		var commentNo= $(this).parent().parent().attr("no");
-		$("#no").val(commentNo);	
+		
+		
+		var updateNo= $(this).parent().parent().attr("no");
+		$("#no").val(updateNo);	
 		console.log($("#no").val());
-		console.log($(this).val()); // 왜 안돼??
+		console.log($("#update").val()); //없음 
+		
+		$('input[name=email]').attr("value"); //value가 1인 input의 id가져오기 
+		console.log($("#email").val()); //없음 
 		
 		
 		makePopup({
 			title : "알림",
-			contents : "삭제하시겠습니까?",
+			contents : "수정하시겠습니까?",
 			buttons : [ {
-				name : "삭제",
+				name : "수정",
 				func : function() {
 					var params = $("#actionForm").serialize();
 					$.ajax({
-						url : "adMemAction/del", //경로 주소 새로생기면 컨트롤러 가
+						url : "adMemAction/update", //경로 주소 새로생기면 컨트롤러 가
 						type : "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
 						dataType : "json", //
 						data : params, //json 으로 보낼데이터
@@ -501,10 +405,10 @@ $(document).ready(function(){
 								location.href = "adMemList"
 								break;
 							case "fail":
-								makeAlert("알림", "삭제에 실패하였습니다.")
+								makeAlert("알림", "수정에 실패하였습니다.")
 								break;
 							case "error":
-								makeAlert("알림", "삭제중 문제가 발생하였습니다.")
+								makeAlert("알림", "수정 중 문제가 발생하였습니다.")
 								break;
 							}
 
@@ -519,68 +423,14 @@ $(document).ready(function(){
 				name : "취소"
 			} ]
 		});
+		
+		
+		
 	});
 
 	
 	
-	// check 삭제
-	$("#deleteBtn").on("click", function(){
-		var arr = [];
-		
-		
-		$("tbody #Check:checked").each(function(){
-			arr.push($(this).val());
-		});
-		
-		console.log(arr);
-
-		
-		if(arr.length == ""){
-			makeAlert("알림", "삭제할 댓글을 선택해주세요.");
-		}else{
-			makePopup({
-				title : "알림",
-				contents : "삭제 하시겠습니까?",
-				buttons	: [{
-					name : "삭제",
-					func : function(){
-						// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
-						var params = $("#actionForm").serialize();
-						console.log(params);
-						$.ajax({
-							url : "adMemAction/checkDel",
-							type :"POST",
-							dataType :"json",
-							data : params,
-							success : function(res){
-								// 성공했을 때 결과를 res에 받고 함수 실행
-								
-								switch(res.msg){
-								case "success" :
-									reloadList();
-									break;
-								case "fail" :
-									makeAlert("알림", "삭제에 실패했습니다.")
-									break;
-								case "exception" :
-									makeAlert("알림", "삭제 중 문제가 발생했습니다.")
-									break;
-								}
-							},
-							error : function(request, status, error){
-								console.log(request.responseText);
-								
-							}
-						});
-						
-						closePopup();
-					}
-				},{
-					name : "취소"
-				}]	
-			})
-		}
-	});
+	
 
 	
 }); // document ready end
@@ -596,14 +446,15 @@ html += "<tr class=\"tr_td\"no=\"" +data.MEMBER_NO +"\">";
 html += "<td>"+ data.MEMBER_NO +"</td>";
 html += "<td>"+ data.AUTHORITY_NO +"</td>";
 html += "<td>"+ data.NM +"</td>";
-html += "<td>"+ data.EMAIL +"</td>";
+//html += "<td>" + data.EMAIL +"</td>";
+html += "<td><input type=\"text\" id=\"email\" name=\"email\" value=\"" + data.EMAIL +"\"</td>";
 html += "<td>"+ data.PHONE_NO +"</td>";
 html += "<td>"+ data.DATE_BIRTH +"</td>";
 html += "<td>"+ data.GENDER +"</td>";
 html += "<td>"+ data.ADDRESS +"</td>";
 html += "<td>"+ data.SCOURE +"</td>";
 html += "<td>"+ data.CNT +"</td>";
-html += "<td>	<span class=\"material-icons-outlined\" style=\"font-size: 14px; cursor: pointer;\"> \edit\ </span>";
+html += "<td>	<span id=\"update\" name=\"update\" class=\"material-icons-outlined\" style=\"font-size: 14px; cursor: pointer;\"> \edit\ </span>";
 html += "		<span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
 html += "</td>";
 html += "</tr>";
@@ -816,7 +667,7 @@ function reloadList(){
 					<!-- 검색 부분 -->
 					<div id="hd2_search">
 					<form action="#" id="actionForm" method="post">
-							<input type="hidden" name="no" id="no" /> 
+							<input type="hidden" name="no" id="no" value="${param.no}"/> 
 							<input type="hidden" name="page" id="page" value="${page}" />
 					
 						<div class="Sbar1">

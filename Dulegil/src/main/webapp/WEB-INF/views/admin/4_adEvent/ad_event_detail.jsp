@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../../common/jscss.jsp" flush="true"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../adjscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,91 +12,58 @@
 	padding: 20px 45px 0;
 }
 
-#header2 #hd2_CC #hd2_paging #pBtn {
-	width: 15px;
-	height: 15px;
-	display: inline-block;
-	margin-right: 11px;
-	font-family: "Gothic A1";
-	font-weight: 500;
-}
-
-#header2 #hd2_CC #hd2_paging #pBtn_GD {
-	width: 15px;
-	height: 15px;
-	margin-right: 30px;
-	margin-top: 1%;
-	display: inline-block;
-	font-family: "Gothic A1";
-	font-weight: 500;
-}
-
-#header2 #search {
-	width: 100%;
-	height: 10%;
-	text-align: center;
-	font-size: 20px;
-	background-color: white;
-}
-
-/* vertical-align 은 여기 버튼 css에서 설정해준다. div아님*/
-#header2 #search .Sbar1, .Sbar11, .Sbar2, .Sbar3 {
-	margin-top: 20px;
-	display: -webkit-inline-box;
-}
-
-#update {
-	width: 100%;
-	text-align: right;
-	margin-top: 10px;
-}
-
-/* 작성 & 수정 & 삭제 버튼 */
-#write {
-	width: 100%;
-	text-align: right;
+#dtlbtn {
+	margin-top: 20px; 
 }
 
 table {
 	border-collapse: collapse;
 	margin-bottom: 0px;
 }
-
 th {
-	width: 310px;
-	height: 10%;
 	font-size: 13px;
-	padding: 14px;
 	border-bottom: solid 1px #ededed;
 	color: #a1a1a1;
+	text-align: center;
 }
-
 td {
 	font-size: small;
 	font-weight: 500;
 	padding: 10px;
 	border-bottom: solid 1px #ededed;
 }
-
-th:nth-child(2), td:nth-child(2) {
-	width: 67%;
-	text-align: left;
-}
-
-#tr_1 {
-	font-size: 14px;
-}
-
 #gongzi {
 	height: 74%;
 	border-bottom: solid 1px #ededed;
 	background-color: white;
 	color: #444;
-	padding: 20px;
-	font-size: 13px;
 	font-weight: 400;
+	padding: 10px 30px;
+}
+
+#listBtn, #updBtn{
+	background-color: #ededed;
+    border-radius: 4px;
+    border: 1px solid #f4f5ee;
+    cursor: pointer;
+    color: #5e5e5e;
+    font-weight: 600;
+    padding: 10px;
+    margin-right: 10px;
+    font-family: "Gothic A1";
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#listBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+	
+	$("#updBtn").on("click", function() {
+		location.href = "adEvtUpd";
+	});
+});
+</script>
 </head>
 <body>
 	<!--  header 1  -->
@@ -111,41 +79,38 @@ th:nth-child(2), td:nth-child(2) {
 		<div id="hd2_CC">
 			<div id="CCbox">
 				<table>
+					<colgroup>
+						<col width="100px">
+						<col width="500px">
+						<col width="100px">
+						<col width="200px">
+						<col width="100px">
+					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="1">번호</th>
-							<th colspan="6">글 제목</th>
-							<th colspan="1">작성자</th>
-							<th colspan="1">기간</th>
-							<th colspan="1">조회수</th>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>기간</th>
+							<th>조회수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="1">01</td>
-							<td colspan="6">여름맞이 둘레길 이벤트</td>
-							<td colspan="1">관리자</td>
-							<td colspan="1">22.06.30 ~ 22.07.30</td>
-							<td colspan="1">1000</td>
+							<td>01</td>
+							<td>여름맞이 둘레길 이벤트</td>
+							<td>관리자</td>
+							<td>22.06.30 ~ 22.07.30</td>
+							<td>1000</td>
+						</tr>
+						<tr>
+							<td colspan="5" id="gongzi" style="text-align: left">이벤트 내용</td>
 						</tr>
 					</tbody>
 				</table>
-
-				<div id="gongzi">
-					<a> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br />
-						여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는
-						이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트
-						입니다. <br /> 여기는 이벤트 입니다. <br /> 여기는 이벤트 입니다. <br />
-
-					</a>
-				</div>
-				<div id="update">
-					<input type="button" value="수정" class="delBtn" />
-				</div>
-			</div>
-			<div id="search">
-				<div class="Sbar3">
-					<input type="button" class="delBtn" value="목록" />
+				<div id="dtlbtn">
+					<input type="button" id="listBtn" value="목록" />
+					<input type="button" id="updBtn" value="수정" />
 				</div>
 			</div>
 		</div>

@@ -53,6 +53,7 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+
 </script>
 <script type="text/javascript">
 $(document).ready(function(){ 
@@ -62,12 +63,12 @@ $(document).ready(function(){
 
 	$("#updatemBtn").on("click", function(){
 		if($.trim($("#cnfmPwd").val()) == "") {
-			makeAlert("알림", "비밀번호를 입력하세요", function(){;
+			makeAlert("알림", "비밀번호를 입력해주세요", function(){;
 				$("#cnfmPwd").focus();	
 			});
 		}
 		else if($.trim($("#nm").val()) == "") {
-			makeAlert("알림", "이름을 입력하세요", function(){;
+			makeAlert("알림", "이름을 입력해주세요", function(){;
 				$("#nm").focus();	
 			});
 		}	
@@ -95,11 +96,14 @@ $(document).ready(function(){
 				            data : params,
 				            success: function(res) { 
 				            	switch(res.msg) {
-				            	case "success" : 
+				            	case "success" : makeAlert("알림", "수정이 완료되었습니다.", function(){
 				            		location.href = "mypageMyinfo";
+				            		});
 				            		break;
-				            	
-				            	case "fail" :  makeAlert("알림", "비밀번호가 틀립니다.");
+				            		
+				            	case "fail" : makeAlert("알림", "비밀번호가 일치하지 않습니다.");
+				            		$("#cnfmPwd").val("");
+				            		$("#cnfmPwd").val("");
 				        			break;
 				        		
 				         		case "error" : makeAlert("알림", "수정 중 문제가 발생하였습니다.");
@@ -124,10 +128,22 @@ $(document).ready(function(){
 	   });	
 	
 	$("#backBtn").on("click", function(){
-		location.href = "mypageMyinfo";
-	})
-	
+   	 	makePopup({
+        	title : "알림",
+            contents : "수정을 취소하시겠습니까?",
+            buttons   : [{
+            	name : "확인",
+              	func : function(){
+                  	  location.href = "mypageMyinfo";
+                 	  closePopup();
+                }
+            },{
+               name : "취소"
+           	  }]   
+        })
+	});
 });
+
 <!--이미지파일 넣기-->
 function readURL(input) {
 	 if (input.files && input.files[0]) {

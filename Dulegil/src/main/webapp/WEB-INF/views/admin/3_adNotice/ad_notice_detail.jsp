@@ -204,7 +204,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
@@ -219,7 +219,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 댓글 관리
 	$("#memCmtBtn").on("click", function() {
-		location.href = "adMemCmt";
+		location.href = "adCmtList";
 	});
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../../common/jscss.jsp" flush="true"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../adjscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,7 @@
 <script src='resources/css/fullcalendar/main.js'></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".regBtn").on("click", function() {
+	$("#evtRegBtn").on("click", function() {
 		location.href = "adEvtReg";
 	});
 	
@@ -45,7 +46,7 @@ $(document).ready(function(){
 		<div id="hd2_CC_left">
 			<div id="calendar"></div>
 			<div id="write">
-				<input type="button" value="이벤트 추가" class="regBtn" /> 
+				<input type="button" value="이벤트 추가" id="evtRegBtn" /> 
 			</div>
 		</div>	
 		<div id="hd2_CC_right">
@@ -116,7 +117,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div id="write">
-				<input type="button" value="이벤트 삭제" class="delBtn" />
+				<input type="button" value="이벤트 삭제" id="evtDelBtn" />
 			</div>
 		</div>
 	</div>
