@@ -27,10 +27,10 @@ public class adMemberController {
 
 	@Autowired IPagingService ips;
 
-
+	
 	// 리스트 취득
-	@RequestMapping(value="/adCmtList")
-	public ModelAndView adCmtList(
+	@RequestMapping(value="/adMemList")
+	public ModelAndView adMemList(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
@@ -42,7 +42,7 @@ public class adMemberController {
 		}
 		
 		mav.addObject("page", page);
-		mav.setViewName("admin/2_adMember/ad_comment");
+		mav.setViewName("admin/2_adMember/ad_member");
 		return mav;
 	}
 
@@ -50,7 +50,7 @@ public class adMemberController {
 
 
 	// 아작스
-	@RequestMapping(value="/adCmtAjax",
+	@RequestMapping(value="/adMemAjax",
 			method=RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 
@@ -60,13 +60,13 @@ public class adMemberController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		int cnt = dao.getInt("adComment.cnt",params);
+		int cnt = dao.getInt("adMember.cnt",params);
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 		
-		List<HashMap<String, String>> list = dao.getList("adComment.list", params);
+		List<HashMap<String, String>> list = dao.getList("adMember.list", params);
 
 		model.put("list", list);
 		model.put("pd", pd);
@@ -75,11 +75,11 @@ public class adMemberController {
 	
 	
 	// 댓글 삭제 
-	@RequestMapping(value="/adCmtAction/{gbn}",
+	@RequestMapping(value="/adMemAction/{gbn}",
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String adCmtAction(
+	public String adMemAction(
 			@PathVariable String gbn,
 			@RequestParam HashMap<String, String> params) throws Throwable{
 		ObjectMapper mapper = new ObjectMapper();
@@ -89,9 +89,9 @@ public class adMemberController {
 		
 		try {
 			switch(gbn) {
-			case "checkDel" : cnt=dao.update("adComment.checkDel",params);
+			case "checkDel" : cnt=dao.update("adMember.checkDel",params);
 			break;
-			case "del" : cnt=dao.update("adComment.del",params);
+			case "del" : cnt=dao.update("adMember.del",params);
 			break;
 			}
 			if(cnt>0) {

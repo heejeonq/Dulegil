@@ -161,10 +161,14 @@ $(document).ready(function(){
 		action("update");
 		
 	});
+	
+ 	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
+		//more버튼을 누르면 페이지가 더보이게
+		$("#cpage").val($("#cpage").val() * 1 + 1);
+		reloadList(); 	
+		});
+	}); 
 		
-		
-		
-	});
 
 	//document
 
@@ -195,8 +199,7 @@ function action(flag){
          
          switch(res.msg){         
          case "success" :
-        	 $("#ccon").val("");
-        	 
+        	 $("#ccon").val("");       	 
         		reloadList();
             //목록 재조회
             switch(flag) {
@@ -254,40 +257,58 @@ function reloadList(){
 		dataType : "json",
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
+			//여기에 5개 미만이면 안보이고 이상이면 보이게
+					
 			drawList(res.list);
+		
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
 		}
 
 	});
-}
+};
+
  function drawList(list) {
-	var html = ""; //변수선언
-	
-	for(var data of list){ // " +  + " 1(내용) 대신 넣자
-                                                               
-		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
-		html += " <div class=\"iconBox\">";
-		html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
-		html += " </div>";
-		html += " <div class=\"idBox\">";
-		html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "    ";
-	    html += " </div>";
-	    html += " <div class=\"commentDe\">" + data.CCONTENTS + "</div>";
-  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
- 		
- 		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
- 			html += "<span class=\"upB\">수정</span> ";
- 			html += "<span class=\"delB\">삭제</span>";
- 		}
- 			html += " </div>";
+//만약 다섯개 미만이면 버튼을 삭제하고	
+	if(list.length<5){
+		$("#moreBtn").remove();		
+	}else{
+		var html = ""; //변수선언
+		if(list.length>0){
+			for(var data of list){ // " +  + " 1(내용) 대신 넣자
+                
+				html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
+				html += " <div class=\"iconBox\">";
+				html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+				html += " </div>";
+				html += " <div class=\"idBox\">";
+				html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "    ";
+			    html += " </div>";
+			    html += " <div class=\"commentDe\">" + data.CCONTENTS + "</div>";
+		  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
+		 		
+		 		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
+		 			html += "<span class=\"upB\">수정</span> ";
+		 			html += "<span class=\"delB\">삭제</span>";
+		 		}
+		 			html += " </div>";
+				
+			}//여기까지 for
+			
+		}
+			$(".mainView4").append(html);
 		
 	}
 	
-	$(".mainview4").html(html); //tbody에 html로 갈아 엎어줘
+
 	
 	
+	
+	
+
+
+
 } 
 
 
@@ -307,6 +328,8 @@ function reloadList(){
 			<input type="hidden" name="no" value="${data.POST_NO}" />
 			<input type="hidden" name="gbn" value="d" />
 			<input type="hidden" name="page" value= "${param.page}" />
+			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
+			
 			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
 			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
 		</form>
@@ -384,7 +407,7 @@ function reloadList(){
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
-				
+				<input type="hidden" name="cpage" id="cpage" value="1" />	
 				<div class="box3">
 					<div class="comment">comment</div>
 					
@@ -433,7 +456,8 @@ function reloadList(){
 				
 				</div>
 				<div class="more">
-					<input type="button" class="moreBtn" value="더보기+" />							 
+					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+" 
+					/>							 
 				</div>
 
 		

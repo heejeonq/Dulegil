@@ -1,0 +1,116 @@
+@CHARSET "UTF-8";
+html, body {
+	margin: 0;
+	font-size: 0pt;
+	height: 100%;
+	font-family: 고딕;
+}
+
+/* Main Color */
+.cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb, .popup_title {
+	background-color: #f7f7f7;
+}
+/* Main Color on active */
+.cmn_popup_:active, .cmn_popup__ml:active, .cmn_popup__mr:active, .cmn_popup_btn_mb:active {
+	background-color: #f0c41994;
+}
+
+.cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb {
+	/* 마우스 드래그 금지 */
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select:none;
+}
+
+.cmn_popup_btn, .cmn_popup_btn_ml, .cmn_popup_btn_mr, .cmn_popup_btn_mb {
+	display: inline-block;
+    vertical-align: top;
+    margin-top: 10px;
+    padding: 0px 10px;
+    min-width: 60px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 10pt;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+    text-indent: 0px;
+    background-color: #f0c41994;
+}
+
+.cmn_popup_btn_ml {
+	margin-left: 10px;
+}
+
+.cmn_popup_btn_mr {
+	margin-right: 10px;
+}
+
+.cmn_popup_btn_mb {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.popup_bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: #444444;
+	opacity: 0.7;
+	z-index: 50;
+}
+
+.popup_bg_clear {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: #444444;
+	opacity: 0.0;
+	z-index: 50;
+}
+
+.popup {
+	display: inline-block;
+	width: 350px;
+	height: 200px;
+	box-shadow: 0px 0px 4px 0px #4f4f4f;
+	position: absolute;
+	top: calc(53% - 100px);
+	left: calc(50% - 172px);
+	z-index: 100;
+	background-color:white;
+	border-radius: 2px;
+}
+
+.popup_title {
+	height: 30px;
+	line-height: 30px;
+	font-size: 10pt;
+	text-indent: 10px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	box-shadow: inset 0px 0px 2px 0px #b7b7b7;
+}
+
+.popup_cont {
+	height: calc(110% - 140px);
+	padding: 13px;
+	background-color: #ffffff;
+	font-size: 11pt;
+    box-sizing: content-box;
+}
+
+.popup_btn_area {
+	width: 100%;
+	height: 35px;
+	text-align: center;
+	padding-top: 5px;
+    box-sizing: content-box;
+    background-color: white;
+}

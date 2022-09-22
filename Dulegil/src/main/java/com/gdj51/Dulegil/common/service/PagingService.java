@@ -2,6 +2,7 @@ package com.gdj51.Dulegil.common.service;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gdj51.Dulegil.common.CommonProperties;
@@ -167,4 +168,7 @@ public class PagingService implements IPagingService{
 		
 		return pd;
 	}
+	
+
+	
 }

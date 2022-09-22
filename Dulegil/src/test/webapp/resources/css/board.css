@@ -1,0 +1,547 @@
+/* Contents*/
+/*list*/
+.mainWrap{
+	margin: 50px 0;
+    overflow: hidden;
+}
+
+.tit{
+	
+	margin:80px auto 10px;
+	text-align:left;
+	margin-top:10px;
+	font-size: 20pt;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.col{
+    position: relative;
+    text-align: center;
+    border-top: 2px solid #ddd;
+}
+.midBox {
+ text-align:center;
+}
+.searchWrap {
+    width: 100%;
+    height: auto;
+    text-align: right;
+}
+.sel {
+	margin-left: -10px;
+	border: none;
+	width: 94px;
+	height: 100%;
+
+}
+.selBox{	
+    width: 8%;
+    display: inline-block;
+    vertical-align: top;
+    height: 32px;
+    background: #fff;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    margin-bottom: 33.1px;
+    margin-top: 20px;
+}
+
+
+.sel:focus{
+	outline: none;
+}
+
+.searchBox {
+	margin-top: 20px;
+	display: inline-block;
+	vertical-align: top;;
+	width: 33%;
+	height: 32px;
+	background: #fff;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	color: #333;
+	font-weight: normal;
+}
+
+.serchTxt {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 11px;
+	width: 87%;
+	height: 29px;
+	float: left;
+	border: none;
+	text-align: left;
+	margin-left: 10px;
+}
+
+.serchTxt:focus,.dateCon:focus {
+	outline: none;
+}
+
+.search_ico {
+	border: none;
+	cursor: pointer;
+	margin-top: 5px;
+	margin-right: 5px
+}
+.content {
+    display: inline-block;
+    font-size: 14px;
+    margin: 12px auto 0px;
+    text-align: center;
+    width: 100%;
+}
+.btn {
+	font-size: 11px;
+	cursor: pointer;
+	height: 30px;
+	width: 70px;
+	color: white;
+	display: inline-block;
+	border: 1px solid rgba(0, 0, 0, 0.21);
+	border-radius: 4px;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+	background-color: #f0c41994;;
+	box-shadow: 0px 1px 0px #97853e;;
+	float: left;
+	margin-top: 20px;
+}
+.btn:hover{
+	background-color:#b9992194;
+}
+.btn:acrive{
+	background-color:#856c0d94;;
+	box-shadow: 0 0 #87a86f;
+}
+.cosSelBox{
+	padding:20px;
+}
+
+
+/*페이지*/
+
+.pagination {
+
+     display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
+}
+.pagination span {
+    float: left;
+    width: 34px;
+    height: 34px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+    border: 0px solid #ddd;
+    margin: 0 4px;
+    cursor: pointer;
+}
+.page_btn_on{
+	 background-color: #77bdeb;
+    color: white;
+    border-radius:50%;
+}
+
+
+.pagination span:active {
+    background-color: #9c9f9d;
+    color: white;
+    border: 1px solid #9c9f9d;
+}
+
+.pagination span:hover {
+    background-color: #77bdeb;
+    color: white;
+     border-radius:50%;
+}
+
+
+/*Detail*/
+
+.tit_tt , .tit_ttt{
+	margin: 0 auto;
+	height: 50px;
+	text-align:center;
+	font-size:26px;
+	font-weight: bold;		
+}
+.ti_ttt{
+	margin-bottom:20px;
+	
+}
+
+.tit_writer img{
+	width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    border-radius: 15px;
+}
+
+.contentBox{
+	height: auto;
+	margin: 0 auto;	
+}
+
+
+.imgg img{
+	width:740px;
+	margin-top:30px;
+}
+.commentBox {
+	display: inline-block;
+	vertical-align: top;
+	width:90%;
+	height: 50px;
+	border: 1px solid #ddd;
+	text-align:left;
+	
+}
+
+.commentBoxT {
+	border: none;
+	width: 98%;
+	height: 47px;
+	resize:none;
+	white-space:pre-wrap;
+	
+}
+.commentBoxT:focus{
+	outline: none;
+}
+
+
+.regBtn {
+    font-size: 11px;
+    width: 10%;
+    height: 50px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin: 10px auto;
+    background: white;
+}
+
+.update{
+	display:hidden;
+	font-size: 11px;
+    width: 10%;
+    height: 50px;
+    cursor: pointer;
+    background: white;
+    margin-top:10px;
+}
+
+.updateCBtn{
+    font-size: 11px;
+    width: 100%;
+    height: 25px;
+    display: inline-block;
+    background: white;
+    border: 1px solid #ddd;
+    line-height: 24.5px;
+	 
+	
+}
+.cancelCBtn{
+	 font-size: 11px;
+    width: 100%;
+    height: 25px;
+    display: inline-block;
+    background: white;
+    border: 1px solid #ddd;
+    line-height: 24.5px;
+}
+
+
+
+.commentBox {
+	margin-top: 10px;
+}
+
+.box3 {
+	padding-bottom: 20px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.comment {
+	color: grey;
+	font-size: 15px;
+	padding: 10px;
+}
+
+.mainview4 {
+	width: 80%;
+	margin: 10px auto;
+}
+
+.iconBox {
+	line-height: 70px;
+	float: right;
+	cursor: pointer;
+}
+
+.idBox {
+	width: 100%;
+	height: 30px;
+	margin: 10px auto;
+	font-size: 16px;
+	text-align: left;
+}
+
+.pimg {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.fox {
+	width: 12px;
+	height: 12px;
+}
+
+.commentDe {
+	width: 100%;
+	height: auto;
+	font-size: 14px;
+	text-align: left;
+	margin-bottom: 10px;
+	white-space: pre-wrap;
+}
+
+.date {
+    text-align: left;
+    width: 100%;
+    font-size: 10px;
+    color: grey;
+    margin-top: 16PX;
+}
+.upB{
+	font-size:10px;
+	color: grey;
+	cursor:pointer;
+	margin: 0px 10px;
+}
+.delB{
+	font-size:10px;
+	color: grey;
+	cursor:pointer;
+
+}
+.moreBtn {
+	font-size: 11px;
+	padding: 8px 30px 8px 30px;
+	border: none;
+	cursor: pointer;
+	background: #D7DBC2;
+	margin: 30px auto;
+	border-radius: 3px;
+}
+.more{
+	width: 100%;
+    text-align: center;
+}
+.coll{
+	width:80%;
+	margin:0 auto;
+    border-top: 2px solid #ddd;
+}
+
+
+/*write*/
+
+.titWrap,.cosWrap,.datWrap,.MyWrap{
+	height: 37px;
+	margin: 15px auto;
+}
+.fileDelBtn{	
+    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
+
+}
+.fileInserBtn{
+	    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
+	
+}
+.dateBox{
+vertical-align: top;
+    width: 800px;
+    display: inline-block;
+    height: 32px;
+    border: 1px solid #ddd
+}
+.dateCon{
+	border:none;
+	width: 20%;
+	height: 30px;	
+	display: inline-block;
+    float: left;
+    margin-left: 10px;
+   
+}
+.dateTit:focus{
+	outline:none;
+}
+
+
+.conWrap{
+	height: 530px;
+	margin: 30px auto;	
+}
+
+.titNm, .cosNm, .conNm, .filNm,.datNm,.MyNm{
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	font-size: 20px;
+	margin-top: 3px;
+	margin-right: 15px;
+	text-align:left;
+}
+
+.titBox{
+	vertical-align: top;
+	width: 800px;
+    display: inline-block;
+    height: 32px;
+    border: 1px solid #ddd;
+}
+.titCon {
+	border:none;
+	width: 80%;
+	height: 30px;	
+	display: inline-block;
+    vertical-align: top;
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+    	
+}
+
+titCon:focus,.cosSell:focus {
+	outline: none;
+}
+.selected {
+	width: 600px;
+	height: 30px;
+	font-size: 30px;
+}
+
+.contentBox {
+	display: inline-block;
+    width: 800px;
+    margin: 10px auto 40px;;
+}
+
+
+#con{
+	border:none;
+}
+.MyBox{
+	vertical-align: top;
+	width: 800px;
+    display: inline-block;
+    height: 50px;
+    text-align:left;
+    margin-top: -10px;
+}
+
+.genBox, .ageBox{
+	display:inline-block;
+	width:600px;	
+	
+}
+.genBox span{
+	font-size:14px;
+	margin:5px 10px;
+}
+
+.ageBox span{
+	font-size:14px;
+	margin:5px 10px;
+}
+.gong{
+	display: inline-block;
+	font-size:14px;
+	color:gray;
+}
+
+.con_t {
+	margin-top: 10px;
+}
+.filWrap{
+	height: 70px;
+	    margin: 30px auto 0px;
+
+}
+
+.las_t {
+	font-size: 20px;
+}
+
+.filBox {
+    display: inline-block;
+    width: 800px;
+    text-align: left;
+}
+
+.file:hover {
+	cursor: pointer;
+}
+
+.fileT {
+	font-size: 12px;
+	margin-top: 5px;
+	width:170px;
+}
+
+.cosSell{
+	border:none;
+ 	width: 790px;
+    height:30px;
+    font-size:18px;
+    text-align:center;
+}
+
+.cosBox{
+    width: 800px;
+    display: inline-block;
+    border: 1px solid #ddd;
+
+}
+
+.btnWrap{
+	margin-bottom: 50px;
+    text-align: right;
+}
+.btnBox{
+   display: inline-block;
+   vertical-align: top;
+   margin:0 10px;
+}
+
+.emptyBox span{
+	font-size:12px;
+	
+}

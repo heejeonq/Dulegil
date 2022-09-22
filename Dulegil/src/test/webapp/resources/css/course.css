@@ -1,0 +1,224 @@
+@charset "UTF-8";
+
+body{
+	font-family: 'Pretendard-Regular';
+	margin: 0;
+}
+
+table{
+	width: 100%;
+    border-top: 1px solid #ddd;
+    border-collapse: collapse;
+    margin-bottom: 2%;
+}
+
+th, td{
+	font-size: 11pt;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    padding: 10px;	
+}
+
+th:first-child, td:first-child, .container-main dt:first-child, .container-main dd:first-child{
+    border-left: none;
+  }
+  
+th, .container-main dt{
+	background-color: #f7f7f7;
+}
+
+.crsBtn{
+	margin-top: 20px; 
+	height: 50px;
+	text-align: center;
+}
+
+.crsBtn li{
+	display: inline-block;
+	width: 150px;
+	height: 50px;
+	border: 1px solid #ddd;
+	border-right: none;
+    vertical-align: top;
+    font-size: 13pt;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.crsBtn li:last-child{
+	border-right: 1px solid #ddd;
+}
+
+.crsBtn li.on{
+	background: #f0c41994;
+	border: none;
+}
+
+.crsBtn li.on:hover{
+	color: #000;
+}
+
+.crsBtn li:hover{
+	color: #f0c41994;
+}
+
+.crsTit{
+	text-align: center;
+	margin-top: 60px;
+}
+
+.crsTit > span{
+	display: inline-block;
+	vertical-align: top;
+	font-size: 20pt;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.crsTit> .crsDfc {
+	font-size: 11pt;
+	margin-bottom: 3%;
+}
+
+.crsCon {
+	margin-top: 3%;
+}
+
+.crsCon > img, .crsMapDtl> img {
+	display: inline-block;
+	width: 25px;
+}
+
+.crsCon > span, .crsMapDtl >span{
+	display: inline-block;
+	vertical-align: top;
+	font-size: 13pt;
+	margin-bottom: 2%; 
+}
+
+.crsMap{
+	display: inline-block;
+	vertical-align: top;
+	width: 800px;
+	height: 600px; 
+	margin: 0 30px 0 40px;
+	border: 1px solid #999;
+}
+
+.crsMapDtl{
+	display: inline-block;
+	vertical-align: top;
+	width: 300px;
+}
+
+.crsDtl > dl > dt, .crsDtl > dl > dd{
+	margin-left: 11px;
+	font-size: 11pt;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.crsDtl > dl > dt{
+	margin-top: 10px;
+}
+
+.crsDtl{
+	margin-bottom: 3%;
+}
+
+#crsInfo{
+	margin-bottom: 2%; 
+}
+
+.crsDtl > span{
+	font-size: 11pt;
+	display: inline-block;
+	width: 100%;
+	padding: 11px;
+}
+
+.crsDtl> .crsStm{
+	width: 100%;
+}
+
+.crsDtl > .crsStm > .stm{
+	display: inline-block;
+	vertical-align: top;
+	width: 375px;
+	margin-left: 20px;
+}
+
+.crsDtl > .crsStm > .stm > img{
+	width: 100%;
+}
+
+.crsDtl > .crsStm > .stm> p{
+	font-size: 11pt;
+	text-align: center; 
+}
+
+.infoBtn{
+	list-style: none;
+	margin-bottom: 30px;
+}
+
+.infoBtn li{
+  	display: inline-block;
+  	width: 200px;
+	padding: 10px;
+	font-size: 13pt;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #ddd;
+	border-right: none;
+}
+
+ul.infoBtn li.on{
+	background: #f0c41994;
+}
+
+ul.infoBtn li.on:hover{
+	color: #000;
+}
+
+ul.infoBtn li:hover{
+	color: #f0c41994;
+}
+
+.infoBtn li:last-child{
+	border-right: 1px solid #ddd;
+}
+
+.infoDtl{
+	display: inline-block;
+	vertical-align: top;
+	width: 275px;
+	margin: 0 12px 30px 10px;
+}
+
+.infoDtl > img{
+	width: 100%;
+}
+
+.infoArd {
+	display: none;
+}
+
+.infoArd.on{
+	display: inherit;
+}
+
+#infoArdTit{
+	font-size: 11pt;
+	font-weight: 600;
+	margin: 1% 0;
+}
+
+.infoDtl > p{
+	margin: 0;
+	font-size: 10pt;
+}
