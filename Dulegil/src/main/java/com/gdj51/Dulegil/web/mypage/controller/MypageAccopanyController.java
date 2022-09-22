@@ -56,16 +56,16 @@ public class MypageAccopanyController {
 //		//복호화
 //		System.out.println(Utils.decryptAES128(params.get("pwd")));
 //		
-
+		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 		HashMap<String, String> data = new HashMap<String, String>();
-
+		
 		int cnt = 0;
 		try {
 			switch (gbn) {
 			case "applyMemUpdate": cnt = dao.update("accompany.applyMemUpdate", params);
-
+			
 				break;
-			case "rateUpdate": cnt = dao.update("accompany.rateUpdate", params);
+			case "rateUpdate": cnt = dao.insert("accompany.rateUpdate", params);
 				break;
 
 			default:
@@ -124,10 +124,10 @@ public class MypageAccopanyController {
 		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
 		List<HashMap<String, String>> memList = dao.getList("accompany.accompanyMemList", params);
-
+		//HashMap<String, String> scoure = dao.getMap("accompany.accompanyScoure", params);
 
 		model.put("memList", memList);
-		
+		//model.put("scoure", scoure);
 		
 		return mapper.writeValueAsString(model);
 	}

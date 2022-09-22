@@ -806,15 +806,18 @@ function reloadList(){
 
 			<div id="hd2_CC">
 				<div id="CCbox">
-				
+				<input type="hidden" id="searchGbn" name="searchGbn"
+						value="${param.searchGbn}" /> <input type="hidden" id="searchTxt"
+						name="searchTxt" value="${param.searchTxt}" />
+
+					<!-- 기존 검색 내용 유지용 -->
+					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> <input
+						type="hidden" id="oldTxt" value="${param.searchTxt}" />
 					<!-- 검색 부분 -->
 					<div id="hd2_search">
 					<form action="#" id="actionForm" method="post">
 							<input type="hidden" name="no" id="no" /> 
-							
-
-							<input type="hidden"
-								name="page" id="page" value="${page}" />
+							<input type="hidden" name="page" id="page" value="${page}" />
 					
 						<div class="Sbar1">
 							<select class="sel" name="searchGbn" id="searchGbn">
@@ -832,6 +835,7 @@ function reloadList(){
 						<div class="Sbar3">
 							<input type="button" id="hdSearch" value="검색" />
 						</div>
+						</form>
 					</div>
 
 

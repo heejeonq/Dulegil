@@ -150,7 +150,9 @@ public class FreeBoardController {
 	}
 
 	// 댓글
-	@RequestMapping(value = "/freeCAction/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/freeCAction/{gbn}", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String freeCAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
@@ -185,6 +187,8 @@ public class FreeBoardController {
 		return mapper.writeValueAsString(model);
 	}
 
+	
+	
 	@RequestMapping(value = "/commentAjax", 
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")
@@ -194,24 +198,20 @@ public class FreeBoardController {
 
 		Map<String, Object> model = new HashMap<String, Object>();
 
-	
-	
-		  int cnt =dao.getInt("free.getCCnt",params);//댓글갯수
-		  
-		 
-		  HashMap<String, Integer> pd =
-		 ips.getPagingData(Integer.parseInt(params.get("cpage")), cnt,5,1); //페이징하는데
-		  
-			params.put("start", Integer.toString(pd.get("start")));
-			params.put("end", Integer.toString(pd.get("end")));
-	
-		  
-			List<HashMap<String, String>> list = dao.getList("free.getCList", params);
-		
-		
+		int cnt =dao.getInt("free.getCCnt",params);//댓글갯수
+
+		HashMap<String, Integer> pd =
+				ips.getPagingData(Integer.parseInt(params.get("cpage")), cnt,5,1); //페이징하는데
+
+		params.put("start", Integer.toString(pd.get("start"))); //댓글 시작
+		params.put("end", Integer.toString(pd.get("end"))); //댓글 끝
+
+		List<HashMap<String, String>> list = dao.getList("free.getCList", params);
+
+
 		model.put("list", list);
-		
-		model.put("pd", pd);//페이지가 없눈데
+
+		model.put("pd", pd);//
 
 		return mapper.writeValueAsString(model);
 

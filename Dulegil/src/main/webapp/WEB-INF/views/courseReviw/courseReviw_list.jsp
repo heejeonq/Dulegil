@@ -16,6 +16,8 @@
 $(document).ready(function(){
 	reloadList();
 	
+
+	
 	if("${param.searchGbn}" !=""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
