@@ -6,17 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 등록</title>
-<script type="text/javascript">
-$(document).ready(function() {
-	CKEDITOR.replace("ct", {
-		resize_enabled : false, 
-        language : "ko", 
-        enterMode : "2", 
-        width : "700px", 
-        height : 450
-	});
-});
-</script>
 <style type="text/css">
 body input{
 	font-family: "Gothic A1";
@@ -95,6 +84,25 @@ input:focus {
 	margin-right: 10px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+	CKEDITOR.replace("ct", {
+		resize_enabled : false, 
+        language : "ko", 
+        enterMode : "2", 
+        width : "700px", 
+        height : 450
+	});
+	
+	$("#canBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+	
+	$("#regBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+});
+</script>
 </head>
 <body>
 	<!--  header 1  -->
@@ -135,8 +143,8 @@ input:focus {
 				</div>
 			</div>
 			<div id="buttons">
-				<input type="button" value="취소" class="myButton" />
-				<input type="button" value="등록" class="myButton" /> 
+				<input type="button" value="취소" class="myButton" id="canBtn" />
+				<input type="button" value="등록" class="myButton" id="regBtn" /> 
 			</div>
 		</div>
 	</div>

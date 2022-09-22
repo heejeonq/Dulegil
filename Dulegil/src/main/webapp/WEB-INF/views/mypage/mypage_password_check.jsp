@@ -23,7 +23,7 @@ $(document).ready(function(){
 	
 	$("#confirmBtn").on("click", function(){
 		if($.trim($("#pwd").val()) == "") {
-			makeAlert("알림", "비밀번호를 입력하세요", function(){;
+			makeAlert("알림", "비밀번호를 입력해주세요.", function(){;
 				$("#pwd").focus();	
 			});
 		}
@@ -40,7 +40,11 @@ $(document).ready(function(){
 						location.href = "mypageMyinfoUpdate";
 					}
 					else{
-						makeAlert("알림", "비밀번호가 틀립니다.");
+						makeAlert("알림", "비밀번호가 틀렸습니다.",function(){
+						$("#pwd").val("");	
+						$("#pwd").focus();
+						});
+						
 					}
 				},
 				error : function(request, status, error) {
