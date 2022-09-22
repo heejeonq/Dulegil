@@ -1,24 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:include page="../../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이벤트 작성</title>
+<title>이벤트 등록</title>
+<script type="text/javascript">
+$(document).ready(function() {
+	CKEDITOR.replace("ct", {
+		resize_enabled : false, 
+        language : "ko", 
+        enterMode : "2", 
+        width : "700px", 
+        height : 450
+	});
+});
+</script>
 <style type="text/css">
+body input{
+	font-family: "Gothic A1";
+	font-weight: 600;
+}
 
-#Cname {
-	width: 100%;
-	margin: 10px 0px;
-	text-align: left;
-	padding: 15px 0;
+#hd2_CC{
+	padding: 20px 45px 0;
 }
 
 #Ctitle {
 	width: 100%;
-	height: 32px;
 	text-align: left;
+	margin-bottom: 10px;
 }
 
 #Ccontents {
@@ -26,32 +38,36 @@
 	height: 10%;
 }
 
-#ct {
-	margin-top: 20px;
-}
-
 #buttons {
-	height: 10%;
-	text-align: right;
+	text-align: center;
+	margin-right: 125px;
+    margin-top: 10px;
 }
 
 .CTN {
 	width: 8%;
-    /* text-align: right; */
     display: inline-block;
-    font-size: 12px;
+    font-size: 11pt;
     padding: 4px;
     line-height: revert;
 }
 
 .CTC {
-	width: 39%;
-    height: 60%;
     display: inline-block;
     text-align: left;
-    vertical-align: middle;
-    border-bottom: 1px solid #ddd;
+    vertical-align: top;
     position: relative;
+}
+
+.CTC input[type='text']{
+	width: 700px;
+    height: 28px;
+	border: 1px solid #ddd;
+}
+
+.CTC input[type='date']{
+	width: 150px;
+	height: 28px
 }
 
 .commentBox {
@@ -60,15 +76,6 @@
 	width: 708px;
 	height: 36px;
 	border: 1px solid #ddd;
-}
-
-.commentBoxT {
-	border: none;
-	width:100%;
-	height: 86%;
-	position: absolute;
-	font-family: 'Gothic A1';
-    font-weight: 500;
 }
 
 .checkbox {
@@ -80,13 +87,12 @@
 	position: relative;
 }
 
-.textarea {
-	border: 1px solid #ddd;
+input:focus {
 	outline: none;
 }
 
-input:focus {
-	outline: none;
+.myButton{
+	margin-right: 10px;
 }
 </style>
 </head>
@@ -94,42 +100,45 @@ input:focus {
 	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
-		<div id="hd2_content">
-			<div id="hd2_Cname"></div>
-
-			<div id="hd2_CC">
-				<div id="CCbox">
-					<div id="Cname">
-						<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>이벤트
-						추가
-					</div>
-					<div id="Ctitle">
-						<div class="CTN">제목</div>
-						<div class="CTC">
-
-							<input type="text" class="commentBoxT">
-						</div>
-					</div>
-					<div id="Ctitle">
-						<div class="CTN">날짜</div>
-						<div class="CTC">
-							<input type="date" class="commentBoxT" />
-						</div>
-					</div>
-					<div id="Ctitle">
-						<div class="CTN"> ~ </div>
-						<div class="CTC">
-							<input type="date" class="commentBoxT" />
-						</div>
-					</div>
-					<textarea rows="30" cols="60" id="ct" name="ct" class="textarea"></textarea>
-					<div id="buttons">
-						<input type="button" value="추가" class="myButton" /> <input
-							type="button" value="목록" class="myButton" />
-					</div>
-
-				</div>
+	<div id="hd2_content">
+		<div id="hd2_Cname">
+			<div id="Cname_box">
+				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>
+				이벤트 등록
 			</div>
 		</div>
+		<div id="hd2_CC">
+			<div>
+				<div id="Ctitle">
+					<div class="CTN">제목</div>
+					<div class="CTC">
+						<input type="text" class="commentBoxT">
+					</div>
+				</div>
+				<div id="Ctitle">
+					<div class="CTN">시작일</div>
+					<div class="CTC">
+						<input type="date" class="commentBoxT" />
+					</div>
+				</div>
+				<div id="Ctitle">
+					<div class="CTN">종료일</div>
+					<div class="CTC">
+						<input type="date" class="commentBoxT" />
+					</div>
+				</div>
+				<div id="Ctitle">
+					<div class="CTN">내용</div>
+					<div class="CTC">
+						<textarea id="ct" name="ct" class="textarea"></textarea>
+					</div>
+				</div>
+			</div>
+			<div id="buttons">
+				<input type="button" value="취소" class="myButton" />
+				<input type="button" value="등록" class="myButton" /> 
+			</div>
+		</div>
+	</div>
 </body>
 </html>

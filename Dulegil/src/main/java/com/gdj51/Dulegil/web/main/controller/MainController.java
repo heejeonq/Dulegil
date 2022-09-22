@@ -36,9 +36,9 @@ public class MainController {
 		if (session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
-			cnt = dao.getInt("main.alarmCnt", params);
+			cnt = dao.getInt("header.alarmCnt", params);
 
-			List<HashMap<String, String>> data = dao.getList("main.AANm", params);
+			List<HashMap<String, String>> data = dao.getList("header.AANm", params);
 
 			mav.addObject("data", data);
 			mav.addObject("cnt", cnt);
