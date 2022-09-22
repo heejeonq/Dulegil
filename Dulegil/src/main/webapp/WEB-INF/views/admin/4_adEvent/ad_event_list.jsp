@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:include page="../../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +10,15 @@
 <title>이벤트 목록</title>
 <!-- 달력 -->
 <script src='resources/css/fullcalendar/main.js'></script>
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	$(".regBtn").on("click", function() {
 		location.href = "adEvtReg";
 	});
 	
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
+		contentHeight:"500px",
 		events : {
 		    url: 'evtListAjax',
 		    method: 'POST',
@@ -28,8 +28,6 @@ $(document).ready(function(){
 		}
 	});
 	calendar.render();
-	
-	
 });
 </script>
 </head>
@@ -40,13 +38,12 @@ $(document).ready(function(){
 	<div id="hd2_content">
 		<div id="hd2_Cname">
 			<div id="Cname_box">
-				<span class="material-symbols-outlined"
-					style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">
-					event_note </span>이벤트 목록
+				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span>
+				이벤트 목록
 			</div>
 		</div>
 		<div id="hd2_CC_left">
-			<div id="calendar" style="width: 500px"></div>
+			<div id="calendar"></div>
 			<div id="write">
 				<input type="button" value="이벤트 추가" class="regBtn" /> 
 			</div>
@@ -55,7 +52,7 @@ $(document).ready(function(){
 			<div id="search">
 				<div class="Sbar1">
 					<select class="sel">
-						<option>카테고리</option>
+						<option>선택</option>
 						<option>제목</option>
 						<option>내용</option>
 					</select>
