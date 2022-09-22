@@ -16,7 +16,7 @@ FROM(	SELECT M.MEMBER_NO, BT.BLTNBOARD_NM, M.NM, M.EMAIL, C.CONTENTS, C.COMMENT_
                			INNER JOIN BOARD_TYPE BT
                 			ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
 		WHERE C.DEL_DT IS NULL)A
-WHERE A.RNK BETWEEN #{start} AND ${end}
+WHERE A.RNK BETWEEN #{start} AND #{end}
 <if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
