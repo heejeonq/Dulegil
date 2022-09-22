@@ -55,7 +55,7 @@ public class adMemberController {
 			produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String adCmtAjax(
+	public String adMemAjax(
 			@RequestParam HashMap<String, String> params)throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -74,7 +74,7 @@ public class adMemberController {
 	}
 	
 	
-	// 댓글 삭제 
+	// 회원 ajax
 	@RequestMapping(value="/adMemAction/{gbn}",
 					method = RequestMethod.POST,
 					produces = "text/json;charset=UTF-8")
@@ -89,9 +89,9 @@ public class adMemberController {
 		
 		try {
 			switch(gbn) {
-			case "checkDel" : cnt=dao.update("adMember.checkDel",params);
+			case "delete" : cnt=dao.update("adMember.delete",params);
 			break;
-			case "del" : cnt=dao.update("adMember.del",params);
+			case "update" : cnt=dao.update("adMember.update",params);
 			break;
 			}
 			if(cnt>0) {
@@ -108,5 +108,27 @@ public class adMemberController {
 		return mapper.writeValueAsString(model);
 	}
 
+	
+	
+	
+	// 리스트 취득
+		@RequestMapping(value="/adMemUpdateList")
+		public ModelAndView adMemUpdateList(
+				@RequestParam HashMap<String, String> params,
+				ModelAndView mav) throws Throwable{
+
+
+			int page = 1;
+
+			if(params.get("page") != null && params.get("page") != "") {
+				page = Integer.parseInt(params.get("page"));
+			}
+			
+			mav.addObject("page", page);
+			mav.setViewName("admin/2_adMember/ad_member_update");
+			return mav;
+		}
+
+		
 
 }

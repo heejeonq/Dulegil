@@ -83,8 +83,8 @@ AND M.AUTHORITY_NO = 2
 
 
 
-<!-- 체크박스 삭제 -->
-<update id ="checkDel" parameterType="hashmap">
+<!-- 삭제 -->
+<update id ="delete" parameterType="hashmap">
 UPDATE MEMBER SET DEL_DT = SYSDATE
 WHERE MEMBER_NO IN (${no})
 </update>
@@ -93,8 +93,8 @@ WHERE MEMBER_NO IN (${no})
 
 
 <!-- 개별 삭제 -->
-<update id ="del" parameterType="hashmap">
-UPDATE MEMBER SET DEL_DT = SYSDATE
+<update id ="update" parameterType="hashmap">
+UPDATE MEMBER SET EMAIL = #{email}
 WHERE MEMBER_NO = #{no}
 </update>
 
