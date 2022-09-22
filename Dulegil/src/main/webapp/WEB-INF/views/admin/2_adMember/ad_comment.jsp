@@ -22,6 +22,7 @@
 <!-- 폰트 -->
 <link rel="stylesheet" href="resources/css/fonts.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/admin.css">
+
 <style type="text/css">
 
 /*오른쪽 전체 크기*/
@@ -240,7 +241,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
@@ -456,7 +457,7 @@ $(document).ready(function(){
 				},{
 					name : "취소"
 				}]	
-			})
+			}); // makePop
 		}
 	});
 
@@ -678,13 +679,12 @@ function reloadList(){
 			<div id="hd2_CC">
 				<div id="CCbox">
 
-					<input type="hidden" id="searchGbn" name="searchGbn"
-						value="${param.searchGbn}" /> <input type="hidden" id="searchTxt"
-						name="searchTxt" value="${param.searchTxt}" />
+					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
+					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 
 					<!-- 기존 검색 내용 유지용 -->
-					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> <input
-						type="hidden" id="oldTxt" value="${param.searchTxt}" />
+					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+					<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 
 					<!-- 검색 구분 -->
 					<div id="hd2_search">
@@ -704,8 +704,7 @@ function reloadList(){
 							</div>
 
 							<div class="Sbar2">
-								<input type="text" class="commentBoxT" name="searchTxt"
-									value="${param.searchTxt}" />
+								<input type="text" class="commentBoxT" name="searchTxt" value="${param.searchTxt}" />
 							</div>
 
 							<div class="Sbar3">

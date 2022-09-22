@@ -15,6 +15,12 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+<!-- 팝업 CSS -->
+<link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
+
+<!-- 폰트 -->
+<link rel="stylesheet" href="resources/css/fonts.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
 
 <style type="text/css">
 
@@ -178,7 +184,6 @@ input:focus {
 }
 
 .Sbar2 {
-	width: 13%;
 	height: 46%;
 	display: inline-block;
 	text-align: left;
@@ -188,7 +193,6 @@ input:focus {
 }
 
 .Sbar1 {
-	width: 8%;
 	height: 46%;
 	display: inline-block;
 	text-align: left;
@@ -199,18 +203,63 @@ input:focus {
 
 .commentBoxT {
 	border: none;
-	width: 96%;
+	width: 94%;
 	height: 86%;
 }
 
 .sel {
 	border: none;
 	outline: none;
-	position: absolute;
+	/*position: absolute;*/
 	/* margin: auto; */
 	width: 100%;
 	height: 100%;
 }
+
+/* 페이징 */
+#header2 #hd2_CC #hd2_paging {
+	display: inline-block;
+	margin-top: 3px;
+	text-align: -webkit-center;
+	width: 40%;
+	height: 5%;
+}
+
+#header2 #hd2_CC #hd2_paging #pBtn {
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+	margin-right: 11px;
+}
+
+#header2 #hd2_CC #hd2_paging #pBtn_GD {
+	width: 15px;
+	height: 15px;
+	margin-right: 11px;
+	display: inline-block;
+	border: none;
+	font-size: 12px;
+}
+
+.pBtn {
+	border: none;
+	font-size: 12px;
+	background-color: white;
+	display: inline-box;
+}
+
+.pBtn_GD {
+	border: none;
+	font-size: 12px;
+	background-color: #ECECEC;
+	display: inline-box;
+}
+
+.pBtn:hover {
+	background-color: #ECECEC;
+}
+
+
 </style>
 
 <script type="text/javascript"
@@ -274,6 +323,388 @@ $(document).ready(function(){
 	
 });
 </script>
+<!-- 팝업 js -->
+<script type="text/javascript" src="resources/script/common/popup.js"></script>
+<script type="text/javascript"
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	// 로그아웃 버튼 클릭시
+	$("#logoutBtn").on("click", function() {
+		location.href = "adLogout";
+	});
+	
+	
+	// 메뉴 - 관리자 계정 관리 
+	$("#actMngBtn").on("click", function() {
+		location.href = "adAccountMng";
+	});
+	
+	
+	// 메뉴 - 공지사항
+	$("#ntcBtn").on("click", function() {
+		location.href = "adNtList";
+	});
+	
+	
+	// 메뉴 - 이벤트관리
+	$("#evtBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+	
+	
+	// 메뉴 - 웹사이트 활동 집계
+	$("#webTotalBtn").on("click", function() {
+		location.href = "adWebTotal";
+	});
+	
+	
+	// 메뉴 - 회원관리
+	$("#memMngBtn").on("click", function() {
+		location.href = "adMemList";
+	});
+	
+	// 메뉴 - 신고 내역 관리
+	$("#memRepBtn").on("click", function() {
+		location.href = "adMemRep";
+	});
+	
+	// 메뉴 - 게시물 관리
+	$("#memPostBtn").on("click", function() {
+		location.href = "adMemPost";
+	});
+	
+	// 메뉴 - 댓글 관리
+	$("#memCmtBtn").on("click", function() {
+		location.href = "adMemCmt";
+	});
+	
+	
+	
+	
+	
+	// 목록 구분 설정
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}	
+	reloadList();
+	
+	// 검색 버튼 클릭시
+	$("#hdSearch").on("click", function(){
+		$("#page").val("1");
+		
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	});
+	
+	
+	// 페이징 버튼
+	$("#hd2_paging").on("click", ".pBtn", function(){
+			// 기존 검색상태 유지
+			$("#searchGbn").val($("#oldGbn").val());
+			$("#searchTxt").val($("#oldTxt").val());
+			
+			$("#page").val($(this).attr("page"));
+			reloadList();		
+		});
+
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// thead 체크박스
+	$("thead").on("click", "#allCheck", function(){
+		if($(this).is(":checked")){
+			$("tbody #Check").prop("checked", true);
+		}else{
+			$("tbody #Check").prop("checked", false);			
+		}
+		
+		var arr = [];
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		$("#no").val(arr);
+	});	
+	
+	
+	// tbody 체크박스 선택시 값 보내기
+	$("tbody").on("click", "#Check", function(){
+		var arr = [];
+		
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == $("tbody #Check").length){
+			$("thead #allChecked", true)
+		}else{
+			$("thead #allCheck").prop("checked", false);
+		}
+			// arr에 체크된 곳에 no 값을 넣어줌
+			$("#no").val(arr);		
+	});
+	
+	
+	
+	// 개별 삭제
+	$("tbody").on("click", "#delBtn", function() {
+		//$("#no").val($(this).val());
+		//console.log($("#no").val());
+		//console.log($(this).val());
+		
+
+		// 안됨
+		//var no = $(this).val();
+		//$("#no").val(no);	
+		
+		// xml ${no}도 됨 
+		var commentNo= $(this).parent().parent().attr("no");
+		$("#no").val(commentNo);	
+		console.log($("#no").val());
+		console.log($(this).val()); // 왜 안돼??
+		
+		
+		makePopup({
+			title : "알림",
+			contents : "삭제하시겠습니까?",
+			buttons : [ {
+				name : "삭제",
+				func : function() {
+					var params = $("#actionForm").serialize();
+					$.ajax({
+						url : "adMemAction/del", //경로 주소 새로생기면 컨트롤러 가
+						type : "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
+						dataType : "json", //
+						data : params, //json 으로 보낼데이터
+						success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
+							console.log(res);
+
+							switch (res.msg) {
+
+							case "success":
+								location.href = "adMemList"
+								break;
+							case "fail":
+								makeAlert("알림", "삭제에 실패하였습니다.")
+								break;
+							case "error":
+								makeAlert("알림", "삭제중 문제가 발생하였습니다.")
+								break;
+							}
+
+						},
+						error : function(request, status, error) { //실패했을 때 함수 실행
+							console.log(request. responseText); //실패 상세내역
+						}
+
+					});
+				}
+			}, {
+				name : "취소"
+			} ]
+		});
+	});
+
+	
+	
+	// check 삭제
+	$("#deleteBtn").on("click", function(){
+		var arr = [];
+		
+		
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		console.log(arr);
+
+		
+		if(arr.length == ""){
+			makeAlert("알림", "삭제할 댓글을 선택해주세요.");
+		}else{
+			makePopup({
+				title : "알림",
+				contents : "삭제 하시겠습니까?",
+				buttons	: [{
+					name : "삭제",
+					func : function(){
+						// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
+						var params = $("#actionForm").serialize();
+						console.log(params);
+						$.ajax({
+							url : "adMemAction/checkDel",
+							type :"POST",
+							dataType :"json",
+							data : params,
+							success : function(res){
+								// 성공했을 때 결과를 res에 받고 함수 실행
+								
+								switch(res.msg){
+								case "success" :
+									reloadList();
+									break;
+								case "fail" :
+									makeAlert("알림", "삭제에 실패했습니다.")
+									break;
+								case "exception" :
+									makeAlert("알림", "삭제 중 문제가 발생했습니다.")
+									break;
+								}
+							},
+							error : function(request, status, error){
+								console.log(request.responseText);
+								
+							}
+						});
+						
+						closePopup();
+					}
+				},{
+					name : "취소"
+				}]	
+			})
+		}
+	});
+
+	
+}); // document ready end
+
+
+// 게시글 목록 함수
+function drawList(list){
+var html = "";
+
+for(var data of list){
+	//"+ +"
+html += "<tr class=\"tr_td\"no=\"" +data.MEMBER_NO +"\">";
+html += "<td>"+ data.MEMBER_NO +"</td>";
+html += "<td>"+ data.AUTHORITY_NO +"</td>";
+html += "<td>"+ data.NM +"</td>";
+html += "<td>"+ data.EMAIL +"</td>";
+html += "<td>"+ data.PHONE_NO +"</td>";
+html += "<td>"+ data.DATE_BIRTH +"</td>";
+html += "<td>"+ data.GENDER +"</td>";
+html += "<td>"+ data.ADDRESS +"</td>";
+html += "<td>"+ data.SCOURE +"</td>";
+html += "<td>"+ data.CNT +"</td>";
+html += "<td>	<span class=\"material-icons-outlined\" style=\"font-size: 14px; cursor: pointer;\"> \edit\ </span>";
+html += "		<span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
+html += "</td>";
+html += "</tr>";
+}
+
+$("tbody").html(html);
+};
+
+
+
+
+	
+
+	function drawPaging(pd){
+		var html = "";
+		// " + + " 복사
+		
+		// 처음
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"1\" value=\"<<\" class=\"pBtn\" />";
+		html += "</div>";
+		
+		//이전
+		if($("#page").val()=="1"){		
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"1\" value=\"<\" class=\"pBtn\" />";
+			html += "</div>";
+			
+		} else{
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"<\" class=\"pBtn\" />";
+			html += "</div>";
+		}
+		
+		// 현재 페이지
+		for(var i = pd.startP; i<=pd.endP; i++){
+			if($("#page").val() * 1 == i){
+				html += "<div id=\"pBtn_GD\">";
+				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn_GD\" />";
+				html += "</div>";		
+			}else{
+				html += "<div id=\"pBtn\">";
+				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
+				html += "</div>";	
+				
+			}
+		}
+		
+		
+		
+		// 다음
+		if($("#page").val() * 1 == pd.maxP){
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">\" class=\"pBtn\" />";
+			html += "</div>";	
+		}else{
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\">\" class=\"pBtn\" />";
+			html += "</div>";	
+		}
+		
+		// 끝
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">>\" class=\"pBtn\" />";
+		html += "</div>";
+		
+		$("#hd2_paging").html(html);
+	};
+	
+	
+
+function reloadList(){
+	var params = $("#actionForm").serialize();
+	
+	$.ajax({
+		url:"adMemAjax",
+		type: "POST",
+		dataType: "json",
+		data : params,
+		success : function(res){
+			drawList(res.list);
+			drawPaging(res.pd);
+			console.log(res);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+			
+		}
+		
+		
+	});
+	
+}; // reloadList end
+
+</script>
+
+
+
+
+
+
 
 
 
@@ -375,22 +806,36 @@ $(document).ready(function(){
 
 			<div id="hd2_CC">
 				<div id="CCbox">
+				<input type="hidden" id="searchGbn" name="searchGbn"
+						value="${param.searchGbn}" /> <input type="hidden" id="searchTxt"
+						name="searchTxt" value="${param.searchTxt}" />
+
+					<!-- 기존 검색 내용 유지용 -->
+					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> <input
+						type="hidden" id="oldTxt" value="${param.searchTxt}" />
+					<!-- 검색 부분 -->
 					<div id="hd2_search">
+					<form action="#" id="actionForm" method="post">
+							<input type="hidden" name="no" id="no" /> 
+							<input type="hidden" name="page" id="page" value="${page}" />
+					
 						<div class="Sbar1">
-							<select class="sel">
-								<option>회원번호</option>
-								<option>아이디</option>
-								<option>성별</option>
-								<option>주소</option>
-								<option>신뢰도</option>
+							<select class="sel" name="searchGbn" id="searchGbn">
+								<option value="0">회원번호</option>
+								<option value="1">아이디</option>
+								<option value="2">성별</option>
+								<option value="3">주소</option>
+								<option value="4">신뢰도</option>
 							</select>
 						</div>
 						<div class="Sbar2">
-							<input type="text" class="commentBoxT" />
+							<input type="text" class="commentBoxT" name="searchTxt"
+									value="${param.searchTxt}" />
 						</div>
 						<div class="Sbar3">
 							<input type="button" id="hdSearch" value="검색" />
 						</div>
+						</form>
 					</div>
 
 
@@ -400,10 +845,9 @@ $(document).ready(function(){
 							<tr>
 								<th colspan="1">회원번호</th>
 								<th colspan="1">권한</th>
-								<th colspan="1">아이디</th>
-								<th colspan="1">이름</th>
-								<th colspan="1">휴대폰 번호</th>
+								<th colspan="1">닉네임</th>
 								<th colspan="1">이메일</th>
+								<th colspan="1">휴대폰 번호</th>
 								<th colspan="1">생년월일</th>
 								<th colspan="1">성별</th>
 								<th colspan="1">주소</th>
@@ -414,92 +858,8 @@ $(document).ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="tr_td">
-								<td>1</td>
-								<td>회원</td>
-								<td>lemonpoundcake</td>
-								<td>정시원</td>
-								<td>010-0000-0000</td>
-								<td>lemon@gmail.com</td>
-								<td>2022/11/11</td>
-								<td>여</td>
-								<td>가산디지털단지</td>
-								<td>★★★★★ / 5</td>
-								<td>0</td>
-								<td><span class="material-icons-outlined"
-									style="font-size: 14px; cursor: pointer;"> edit </span> <span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr class="tr_td">
-								<td>1</td>
-								<td>회원</td>
-								<td>lemonpoundcake</td>
-								<td>정시원</td>
-								<td>010-0000-0000</td>
-								<td>lemon@gmail.com</td>
-								<td>2022/11/11</td>
-								<td>여</td>
-								<td>가산디지털단지</td>
-								<td>★★★★★ / 5</td>
-								<td>0</td>
-								<td><span class="material-icons-outlined"
-									style="font-size: 14px; cursor: pointer;"> edit </span> <span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr class="tr_td">
-								<td>1</td>
-								<td>회원</td>
-								<td>lemonpoundcake</td>
-								<td>정시원</td>
-								<td>010-0000-0000</td>
-								<td>lemon@gmail.com</td>
-								<td>2022/11/11</td>
-								<td>여</td>
-								<td>가산디지털단지</td>
-								<td>★★★★★ / 5</td>
-								<td>0</td>
-								<td><span class="material-icons-outlined"
-									style="font-size: 14px; cursor: pointer;"> edit </span> <span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr class="tr_td">
-								<td>1</td>
-								<td>회원</td>
-								<td>lemonpoundcake</td>
-								<td>정시원</td>
-								<td>010-0000-0000</td>
-								<td>lemon@gmail.com</td>
-								<td>2022/11/11</td>
-								<td>여</td>
-								<td>가산디지털단지</td>
-								<td>★★★★★ / 5</td>
-								<td>0</td>
-								<td><span class="material-icons-outlined"
-									style="font-size: 14px; cursor: pointer;"> edit </span> <span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr class="tr_td">
-								<td>1</td>
-								<td>회원</td>
-								<td>lemonpoundcake</td>
-								<td>정시원</td>
-								<td>010-0000-0000</td>
-								<td>lemon@gmail.com</td>
-								<td>2022/11/11</td>
-								<td>여</td>
-								<td>가산디지털단지</td>
-								<td>★★★★★ / 5</td>
-								<td>0</td>
-								<td><span class="material-icons-outlined"
-									style="font-size: 14px; cursor: pointer;"> edit </span> <span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
 							
+						
 						</tbody>
 					</table>
 				</div>

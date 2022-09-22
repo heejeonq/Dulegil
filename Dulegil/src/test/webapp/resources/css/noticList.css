@@ -1,0 +1,102 @@
+
+.content{
+	display: inline-block;
+    width: 100%;
+    height: 690px;
+    font-size: 30px;
+    margin: 0 auto;
+    text-align: center; 	
+}
+
+.noticCon{
+	width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+
+}
+.noticConTit{
+	width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    border-bottom: 2px solid #ddd;
+}
+.pTit{
+	font-size:14px;
+	text-align:center;
+}
+.listTit{
+	width: 100%;
+    font-size: 14px;
+    line-height: 28px;
+    color: #222;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: break-word;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    text-align:left;
+}
+.labelNotic{
+	width: 70px;
+    height: 26px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #77bdeb;
+    border: 1px solid #77bdeb;
+    border-radius: 30px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    float: left;
+}
+.num{
+	 font-size: 14px;
+	  display: inline-block;
+}
+.p:hover{
+	color:#77bdeb;
+}
+
+.date{
+	width: 100px;
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 0px;
+    text-align: right;
+    float: right;
+}
+.file,.hit{
+	float: right;
+    margin: 0px 1px;
+    padding: 0px 5px;
+}
+
+.emptyBox{
+	width:100%;
+	height:100px;
+}
+.fileF{
+	float: right;
+	margin-right:40px;
+}
+
+.fileF img{
+	    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+
+

@@ -12,6 +12,7 @@ SELECT COUNT(*) AS CNT
 FROM BOARD_TYPE T INNER JOIN  BULLETIN_BOARD B 
 	ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
 WHERE B.DEL_DT IS NULL
+AND B.MEMBER_NO = #{sMemNo}
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
 		<when test="searchGbn eq 0">
@@ -29,6 +30,7 @@ SELECT COUNT(*) AS CNT
 FROM COMMENTS C INNER JOIN  BULLETIN_BOARD B 
 	ON C.POST_NO = B.POST_NO
 WHERE C.DEL_DT IS NULL
+AND C.MEMBER_NO = #{sMemNo}
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
 		<when test="searchGbn eq 0">
@@ -116,5 +118,6 @@ WHERE C.RNUM BETWEEN #{start} AND #{end}
 	  UPDATE COMMENTS SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
       WHERE POST_NO IN(${delete})
 </update>
+
 
 </mapper>

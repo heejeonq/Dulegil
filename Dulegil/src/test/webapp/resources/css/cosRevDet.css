@@ -1,0 +1,119 @@
+
+.tit_cos, .tit_writer, .tit_date {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 15px;
+	color: grey;
+	line-height: 50px;
+	margin:0px 5px 0px 5px;
+}
+
+.tit_cos {
+	font-size: 20px;
+	color: black;
+}
+
+
+
+.emptyBox {
+	width: 80%;
+	height: 50px;
+	margin: 0 auto;
+}
+.imgg{
+	width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.te {
+	width: 1000px;
+	padding: 20px;
+	font-size: 14px;
+	text-align: left;
+	margin: 0 auto;
+}
+
+.box {
+	height: 100px;
+	margin: 0 auto;
+}
+
+.box2 {
+	width: 90%;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+
+#upBtn  {	
+	margin-top:4px;
+	margin-left:10px;
+}
+
+#delBtn{
+	margin-top:4px;
+	margin-left:380px;
+}
+
+#listBtn{
+	float: right;
+	margin-left:50px;
+	margin-top:4px;
+}
+
+
+
+.goodBtn {
+    vertical-align: top;
+    font-size: 11px;
+    width: 60px;
+    height:60px;
+    border: 1px solid #f5f3f3;
+    cursor: pointer;
+    border-radius: 50px;
+    margin: 3px;
+    padding: 9px;
+    background-color: #f5f3f3;
+    margin: 0 auto;
+    text-align:center;
+}
+.goodCnt{
+	font-size: 12px;
+}
+
+	
+
+.reporTit{
+	font-size:14px;
+}
+
+
+.reporBtn {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 11px;
+	width: 88px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	border-radius: 3px;
+	box-shadow: 0 0 #87a86f;
+	padding: 9px;
+	float: left;
+	
+}
+
+.report img, .like img {
+	transition: all ease 0.25s;
+}
+
+.report img:hover, .like img:hover {
+	transform: rotate(45deg);
+}
+
+.reporTit {
+	font-size: 12px;
+}
+

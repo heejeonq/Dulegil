@@ -1,0 +1,85 @@
+
+.tit_cos, .tit_writer, .tit_date{
+	display: inline-block;
+	vertical-align: top;
+	font-size:15px;
+	color:grey;
+	line-height:50px;
+	margin:0px 5px 0px 5px;
+}
+.tit_cos{
+	font-size:20px;
+	color:black;	
+}
+
+.emptyBox {
+  
+    width: 90%;
+    height: 50px;
+    margin: 0 auto;
+    text-align: left;
+
+}
+
+
+.te{
+	width:1000px;
+	padding:20px;
+	font-size:14px;
+	text-align:left;
+	margin:0 auto;
+}
+.box{
+	height: 100px;
+	margin: 0 auto;		
+}
+.box2{
+	width: 90%;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+#updateBtn  {	
+	margin-top:4px;
+	margin-left:10px;
+}
+
+#deleteBtn{
+	margin-top:4px;
+	margin-left:380px;
+}
+
+#listBtn{
+	float: right;
+	margin-left:50px;
+	margin-top:4px;
+}
+
+.reporBtn{
+  	display: inline-block;
+	vertical-align: top;
+	font-size: 11px;
+	width: 88px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	border-radius: 3px;
+	box-shadow: 0 0 #87a86f;
+	padding: 9px;
+	float: left;
+}
+.report img{
+	transition: all ease 0.25s;
+}
+.report img:hover{
+	transform: rotate(45deg);
+}
+
+
+.reporTit{
+	font-size:12px;
+}
+
+
+
+

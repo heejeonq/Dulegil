@@ -15,6 +15,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	reloadList();
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+
 	
 	if("${param.searchGbn}" !=""){
 		$("#searchGbn").val("${param.searchGbn}");
@@ -100,7 +107,7 @@ function drawList(list) {
 		
 	html +=	"<tr no =\"" + data.POST_NO + "\">";
 	html +=	"<td> " + data.POST_NO + "</td>";
-	html +=	"<td> " +data.TITLE + "</td>";
+	html +=	"<td> " +data.TITLE + " ("+ data.CNT +")"+  "</td>";
 	html +=	"<td>" + data.NM + " </td>";
 	html +=	"<td>" + data.DT + " </td>";
 	html +=	"<td>" + data.HIT + "</td>";
