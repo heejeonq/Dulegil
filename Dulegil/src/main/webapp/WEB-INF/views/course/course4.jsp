@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>코스 안내</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
-<link rel="stylesheet" href="resources/css/course.css" type="text/css">
+<link rel="stylesheet" href="resources/css/course.css" />
 <script type="text/javascript">
 $(document).ready(function(){
 	$("ul.infoBtn li").click(function(){
@@ -25,9 +25,8 @@ $(document).ready(function(){
 <body>
 
 	<!-- Header -->
-		<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 
-	
 	<!-- Container -->
 	<div class="container-main">
 		<div class="mainWrap">

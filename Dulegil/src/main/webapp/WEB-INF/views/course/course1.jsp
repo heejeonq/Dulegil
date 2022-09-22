@@ -10,31 +10,22 @@
 <link rel="stylesheet" href="resources/css/course.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	$('ul.infoBtn li').click(function(){
-		var tab_id = $(this).attr('data-tab');
+	$("ul.infoBtn li").click(function(){
+		var tab_id = $(this).attr("data-tab");
 
-		$('ul.infoBtn li').removeClass('on');
-		$('.infoArd').removeClass('on');
+		$("ul.infoBtn li").removeClass("on");
+		$(".infoArd").removeClass("on");
 
-		$(this).addClass('on');
-		$("#"+tab_id).addClass('on');
+		$(this).addClass("on");
+		$("#"+tab_id).addClass("on");
 	});
-	
-	$.ajax({
-		  method: "POST",
-		  url: "some.php",
-		  data: { name: "John", location: "Boston" }
-		})
-		  .done(function( msg ) {
-		    alert( "Data Saved: " + msg );
-		  });
 });
 </script>
 </head>
 <body>
 
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 	
 	<!-- Container -->
 	<div class="container-main">

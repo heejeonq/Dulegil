@@ -10,14 +10,14 @@
 <link rel="stylesheet" href="resources/css/course.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	$('ul.infoBtn li').click(function(){
-		var tab_id = $(this).attr('data-tab');
+	$("ul.infoBtn li").click(function(){
+		var tab_id = $(this).attr("data-tab");
 
-		$('ul.infoBtn li').removeClass('on');
-		$('.infoArd').removeClass('on');
+		$("ul.infoBtn li").removeClass("on");
+		$(".infoArd").removeClass("on");
 
-		$(this).addClass('on');
-		$("#"+tab_id).addClass('on');
+		$(this).addClass("on");
+		$("#"+tab_id).addClass("on");
 	});
 });
 </script>
@@ -25,11 +25,10 @@ $(document).ready(function(){
 <body>
 
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 	
 	<!-- Container -->
 	<div class="container-main">
-	
 		<div class="mainWrap">
 			<div class="tit">코스 별 상세 안내</div>
 			<div class="col"></div>
