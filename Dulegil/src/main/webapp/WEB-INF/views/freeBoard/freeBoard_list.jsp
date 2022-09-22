@@ -15,6 +15,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	reloadList();
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+
 	
 	if("${param.searchGbn}" !=""){
 		$("#searchGbn").val("${param.searchGbn}");

@@ -48,9 +48,12 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,CC.CN
         ON G.MEMBER_NO = M.MEMBER_NO
         LEFT OUTER JOIN(SELECT COUNT(*)AS CNT,POST_NO
                         FROM COMMENTS
+                        WHERE DEL_DT IS NULL
                         GROUP BY POST_NO)
                      CC ON G.POST_NO=CC.POST_NO
-		<if test="searchTxt != null and searchTxt !=''">
+        )F
+        WHERE F.RNUM BETWEEN #{start} AND #{end}
+        <if test="searchTxt != null and searchTxt !=''">
 			<choose>
 				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
 				<when test="searchGbn eq 0">
@@ -64,8 +67,6 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,CC.CN
 				</when>
 			</choose>		
 		</if>
-        )F
-        WHERE F.RNUM BETWEEN #{start} AND #{end}
 </select>
 
 <!-- 게시글등록 -->
