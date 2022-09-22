@@ -9,7 +9,32 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
-<title>코스후기작성</title>
+<title>코스후기수정</title>
+<style type="text/css">
+
+
+.imgFile{
+	display:none;
+}
+.attold span{
+width: 90%;
+ 	font-size: 13px;
+    line-height: 30px;
+    color: gray;
+    border-bottom: 1px solid gray;
+}
+.fileDelBtn{	
+    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
+
+}
+</style>
 
 <script type="text/javascript">
 $(document).ready(function(){	
@@ -148,8 +173,8 @@ $("#insertBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				<!-- <input type="hidden" name="courseNo" id="courseNo" /> -->
-				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<!-- <input type="hidden" name="courseNo" id="courseNo" />실 저장된 파일명 보관용 -->
+				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
 				
 				<div class="titNm">제목</div>
 				<div class="titBox">

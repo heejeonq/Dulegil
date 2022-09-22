@@ -26,20 +26,25 @@ WHERE BLTNBOARD_NO=1
 				<when test="searchGbn eq 2">
 				AND NM LIKE '%'|| #{searchTxt} ||'%'
 				</when>
+				<when test="searchGbn eq 3">
+				AND BC.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
+				OR COURSE_NM LIKE '%'|| #{searchTxt} ||'%'
+				
+				</when>
 			</choose>		
 		</if>
 </select>
 
 <!-- 목록 -->
 <select id="courseRList" parameterType="hashmap" resultType="hashmap">
-SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.BLTNBOARD_NO,F.MEMBER_NO,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.RNUM,F.GOOD,F.NM
+SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.BLTNBOARD_NO,F.MEMBER_NO,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.RNUM,F.GOOD,F.NM,F.CNT
 FROM(SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
  CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')                 
        			END AS DT,
                 ROW_NUMBER() OVER(ORDER BY BB.POST_NO DESC) AS RNUM,
-               NVL(CNT,0)AS GOOD
+               NVL(CNT,0)AS GOOD,NVL(CCNT,0)AS CNT
 FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               INNER JOIN BULLETIN_BOARD BB ON BC.POST_NO=BB.POST_NO  
               INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
@@ -47,7 +52,12 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               SELECT COUNT(*)AS CNT,POST_NO
               FROM GOOD
               GROUP BY POST_NO) G
-              ON BB.POST_NO= G.POST_NO 
+              ON BB.POST_NO= G.POST_NO  
+              LEFT OUTER JOIN 
+              (SELECT COUNT(*)AS CCNT,POST_NO
+               FROM COMMENTS
+               WHERE DEL_DT IS NULL
+             GROUP BY POST_NO) CC ON BB.POST_NO=CC.POST_NO
 WHERE BLTNBOARD_NO=1
 	<if test="searchTxt != null and searchTxt !=''">
 			<choose>
@@ -61,16 +71,49 @@ WHERE BLTNBOARD_NO=1
 				<when test="searchGbn eq 2">
 				AND NM LIKE '%'|| #{searchTxt} ||'%'
 				</when>
+				<when test="searchGbn eq 3">
+				AND C.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
+				OR COURSE_NM LIKE '%'|| #{searchTxt} ||'%'
+				</when>
 			</choose>		
 		</if>
+
 )F
 WHERE F.RNUM BETWEEN #{start} AND #{end}
 
 </select> 
+<!-- 게시글 등록 -->
+<insert id="insert" parameterType="hashmap">
+INSERT ALL
+INTO BULLETIN_BOARD(POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE,REG_DT)
+VALUES(COMMUNITY_SEQ.NEXTVAL,1,#{memberNo},#{title},#{contents},#{imgFile},SYSDATE)
+INTO BOARD_COURSE(POST_NO,COURSE_NO)VALUES(COMMUNITY_SEQ.NEXTVAL,#{courseNo})
+SELECT * FROM DUAL
+</insert>
+
+<!-- 삭제 -->
+<update id="delete" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO= #{no}
+</update>
+
+<!-- 수정 -->
+<update id="update"  parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE=#{imgFile}
+WHERE POST_NO=#{no}
+</update>
+
+
+<!-- 조회수 -->
+<update id="updateCRHit" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET HIT = HIT+1
+WHERE BLTNBOARD_NO =1
+AND POST_NO= #{no}
+</update>
 
 <!-- 상세보기 -->
 <select id="getCR" parameterType="hashmap" resultType="hashmap">
-SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GOOD      
+SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GOOD,F.MEMBER_NO     
 FROM (SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
  CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
@@ -88,34 +131,9 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               ON BB.POST_NO= G.POST_NO            
 WHERE BLTNBOARD_NO=1
 )F
+WHERE POST_NO=#{no}
 </select>
 
-<!-- 등록 -->
-<insert id="insert" parameterType="hashmap">
-INSERT ALL
-INTO BULLETIN_BOARD(POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE,REG_DT)
-VALUES(COMMUNITY_SEQ.NEXTVAL,1,#{memberNo},#{title},#{contents},#{imgFile},SYSDATE)
-INTO BOARD_COURSE(POST_NO,COURSE_NO)VALUES(COMMUNITY_SEQ.NEXTVAL,#{courseNo})
-SELECT * FROM DUAL
-</insert>
 
-<!-- 수정 -->
-<update id="update"  parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE=#{imgFile}
-WHERE POST_NO=#{no}
-</update>
-
-<!-- 삭제 -->
-<update id="delete" parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
-WHERE POST_NO= #{no}
-</update>
-
-<!-- 조회수 -->
-<update id="updateCRHit" parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET HIT = HIT+1
-WHERE BLTNBOARD_NO =2
-AND POST_NO= #{no}
-</update>
 
 </mapper>

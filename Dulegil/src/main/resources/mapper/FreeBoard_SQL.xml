@@ -51,22 +51,24 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,CC.CN
                         WHERE DEL_DT IS NULL
                         GROUP BY POST_NO)
                      CC ON G.POST_NO=CC.POST_NO
+                     WHERE 1=1
+            <if test="searchTxt != null and searchTxt !=''">
+				<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>		
+			</if>
         )F
         WHERE F.RNUM BETWEEN #{start} AND #{end}
-        <if test="searchTxt != null and searchTxt !=''">
-			<choose>
-				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
-				<when test="searchGbn eq 0">
-				AND TITLE LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn eq 1">
-				AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
-				</when>
-				<when test="searchGbn eq 2">
-				AND NM LIKE '%'|| #{searchTxt} ||'%'
-				</when>
-			</choose>		
-		</if>
+    
 </select>
 
 <!-- 게시글등록 -->

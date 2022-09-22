@@ -151,7 +151,7 @@ function drawPaging(pd){
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 	
 
 

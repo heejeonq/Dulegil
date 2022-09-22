@@ -78,9 +78,14 @@ public class FreeBoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/FREEAction/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/FREEAction/{gbn}", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String FREEAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String FREEAction(
+			@PathVariable String gbn, 
+			@RequestParam HashMap<String, String> params) 
+					throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -132,13 +137,14 @@ public class FreeBoardController {
 
 	// 상세보기
 	@RequestMapping(value = "/freeBoardDetail")
-	public ModelAndView freeBoardDetail(@RequestParam HashMap<String, String> params, ModelAndView mav)
-			throws Throwable {
+	public ModelAndView freeBoardDetail(
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav)throws Throwable {
+		
 		if (params.get("no") != null && params.get("no") != "") {
 			dao.update("updateTHit", params);
 
 			HashMap<String, String> data = dao.getMap("free.getF", params);
-
 			mav.addObject("data", data);
 
 			mav.setViewName("freeBoard/freeBoard_detail");
