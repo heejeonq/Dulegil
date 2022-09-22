@@ -70,7 +70,7 @@ $(document).ready(function (){
 		type: "GET", //전송방식 (GET:주소형태, POST: 주소 헤더형태)
 		dataType: "json",//데이터 형태
 		success : function(res) { //성공했을 때 결과를 res에 받고 함수 실행
-
+				console.log(res);
 				$("[name='duleMap']").on("mouseover", "area", function(){
 					for(var i=0; i<res.length; i++){
 							if($(this).attr("title") == res[i].title){

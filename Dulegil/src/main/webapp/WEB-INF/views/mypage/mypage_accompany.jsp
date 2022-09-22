@@ -13,8 +13,22 @@
 $(document).ready(function(){
 	reloadList();
 	
-	
-	
+	//별점 그리기
+	$("#memRate").on("change", ".star input", function(){
+		$(this).parent().children().eq(0).css("width", $(this).val()*20 + "%");
+		console.log($(this).val());
+	})
+	//별점 주기
+	$("#memRate").on("click","#confirmBtn" , function(){
+		let amemNo = $(this).parent().parent().attr("amemNo");
+		let postNo = $(this).parent().parent().parent().attr("postNo");
+		let rateValue = $(this).parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(1).val();
+		$("#applyMemNo").val(amemNo);
+		$("#applyPostNo").val(postNo);
+		$("#rateValue").val(rateValue);
+		
+		action("rateUpdate");
+	});
 	//신고하기
 	$("#memRate").on("click", ".singo img", function(){
 	
@@ -28,11 +42,12 @@ $(document).ready(function(){
 		
 	});
 	
+	//동행 신청자 수락 버튼 클릭시 
 	$(".join_mem_list").on("click", "#acceptBtn" , function(){
 		
-		var memNo = $(this).parent().parent().attr("memNo");
+		var amemNo = $(this).parent().parent().attr("amemNo");
 		var postNo = $(this).parent().parent().attr("postNo");
-		$("#applyMemNo").val(memNo);
+		$("#applyMemNo").val(amemNo);
 		$("#applyPostNo").val(postNo);
 		$("#stateNo").val(2);
 
@@ -41,21 +56,20 @@ $(document).ready(function(){
 	});
 	
 	$(".join_mem_list").on("click", "#rejectBtn" , function(){
-		var memNo = $(this).parent().parent().attr("memNo");
+		var amemNo = $(this).parent().parent().attr("amemNo");
 		var postNo = $(this).parent().parent().attr("postNo");
-		$("#applyMemNo").val(memNo);
+		$("#applyMemNo").val(amemNo);
 		$("#applyPostNo").val(postNo);
 		
 		$("#stateNo").val(0);
 		action("applyMemUpdate");
 	});
-
-	function action(flag){
+});
+function action(flag){
 
 		 var params = $("#actionForm").serialize();
 	     console.log(params);
-	
-	
+
 	     $.ajax({
 	        url:"accompanyAjax/" + flag, 
 	        type:"POST", 
@@ -64,7 +78,7 @@ $(document).ready(function(){
 	        success: function(res) { 
 	        	switch(res.msg) {
 	        	case "success" : 
-
+					
 	        		reloadList();
 	        		break;
 	        	
@@ -78,6 +92,7 @@ $(document).ready(function(){
 	        }, 
 	        error: function(request, status, error) { 
 	           console.log(request.responseText); 
+	           
 	        }
 	     });// Ajax End
 	} 
@@ -137,7 +152,7 @@ function drawList(list1, list2, list3, list4, list5){
 		html1 += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
 		html1 += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
 		html1 += "	</tr>                                                               ";
-		html1 += "	<tr memNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">                                                              ";
+		html1 += "	<tr amemNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">                                                              ";
 		html1 += "		<td class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>    ";
 		html1 += "		<td class=\"mem_id\">" + data.NM +"</td>                                     ";
 		html1 += "		<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>                                      ";
@@ -219,7 +234,7 @@ function drawList(list1, list2, list3, list4, list5){
 		html5 += "	<col width=\"15%\">";
 		html5 += "	<col width=\"15%\">";
 		html5 += "</colgroup>";
-		html5 += "<tbody class=\"postNo" + data.POST_NO + "\">";
+		html5 += "<tbody class=\"postNo" + data.POST_NO + "\" postNo=\"" + data.POST_NO + "\">";
 		html5 += "	<tr>                                                                                     ";
 		html5 += "		<th class=join_title>" + data.POST_NO +"</th>                                      ";
 		html5 += "		<th class=join_title>" + data.COURSE_NO +"코스</th>                                      ";
@@ -266,61 +281,42 @@ function drawList2(memList){
 		html2 += "			</div>                                                                               ";
 		html2 += "		</td>                                                                                    ";
 		html2 += "	</tr>                                                                                        ";
-		html2 += "	<tr>                                                                                         ";
+		html2 += "	<tr amemNo=\"" + data.MEMBER_NO+ "\">                                                                                         ";
 		html2 += "		<td colspan=\"2\">                                                                         ";
 		html2 += "			<div class=\"startRadio\">                                                             ";
-		html2 += "				<label class=\"startRadio__box\">                                                  ";
-		html2 += "					<input type=\"radio\" name=\"star\" value=\"0.5\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 1개</span></span>       ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                  ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 1.5개</span></span>     ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 2개</span></span>       ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 2.5개</span></span>     ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 3개</span></span>       ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 3.5개</span></span>     ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 4개</span></span>       ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 4.5개</span></span>     ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 5개</span></span>       ";
-		html2 += "				</label>                                                                         ";
-		html2 += "				<label class=\"startRadio__box\">                                                   ";
-		html2 += "					<input type=\"radio\" name=\"star\">                                       ";
-		html2 += "					<span class=\"startRadio__img\"><span class=\"blind\">별 5.5개</span></span>     ";
-		html2 += "				</label>                                                                         ";
-		html2 += "			</div>                                                                               ";
-		html2 += "		</td>                                                                                    ";
-		html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\" ></td>                            ";
+		html2 += "				<span class=\"star\">★★★★★															";
+		html2 += "					<span>★★★★★</span>";
+		if(data.SCOURE != null){
+			html2 += "					<input type=\"range\"  value=\"" + data.SCOURE+ "\" step=\"0.5\" min=\"0\" max=\"5\" class=\"q\"disabled=\"disabled\" >";
+			html2 += "				</span>";
+			html2 += "			</div>                                                                               ";
+			html2 += "		</td>                                                                                    ";
+			html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\" id=\"confirmBtn\" disabled=\"disabled\"></td>                            ";
+		} 
+		else {
+			html2 += "					<input type=\"range\"  value=\"0\" step=\"0.5\" min=\"0\" max=\"5\" class=\"q\">";
+			html2 += "				</span>";
+			html2 += "			</div>                                                                               ";
+			html2 += "		</td>                                                                                    ";
+			html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\" id=\"confirmBtn\"></td>                            ";
+		}
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "	</tr>";	
+
 	}
 	
 	$(".historyNo" + data.POST_NO).html(html1);
 	$(".postNo" + data.POST_NO).append(html2);
+	
+	$("input[type='range']").each(function() {
+		$(this).parent().children("span").css("width", $(this).val() * 20 + "%");
+	});
 }
-});
+
+
+
+
 
 </script>
 </head>
@@ -340,9 +336,11 @@ function drawList2(memList){
 				<input type="hidden" name="postNo" id="postNo">
 			</form>
 			<form action="#" id="actionForm">
-				<input type="hidden" name="memNo" id="applyMemNo">
+				<input type="hidden" name="memNo">
+				<input type="hidden" name="amemNo" id="applyMemNo">
 				<input type="hidden" name="postNo" id="applyPostNo">
 				<input type="hidden" name="stateNo" id="stateNo">
+				<input type="hidden" name="rate" id="rateValue">
 			</form>
 
 			<div class="mypage_contents">

@@ -47,7 +47,7 @@
 
 <update id="applyMemUpdate" parameterType="hashmap">
 	UPDATE ACCOMPANY_APPLY SET STATE_NO = #{stateNo}
-    WHERE MEMBER_NO = #{memNo}
+    WHERE MEMBER_NO = #{amemNo}
     AND POST_NO = #{postNo}
 </update>
 
@@ -74,7 +74,7 @@
 <select id="accompanyMemList" resultType="hashmap" parameterType="hashmap">
 	
  <!--내가 동행글 작성자일 때  -->
-    SELECT AM.NM, BB.POST_NO, AM.IMG_FILE
+    SELECT AM.NM, BB.POST_NO, AM.IMG_FILE, AM.MEMBER_NO, R.SCOURE
     FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
                                    ON BB.POST_NO = BC.POST_NO
                            INNER JOIN BOARD_ACCOMPANY BA
@@ -87,12 +87,17 @@
                                    ON AM.MEMBER_NO = AA.MEMBER_NO
                            INNER JOIN MEMBER MEM 
                                    ON BB.MEMBER_NO = MEM.MEMBER_NO
+                            LEFT JOIN RELIABILITY R
+                                   ON BB.POST_NO = R.POST_NO
+                                   AND MEM.MEMBER_NO = R.RATING_MEMBER_NO
+                                   AND AM.MEMBER_NO = R.TARGET_RATING_MEMBER_NO
    WHERE MEM.MEMBER_NO = #{memNo}
    AND BB.POST_NO = #{postNo}
    UNION
    <!-- 내가 신청자일 때  -->
-  SELECT M.NM, A.POST_NO, M.IMG_FILE
-   FROM MEMBER M INNER JOIN (
+  SELECT M.NM, A.POST_NO, M.IMG_FILE, M.MEMBER_NO, SCOURE
+   FROM MEMBER M 
+   INNER JOIN (
    SELECT ACMP, ABC.POST_NO
    FROM (
    SELECT BB.MEMBER_NO, BB.POST_NO, AA.MEMBER_NO AS ACMP, BB.TITLE
@@ -108,9 +113,9 @@
       ) CBA ON ABC.POST_NO = CBA.POST_NO 
      UNION 
       
-    SELECT ACMP, ABC.POST_NO
+   SELECT ACMP, ABC.POST_NO
    FROM (
-   SELECT AA.MEMBER_NO, BB.POST_NO, BB.MEMBER_NO AS ACMP, BB.TITLE
+  SELECT AA.MEMBER_NO, BB.POST_NO, BB.MEMBER_NO AS ACMP, BB.TITLE
    FROM ACCOMPANY_APPLY AA INNER JOIN BULLETIN_BOARD BB
                                    ON AA.POST_NO = BB.POST_NO       
    ) ABC INNER JOIN
@@ -122,6 +127,10 @@
                         AND M.MEMBER_NO = #{memNo}
       ) CBA ON ABC.POST_NO = CBA.POST_NO  
       ) A ON A.ACMP = M.MEMBER_NO
+      LEFT JOIN RELIABILITY R
+                   ON A.ACMP = R.TARGET_RATING_MEMBER_NO
+                   AND A.POST_NO = R.POST_NO
+                   AND R.RATING_MEMBER_NO = #{memNo}
     WHERE M.MEMBER_NO != #{memNo} 
     AND A.POST_NO = #{postNo}                                                                             
 	
@@ -146,4 +155,16 @@
     ORDER BY ACCOMPANY_DT DESC                                                                                          
 	
 </select>	
+<insert id="rateUpdate" parameterType="hashmap">
+	INSERT INTO RELIABILITY(POST_NO, TARGET_RATING_MEMBER_NO, RATING_MEMBER_NO, SCOURE)
+ 	VALUES(#{postNo}, #{amemNo}, #{memNo}, #{rate})
+</insert>
+
+<select id="accompanyScoure" resultType="hashmap" parameterType="hashmap">
+	SELECT SCOURE
+	FROM RELIABILITY
+	WHERE POST_NO = #{postNo}
+	AND TARGET_RATING_MEMBER_NO = #{amemNo}
+	AND RATING_MEMBER_NO = #{amemNo}                       
+</select>
 </mapper>
