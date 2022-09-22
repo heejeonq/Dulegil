@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.btn {
+  text-decoration: none;
+  color: #000;
+  height: 35px;
+  width: 50px;
+  display: inline-block;
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.21);
+  border-radius: 3px;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  text-align: center;
+	border: 1px solid #eff3f6;
+}
+
+
+.green {
+	background-color: #f0c41994 ;
+}
+.btn.green:active {
+	background-color: #fdc806;
+}
+.gray {
+	background-color: #78808c;
+}
+
+.btn.green:disabled {
+	background-color: #D1B757;
+}

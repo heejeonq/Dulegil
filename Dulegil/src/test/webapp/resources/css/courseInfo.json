@@ -1,0 +1,76 @@
+[{
+	"title" : "1코스",
+	"courseDe": "수락·불암산코스",
+    "courseDis": "18.6km",
+    "courseTm": "8시간 10분",
+    "courseLvl": "고급",	
+    "courseP1": "course1a",
+    "courseP2": "course1b",
+    "courseP3": "course1c"
+},{
+	"title" : "2코스",
+	"courseDe": "용마·아차산코스",
+    "courseDis": "12.3km",
+    "courseTm": "5시간 10분",
+    "courseLvl": "중급",
+     "courseP1": "course2a",
+    "courseP2": "course2b",
+    "courseP3": "course2c"	
+},{
+	"title" : "3코스",
+	"courseDe": "고덕·일자산코스",
+    "courseDis": "25.6km",
+    "courseTm": "8시간50분",
+    "courseLvl": "초급"	,
+     "courseP1": "course3a",
+    "courseP2": "course3b",
+    "courseP3": "course3c"
+},{
+        "title" : "4코스",
+        "courseDe": "대모·우면산코스",
+        "courseDis": "18.3km",
+        "courseTm": "8시간10분",
+        "courseLvl": "중급",
+        "courseP1": "course4a",
+    "courseP2": "course4b",
+    "courseP3": "course4c"
+},{
+    "title" : "5코스",
+	"courseDe": "관악·호암산코스",
+    "courseDis": "13.0km",
+    "courseTm": "6시간",
+    "courseLvl": "중급",
+     "courseP1": "course5a",
+    "courseP2": "course5b",
+    "courseP3": "course5c"	
+},{
+"title" : "6코스",
+"courseDe": "안양천·한강코스",
+"courseDis": "18.2km",
+"courseTm": "4시간 30분",
+"courseLvl": "초급",
+ "courseP1": "course6a",
+    "courseP2": "course6b",
+    "courseP3": "course6c"	
+},{
+"title" : "7코스",
+"courseDe": "봉산·앵봉산코스",
+"courseDis": "16.8km",
+"courseTm": "6시간 25분",
+"courseLvl": "중급",
+ "courseP1": "course7a",
+    "courseP2": "course7b",
+    "courseP3": "course7c"	
+},{
+"title" : "8코스",
+"courseDe": "북한·도봉산산코스",
+"courseDis": "33.7km",
+"courseTm": "16시간30분",
+"courseLvl": "중급",
+ "courseP1": "course8a",
+    "courseP2": "course8b",
+    "courseP3": "course8c"	
+}
+]
+
+    

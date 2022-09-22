@@ -20,7 +20,9 @@ $(document).ready(function(){
 	//알람 버튼
 	$(".alarm").on("click", function(){
 		if($(".alarm_contents").css("display") == "none"){
-			$(".alarm_contents").show();		
+			$(".alarm_contents").show();
+			
+			
 		}
 		else {
 			$(".alarm_contents").hide();
@@ -62,9 +64,9 @@ $(document).ready(function(){
 				</li>
 				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num">${cnt}</span>
 					<div class="alarm_contents">
-						<ul>
-							<c:forEach var="data" items="${data}">
-								<li>${data.NM}님이 동행을 신청하였습니다</li>
+						<ul> 
+							<c:forEach var="d" items="${data}">
+								<li>${d.MNM}님이 동행을 신청하였습니다</li>
 							</c:forEach>
 						</ul>
 					</div>
