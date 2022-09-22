@@ -8,40 +8,40 @@
 <!-- 목록 -->
 <select id="list" resultType="hashmap">
 SELECT A.MEMBER_NO, A.AUTHORITY_NO, A.NM, A.EMAIL, A.PHONE_NO, A.DATE_BIRTH, A.GENDER, A.ADDRESS, A.SCOURE, A.CNT, A.REG_DT, A.DEL_DT,A.RNK
-FROM(   SELECT M.MEMBER_NO, M.AUTHORITY_NO, M.NM, M.PHONE_NO, M.EMAIL, M.DATE_BIRTH, M.GENDER, M.ADDRESS, REL.SCOURE, RP.CNT, M.REG_DT, M.DEL_DT,
-            ROW_NUMBER()OVER( ORDER BY M.REG_DT DESC) AS RNK
-        FROM MEMBER M INNER JOIN RELIABILITY REL
+    FROM(   SELECT M.MEMBER_NO, M.AUTHORITY_NO, M.NM, M.PHONE_NO, M.EMAIL, M.DATE_BIRTH, M.GENDER, M.ADDRESS, REL.SCOURE, RP.CNT, M.REG_DT, M.DEL_DT,
+            	ROW_NUMBER()OVER( ORDER BY M.REG_DT DESC) AS RNK
+            FROM MEMBER M LEFT JOIN RELIABILITY REL
                          ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
-                     LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
-                                         FROM REPORT                                   
-                                         WHERE TARGET_REPORT_MEMBER_NO = 1
-                                         GROUP BY TARGET_REPORT_MEMBER_NO   )RP
+                    	 LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
+                                       		  FROM REPORT                                   
+                                       		  GROUP BY TARGET_REPORT_MEMBER_NO   )RP
                           ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
-        WHERE M.DEL_DT IS NULL  )A
-WHERE A.RNK BETWEEN #{start} AND ${end}
-<if test="searchTxt != null and searchTxt != ''">
-	<choose>
-		<when test="searchGbn == 0">
-			AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-		</when>
-		<when test="searchGbn == 1">
-			AND NM LIKE '%' || #{searchTxt} || '%'
+       		 WHERE M.DEL_DT IS NULL  
+			 AND M.AUTHORITY_NO = 2
+			<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+					AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 1">
+					AND NM LIKE '%' || #{searchTxt} || '%'		
+				</when>
+				<when test="searchGbn == 2">
+					AND GENDER LIKE '%' || #{searchTxt} || '%'
 		
-		</when>
-		<when test="searchGbn == 2">
-			AND GENDER LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 3">
+					AND ADDRESS LIKE '%' || #{searchTxt} || '%'
 		
-		</when>
-		<when test="searchGbn == 3">
-			AND ADDRESS LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 4">
+					AND SCOURE LIKE '%' || #{searchTxt} || '%'
 		
-		</when>
-		<when test="searchGbn == 4">
-			AND SCOURE LIKE '%' || #{searchTxt} || '%'
-		
-		</when>
-	</choose>
-</if> 
+				</when>
+			</choose>
+		</if> 
+			)A
+WHERE A.RNK BETWEEN #{start} AND #{end}
 </select>
 
 
@@ -50,14 +50,14 @@ WHERE A.RNK BETWEEN #{start} AND ${end}
 <!-- 페이징 -->
 <select id="cnt" parameterType="hashmap" resultType="integer">	
 SELECT COUNT(*) AS CNT
-FROM MEMBER M INNER JOIN RELIABILITY REL
+FROM MEMBER M LEFT JOIN RELIABILITY REL
                		 ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
                 	LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
                                     FROM REPORT                                   
-                                    WHERE TARGET_REPORT_MEMBER_NO = 1
                                     GROUP BY TARGET_REPORT_MEMBER_NO)RP
                		 ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
-WHERE M.DEL_DT IS NULL		
+WHERE M.DEL_DT IS NULL	
+AND M.AUTHORITY_NO = 2	
 <if test="searchTxt != null and searchTxt != ''">
 	<choose>
 		<when test="searchGbn == 0">
