@@ -74,14 +74,17 @@ public class CourseReviewController {
 	}
 	
 	// 글쓰기 업뎃 수정
-	@RequestMapping(value = "/courseReviewdWrite")
-	public ModelAndView courseReviewdWrite(@RequestParam HashMap<String, String> params, ModelAndView mav)
-			throws Throwable {
-
-		mav.setViewName("freeBoard/freeBoard_write");
-
+	
+	@RequestMapping(value="/courseReviewWrite")
+	public ModelAndView courseReviewWrite(
+			@RequestParam HashMap<String,String> params,
+			ModelAndView mav) {
+		
+		mav.setViewName("courseReviw/courseReviw_write");
+		
 		return mav;
 	}
+	
 	
 	@RequestMapping(value = "/CoreseRevAction/{gbn}", 
 			method = RequestMethod.POST, 
@@ -158,16 +161,7 @@ public class CourseReviewController {
 		return mav;
 	}
 	
-	//글쓰기
-	@RequestMapping(value="/courseReviewWrite")
-	public ModelAndView courseReviewWrite(
-			@RequestParam HashMap<String,String> params,
-			ModelAndView mav) {
-		
-		mav.setViewName("courseReviw/courseReviw_write");
-		
-		return mav;
-	}
+
 	
 	//댓글
 	@RequestMapping(value="/CourseRevCAction/{gbn}",

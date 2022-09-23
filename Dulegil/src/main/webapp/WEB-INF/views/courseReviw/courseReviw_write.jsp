@@ -99,7 +99,7 @@ $("#insertBtn").on("click", function() {
     	   	               
     	   	                  },
     	   	                  error :function(request, status, error) { //실패했을 때 함수 실행
-    	   	                     console.log(request,responseText); //실패 상세내역
+    	   	                     console.log(request.responseText); //실패 상세내역
     	   	                  }
     	   	                  
     	   	               });
@@ -148,7 +148,7 @@ $("#insertBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				<!-- <input type="hidden" name="courseNo" id="courseNo" /> -->
+				 <input type="hidden" name="courseNo" id="courseNo" /> 
 				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
 				
 				<div class="titNm">제목</div>
