@@ -172,6 +172,7 @@ $(document).ready(function(){
  	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
 		$("#cpage").val($("#cpage").val() * 1 + 1);
+		$(".mainView4").empty();
 		reloadList(); 	
 	});
 }); //document
@@ -203,29 +204,22 @@ function action(flag){
          
          switch(res.msg){         
          case "success" :
-        	 $("#ccon").val(""); 
-        	 //페이지를 1로바꾸고
-        	 //empty
-        	 $("#cpage").val(1);
-        	 $("#cpage").empty();
-        	 //empty
-        		reloadList();
+        	 $("#ccon").val("");
+			
             //목록 재조회
             switch(flag) {
-            	case "insert" :  
+            	case "insert" : 
+            		$("#cpage").val(1);
+            		$(".mainView4").empty();
+            		reloadList();
             	case "delete":
-            		//조회 데이터 초기화
-            		//$("#page").val("1");
-            		//$("#searchGbn").val("0");
-            		//$("#searchText").val("");
-            		//$("#oldGbn").val("0");
-                 	//	$("#oldText").val("");
+            		$("#cpage").val(1);
+            		$(".mainView4").empty();
+            		reloadList();        
             		break;
             	case "update":
-            		//기존값 유지
-            	//	$("#searchGbn").val($("#oldGbn").val());
-				//	$("#searchText").val($("#oldText").val()); 
-					
+            		$(".mainView4").empty();
+            		reloadList();					
 					//입력내용 초기화
 					$("#cno").val("");		
 					$("#ccon").val("");		
@@ -234,8 +228,7 @@ function action(flag){
 					$(".update").hide();
             		break;
             }            
-            
-            
+                        
             break;
          case "fail" :
             makeAlert("알림", msg[flag]+"에 실패하였습니다.")
@@ -275,8 +268,8 @@ function reloadList(){
 
  function drawList(list) {
 //만약 다섯개 미만이면 버튼을 삭제하고	
-	if(list.length<5){
-		$("#moreBtn").remove();		
+	if(list.length<=5){
+		$("#moreBtn").hide();		
 	}else{
 		$("#moreBtn").show();
 		console.log("안나와");
@@ -303,7 +296,7 @@ function reloadList(){
  		}
  			html += " </div>";		
 	}//여기까지 for
-	$(".mainView4").append(html);
+	$(".mainView4").html(html);
 	
 		
 } 

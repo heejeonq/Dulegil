@@ -282,7 +282,6 @@ function reloadList(){
 	}
 	else{
 		$("#moreBtn").show();
-		console.log("안나와");
 	}
 	console.log(list);
 	
