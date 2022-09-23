@@ -53,12 +53,35 @@ $(document).ready(function(){
 		$("#actionForm").submit();
 	});
 	
+	$("thead").on("click", "#allChck", function(){
+		if($(this).is(":checked")){
+			$("tbody #delChck").prop("checked", true);
+		}else{
+			$("tbody #delChck").prop("checked", false);			
+		}
+		
+		var arr = [];
+		$("tbody #delChck:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		$("#delNo").val(arr);
+	});
+	
 	$("tbody").on("click", "#delChck", function(){
-	      var arr = [];
-	      $("#delChck:checked").each(function(){
-			arr.push($(this).parent().parent().attr("no"));
-	      });
-	      $("#delNo").val(arr);
+		var arr = [];
+		
+		$("tbody #delChck:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == $("tbody #delChck").length){
+			$("thead #allChck").prop("checked", true);
+		}else{
+			$("thead #allChck").prop("checked", false);
+		}
+		
+		$("#delNo").val(arr);		
 	});
 	
 	$("#evtDelBtn").on("click", function(){
@@ -239,7 +262,7 @@ function drawPaging(pd) {
 								<th>번호</th>
 								<th>제목</th>
 								<th>작성일</th>
-								<th>선택</th>
+								<th><input type="checkbox" id="allChck" name="allChck" /></th>
 							</tr>
 						</thead>
 						<tbody id="ccboxCon"></tbody>

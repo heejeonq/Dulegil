@@ -25,9 +25,6 @@ public class adNoticeController {
 	@Autowired
 	public IPagingService ips;
 
-
-
-
 	//리스트
 	@RequestMapping(value = "/adNtList")
 	public ModelAndView adNtList(
@@ -40,19 +37,12 @@ public class adNoticeController {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
-		
-		
-	
 		mav.addObject("page", page);
+		
 		mav.setViewName("admin/3_adNotice/ad_notice_list");
 
 		return mav;
 	}
-
-
-
-
-
 
 	// 리스트 아작스
 	@RequestMapping(value = "/adNtAjax",
@@ -61,11 +51,14 @@ public class adNoticeController {
 
 	@ResponseBody
 	public String adNtAjax(
+			
 			@RequestParam HashMap<String, String> params)throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
+		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		int cnt = dao.getInt("adNotice.cnt",params);
+		
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
 		
 		params.put("start", Integer.toString(pd.get("start")));
@@ -79,21 +72,12 @@ public class adNoticeController {
 		return mapper.writeValueAsString(model);
 	}
 
-
-
-
-
-
-
-
-
-
 	// 등록
 	@RequestMapping(value = "/adNtWrite")
 	public ModelAndView adNtWrite(
+			
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-
 
 		mav.setViewName("admin/3_adNotice/ad_notice_write");
 
@@ -140,12 +124,6 @@ public class adNoticeController {
 		return mapper.writeValueAsString(model);
 	}
 
-
-	
-
-
-
-
 	// 상세보기
 	@RequestMapping(value = "/adNtDetail")
 	public ModelAndView adNtDetail(
@@ -160,34 +138,23 @@ public class adNoticeController {
 		}else {
 			mav.setViewName("redirect:adNtList");
 		}
-
-
 		return mav;
 	}
 
-
-	
 	// 수정
-		@RequestMapping(value = "/adNtUpdate")
-		public ModelAndView adNtUpdate(
-				@RequestParam HashMap<String, String> params,
-				ModelAndView mav) throws Throwable {
-			
-			if(params.get("no") != null && params.get("no") != "") {
-				HashMap<String, String> data = dao.getMap("adNotice.detail", params);
+	@RequestMapping(value = "/adNtUpdate")
+	public ModelAndView adNtUpdate(
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		
+		if(params.get("no") != null && params.get("no") != "") {
+			HashMap<String, String> data = dao.getMap("adNotice.detail", params);
 
-				mav.addObject("data", data);
-				mav.setViewName("admin/3_adNotice/ad_notice_update");
-			}else {
-				mav.setViewName("redirect:adNtList");
-			}
-
-
-			return mav;
+			mav.addObject("data", data);
+			mav.setViewName("admin/3_adNotice/ad_notice_update");
+		}else {
+			mav.setViewName("redirect:adNtList");
 		}
-
-
-
-
-
+		return mav;
+	}
 }
