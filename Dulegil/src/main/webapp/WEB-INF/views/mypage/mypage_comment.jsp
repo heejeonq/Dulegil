@@ -45,14 +45,36 @@ $(document).ready(function(){
 		
 	});
 	
+	$("thead").on("click", "#allCheck", function(){
+		if($(this).is(":checked")){
+			$("tbody #deleteCheck").prop("checked", true);
+		}else{
+			$("tbody #deleteCheck").prop("checked", false);			
+		}
 	
-	$("tbody").on("click","#deleteCheck",function(){
 		var arr = [];
-		console.log("클릭됨")
-		$("#deleteCheck:checked").each(function(){
+		$("tbody #deleteCheck:checked").each(function(){
 			arr.push($(this).val());
-		})
+		});
+		
 		$("#delete").val(arr);
+	});	
+	
+	
+	$("tbody").on("click", "#deleteCheck", function(){
+		var arr = [];
+		
+		$("tbody #deleteCheck:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == $("tbody #deleteCheck").length){
+			$("thead #allCheck").prop("checked", true);
+		}else{
+			$("thead #allCheck").prop("checked", false);
+		}
+			// arr에 체크된 곳에 no 값을 넣어줌
+			$("#delete").val(arr);		
 	});
 	
 	reloadList();
@@ -212,7 +234,7 @@ function drawPaging(pd){
 								<th>글제목</th>
 								<th>댓글내용</th>
 								<th>작성일</th>
-								<th>삭제</th>
+								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							</tr>
 							</thead>
 							<tbody>

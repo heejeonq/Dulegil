@@ -76,15 +76,6 @@ $(document).ready(function(){
 			$("#delete").val(arr);		
 	});
 	
-	/*$("tbody").on("click","#deleteCheck",function(){
-		var arr = [];
-		console.log("클릭됨")
-		$("#deleteCheck:checked").each(function(){
-			arr.push($(this).val());
-		})
-		$("#delete").val(arr);
-	});*/
-	
 	reloadList();
 		
 	$("#delBtn").on("click",function(){

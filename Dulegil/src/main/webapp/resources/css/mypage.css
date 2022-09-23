@@ -364,13 +364,13 @@ img#preview {
     position: relative;
     border: 1px solid #eff3f6;
     border-radius: 4px;
-    margin-left: 90%;
+    margin-left: 88%;
 }
 
 /* Paging */
 .pagination {
     margin-bottom: 50px;
-    margin-left: 375px;
+    margin-left: 332.5px;
 }
 .pagination span {
     float: left;
