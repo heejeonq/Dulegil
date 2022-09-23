@@ -201,7 +201,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
@@ -222,7 +222,35 @@ $(document).ready(function(){
 	
 	
 	
+	// 목록 구분 설정
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}	
+	reloadList();
 	
+	// 검색 버튼 클릭시
+	$("#hdSearch").on("click", function(){
+		$("#page").val("1");
+		
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	});
+	
+	
+	// 페이징 버튼
+	$("#hd2_paging").on("click", ".pBtn", function(){
+			// 기존 검색상태 유지
+			$("#searchGbn").val($("#oldGbn").val());
+			$("#searchTxt").val($("#oldTxt").val());
+			
+			$("#page").val($(this).attr("page"));
+			reloadList();		
+		});
+
 	
 	
 	
@@ -244,11 +272,13 @@ function drawList(list){
 		// "+ +"
 		html += "<tr no=\"" +data.POST_NO +"\">";
 		html += "<td colspan=\"1\"><input type=\"checkbox\" /></td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"5\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ data.MEMBER_NO +"</td>";
+		
+		// 게시판 벨류 0,1,2 일때 이름 도출하는거 하기 
+		html += "<td colspan=\"1\">"+ data.BLTNBOARD_NO +"</td>";
+		html += "<td colspan=\"5\">"+ data.NM +"</td>";
+		html += "<td colspan=\"1\">"+ data.TITLE +"</td>";
+		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
 		html += "<td colspan=\"2\"><span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
 		html += "</tr>                                                                                                           ";
 	}
@@ -317,7 +347,7 @@ function reloadList(){
 	var params = $("#actionForm").serialize();
 	
 	$.ajax({
-		url:"adMemAjax",
+		url:"adPostAjax",
 		type: "POST",
 		dataType: "json",
 		data : params,
@@ -444,6 +474,7 @@ function reloadList(){
 				<div id="CCbox">
 					<!-- 검색 구분, 검색어 보내기 -->
 					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }"/>
+					<input type="hidden" id="searchGbn2" name="searchGbn2" value="${param.searchGbn2 }"/>
 					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }"/>
 
 					<!-- 기존 검색 내용 유지용 -->
@@ -465,7 +496,7 @@ function reloadList(){
 						</div>
 
 						<div class="Sbar11">
-							<select class="sel" name="searchGbn" id="searchGbn">
+							<select class="sel" name="searchGbn2" id="searchGbn2">
 								<option value="0">회원번호</option>
 								<option value="1">글번호</option>
 								<option value="2">아이디</option>

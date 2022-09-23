@@ -4,40 +4,70 @@
 
 
 
-
 <!-- 목록 -->
 <select id="list" resultType="hashmap">
-SELECT A.MEMBER_NO, A.AUTHORITY_NO, A.NM, A.EMAIL, A.PHONE_NO, A.DATE_BIRTH, A.GENDER, A.ADDRESS, A.SCOURE, A.CNT, A.REG_DT, A.DEL_DT,A.RNK
-    FROM(   SELECT M.MEMBER_NO, M.AUTHORITY_NO, M.NM, M.PHONE_NO, M.EMAIL, M.DATE_BIRTH, M.GENDER, M.ADDRESS, REL.SCOURE, RP.CNT, M.REG_DT, M.DEL_DT,
-            	ROW_NUMBER()OVER( ORDER BY M.REG_DT DESC) AS RNK
-            FROM MEMBER M LEFT JOIN RELIABILITY REL
-                         ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
-                    	 LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
-                                       		  FROM REPORT                                   
-                                       		  GROUP BY TARGET_REPORT_MEMBER_NO   )RP
-                          ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
-       		 WHERE M.DEL_DT IS NULL  
-			 AND M.AUTHORITY_NO = 2
+SELECT A.MEMBER_NO, A.POST_NO, A.BLTNBOARD_NO, A.NM, A.TITLE, A.REG_DT, A.RNK
+FROM(   SELECT M.MEMBER_NO, B.POST_NO, B.BLTNBOARD_NO, M.NM, B.TITLE, B.REG_DT,
+            ROW_NUMBER() OVER(ORDER BY B.REG_DT DESC)AS RNK
+        FROM MEMBER M INNER JOIN BULLETIN_BOARD B
+                        ON M.MEMBER_NO = B.MEMBER_NO
+        WHERE B.DEL_DT IS NULL  
 			<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchGbn == 0">
-					AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+					AND B.BLTNBOARD_NO = 1
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>					
 				</when>
+				
 				<when test="searchGbn == 1">
-					AND NM LIKE '%' || #{searchTxt} || '%'		
+				AND BLTNBOARD_NO = 2
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
 				</when>
+				
 				<when test="searchGbn == 2">
-					AND GENDER LIKE '%' || #{searchTxt} || '%'
-		
-				</when>
-				<when test="searchGbn == 3">
-					AND ADDRESS LIKE '%' || #{searchTxt} || '%'
-		
-				</when>
-				<when test="searchGbn == 4">
-					AND SCOURE LIKE '%' || #{searchTxt} || '%'
-		
-				</when>
+					AND BLTNBOARD_NO = 3
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>	
+							
 			</choose>
 		</if> 
 			)A
@@ -49,34 +79,68 @@ WHERE A.RNK BETWEEN #{start} AND #{end}
 
 <!-- 페이징 -->
 <select id="cnt" parameterType="hashmap" resultType="integer">	
-SELECT COUNT(*) AS CNT
-FROM MEMBER M LEFT JOIN RELIABILITY REL
-               		 ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
-                	LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
-                                    FROM REPORT                                   
-                                    GROUP BY TARGET_REPORT_MEMBER_NO)RP
-               		 ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
-WHERE M.DEL_DT IS NULL	
-AND M.AUTHORITY_NO = 2	
-<if test="searchTxt != null and searchTxt != ''">
-	<choose>
-		<when test="searchGbn == 0">
-			AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-		</when>
-		<when test="searchGbn == 1">
-			AND NM LIKE '%' || #{searchTxt} || '%'		
-		</when>
-		<when test="searchGbn == 2">
-			AND GENDER LIKE '%' || #{searchTxt} || '%'		
-		</when>
-		<when test="searchGbn == 3">
-			AND ADDRESS LIKE '%' || #{searchTxt} || '%'		
-		</when>
-		<when test="searchGbn == 4">
-			AND SCOURE LIKE '%' || #{searchTxt} || '%'		
-		</when>
-	</choose>
-</if> 
+  SELECT COUNT(*) AS CNT
+        FROM MEMBER M INNER JOIN BULLETIN_BOARD B
+                        ON M.MEMBER_NO = B.MEMBER_NO
+        WHERE B.DEL_DT IS NULL  
+			<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+					AND B.BLTNBOARD_NO = 1
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>					
+				</when>
+				
+				<when test="searchGbn == 1">
+				AND BLTNBOARD_NO = 2
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>
+				
+				<when test="searchGbn == 2">
+					AND BLTNBOARD_NO = 3
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>	
+							
+			</choose>
+		</if> 
 </select>
 
 
