@@ -77,18 +77,42 @@ public class adEventController {
 	}
 	
 	@RequestMapping(value = "adEvtDtl")
-	public ModelAndView adEvtDtl(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("admin/4_adEvent/ad_event_detail");
-
+	public ModelAndView adEvtDtl(
+			
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		
+		if(params.get("no") != null && params.get("no") != "") {
+			
+			HashMap<String, String> data = dao.getMap("evt.getEvtDtl", params);
+			
+			mav.addObject("data", data);
+			
+			mav.setViewName("admin/4_adEvent/ad_event_detail");
+			
+		}else {
+			mav.setViewName("redirect:adEvt");
+		}
 		return mav;
 	}
 	
 	@RequestMapping(value = "adEvtUpd")
-	public ModelAndView adEvtUpd(ModelAndView mav) throws Throwable {
-
-		mav.setViewName("admin/4_adEvent/ad_event_update");
-
+	public ModelAndView adEvtUpd(
+			
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		
+		if(params.get("no") != null && params.get("no") != "") {
+			
+			HashMap<String, String> data = dao.getMap("evt.getEvtDtl", params);
+		
+			mav.addObject("data", data);
+			
+			mav.setViewName("admin/4_adEvent/ad_event_update");
+			
+		}else {
+			mav.setViewName("redirect:adEvt");
+		}
 		return mav;
 	}
 	

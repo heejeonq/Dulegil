@@ -13,6 +13,10 @@
 #CCbox td{
 	padding-top: 15px;
 }
+#evtTit:hover, #pBtn:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
 <!-- 달력 -->
 <script src='resources/css/fullcalendar/main.js'></script>
@@ -20,34 +24,81 @@
 $(document).ready(function(){
 	reloadList();
 	
-	$("#searchBtn").on("click",function(){
+	$("#hdSearch").on("click", function(){
 		$("#page").val("1");
 		
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
-	})
+	});
 	
-	$("#paging").on("click","span",function(){
+	$("#paging").on("click", "span", function(){
 		
-		$("#searchGbn").val($("#oldGbn").val());
-		$("#searchTxt").val($("#oldTxt").val());
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
 		
 		$("#page").val($(this).attr("page"));
 		
 		reloadList();
 	});
 	
-	$("tbody").on("click","tr",function(){
-		$("#no").val($(this).attr("no"));
+	$("tbody").on("click", "#evtTit", function(){
+		$("#no").val($(this).parent().attr("no"));
 		
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
 		$("#actionForm").attr("action","adEvtDtl");
 		$("#actionForm").submit();
-		
+	});
+	
+	$("tbody").on("click", "#delChck", function(){
+	      var arr = [];
+	      $("#delChck:checked").each(function(){
+			arr.push($(this).parent().parent().attr("no"));
+	      });
+	      $("#delNo").val(arr);
+	});
+	
+	$("#evtDelBtn").on("click", function(){
+		makePopup({
+			title : "알림",
+			contents : "삭제하시겠습니까?",
+			buttons : [{
+				name : "삭제",
+				func:function() {
+					var params = $("#actionForm").serialize();
+					
+					$.ajax({
+						url:"adEvtAction/delete", 
+						type:"POST", 
+						dataType:"json", 
+						data : params,
+						success: function(res) { 
+							switch (res.msg) {
+							case "success":
+								makeAlert("알림", "삭제가 완료되었습니다.", function(){
+									location.href = "adEvt";
+								});
+								break;
+							case "fail":
+								makeAlert("알림", "삭제에 실패하였습니다.");
+								break;
+							case "error": 
+								makeAlert("알림", "삭제 중 문제가 발행하였습니다.");
+								break;
+							}
+						}, 
+						error: function(request, status, error) { 
+							console.log(request.responseText); 
+						}
+					});
+				}
+			}, {
+				name : "취소"
+			}]
+		});	
 	});
 	
 	var calendarEl = document.getElementById('calendar');
@@ -104,9 +155,9 @@ function drawList(list) {
 	for(var data of list){ 
 		html += "<tr no=\"" + data.POST_NO + "\">";
 		html += "<td>" + data.POST_NO + "</td>";
-		html += "<td style=\"width:50%;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">" + data.TITLE + "</td>";
+		html += "<td id=\"evtTit\" style=\"width:50%;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">" + data.TITLE + "</td>";
 		html += "<td>" + data.REG_DT + "</td>";
-		html += "<td><input type=\"checkbox\"/></td>";
+		html += "<td><input type=\"checkbox\" id=\"delChck\" value=\"" + data.POST_NO + "\" /></td>";
 		html += "</tr>";
 	}
 	$("#ccboxCon").html(html); 
@@ -140,11 +191,11 @@ function drawPaging(pd) {
 </script>
 </head>
 <body>
-	<!--  header 1  -->
-	<jsp:include page="../adHeader.jsp" flush="true"/>
-	
 	<input type="hidden" id="oldGbn"  value="${param.searchGbn}"/>
 	<input type="hidden" id="oldTxt"  value="${param.searchTxt}"/>
+	
+	<!--  header 1  -->
+	<jsp:include page="../adHeader.jsp" flush="true"/>
 
 	<div id="hd2_content">
 		<div id="hd2_Cname">
@@ -153,14 +204,15 @@ function drawPaging(pd) {
 				이벤트 목록
 			</div>
 		</div>
-		<div id="hd2_CC_left">
-			<div id="calendar"></div>
-		</div>	
-		<div id="hd2_CC_right">
-			<div id="search">
-				<form action="#" id="actionForm" method="post">
-					<input type="hidden" name="no" id="no"/>
-					<input type="hidden" name="page" id="page" value="${page}" />
+		<form action="#" id="actionForm" method="post">
+			<input type="hidden" id="no" name="no" />
+			<input type="hidden" name="delNo" id="delNo" />
+			<input type="hidden" name="page" id="page" value="${page}" />
+			<div id="hd2_CC_left">
+				<div id="calendar"></div>
+			</div>	
+			<div id="hd2_CC_right">
+				<div id="search">
 					<div class="Sbar1">
 						<select class="sel" id="searchGbn" name="searchGbn">
 							<option value="0">제목</option>
@@ -173,32 +225,32 @@ function drawPaging(pd) {
 					<div class="Sbar3">
 						<input type="button" id="hdSearch" value="검색" />
 					</div>
-				</form>
+				</div>
+				<div id="CCbox">
+					<table style="table-layout: fixed; width:500px;">
+						<colgroup>
+							<col width="50px">
+							<col width="300px">
+							<col width="100px">
+							<col width="50px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성일</th>
+								<th>선택</th>
+							</tr>
+						</thead>
+						<tbody id="ccboxCon"></tbody>
+					</table>
+				</div> 
+				<div id="write">
+					<input type="button" value="삭제" id="evtDelBtn" />
+				</div>
+				<div id="paging"></div>
 			</div>
-			<div id="CCbox">
-				<table style="table-layout: fixed; width:500px;">
-					<colgroup>
-						<col width="50px">
-						<col width="300px">
-						<col width="100px">
-						<col width="50px">
-					</colgroup>
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>글제목</th>
-							<th>작성일</th>
-							<th>선택</th>
-						</tr>
-					</thead>
-					<tbody id="ccboxCon"></tbody>
-				</table>
-			</div> 
-			<div id="write">
-				<input type="button" value="삭제" id="evtDelBtn" />
-			</div>
-			<div id="paging"></div>
-		</div>
+		</form>
 	</div>
 </body>
 </html>

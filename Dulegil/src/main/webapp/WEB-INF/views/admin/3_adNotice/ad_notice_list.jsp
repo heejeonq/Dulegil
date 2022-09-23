@@ -323,7 +323,7 @@ $(document).ready(function(){
 	
 	
 	// 글 목록 클릭시 상세보기 // 체크 박스 선택시 x 
-	$("tbody").on("click", "tr", function(){
+	$("tbody").on("click", "td:nth-child(1)", function(){
 		$("#no").val($(this).attr("no"));
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
@@ -371,6 +371,7 @@ $(document).ready(function(){
 	
 	// tbody 체크박스
 	$("tbody").on("click", "#Check", function(){
+		console.log("1243");
 		var arr = [];
 		
 		$("tbody #Check:checked").each(function(){
@@ -378,7 +379,7 @@ $(document).ready(function(){
 		});
 		
 		if(arr.length == $("tbody #Check").length){
-			$("thead #allChecked", true)
+			$("thead #allCheck").prop("checked", true);
 		}else{
 			$("thead #allCheck").prop("checked", false);
 		}
@@ -486,7 +487,7 @@ function drawList(list){
 		html += "<td  colspan=\"6\">"+ data.TITLE +"</td>";
 		html += "<td  colspan=\"1\">"+ data.NM +"</td>";
 		html += "<td  colspan=\"1\">"+ data.REG_DT +"</td>";
-		html += "<td  onclick=\"event.stopPropagation()\" colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"1\" /> <input type=\"hidden\" id=\"Check_hidden\" name=\"Check_hidden\" value=\"1\" /></td>";
+		html += "<td> <input type=\"checkbox\" id=\"Check\" name=\"Check\"  value=\""+data.POST_NO+"\ /></td>";
 		html += "</tr>";
 		                                                                
 	}                                                                    

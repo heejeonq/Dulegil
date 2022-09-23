@@ -33,12 +33,10 @@ td {
 	border-bottom: solid 1px #ededed;
 }
 #gongzi {
-	height: 74%;
 	border-bottom: solid 1px #ededed;
-	background-color: white;
 	color: #444;
 	font-weight: 400;
-	padding: 10px 30px;
+	padding: 20px 50px;
 }
 
 #listBtn, #updBtn{
@@ -56,16 +54,25 @@ td {
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#listBtn").on("click", function() {
-		location.href = "adEvt";
+		$("#actionForm").attr("action", "adEvt");
+		$("#actionForm").submit();
 	});
 	
 	$("#updBtn").on("click", function() {
-		location.href = "adEvtUpd";
+		$("#actionForm").attr("action", "adEvtUpd");
+		$("#actionForm").submit();
 	});
 });
 </script>
 </head>
 <body>
+	<form action="#" id= "actionForm" method="post">
+		<input type="hidden" name="no" value="${data.POST_NO}" />
+		<input type="hidden" name="page" id="page" value= "${param.page}" />
+		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+	</form>
+
 	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
@@ -73,38 +80,39 @@ $(document).ready(function(){
 		<div id="hd2_Cname">
 			<div id="Cname_box">
 				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span> 
-				이벤트
+				이벤트 상세보기
 			</div>
 		</div>
 		<div id="hd2_CC">
 			<div id="CCbox">
 				<table>
 					<colgroup>
-						<col width="100px">
+						<col width="70px">
 						<col width="500px">
 						<col width="100px">
-						<col width="200px">
-						<col width="100px">
+						<col width="250px">
+						<col width="80px">
 					</colgroup>
 					<thead>
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
-							<th>기간</th>
+							<th>이벤트 기간</th>
 							<th>조회수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>01</td>
-							<td>여름맞이 둘레길 이벤트</td>
-							<td>관리자</td>
-							<td>22.06.30 ~ 22.07.30</td>
-							<td>1000</td>
+							<td>${data.POST_NO}</td>
+							<td>${data.TITLE}</td>
+							<td>${data.NM}</td>
+							<td>${data.EVENT_START_DT} ~ ${data.EVENT_END_DT}</td>
+							<td>${data.HIT}</td>
 						</tr>
 						<tr>
-							<td colspan="5" id="gongzi" style="text-align: left">이벤트 내용</td>
+							<th style="padding-bottom: 0;">내용</th>
+							<td colspan="5" id="gongzi" style="text-align: left">${data.CONTENTS}</td>
 						</tr>
 					</tbody>
 				</table>
