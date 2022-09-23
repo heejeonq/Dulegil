@@ -582,11 +582,11 @@ $(document).ready(function(){
 														</thead>
 														<tbody>
 															<tr>
-																<td>22</td>
-																<td>동행 구하기</td>
-																<td colspan='2'>오늘 관리자님 이상하지 않나요</td>
-																<td>시메트라</td>
-																<td>2022.07.01</td>
+																<td>POST_NO</td>
+																<td>POST.BLTNBOARD_NM</td>
+																<td colspan='2'>POST.TITLE</td>
+																<td>POST.NM</td>
+																<td>POST.REG_DT</td>
 															</tr>
 														</tbody>
 													</table>
@@ -594,26 +594,25 @@ $(document).ready(function(){
 
 
 											</div>
-											<div class="CB">관리자 이상하지 않음? 아무리 생각해도 이상함 반박시 너말이 맞음</div>
-											<div class="CBC">
-												내용 박스
+											<div class="CB">POST.CONTENTS</div>
+											<div class="CBC"> 내용 박스
 												<div id="wrap">
 													<div class="comment_icon"></div>
-													<div class="comment_nm">babo</div>
+													<div class="comment_nm">코멘트멤버NM</div>
 												</div>
-												<div class="comment_box">ㄹㅇ 그니까 ㅅㅂ</div>
+												<div class="comment_box">코멘트CONTENTS</div>
 											</div>
 
 										</div>
 									</div>
 								</td>
-								<td colspan="1">1</td>
-								<td colspan="1">욕설</td>
-								<td colspan="1">babo</td>
-								<td colspan="1">scone</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="1">동행게시판</td>
-								<td colspan="1">댓글</td>
+								<td colspan="1">REPORT_NO</td>
+								<td colspan="1">REPORT_TYPE_NM</td>
+								<td colspan="1">R.NM AS 신고자</td>
+								<td colspan="1">T.NM AS 신고당한자</td>
+								<td colspan="1">R.REG_DT</td>
+								<td colspan="1">T.BLTNBOARD_NM</td>
+								<td colspan="1">T.POST_NO, T.COMMENT_NO</td>
 								<td colspan="2">
 								<select class="sel" id="process" name="process">
 										<option>활동 중지</option>
