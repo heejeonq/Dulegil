@@ -167,6 +167,7 @@ function drawPaging(pd){
 				
 			<div class="midBox">
 			<form action="#" id="actionForm" method="post">
+				<input type="hidden" name="memno" id="memno" value="${sMemNo}"/>
 				<input type="hidden" name="no" id="no"/>
 				<input type="hidden" name="page" id="page" value="${page}" />								
 					<c:if test="${!empty sMemNo}">

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -137,21 +139,22 @@ public class FreeBoardController {
 
 	// 상세보기
 	@RequestMapping(value = "/freeBoardDetail")
-	public ModelAndView freeBoardDetail(
+	public ModelAndView freeBoardDetail(		
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav)throws Throwable {
-		
-		if (params.get("no") != null && params.get("no") != "") {
-			dao.update("updateTHit", params);
-
 			HashMap<String, String> data = dao.getMap("free.getF", params);
-			mav.addObject("data", data);
+			mav.addObject("data", data);		
 
-			mav.setViewName("freeBoard/freeBoard_detail");
-		} else {
-			mav.setViewName("redirect:freeBoard");
-		}
-
+			if (params.get("no") != null && params.get("no") != "") { //만약 데이터가 넘어오면		
+					
+				dao.update("updateTHit", params);	//조회수를 업뎃해라
+																	
+					mav.setViewName("freeBoard/freeBoard_detail"); //디테일 보여줘
+					//그리고 
+					} else {										//그게아니면
+						mav.setViewName("redirect:freeBoard");  //리스트로가
+				}
+			
 		return mav;
 	}
 
