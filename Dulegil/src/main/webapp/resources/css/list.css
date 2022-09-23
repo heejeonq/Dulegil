@@ -2,7 +2,7 @@
 
 thead{
 	height: 55px;
-    background-color: #eff3f6;
+    background-color: #bbd1bc;
 }
 tr{
 	height:47px;
@@ -38,8 +38,8 @@ thead tr {
 
 
 tbody tr:hover {
-	background-color :#eff3f6;
-	cursor : pointer;
+	background-color :rgb(219, 247, 221);
+	cursor:pointer;
 }
 
 
