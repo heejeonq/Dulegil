@@ -112,10 +112,8 @@ $(document).ready(function(){
 			</div>
 			<div class="btnWrap">
 				<div class="btnBox">
-					<input type="button" class="btn" id="caBtn" value="취소">
-				</div>
-				<div class="btnBox">
-					<input type="button" class="btn" id="inBtn"value="등록">
+					<input type="button" class="btn" id="insertBtn" value="등록">
+					<input type="button" class="btn" id="wlistBtn" value="목록">
 				</div>
 			</div>
 

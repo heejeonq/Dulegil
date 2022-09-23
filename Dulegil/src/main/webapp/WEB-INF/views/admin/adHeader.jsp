@@ -37,7 +37,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 신고 내역 관리
 	$("#memRepBtn").on("click", function() {
-		location.href = "adMemRep";
+		location.href = "adReportList";
 	});
 	
 	// 메뉴 - 게시물 관리

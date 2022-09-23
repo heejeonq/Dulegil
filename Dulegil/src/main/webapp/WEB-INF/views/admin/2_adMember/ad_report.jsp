@@ -350,7 +350,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
-		location.href = "adNtc";
+		location.href = "adNtList";
 	});
 	
 	
@@ -368,7 +368,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
@@ -378,12 +378,12 @@ $(document).ready(function(){
 	
 	// 메뉴 - 게시물 관리
 	$("#memPostBtn").on("click", function() {
-		location.href = "adMemPost";
+		location.href = "adPostList";
 	});
 	
 	// 메뉴 - 댓글 관리
 	$("#memCmtBtn").on("click", function() {
-		location.href = "adMemCmt";
+		location.href = "adCmtList";
 	});
 	
 	
@@ -499,17 +499,32 @@ $(document).ready(function(){
 				<div id="CCbox">
 					<!-- 검색 구분  -->
 					<div id="hd2_search">
+					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }"/>
+					<input type="hidden" id="searchGbn2" name="searchGbn2" value="${param.searchGbn2 }"/>
+					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }"/>
+			
+					<!-- 기존 검색 내용 유지용 -->
+					
+					
+					
+					<!-- 검색 부분 -->
+					<div id="hd2_search">
+					<form action="#" id="actionForm" method="post">
+						<input type="hidden" name="no" id="no"/>
+						<input type="hidden" id="delNo" name="delNo"/><!-- 목록 체크박스 삭제 -->
+						<input type="hidden" name="page" id="page" value="${page}"/>
 
+				
 						<div class="Sbar1">
-							<select class="sel">
-								<option>카테고리</option>
-								<option>신고자 아이디</option>
-								<option>신고대상 아이디</option>
-								<option>신고 카테고리</option>
+							<select class="sel"  name="searchGbn" id="searchGbn">
+								<option value="0">카테고리</option>
+								<option value="1">신고자 아이디</option>
+								<option value="2">신고대상 아이디</option>
+								<option value="3">신고 카테고리</option>
 							</select>
 						</div>
 						<div class="Sbar2">
-							<input type="text" class="commentBoxT" />
+							<input type="text" class="commentBoxT" name="searchTxt" value="${param.searchTxt}"/>
 						</div>
 						<div class="Sbar3">
 							<input type="button" id="hdSearch" value="검색" />
@@ -567,11 +582,11 @@ $(document).ready(function(){
 														</thead>
 														<tbody>
 															<tr>
-																<td>22</td>
-																<td>동행 구하기</td>
-																<td colspan='2'>오늘 관리자님 이상하지 않나요</td>
-																<td>시메트라</td>
-																<td>2022.07.01</td>
+																<td>POST_NO</td>
+																<td>POST.BLTNBOARD_NM</td>
+																<td colspan='2'>POST.TITLE</td>
+																<td>POST.NM</td>
+																<td>POST.REG_DT</td>
 															</tr>
 														</tbody>
 													</table>
@@ -579,27 +594,27 @@ $(document).ready(function(){
 
 
 											</div>
-											<div class="CB">관리자 이상하지 않음? 아무리 생각해도 이상함 반박시 너말이 맞음</div>
-											<div class="CBC">
-												내용 박스
+											<div class="CB">POST.CONTENTS</div>
+											<div class="CBC"> 내용 박스
 												<div id="wrap">
 													<div class="comment_icon"></div>
-													<div class="comment_nm">babo</div>
+													<div class="comment_nm">코멘트멤버NM</div>
 												</div>
-												<div class="comment_box">ㄹㅇ 그니까 ㅅㅂ</div>
+												<div class="comment_box">코멘트CONTENTS</div>
 											</div>
 
 										</div>
 									</div>
 								</td>
-								<td colspan="1">1</td>
-								<td colspan="1">욕설</td>
-								<td colspan="1">babo</td>
-								<td colspan="1">scone</td>
-								<td colspan="1">2022/08/24</td>
-								<td colspan="1">동행게시판</td>
-								<td colspan="1">댓글</td>
-								<td colspan="2"><select class="sel">
+								<td colspan="1">REPORT_NO</td>
+								<td colspan="1">REPORT_TYPE_NM</td>
+								<td colspan="1">R.NM AS 신고자</td>
+								<td colspan="1">T.NM AS 신고당한자</td>
+								<td colspan="1">R.REG_DT</td>
+								<td colspan="1">T.BLTNBOARD_NM</td>
+								<td colspan="1">T.POST_NO, T.COMMENT_NO</td>
+								<td colspan="2">
+								<select class="sel" id="process" name="process">
 										<option>활동 중지</option>
 										<option>반려</option>
 										<option>강제 탈퇴</option>
