@@ -448,8 +448,7 @@ function reloadList(){
 				
 				</div>
 				<div class="more">
-					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+" 
-					/>							 
+					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
 				</div>
 
 		

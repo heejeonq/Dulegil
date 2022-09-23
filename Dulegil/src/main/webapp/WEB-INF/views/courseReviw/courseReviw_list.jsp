@@ -182,6 +182,7 @@ function drawPaging(pd){
 			<form action="#" id="actionForm" method="post">
 				<input type="hidden" name="no" id="no"/>
 				<input type="hidden" name="page" id="page" value="${page}" />								
+				<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}" />								
 					<c:if test="${!empty sMemNo}">
 						<input type="button" class="btn" value="글쓰기" id="wriBtn"/>
 					</c:if>

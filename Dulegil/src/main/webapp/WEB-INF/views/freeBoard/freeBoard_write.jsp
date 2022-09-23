@@ -91,7 +91,7 @@ $("#insertBtn").on("click", function() {
    	               
    	                  },
    	                  error :function(request, status, error) { //실패했을 때 함수 실행
-   	                     console.log(request,responseText); //실패 상세내역
+   	                     console.log(request.responseText); //실패 상세내역
    	                  }
    	                  
    	               });

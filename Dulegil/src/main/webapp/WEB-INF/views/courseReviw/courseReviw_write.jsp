@@ -37,7 +37,7 @@ $("#listBtn").on("click", function() {
 //등록버튼
 $("#insertBtn").on("click", function() {
     $("#contents").val(CKEDITOR.instances['contents'].getData())
-
+   
     // $.trim(값) : 값 앞 뒤 공백제거
     if ($.trim($("#title").val()) == "") {
        makeAlert("알림", "제목을 입력하세요.", function() {
@@ -54,6 +54,7 @@ $("#insertBtn").on("click", function() {
     } else if ($("#attFile").val()=='') {
     	makeAlert("알림", "사진을 등록해 주세요.");  
     }else {
+    	
     	   	 //1.파일 업로드 ->  2.업로드 파일명 취득->  3. 글 저장
     	   	 //폼 객체 취득
     	   	 var form = $("#actionForm");
@@ -62,6 +63,7 @@ $("#insertBtn").on("click", function() {
     	   	 	success:function(res){ // 데이터 주고받기 성공 시
     	   	 		if(res.result =="SUCCESS"){//파일전송 성공
     	   	 			//올라간 파일이 존재한다면
+    	   	 			
     	   	 			if(res.fileName.length > 0){//배열의 갯수가 0보다 크다면
     	   	 				$("#imgFile").val(res.fileName[0]);//올라간 파일명 보관
     	   	 			}
@@ -148,7 +150,6 @@ $("#insertBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				 <input type="hidden" name="courseNo" id="courseNo" /> 
 				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
 				
 				<div class="titNm">제목</div>
@@ -163,7 +164,7 @@ $("#insertBtn").on("click", function() {
 
 				<div class="cosNm">코스선택</div>
 				<div class="cosBox">
-					<select class="cosSell" name="courseNo">
+					<select class="cosSell" name="courseNo"id="courseNo">
 						<option value="0">코스를 선택해 주세요.</option>
 						<option value="1">1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분</option>
 						<option value="2">2코스-용마·아차산코스	광진구,중랑구	12.3km	5시간 10분</option>

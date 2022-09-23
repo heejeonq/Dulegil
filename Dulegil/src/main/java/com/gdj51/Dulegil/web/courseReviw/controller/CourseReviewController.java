@@ -1,5 +1,6 @@
 package com.gdj51.Dulegil.web.courseReviw.controller;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class CourseReviewController {
 	}
 	
 	
-	@RequestMapping(value = "/CoreseRevAction/{gbn}", 
+	@RequestMapping(value = "/CourseRevAction/{gbn}", 
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -113,6 +114,7 @@ public class CourseReviewController {
 				model.put("msg", "success");
 			} else {
 				model.put("msg", "fail");
+			
 			}
 
 		} catch (Exception e) {
@@ -164,7 +166,7 @@ public class CourseReviewController {
 
 	
 	//댓글
-	@RequestMapping(value="/CourseRevCAction/{gbn}",
+	/*@RequestMapping(value="/CourseRevCAction/{gbn}",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -201,7 +203,7 @@ public class CourseReviewController {
 			
 		return mapper.writeValueAsString(model);	
 }
-	
+	*/
 	
 	
 }
