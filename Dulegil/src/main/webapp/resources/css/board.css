@@ -97,18 +97,18 @@
 .btn {
 	font-size: 11px;
 	cursor: pointer;
-	height: 30px;
-	width: 70px;
-	color: white;
+	height: 35px;
+	width: 60px;
+	color: black;
 	display: inline-block;
-	border: 1px solid rgba(0, 0, 0, 0.21);
-	border-radius: 4px;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+	border: 1px solid #eff3f6;
+	border-radius: 4px;	
 	background-color: #f0c41994;;
-	box-shadow: 0px 1px 0px #97853e;;
 	float: left;
 	margin-top: 20px;
 }
+
+
 .btn:hover{
 	background-color:#b9992194;
 }
@@ -143,21 +143,19 @@
     cursor: pointer;
 }
 .page_btn_on{
-	 background-color: #77bdeb;
-    color: white;
+	 background-color: #bbd1bc;
+ 
     border-radius:50%;
 }
 
 
 .pagination span:active {
     background-color: #9c9f9d;
-    color: white;
     border: 1px solid #9c9f9d;
 }
 
 .pagination span:hover {
-    background-color: #77bdeb;
-    color: white;
+    background-color: #bbd1bc;
      border-radius:50%;
 }
 
@@ -419,9 +417,22 @@
 	margin-left:10px;
 }
 
+
 #deleteBtn{
 	margin-top:4px;
-	margin-left:380px;
+	margin-left:334px;
+}
+#cancelBtn{
+	margin-top: 4px;
+    margin-left: 10px
+}
+#insertBtn{
+	margin-top: 4px;
+    margin-left: 10px;
+}
+#wlistBtn{
+	margin-top: 4px;
+    margin-left: 10px;
 }
 
 #listBtn{
@@ -538,9 +549,10 @@ vertical-align: top;
     vertical-align: top;
     float: left;
     text-align: left;
-    margin-left: 10px;
-    	
+    margin-left: 10px;   
+    outline: none; 	
 }
+
 
 titCon:focus,.cosSell:focus {
 	outline: none;

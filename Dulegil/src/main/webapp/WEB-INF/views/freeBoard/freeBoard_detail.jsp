@@ -312,8 +312,7 @@ function reloadList(){
 
 	<!-- Container -->
 
-	<div class="container-main">
-		
+	<div class="container-main">		
 		<form action="#" id= "actionForm" method="post">
 			<input type="hidden" name="no" value="${data.POST_NO}" />
 			<input type="hidden" name="gbn" value="d" />
@@ -324,48 +323,46 @@ function reloadList(){
 			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
 		</form>
 		
-		<div class="mainWrap">
+	<div class="mainWrap">
 		<div class="tit">둘레길 이야기</div>
-		<div class="col"></div>
-		
+		<div class="col"></div>		
 		<div class="midBox">
-		<div class="emptyBox"></div>
-		<div class="tit_tt"> ${data.TITLE} </div>
-	
-		<div class="ti_ttt">
-			<div class="tit_writer">
-			<c:if test="${!empty data.M_IMG}">
-			
-			<img src="resources/upload/${data.M_IMG}" />
-			</c:if>
-			 ${data.NM}</div><span>&nbsp;&nbsp;</span>
-			<div class="tit_date">
-			작성일 ${data.DT}</div>
+			<div class="emptyBox"></div>
+			<div class="tit_tt"> ${data.TITLE} </div>	
+			<div class="ti_ttt">
+				<div class="tit_writer">
+					<c:if test="${!empty data.M_IMG}">				
+						<img src="resources/upload/${data.M_IMG}" />
+					</c:if>
+					 ${data.NM}
+			 	</div>
+			 </div>
+			<span>&nbsp;&nbsp;</span>
+			<div class="tit_date">작성일 ${data.DT}</div>
 		</div>
-		<hr/>
-		<div class="contentBox">
-		<div class="emptyBox"></div>
-		<div class= "imgg">
-		<c:if test="${!empty data.B_IMG}">
-		
-		<img src="resources/upload/${data.B_IMG}" /><br/>
-		</c:if>
-		<div class="te"> ${data.CONTENTS}</div>
-		</div>
-	
+		<!-- midBox완 ------------------------------------------>		
+		<hr/>		
+		<div class="conBox">
+			<div class="emptyBox"></div>
+			<div class= "imgg">
+				<c:if test="${!empty data.B_IMG}">			
+					<img src="resources/upload/${data.B_IMG}" /><br/>
+				</c:if>
+					<!-- midBox완  -------------------------------- -->
+			<div class="te"> ${data.CONTENTS}</div>
 			</div>
-		<div class="emptyBox">
-		
-		<c:if test="${!empty data.B_IMG}">
-		<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
-		<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
-		<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
-		<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
-		<span>첨부파일 : 
-		<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
 		</div>
-		</c:if>
 		
+		<div class="emptyBox">		
+			<c:if test="${!empty data.B_IMG}">
+			<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
+			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
+			<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
+			<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
+			<span>첨부파일 : 
+			<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
+			</c:if>		
+		</div>
 		<div class="box2">
 		
 			<div class="reporBtn">
