@@ -111,18 +111,90 @@ AND POST_NO= #{no}
 
 <!-- 상세보기 -->
 <select id="getAC" parameterType="hashmap" resultType="hashmap">
-SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_FILE,BB.HIT,BB.REG_DT,
-        NVL(CNT,0)AS GOOD
-FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
-              INNER JOIN BULLETIN_BOARD BB ON BC.POST_NO=BB.POST_NO  
-              INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
-              LEFT OUTER JOIN (
-              SELECT COUNT(*)AS CNT,POST_NO
-              FROM GOOD
-              GROUP BY POST_NO) G
-              ON BB.POST_NO= G.POST_NO 
-WHERE BB.POST_NO=#{no}
+SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,
+       BB.IMG_FILE AS B_FILE,BB.HIT, CASE WHEN TO_CHAR(BB.REG_DT, 'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+               THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
+               ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')
+               END AS DT, M.NM, BA.PUBLIC_GENDER, BA.PUBLIC_AGE,
+               TRUNC(MONTHS_BETWEEN(SYSDATE, M.DATE_BIRTH)/12) AS AGE,
+               TO_CHAR(BA.ACCOMPANY_DT, 'YYYY-MM-DD') AS ACCOMPANY_DT, M.RELIABILITY, M.GENDER
+FROM COURSE C INNER JOIN BOARD_COURSE BC 
+                      ON C.COURSE_NO=BC.COURSE_NO
+              INNER JOIN BULLETIN_BOARD BB 
+                      ON BC.POST_NO=BB.POST_NO  
+              INNER JOIN MEMBER M 
+                      ON BB.MEMBER_NO=M.MEMBER_NO
+              INNER JOIN BOARD_ACCOMPANY BA
+                      ON BA.POST_NO = BC.POST_NO
+WHERE BB.POST_NO= #{no}
 </select>
 
+<!-- 댓글 카운트 -->
+<select id="getCCnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT(*)AS CNT
+FROM COMMENTS C INNER JOIN MEMBER M
+     ON C.MEMBER_NO=M.MEMBER_NO
+     AND C.DEL_DT IS NULL
+     AND M.DEL_DT IS NULL
+     WHERE POST_NO=#{no}
+</select>
 
+<!-- 댓글리스트 -->
+<select id="getCList"  parameterType="hashmap" resultType="hashmap">
+ SELECT F.COMMENT_NO,F.POST_NO,F.CCONTENTS,F.CREG_DT,F.CMEMBER_NO,F.CNM,F.P_IMG,F.RCNUM
+FROM (SELECT COMMENT_NO,POST_NO,C.CONTENTS AS CCONTENTS,
+     CASE WHEN TO_CHAR(C.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+				THEN TO_CHAR(C.REG_DT, 'HH24:MI')
+				ELSE TO_CHAR(C.REG_DT, 'YY.MM.DD')
+                END AS CREG_DT,
+     M.MEMBER_NO AS CMEMBER_NO,M.NM AS CNM,M.IMG_FILE AS P_IMG,     
+     ROW_NUMBER() OVER(ORDER BY COMMENT_NO DESC) AS RCNUM
+FROM COMMENTS C INNER JOIN MEMBER M
+     ON C.MEMBER_NO=M.MEMBER_NO
+     AND C.DEL_DT IS NULL
+     AND M.DEL_DT IS NULL
+     WHERE POST_NO=#{no})F
+   WHERE F.RCNUM BETWEEN #{start} AND #{end}
+</select>
+<!-- 댓글추가 -->
+<insert id="insertC" parameterType="hashmap">		
+INSERT INTO COMMENTS(COMMENT_NO,POST_NO,MEMBER_NO,CONTENTS,REG_DT)
+VALUES (COMMENT_SEQ.NEXTVAL,#{no},#{cmemberNo},#{ccon},SYSDATE)
+</insert>
+
+<!-- 댓글수정 -->
+<update id="updateC" parameterType="hashmap">
+UPDATE COMMENTS SET CONTENTS = #{ccon}
+WHERE COMMENT_NO = #{commentNo}
+</update>
+
+<!-- 댓글삭제 -->
+<delete id="deleteC" parameterType="hashmap">
+UPDATE COMMENTS SET DEL_DT = SYSDATE
+WHERE COMMENT_NO = #{commentNo}
+</delete>
+<!-- 동행 신청자 목록 -->
+<select id="getApplyMemList" resultType="hashmap" parameterType="hashmap">
+SELECT M.NM
+FROM ACCOMPANY_APPLY AA INNER JOIN BOARD_ACCOMPANY BA
+                                ON AA.POST_NO = BA.POST_NO
+                        INNER JOIN MEMBER M
+                                ON AA.MEMBER_NO = M.MEMBER_NO
+                                AND M.DEL_DT IS NULL
+WHERE BA.POST_NO = #{no}
+</select>
+<!-- 동행 신청자 수 -->
+<select id="getApplyCnt" resultType="hashmap" parameterType="hashmap">
+SELECT COUNT(*) AS CNT
+FROM ACCOMPANY_APPLY AA INNER JOIN BOARD_ACCOMPANY BA
+                                ON AA.POST_NO = BA.POST_NO
+                        INNER JOIN MEMBER M
+                                ON AA.MEMBER_NO = M.MEMBER_NO
+                                AND M.DEL_DT IS NULL
+WHERE BA.POST_NO = #{no}
+</select>
+<insert id="insertApply" parameterType="hashmap">		
+INSERT INTO ACCOMPANY_APPLY(POST_NO, MEMBER_NO, LAST_NO)
+VALUES (#{no},#{cmemberNo},#{no})
+</insert>
 </mapper>

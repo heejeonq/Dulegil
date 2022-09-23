@@ -9,7 +9,32 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/fonts.css" />
-<title>코스후기작성</title>
+<title>코스후기수정</title>
+<style type="text/css">
+
+
+.imgFile{
+	display:none;
+}
+.attold span{
+width: 90%;
+ 	font-size: 13px;
+    line-height: 30px;
+    color: gray;
+    border-bottom: 1px solid gray;
+}
+.fileDelBtn{	
+    font-size: 12px;
+    vertical-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid gray;
+    color: gray;
+    background: #ededed;
+    margin-left: 15px;
+
+}
+</style>
 
 <script type="text/javascript">
 $(document).ready(function(){	
@@ -37,7 +62,7 @@ $("#listBtn").on("click", function() {
 //등록버튼
 $("#insertBtn").on("click", function() {
     $("#contents").val(CKEDITOR.instances['contents'].getData())
-   
+
     // $.trim(값) : 값 앞 뒤 공백제거
     if ($.trim($("#title").val()) == "") {
        makeAlert("알림", "제목을 입력하세요.", function() {
@@ -54,7 +79,6 @@ $("#insertBtn").on("click", function() {
     } else if ($("#attFile").val()=='') {
     	makeAlert("알림", "사진을 등록해 주세요.");  
     }else {
-    	
     	   	 //1.파일 업로드 ->  2.업로드 파일명 취득->  3. 글 저장
     	   	 //폼 객체 취득
     	   	 var form = $("#actionForm");
@@ -63,7 +87,6 @@ $("#insertBtn").on("click", function() {
     	   	 	success:function(res){ // 데이터 주고받기 성공 시
     	   	 		if(res.result =="SUCCESS"){//파일전송 성공
     	   	 			//올라간 파일이 존재한다면
-    	   	 			
     	   	 			if(res.fileName.length > 0){//배열의 갯수가 0보다 크다면
     	   	 				$("#imgFile").val(res.fileName[0]);//올라간 파일명 보관
     	   	 			}
@@ -101,7 +124,7 @@ $("#insertBtn").on("click", function() {
     	   	               
     	   	                  },
     	   	                  error :function(request, status, error) { //실패했을 때 함수 실행
-    	   	                     console.log(request.responseText); //실패 상세내역
+    	   	                     console.log(request,responseText); //실패 상세내역
     	   	                  }
     	   	                  
     	   	               });
@@ -150,7 +173,8 @@ $("#insertBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<!-- <input type="hidden" name="courseNo" id="courseNo" />실 저장된 파일명 보관용 -->
+				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
 				
 				<div class="titNm">제목</div>
 				<div class="titBox">
@@ -164,7 +188,7 @@ $("#insertBtn").on("click", function() {
 
 				<div class="cosNm">코스선택</div>
 				<div class="cosBox">
-					<select class="cosSell" name="courseNo"id="courseNo">
+					<select class="cosSell" name="courseNo">
 						<option value="0">코스를 선택해 주세요.</option>
 						<option value="1">1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분</option>
 						<option value="2">2코스-용마·아차산코스	광진구,중랑구	12.3km	5시간 10분</option>

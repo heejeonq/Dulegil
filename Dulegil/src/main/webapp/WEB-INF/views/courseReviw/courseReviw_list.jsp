@@ -16,6 +16,13 @@
 $(document).ready(function(){
 	reloadList();
 	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+
 
 	
 	if("${param.searchGbn}" !=""){
@@ -67,7 +74,7 @@ $(document).ready(function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","freeBoardDetail");
+		$("#actionForm").attr("action","courseReviewDetail");
 		$("#actionForm").submit();
 		
 	});
@@ -114,7 +121,7 @@ function drawList(list) {
 	html += "		<div class=\"c_b_view2\">" + data.HIT + "</div>			";
 	html += "		</div>";
 	html += "	</div>";
-	html += "	<div class=\"c_b_tit\">" + data.TITLE + "</div>";
+	html += "	<div class=\"c_b_tit\">" + data.TITLE + " ("+ data.CNT +")"+"</div>";
 	html += "	<div class=\"c_b_id\">" + data.NM + "</div>";
 	html += "	<div class=\"c_b_coss\">" + data.COURSE_NO + " 코스 : "+ data.COURSE_NM +"</div>";
 	html += "	<div class=\"c_b_date\">" + data.DT + "</div>";
@@ -159,7 +166,7 @@ function drawPaging(pd){
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 
 	<!-- Container -->
 	<div class="container-main">
@@ -175,6 +182,7 @@ function drawPaging(pd){
 			<form action="#" id="actionForm" method="post">
 				<input type="hidden" name="no" id="no"/>
 				<input type="hidden" name="page" id="page" value="${page}" />								
+				<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}" />								
 					<c:if test="${!empty sMemNo}">
 						<input type="button" class="btn" value="글쓰기" id="wriBtn"/>
 					</c:if>
@@ -184,8 +192,8 @@ function drawPaging(pd){
 					<select class="sel" name="searchGbn" id="searchGbn">						
 						<option value="0">제목</option>
 						<option value="1">내용</option>					
-						<option value="2">코스</option>					
-						<option value="3">아이디</option>
+						<option value="2">작성자</option>					
+						<option value="3">코스</option>
 					</select>
 				</div>
 					<div class="searchBox">

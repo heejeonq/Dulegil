@@ -39,7 +39,7 @@ $(document).ready(function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","freeBoardWrite");
+		$("#actionForm").attr("action","accompanyWrite");
 		$("#actionForm").submit();
 		
 		
@@ -159,8 +159,9 @@ function drawPaging(pd){
 			
 			<div class="midBox">
 			<form action="#" id="actionForm" method="post">
+			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 			<input type="hidden" name="no" id="no"/>
-				<input type="hidden" name="page" id="page" value="${page}" />								
+			<input type="hidden" name="page" id="page" value="${page}" />								
 					<c:if test="${!empty sMemNo}">
 						<input type="button" class="btn" value="글쓰기" id="wriBtn"/>
 					</c:if>

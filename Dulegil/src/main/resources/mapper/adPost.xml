@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adPost">
+
+
+
+<!-- 목록 -->
+<select id="list" resultType="hashmap">
+SELECT A.MEMBER_NO, A.POST_NO, A.BLTNBOARD_NO, A.NM, A.TITLE, A.REG_DT, A.RNK
+FROM(   SELECT M.MEMBER_NO, B.POST_NO, B.BLTNBOARD_NO, M.NM, B.TITLE, B.REG_DT,
+            ROW_NUMBER() OVER(ORDER BY B.REG_DT DESC)AS RNK
+        FROM MEMBER M INNER JOIN BULLETIN_BOARD B
+                        ON M.MEMBER_NO = B.MEMBER_NO
+        WHERE B.DEL_DT IS NULL  
+			<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+					AND B.BLTNBOARD_NO = 1
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>					
+				</when>
+				
+				<when test="searchGbn == 1">
+				AND BLTNBOARD_NO = 2
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>
+				
+				<when test="searchGbn == 2">
+					AND BLTNBOARD_NO = 3
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>	
+							
+			</choose>
+		</if> 
+			)A
+WHERE A.RNK BETWEEN #{start} AND #{end}
+</select>
+
+
+
+
+<!-- 페이징 -->
+<select id="cnt" parameterType="hashmap" resultType="integer">	
+  SELECT COUNT(*) AS CNT
+        FROM MEMBER M INNER JOIN BULLETIN_BOARD B
+                        ON M.MEMBER_NO = B.MEMBER_NO
+        WHERE B.DEL_DT IS NULL  
+			<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+					AND B.BLTNBOARD_NO = 1
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>					
+				</when>
+				
+				<when test="searchGbn == 1">
+				AND BLTNBOARD_NO = 2
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>
+				
+				<when test="searchGbn == 2">
+					AND BLTNBOARD_NO = 3
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 2">
+							AND M.NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn2 == 3">
+							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
+						</when>				
+					</choose>		
+				</when>	
+							
+			</choose>
+		</if> 
+</select>
+
+
+
+
+
+<!-- 삭제 -->
+<update id ="delete" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO IN (${delNo})
+</update>
+
+
+
+
+<!-- 개별 삭제 -->
+<update id ="del" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO = #{no}
+</update>
+
+
+
+</mapper>

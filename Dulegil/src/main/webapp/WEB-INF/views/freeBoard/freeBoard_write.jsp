@@ -91,7 +91,7 @@ $("#insertBtn").on("click", function() {
    	               
    	                  },
    	                  error :function(request, status, error) { //실패했을 때 함수 실행
-   	                     console.log(request,responseText); //실패 상세내역
+   	                     console.log(request.responseText); //실패 상세내역
    	                  }
    	                  
    	               });
@@ -119,7 +119,7 @@ $("#insertBtn").on("click", function() {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 	<!-- Container -->
 	<div class="container-main">
 
@@ -174,10 +174,10 @@ $("#insertBtn").on("click", function() {
 				<div class="btnWrap">
 					<div class="btnBox">
 					<input type="button" class="btn" id="insertBtn" value="등록">
+					<input type="button" class="btn" id="wlistBtn" value="목록">
 					</div>
-					<div class="btnBox">
-					<input type="button" class="btn" id="listBtn" value="목록">
-					</div>
+					
+					
 				</div>
 
 

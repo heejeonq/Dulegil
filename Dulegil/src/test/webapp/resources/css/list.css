@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-thead{
+table thead{
 	height: 55px;
-    background-color: #eff3f6;
+    background-color: #bbd1bc;;
 }
 tr{
 	height:47px;

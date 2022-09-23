@@ -162,7 +162,7 @@ $("#updateBtn").on("click", function() {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 	<!-- Container -->
 	<div class="container-main">
 
@@ -250,11 +250,9 @@ $("#updateBtn").on("click", function() {
 				
 				<div class="btnWrap">
 					<div class="btnBox">
-					<input type="button" class="btn" id="updateBtn" value="수정">
-					</div>
-					<div class="btnBox">
-					<input type="button" class="btn" id="cancelBtn" value="취소">
-					</div>
+						<input type="button" class="btn" id="updateBtn" value="수정">
+						<input type="button" class="btn" id="cancelBtn" value="취소">
+					</div>			
 				</div>
 
 
