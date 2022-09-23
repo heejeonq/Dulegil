@@ -26,7 +26,7 @@ $(document).ready(function(){
 	
 	
 //목록버튼
-$("#listBtn").on("click", function() {
+$("#wlistBtn").on("click", function() {
     history.back();
  });
  
@@ -173,8 +173,8 @@ $("#insertBtn").on("click", function() {
 				
 				<div class="btnWrap">
 					<div class="btnBox">
-					<input type="button" class="btn" id="insertBtn" value="등록">
-					<input type="button" class="btn" id="wlistBtn" value="목록">
+						<input type="button" class="btn" id="insertBtn" value="등록">
+						<input type="button" class="btn" id="wlistBtn" value="목록">
 					</div>
 					
 					

@@ -499,8 +499,7 @@ function reloadList(){
 			<input type="hidden" name="cpage" id="cpage" value="1" />
 			
             <div class="box3">
-               <div class="comment">comment</div>
-               
+               <div class="comment">comment</div>               
                <c:choose>
 					<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
 					<div class="commentBox">

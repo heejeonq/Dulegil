@@ -647,8 +647,9 @@ titCon:focus,.cosSell:focus {
 }
 
 .btnWrap{
-	margin-bottom: 50px;
     text-align: right;
+    width: 80%;
+    margin: 0 auto;
 }
 .btnBox{
    display: inline-block;
