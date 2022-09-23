@@ -371,17 +371,23 @@ $(document).ready(function(){
 	
 	// 개별 수정
 	$("tbody").on("click", "#update", function() {
-
-		
-		
-		
 		var updateNo= $(this).parent().parent().attr("no");
 		$("#no").val(updateNo);	
 		console.log($("#no").val());
-		console.log($("#update").val()); //없음 
+	
 		
-		$('input[name=email]').attr("value"); //value가 1인 input의 id가져오기 
-		console.log($("#email").val()); //없음 
+		// 바뀐값으로 업데이트하기 1. 속성 값 취득 2. 값 넣기 3. 히든으로 보내기
+		var eu = $('input[name=emailUpdate]').val(); 	
+		console.log($('input[name=emailUpdate]').val());
+		console.log(eu);
+		$("#email").val(eu);
+		
+		// 현재값
+		var emailU = $(this).parent().parent().children(3).children().attr('value');
+		console.log(emailU);
+		//$("#email").val(emailU);
+		console.log($("#email").val()); 
+		
 		
 		
 		makePopup({
@@ -447,7 +453,7 @@ html += "<td>"+ data.MEMBER_NO +"</td>";
 html += "<td>"+ data.AUTHORITY_NO +"</td>";
 html += "<td>"+ data.NM +"</td>";
 //html += "<td>" + data.EMAIL +"</td>";
-html += "<td><input type=\"text\" id=\"email\" name=\"email\" value=\"" + data.EMAIL +"\"</td>";
+html += "<td><input type=\"text\" id=\"emailUpdate\" name=\"emailUpdate\" value=\"" + data.EMAIL +"\"</td>";
 html += "<td>"+ data.PHONE_NO +"</td>";
 html += "<td>"+ data.DATE_BIRTH +"</td>";
 html += "<td>"+ data.GENDER +"</td>";
@@ -657,18 +663,18 @@ function reloadList(){
 
 			<div id="hd2_CC">
 				<div id="CCbox">
-				<input type="hidden" id="searchGbn" name="searchGbn"
-						value="${param.searchGbn}" /> <input type="hidden" id="searchTxt"
-						name="searchTxt" value="${param.searchTxt}" />
+				<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
+				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 
-					<!-- 기존 검색 내용 유지용 -->
-					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> <input
-						type="hidden" id="oldTxt" value="${param.searchTxt}" />
+					<!-- 기존 검색 내용 유지용 --> 
+					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+					<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 					<!-- 검색 부분 -->
 					<div id="hd2_search">
 					<form action="#" id="actionForm" method="post">
 							<input type="hidden" name="no" id="no" value="${param.no}"/> 
 							<input type="hidden" name="page" id="page" value="${page}" />
+							<input type="hidden" name="email" id="email"value="${param.email}"  />
 					
 						<div class="Sbar1">
 							<select class="sel" name="searchGbn" id="searchGbn">
