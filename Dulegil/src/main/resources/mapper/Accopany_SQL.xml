@@ -14,6 +14,7 @@
 	                                ON AA.POST_NO = BLT.POST_NO
 	                        INNER JOIN MEMBER M
 	                                ON AA.MEMBER_NO = M.MEMBER_NO
+	                                AND M.DEL_DT IS NULL
 	                        INNER JOIN MEMBER M
 	                                ON BLT.MEMBER_NO = M.MEMBER_NO
 	WHERE BLT.MEMBER_NO = #{memNo}  

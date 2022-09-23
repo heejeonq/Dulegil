@@ -92,7 +92,7 @@
 .DulList{
    width: 80%;
    height:78px;
-   overflow-y: scroll;
+
     margin: 30px auto;
     font-size:12px;
     border: none;
@@ -100,6 +100,7 @@
 .withM{
    border:1px solid #ddd;
    height:100%;
+   width: 150px;
    line-height:33px;
    font-size:12px;
    text-align:center;
