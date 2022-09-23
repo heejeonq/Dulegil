@@ -1,16 +1,11 @@
 @charset "UTF-8";
 
-@import
-	url('https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900')
-	;
-
+@import url('https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 .material-symbols-outlined {
 	vertical-align: middle;
 }
-
-
 
 /* 헤더 1 */
 html, body {
@@ -39,9 +34,7 @@ html, body {
 	height: 10%;
 	margin-top: 70px;
 	display: inline-block;
-	background-image:
-		url('http://localhost:8090/Dulegil/resources/images/minlogo.png');
-
+	background-image: url('http://localhost:8090/Dulegil/resources/images/minlogo.png');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
@@ -118,9 +111,10 @@ html, body {
 	text-align: end;
 }
 
-#header2 #hd2_content {
-	width: 100%;
-	height: 80%;
+#hd2_content {
+	position: relative;
+    left: 300px;
+    width: 1100px;
 	background-color: white;
 }
 
@@ -155,7 +149,7 @@ html, body {
 	background-color: white;
 }
 
-#bottom #login .login_banner {
+.login_banner {
 	width: 200px;
 	height: 50px;
 	display: inline-block;

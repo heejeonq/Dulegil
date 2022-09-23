@@ -183,7 +183,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
-		location.href = "adNtc";
+		location.href = "adNtList";
 	});
 	
 	
@@ -216,7 +216,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 댓글 관리
 	$("#memCmtBtn").on("click", function() {
-		location.href = "adMemCmt";
+		location.href = "adCmtList";
 	});
 	
 	
