@@ -21,8 +21,6 @@ $(document).ready(function(){
 	$(".alarm").on("click", function(){
 		if($(".alarm_contents").css("display") == "none"){
 			$(".alarm_contents").show();
-			
-			
 		}
 		else {
 			$(".alarm_contents").hide();
