@@ -378,16 +378,12 @@ $(document).ready(function(){
 		
 		// 바뀐값으로 업데이트하기 1. 속성 값 취득 2. 값 넣기 3. 히든으로 보내기
 		var eu = $('input[name=emailUpdate]').val(); 	
-		console.log($('input[name=emailUpdate]').val());
-		console.log(eu);
 		$("#email").val(eu);
 		
-		// 현재값
-		var emailU = $(this).parent().parent().children(3).children().attr('value');
-		console.log(emailU);
+		// 현재값 취득
+		//var emailU = $(this).parent().parent().children(3).children().attr('value');
 		//$("#email").val(emailU);
-		console.log($("#email").val()); 
-		
+
 		
 		
 		makePopup({
