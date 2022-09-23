@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evt">
 	<select id="getEvtDtl" resultType="hashmap" parameterType="hashmap">
-		SELECT POST_NO, NM, TITLE, CONTENTS, HIT, TO_CHAR(E.REG_DT, 'YYYY.MM.DD') AS REG_DT
+		SELECT POST_NO, NM, TITLE, CONTENTS, HIT, TO_CHAR(E.REG_DT, 'YYYY.MM.DD') AS REG_DT,
+			   TO_CHAR(EVENT_START_DT, 'YYYY-MM-DD') AS EVENT_START_DT, TO_CHAR(EVENT_END_DT, 'YYYY-MM-DD') AS EVENT_END_DT
 		FROM EVENT E INNER JOIN MEMBER M
 		                     ON E.MEMBER_NO = M.MEMBER_NO
 		WHERE E.DEL_DT IS NULL
@@ -60,12 +61,12 @@
 	
 	<insert id="reg" parameterType="hashmap">
 		INSERT INTO EVENT(POST_NO, MEMBER_NO, TITLE, CONTENTS, EVENT_START_DT, EVENT_END_DT)
-		VALUES(EVENT_SEQ.NEXTVAL, #{ad} #{tit}, #{ct}, #{startDt}, #{endDt})
+		VALUES(EVENT_SEQ.NEXTVAL, 109, #{tit}, #{ct}, #{startDt}, #{endDt})
 	</insert>
 	
 	<update id="del" parameterType="hashmap">
-		UPDATE EVENT SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD') 
-		WHERE POST_NO = #{no}
+		UPDATE EVENT SET DEL_DT = SYSDATE
+		WHERE POST_NO IN (${delNo})
 	</update>
 	
 	<update id="upd" parameterType="hashmap">

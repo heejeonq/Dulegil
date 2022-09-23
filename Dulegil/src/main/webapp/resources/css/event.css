@@ -72,3 +72,8 @@
     border: none;
     border-radius: 5px;
 }
+
+.fc-event-title.fc-sticky:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}

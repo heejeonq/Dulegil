@@ -96,7 +96,64 @@ $(document).ready(function() {
 	});
 	
 	$("#updBtn").on("click", function() {
-		location.href = "";
+		$("#ct").val(CKEDITOR.instances['ct'].getData());
+		var startDate = $('#startDt').val();    // 시작일
+		var endDate = $('#endDt').val();        // 종료일  
+		
+		if($.trim($("#tit").val()) == "") {
+			makeAlert("알림", "제목을 입력하세요.", function() {
+				$("#tit").focus();
+			});
+
+		}else if ($("#startDt").val() == "") {
+			makeAlert("알림", "시작일을 입력하세요.", function() {
+				$("#startDt").focus();
+			});
+
+		}else if ($("#endDt").val() == "") {
+			makeAlert("알림", "종료일을 입력하세요.", function() {
+				$("#endDt").focus();
+			});
+			
+		}else if (startDate > endDate) {
+			makeAlert("알림", "시작일이 종료일보다 이후 일 수 없습니다.", function() {
+				$("#endDt").focus();
+			});
+		}else if ($("#ct").val() == "") {
+			makeAlert("알림", "내용을 입력하세요.", function() {
+				$("#ct").focus();
+			});
+
+		}else {
+			
+			var params = $("#actionForm").serialize();  
+			
+			$.ajax({
+				url:"adEvtAction/update", 
+				type: "POST", 
+      			dataType: "json",
+				data: params,
+				success : function(res){ 
+				console.log(res);
+					switch(res.msg){
+					case "success" :
+						makeAlert("알림", "수정이 완료 되었습니다.", function() {
+							$("#BackForm").submit();
+						});
+					break;
+					case "fail" :
+  						makeAlert("알림", "수정에 실패하였습니다.")
+					break;
+  					case "error" :                     
+   	                     makeAlert("알림", "수정 중 문제가 발생하였습니다.")
+					break;
+					}
+				},
+   	            error : function(request, status, error) { 
+   	                     console.log(request,responseText); 
+   	            }
+			});
+		}
 	});
 	
 	$("#canBtn").on("click", function() {
@@ -106,6 +163,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+	<form action="adEvtDtl" id="BackForm" method="post">
+		<input type="hidden" name="no" value="${data.POST_NO}" />
+		<input type="hidden" name="page" id="page" value= "${param.page}" />
+		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+	</form>
+	
 	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
@@ -117,32 +181,35 @@ $(document).ready(function() {
 			</div>	
 		</div>
 		<div id="hd2_CC">
-			<div>
-				<div id="Ctitle">
-					<div class="CTN">제목</div>
-					<div class="CTC">
-						<input type="text" class="commentBoxT">
+			<form action="#" id="actionForm" method="post">
+				<input type="hidden" id="no" name="no" value="${data.POST_NO}" />
+				<div>
+					<div id="Ctitle">
+						<div class="CTN">제목</div>
+						<div class="CTC">
+							<input type="text" class="commentBoxT" id="tit" name="tit" value="${data.TITLE}" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN">시작일</div>
+						<div class="CTC">
+							<input type="date" class="commentBoxT" id="startDt" name="startDt" value="${data.EVENT_START_DT}" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN">종료일</div>
+						<div class="CTC">
+							<input type="date" class="commentBoxT" id="endDt" name="endDt" value="${data.EVENT_END_DT}" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN">내용</div>
+						<div class="CTC">
+							<textarea id="ct" name="ct" class="textarea">${data.CONTENTS}</textarea>
+						</div>
 					</div>
 				</div>
-				<div id="Ctitle">
-					<div class="CTN">시작일</div>
-					<div class="CTC">
-						<input type="date" class="commentBoxT" />
-					</div>
-				</div>
-				<div id="Ctitle">
-					<div class="CTN">종료일</div>
-					<div class="CTC">
-						<input type="date" class="commentBoxT" />
-					</div>
-				</div>
-				<div id="Ctitle">
-					<div class="CTN">내용</div>
-					<div class="CTC">
-						<textarea id="ct" name="ct" class="textarea"></textarea>
-					</div>
-				</div>
-			</div>
+			</form>	
 			<div id="buttons">
 				<input type="button" value="취소" class="myButton" id="canBtn" />
 				<input type="button" value="수정" class="myButton" id="updBtn" /> 

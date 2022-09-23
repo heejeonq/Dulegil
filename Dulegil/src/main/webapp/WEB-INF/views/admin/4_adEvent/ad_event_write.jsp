@@ -99,7 +99,9 @@ $(document).ready(function() {
 	});
 	
 	$("#regBtn").on("click", function() {
-		$("#ct").val(CKEDITOR.instances['ct'].getData())
+		$("#ct").val(CKEDITOR.instances['ct'].getData());
+		var startDate = $('#startDt').val();    // 시작일
+		var endDate = $('#endDt').val();        // 종료일  
 		
 		if($.trim($("#tit").val()) == "") {
 			makeAlert("알림", "제목을 입력하세요.", function() {
@@ -116,6 +118,10 @@ $(document).ready(function() {
 				$("#endDt").focus();
 			});
 			
+		}else if (startDate > endDate) {
+			makeAlert("알림", "시작일이 종료일보다 이후 일 수 없습니다.", function() {
+				$("#endDt").focus();
+			});
 		}else if ($("#ct").val() == "") {
 			makeAlert("알림", "내용을 입력하세요.", function() {
 				$("#ct").focus();
@@ -133,13 +139,15 @@ $(document).ready(function() {
 				console.log(res);
 					switch(res.msg){
 					case "success" :
-						makeAlert("알림", "등록에 성공하였습니다.") 
+						makeAlert("알림", "이벤트가 등록되었습니다.", function() {
+							location.href="adEvt";
+						}) ;
 					break;
 					case "fail" :
-  						makeAlert("알림", "등록에 실패하였습니다.")
+  						makeAlert("알림", "이벤트 등록에 실패하였습니다.")
 					break;
   					case "error" :                     
-   	                     makeAlert("알림", "등록 중 문제가 발생하였습니다.")
+   	                     makeAlert("알림", "이벤트 등록 중 문제가 발생하였습니다.")
 					break;
 					}
 				},
@@ -153,14 +161,14 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<!--  header 1  -->
-	<jsp:include page="../adHeader.jsp" flush="true"/>
-	
 	<form action="adEvt" id="backForm" method="post">
 		<input type="hidden" id="page" name="page" value="${param.page}" />
 		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 	</form>
+	
+	<!--  header 1  -->
+	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
 	<div id="hd2_content">
 		<div id="hd2_Cname">
