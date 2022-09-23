@@ -91,7 +91,7 @@ public class adPostController {
 			switch(gbn) {
 			case "delete" : cnt=dao.update("adPost.delete",params);
 			break;
-			case "update" : cnt=dao.update("adPost.update",params);
+			case "del" : cnt=dao.update("adPost.del",params);
 			break;
 			}
 			if(cnt>0) {

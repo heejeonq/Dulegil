@@ -149,17 +149,17 @@ WHERE A.RNK BETWEEN #{start} AND #{end}
 
 <!-- 삭제 -->
 <update id ="delete" parameterType="hashmap">
-UPDATE MEMBER SET DEL_DT = SYSDATE
-WHERE MEMBER_NO IN (${no})
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO IN (${delNo})
 </update>
 
 
 
 
 <!-- 개별 삭제 -->
-<update id ="update" parameterType="hashmap">
-UPDATE MEMBER SET EMAIL = #{email}
-WHERE MEMBER_NO = #{no}
+<update id ="del" parameterType="hashmap">
+UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+WHERE POST_NO = #{no}
 </update>
 
 
