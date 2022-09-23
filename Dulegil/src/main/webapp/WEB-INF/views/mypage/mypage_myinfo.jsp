@@ -20,7 +20,7 @@
 		
 		<!-- Contents -->
 		<div class="contents">
-			<input type="hidden" name="memNo" value="${sMemNo}"/>
+			<!--<input type="hidden" name="memNo" value="${sMemNo}"/>-->
 			<div class="mypage_contents">
 				<div class="area_tit">
 					<span>내 정보</span>
