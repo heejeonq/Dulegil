@@ -85,43 +85,53 @@ $(document).ready(function(){
 	});
 	
 	$("#evtDelBtn").on("click", function(){
-		makePopup({
-			title : "알림",
-			contents : "삭제하시겠습니까?",
-			buttons : [{
-				name : "삭제",
-				func:function() {
-					var params = $("#actionForm").serialize();
-					
-					$.ajax({
-						url:"adEvtAction/delete", 
-						type:"POST", 
-						dataType:"json", 
-						data : params,
-						success: function(res) { 
-							switch (res.msg) {
-							case "success":
-								makeAlert("알림", "삭제가 완료되었습니다.", function(){
-									location.href = "adEvt";
-								});
-								break;
-							case "fail":
-								makeAlert("알림", "삭제에 실패하였습니다.");
-								break;
-							case "error": 
-								makeAlert("알림", "삭제 중 문제가 발행하였습니다.");
-								break;
+		var arr = [];
+			
+		$("tbody #delChck:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == ""){
+			makeAlert("알림", "삭제 할 공지사항을 선택해주세요.");
+		}else{
+			makePopup({
+				title : "알림",
+				contents : "삭제하시겠습니까?",
+				buttons : [{
+					name : "삭제",
+					func:function() {
+						var params = $("#actionForm").serialize();
+						
+						$.ajax({
+							url:"adEvtAction/delete", 
+							type:"POST", 
+							dataType:"json", 
+							data : params,
+							success: function(res) { 
+								switch (res.msg) {
+								case "success":
+									makeAlert("알림", "삭제가 완료되었습니다.", function(){
+										location.href = "adEvt";
+									});
+									break;
+								case "fail":
+									makeAlert("알림", "삭제에 실패하였습니다.");
+									break;
+								case "error": 
+									makeAlert("알림", "삭제 중 문제가 발행하였습니다.");
+									break;
+								}
+							}, 
+							error: function(request, status, error) { 
+								console.log(request.responseText); 
 							}
-						}, 
-						error: function(request, status, error) { 
-							console.log(request.responseText); 
-						}
-					});
-				}
-			}, {
-				name : "취소"
-			}]
-		});	
+						});
+					}
+				}, {
+					name : "취소"
+				}]
+			})
+		}
 	});
 	
 	var calendarEl = document.getElementById('calendar');
@@ -189,10 +199,12 @@ function drawList(list) {
 function drawPaging(pd) {
 	var html = "";
 	
+	html += "<span class=\"page_btn page_first\" id=\"pBtn\" page=\"1\"><<</span>";
+	
 	if($("#page").val() == "1" ) {
-		html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"1\">이전</span>";
+		html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"1\"><</span>";
 	}else {		
-	html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"" + ($("#page").val() *1 -1 )+ "\">이전</span>";
+	html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"" + ($("#page").val() *1 -1 )+ "\"><</span>";
 	}
 	
 	for(var i = pd.startP; i<=pd.endP; i++){
@@ -204,10 +216,12 @@ function drawPaging(pd) {
 	}
 	if($("#page").val() * 1 == pd.maxP){ 
 		
-	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + pd.maxP + "\">다음</span>";
+	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + pd.maxP + "\">></span>";
 	}else{		
-	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + ($("#page").val() * 1 + 1) + "\">다음</span>";
+	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + ($("#page").val() * 1 + 1) + "\">></span>";
 	}
+	
+	html += "<span class=\"page_btn page_last\" id=\"pBtn\" page=\"" + pd.maxP + "\">>></span>";
 	
 	$("#paging").html(html); 
 }
@@ -235,20 +249,6 @@ function drawPaging(pd) {
 				<div id="calendar"></div>
 			</div>	
 			<div id="hd2_CC_right">
-				<div id="search">
-					<div class="Sbar1">
-						<select class="sel" id="searchGbn" name="searchGbn">
-							<option value="0">제목</option>
-							<option value="1">내용</option>
-						</select>
-					</div>
-					<div class="Sbar2">
-						<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
-					</div>
-					<div class="Sbar3">
-						<input type="button" id="hdSearch" value="검색" />
-					</div>
-				</div>
 				<div id="CCbox">
 					<table style="table-layout: fixed; width:500px;">
 						<colgroup>
@@ -269,10 +269,24 @@ function drawPaging(pd) {
 					</table>
 				</div> 
 				<div id="write">
-					<input type="button" value="삭제" id="evtDelBtn" />
+					<input type="button" class="btn right del" value="삭제" id="evtDelBtn" />
 				</div>
 				<div id="paging"></div>
 			</div>
+			<div id="search">
+					<div class="Sbar1">
+						<select class="commentBoxT sel" id="searchGbn" name="searchGbn">
+							<option value="0">제목</option>
+							<option value="1">내용</option>
+						</select>
+					</div>
+					<div class="Sbar2">
+						<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
+					</div>
+					<div class="Sbar3">
+						<input type="button" class="btn" id="hdSearch" value="검색" />
+					</div>
+				</div>
 		</form>
 	</div>
 </body>

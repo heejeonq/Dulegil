@@ -13,42 +13,29 @@
 }
 
 #dtlbtn {
-	margin-top: 20px; 
+	margin: 20px; 
 }
 
 table {
 	border-collapse: collapse;
 	margin-bottom: 0px;
-}
-th {
-	font-size: 13px;
-	border-bottom: solid 1px #ededed;
-	color: #a1a1a1;
 	text-align: center;
 }
-td {
-	font-size: small;
-	font-weight: 500;
-	padding: 10px;
-	border-bottom: solid 1px #ededed;
+
+td:nth-child(1){
+	text-align: left;
+	padding-left: 20px
 }
+
 #gongzi {
 	border-bottom: solid 1px #ededed;
 	color: #444;
 	font-weight: 400;
-	padding: 20px 50px;
+	padding: 20px 10px;
 }
 
-#listBtn, #updBtn{
-	background-color: #ededed;
-    border-radius: 4px;
-    border: 1px solid #f4f5ee;
-    cursor: pointer;
-    color: #5e5e5e;
-    font-weight: 600;
-    padding: 10px;
-    margin-right: 10px;
-    font-family: "Gothic A1";
+#gongziTit{
+	position: absolute;
 }
 </style>
 <script type="text/javascript">
@@ -95,8 +82,7 @@ $(document).ready(function(){
 					</colgroup>
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>제목</th>
+							<th colspan="2">제목</th>
 							<th>작성자</th>
 							<th>이벤트 기간</th>
 							<th>조회수</th>
@@ -104,21 +90,20 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 						<tr>
-							<td>${data.POST_NO}</td>
-							<td>${data.TITLE}</td>
+							<td colspan="2">${data.TITLE}</td>
 							<td>${data.NM}</td>
 							<td>${data.EVENT_START_DT} ~ ${data.EVENT_END_DT}</td>
 							<td>${data.HIT}</td>
 						</tr>
 						<tr>
-							<th style="padding-bottom: 0;">내용</th>
+							<th style="padding-bottom: 0;" id="gongziTit">내용</th>
 							<td colspan="5" id="gongzi" style="text-align: left">${data.CONTENTS}</td>
 						</tr>
 					</tbody>
 				</table>
 				<div id="dtlbtn">
-					<input type="button" id="listBtn" value="목록" />
-					<input type="button" id="updBtn" value="수정" />
+					<input type="button" class="btn" id="listBtn" value="목록" />
+					<input type="button" class="btn" id="updBtn" value="수정" />
 				</div>
 			</div>
 		</div>

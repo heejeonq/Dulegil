@@ -5,13 +5,12 @@
 
 	<!-- 목록 -->
 	<select id="list" resultType="hashmap">
-		SELECT A.POST_NO, A.TITLE, A.NM, A.REG_DT,A.RNK
-		FROM(	SELECT N.POST_NO, N.TITLE, N.CONTENTS, M.NM, N.REG_DT,
+		SELECT POST_NO, TITLE, NM, REG_DT, RNK
+		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT,
 					ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
-				FROM NOTICE N INNER JOIN MEMBER M
+			FROM NOTICE N INNER JOIN MEMBER M
               					  ON N.MEMBER_NO = M.MEMBER_NO
-				WHERE N.DEL_DT IS NULL) A
-		WHERE A.RNK BETWEEN #{start} AND #{end}
+			WHERE N.DEL_DT IS NULL) A
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
