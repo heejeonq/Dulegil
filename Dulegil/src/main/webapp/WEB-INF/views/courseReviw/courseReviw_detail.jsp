@@ -348,18 +348,15 @@ function reloadList(){
 					<c:if test="${!empty data.B_IMG}">		
 						<img src="resources/upload/${data.B_IMG}" /><br/>
 					</c:if>
-	<!-- midBox완  -------------------------------- -->					
-				<div class="te"> ${data.CONTENTS}</div>
-			</div>
-			
-			
-			<div class="goodBtn">
-				<span class="like">
+					<div class="te"> ${data.CONTENTS}</div>
+			    </div>
+				<div class="goodBtn">
+					<span class="like">
 					<img src="resources/images/goodIco.png">
 					<div class="goodCnt">${data.GOOD}</div>
-			</div>		
-		</div>
-			
+				</div>		
+			</div>
+		<!-- cunBox완 ------------------------------------------>
 			
 		<div class="emptyBox">
 			<c:if test="${!empty data.B_IMG}">
@@ -371,114 +368,67 @@ function reloadList(){
 			<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
 			</c:if>
 		</div>
+		<!-- emptyBox완 ------------------------------------------>
 		
-		</div>
-		<div class="box2">
-		
+		<div class="box2">		
 			<div class="reporBtn">
 				<span class="report">
 					<img src="resources/images/report1.png" />
 				</span>
 				<span class="reporTit">신고하기</span>			
 			</div>
-			<c:if test="${sMemNo eq data.MEMBER_NO}" >
-			
+			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if> 
 			<input type="button" class="btn" id="clistBtn" value="목록"/>
 		</div>
-
-		</div>
-			
+					
 		<div class="emptyBox"></div>
-		<div class="emptyBox"></div>
-			
-			<!-- 댓글 -->	
-			
-		<hr/>
+		<hr style=width:100%;/>	
+		<!-- 댓글 -->	
+	
 			<div class= mainview3>
-			<form action="#" id="commentsForm" method="post">
-			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
-			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
-			<input type="hidden" name="no" id="no" value="${param.no}">	
-			<input type="hidden" name="cpage" id="cpage" value="1" />
-			
-				
-				<div class="box3">
-					<div class="comment">comment</div>
-					
-					
-					<c:choose>
-					<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
-					<div class="commentBox">
-						<span class=commentBoxT>로그인이 필요한 서비스 입니다.</div>
-						 <input type="button" class="regBtn" id="loginBtn" value="로그인"/>
-					</c:when>
-					
-					<c:otherwise><!-- 로그인시 -->	
-					<div class="commentBox">
-					
-						
-						<textarea rows="19" cols="100" class=commentBoxT id="ccon" name="ccon" placeholder="댓글을 입력하세요" ></textarea>
-					</form>
+				<form action="#" id="commentsForm" method="post">
+					<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
+					<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
+					<input type="hidden" name="no" id="no" value="${param.no}">	
+					<input type="hidden" name="cpage" id="cpage" value="1" />
+					<div class="box3">
+						<div class="comment">comment</div>
+						<c:choose>
+							<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
+								<div class="commentBox">
+									<span class=commentBoxT>로그인이 필요한 서비스 입니다.</span>
+								</div>
+							 	<input type="button" class="regBtn" id="loginBtn" value="로그인"/>
+							</c:when>										
+							<c:otherwise><!-- 로그인시 -->	
+								<div class="commentBox">
+									<textarea rows="19" cols="100" class=commentBoxT id="ccon" name="ccon" placeholder="댓글을 입력하세요" ></textarea>
+								</div>
+									<span class="insert">									
+								 	  <input type="button" class="regBtn" id="insertCBtn" value="등록"/>
+								  	</span>
+								<div class="update"  >
+									<div class="updateCBtn" id="updateCBtn">수정</div>
+									<div class="cancelCBtn" id="cancelCBtn">취소</div>
+								</div>
+					  		</c:otherwise>
+				  		</c:choose>	
 					</div>
-					<span class="insert">									
-				   <input type="button" class="regBtn" id="insertCBtn" value="등록"/>
-				   </span>
-				
-				   
-		   			<div class="update"  >
-						<div class="updateCBtn" id="updateCBtn">수정</div>
-						<div class="cancelCBtn" id="cancelCBtn">취소</div>
-					</div>
-				</div>
-				   </c:otherwise>
-				   
-				   
-				   
-				   
-				   
-				   </c:choose>
-				   
-				</div>
+					</form><!-- commentsForm -->
+					
+				</div>				   
 				<div class="coll"></div>
-			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<div class="mainview4">
-			
-					<div class="iconBox">
-						<img src="resources/images/detailViewIcon.png" />
-					</div>
-				<div class="idBox">
-					<img src="resources/images/sample2.jpg" class="pimg"/> 지존루피
-			    </div>			
-			    <div class="commentDe">와 저도 가보고싶어요와 저도 가보고싶어요<br/>
-			    		다음에 갈땐 나도 데려가요가요가요가요<br/>
-			   			 나도 둘레둘레 할래
-			    </div>
-			    <div class="date">2022-08-13</div>
-			</div>
-			
-				
-		    <div class="more">
-					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+" 
-					/>							 
-			</div>
-				
-
-
-			</div>
-
-		
+				<div class="mainview4">
+					<!-- 위로올림 -->
+				</div>
+				<div class="more">
+					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
+				</div>
+			</div> <!--mainwrap  -->
+		</div><!-- contain-main  -->
 
 	<!-- footer -->
 	<jsp:include page="../common/footer.jsp" flush="true"/>

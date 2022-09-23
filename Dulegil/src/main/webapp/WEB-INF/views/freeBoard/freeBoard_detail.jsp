@@ -102,10 +102,10 @@ $(document).ready(function(){
 		            });
 
 		         }else{
-					action("insert");	 			
+					action("insert");	 
+					
 		         }
-				$("#commentsForm").attr("action","freeBoardDetail")
-				$("#commentsForm").submit();
+		
 		
 		});
 		
@@ -124,8 +124,7 @@ $(document).ready(function(){
 						$("#commentNo").val(commentNo);
 						action("delete");
 						closePopup()//제일위의 팝업닫기
-			$("#commentsForm").attr("action","freeBoardDetail")
-			$("#commentsForm").submit();
+	
 					}			
 				
 				},{
@@ -166,14 +165,14 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-		$("#commentsForm").attr("action","freeBoardDetail")
-		$("#commentsForm").submit();
+
 		
 	});
 	
  	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
 		$("#cpage").val($("#cpage").val() * 1 + 1);
+		$(".mainView4").empty();
 		reloadList(); 	
 	});
 }); //document
@@ -205,24 +204,22 @@ function action(flag){
          
          switch(res.msg){         
          case "success" :
-        	 $("#ccon").val("");       	 
-        		reloadList();
+        	 $("#ccon").val("");
+			
             //목록 재조회
             switch(flag) {
-            	case "insert" :  
+            	case "insert" : 
+            		$("#cpage").val(1);
+            		$(".mainView4").empty();
+            		reloadList();
             	case "delete":
-            		//조회 데이터 초기화
-            		//$("#page").val("1");
-            		//$("#searchGbn").val("0");
-            		//$("#searchText").val("");
-            		//$("#oldGbn").val("0");
-                 	//	$("#oldText").val("");
+            		$("#cpage").val(1);
+            		$(".mainView4").empty();
+            		reloadList();        
             		break;
             	case "update":
-            		//기존값 유지
-            	//	$("#searchGbn").val($("#oldGbn").val());
-				//	$("#searchText").val($("#oldText").val()); 
-					
+            		$(".mainView4").empty();
+            		reloadList();					
 					//입력내용 초기화
 					$("#cno").val("");		
 					$("#ccon").val("");		
@@ -231,8 +228,7 @@ function action(flag){
 					$(".update").hide();
             		break;
             }            
-            reloadList();
-            
+                        
             break;
          case "fail" :
             makeAlert("알림", msg[flag]+"에 실패하였습니다.")
@@ -272,8 +268,11 @@ function reloadList(){
 
  function drawList(list) {
 //만약 다섯개 미만이면 버튼을 삭제하고	
-	if(list.length<5){
-		$("#moreBtn").remove();		
+	if(list.length<=5){
+		$("#moreBtn").hide();		
+	}else{
+		$("#moreBtn").show();
+		console.log("안나와");
 	}
 	console.log(list);
 	
@@ -297,8 +296,9 @@ function reloadList(){
  		}
  			html += " </div>";		
 	}//여기까지 for
+	$(".mainView4").html(html);
+	
 		
-	$(".mainView4").append(html);
 } 
 
 
@@ -348,11 +348,10 @@ function reloadList(){
 				<c:if test="${!empty data.B_IMG}">			
 					<img src="resources/upload/${data.B_IMG}" /><br/>
 				</c:if>
-					<!-- midBox완  -------------------------------- -->
-			<div class="te"> ${data.CONTENTS}</div>
+				<div class="te"> ${data.CONTENTS}</div>
 			</div>
 		</div>
-		
+		<!-- conBox완 ------------------------------------------>
 		<div class="emptyBox">		
 			<c:if test="${!empty data.B_IMG}">
 			<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
@@ -363,102 +362,72 @@ function reloadList(){
 			<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
 			</c:if>		
 		</div>
-		<div class="box2">
+		<!-- emptyBox완 ------------------------------------------>
 		
+		<div class="box2">		
 			<div class="reporBtn">
 				<span class="report">
 					<img src="resources/images/report1.png" />
 				</span>
 				<span class="reporTit">신고하기</span>			
 			</div>
-			<c:if test="${sMemNo eq data.MEMBER_NO}" >
-			
-			<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
-			<input type="button" class="btn" id="updateBtn" value="수정"/>
+			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
+				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
+				<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if>
 			<input type="button" class="btn" id="clistBtn" value="목록"/>
 		</div>
-
 		
-	
-
-			</div>
+		
 		<div class="emptyBox"></div>
 		<div class="emptyBox"></div>
 		
 		<!-- 댓글 -->	
 			
 		<hr/>
-			<div class= mainview3>
+		<div class= mainview3>
 			<form action="#" id="commentsForm" method="post">
-			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
-			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
-			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
-			<input type="hidden" name="no" id="no" value="${param.no}">	
-			<input type="hidden" name="cpage" id="cpage" value="1" />
-			
+				<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+				<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
+				<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
+				<input type="hidden" name="no" id="no" value="${param.no}">	
+				<input type="hidden" name="cpage" id="cpage" value="1" />								
 				
 				<div class="box3">
 					<div class="comment">comment</div>
-					
-					
 					<c:choose>
-					<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
-					<div class="commentBox">
-						<span class=commentBoxT>로그인이 필요한 서비스 입니다.</div>
-						 <input type="button" class="regBtn" id="loginBtn" value="로그인"/>
-					</c:when>
-					
-					<c:otherwise><!-- 로그인시 -->	
-					<div class="commentBox">
-					
-						
-						<textarea rows="19" cols="100" class=commentBoxT id="ccon" name="ccon" placeholder="댓글을 입력하세요" ></textarea>
-					</form>
-					</div>
-					<span class="insert">									
-				   <input type="button" class="regBtn" id="insertCBtn" value="등록"/>
-				   </span>
-				
-				   
-		   			<div class="update"  >
-						<div class="updateCBtn" id="updateCBtn">수정</div>
-						<div class="cancelCBtn" id="cancelCBtn">취소</div>
-					</div>
+						<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
+							<div class="commentBox">
+								<span class=commentBoxT>로그인이 필요한 서비스 입니다.</span>
+							</div>
+							<input type="button" class="regBtn" id="loginBtn" value="로그인" />
+						</c:when>
+						<c:otherwise><!-- 로그인시 -->	
+							<div class="commentBox">
+								<textarea rows="19" cols="100" class=commentBoxT id="ccon" name="ccon" placeholder="댓글을 입력하세요" ></textarea>
+							</div>				   
+								<span class="insert">									
+					  			 	<input type="button" class="regBtn" id="insertCBtn" value="등록"/>
+					   			</span>
+			   				<div class="update"  >
+								<div class="updateCBtn" id="updateCBtn">수정</div>
+								<div class="cancelCBtn" id="cancelCBtn">취소</div>
+							</div>
+				   		</c:otherwise>
+				   	</c:choose>
 				</div>
-				   </c:otherwise>
-				   
-				   
-				   
-				   
-				   
-				   </c:choose>
-				   
-				</div>
-				<div class="coll"></div>
-			</div>
-			
-			
-		
-				<div class="mainview4">	
-				
-				<!-- 위로올림 -->
-				
-				</div>
-				<div class="more">
-					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
-				</div>
-
-		
-
-	
+			</form><!-- commentsForm -->
 		</div>
+		<div class="coll"></div>
+		<div class="mainview4">					
+			<!-- 위로올림 -->
+		</div>
+		<div class="more">
+			<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
+		</div>
+	</div> <!--mainwrap  -->
+</div><!-- contain-main  -->
 		
-		
-
-
-
-
 
 	<!-- footer -->
 		<jsp:include page="../common/footer.jsp" flush="true"/>

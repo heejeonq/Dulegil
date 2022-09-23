@@ -26,9 +26,7 @@
 <script>
 $(document).ready(function(){
 	reloadList();
-	$(".moreBtn").on("click",function(){
-		$(".moreBtn").show();
-	})
+
 	
 	//게시글 버튼
 	$("#listBtn").on("click",function(){
@@ -105,8 +103,7 @@ $(document).ready(function(){
 	         }else{
 				action("insert");	 			
 	         }
-			$("#commentsForm").attr("action","accompanyDetail")
-			$("#commentsForm").submit();
+		
 	
 	});
 	
@@ -127,8 +124,7 @@ $(document).ready(function(){
 					$("#commentNo").val(commentNo);
 					action("delete");
 					closePopup()//제일위의 팝업닫기
-		$("#commentsForm").attr("action","accompanyDetail")
-		$("#commentsForm").submit();
+
 				}			
 			
 			},{
@@ -166,14 +162,13 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-		$("#commentsForm").attr("action","accompanyDetail")
-		$("#commentsForm").submit();
+
 		
 	});
 	
 	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
-		$("#cpage").val($("#cpage").val() * 1 + 1);
+		$("#cpage").val($("#cpage").val() * 1 + 5);
 		reloadList(); 	
 	});
 	
@@ -212,10 +207,11 @@ function action(flag){
          switch(res.msg){         
          case "success" :
         	 $("#ccon").val("");       	 
-        		reloadList();
+        	 reloadList();
             //목록 재조회
             switch(flag) {
             	case "insert" :  
+            		
             	case "delete":
             		//조회 데이터 초기화
             		//$("#page").val("1");
@@ -280,8 +276,12 @@ function reloadList(){
 
  function drawList(list, list2, applyCnt) {
 //만약 다섯개 미만이면 버튼을 삭제하고	
-	if(list.length<5){
-		$("#moreBtn").remove();		
+	console.log(list.length);
+	if(list.length < 5){
+		$("#moreBtn").hide();		
+	}
+	else{
+		$("#moreBtn").show();
 	}
 	console.log(list);
 	
@@ -315,7 +315,7 @@ function reloadList(){
 	
 	html3 += applyCnt.CNT;
 	
-	$(".mainView4").append(html);
+	$(".mainView4").html(html);
 	$(".withMemList").html(html2);
 	$(".applyCnt").html(html3);
 
@@ -496,11 +496,10 @@ function reloadList(){
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
-			<input type="hidden" name="cpage" id="cpage" value="1" />
+			<input type="hidden" name="cpage" id="cpage" value="5" />
 			
             <div class="box3">
-               <div class="comment">comment</div>
-               
+               <div class="comment">comment</div>               
                <c:choose>
 					<c:when test="${empty sMemNo}"><!-- 비로그인시 -->	
 					<div class="commentBox">

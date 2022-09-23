@@ -72,14 +72,23 @@ $(document).ready(function(){
 		}else{
 			$("thead #allCheck").prop("checked", false);
 		}
-			// arr에 체크된 곳에 no 값을 넣어줌
-			$("#delete").val(arr);		
+
+		$("#delete").val(arr);		
 	});
 	
 	reloadList();
 		
 	$("#delBtn").on("click",function(){
-   	 	makePopup({
+		var arr = [];
+	
+	      $("tbody #deleteCheck:checked").each(function(){
+	    	  arr.push($(this).val());
+	      });
+	      $("#delete").val(arr);
+	      
+	      if(arr.length == ""){
+	         makeAlert("알림", "삭제할 게시물을 선택해주세요.");
+	      }else{makePopup({
         	title : "알림",
             contents : "삭제 하시겠습니까?",
             buttons   : [{
@@ -92,7 +101,8 @@ $(document).ready(function(){
             },{
                name : "취소"
            	  }]   
-        })
+          })
+	  }
 	});
 	
 	$(".pagination").on("click","span",function(){

@@ -167,8 +167,8 @@ public class AccompanyController {
 		int cnt = dao.getInt("accom.getCCnt",params);//댓글갯수
 
 		HashMap<String, Integer> pd =
-				ips.getPagingData(Integer.parseInt(params.get("cpage")), cnt,5,1); //페이징하는데
-
+				ips.getPagingData(1, cnt,Integer.parseInt(params.get("cpage")),1); //페이징하는데
+		//현재페이지 /총 게시물갯수/ 보여지는 게시물수/ 페이징수
 		params.put("start", Integer.toString(pd.get("start"))); //댓글 시작
 		params.put("end", Integer.toString(pd.get("end"))); //댓글 끝
 		
