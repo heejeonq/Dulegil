@@ -394,6 +394,7 @@ function reloadList(){
 		<hr/>
 			<div class= mainview3>
 			<form action="#" id="commentsForm" method="post">
+			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
