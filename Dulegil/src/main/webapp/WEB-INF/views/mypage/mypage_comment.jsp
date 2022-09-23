@@ -26,31 +26,74 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
-	$("tbody").on("click",".boardcontents",function(){
-		$("#no").val($(this).attr("no"));
+	
+	$("tbody").on("click","td:nth-child(3)",function(){
+		$("#no").val($(this).parent().attr("no"));
 		
 		//기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
-		
-		$("#actionForm").attr("action","freeBoardDetail");
+		console.log($(this).parent().children().eq(1).attr("cate"));
+		if($(this).parent().children().eq(1).attr("cate")=="1"){
+	         $("#actionForm").attr("action","courseReviewDetail");
+	      }else if($(this).parent().children().eq(1).attr("cate")=="2"){
+	         $("#actionForm").attr("action","accompanyDetail");
+	      }else{
+	    	 $("#actionForm").attr("action","freeBoardDetail");  
+	      }
 		$("#actionForm").submit();
 		
 	});
 	
-	$("tbody").on("click","#deleteCheck",function(){
+	$("thead").on("click", "#allCheck", function(){
+		if($(this).is(":checked")){
+			$("tbody #deleteCheck").prop("checked", true);
+		}else{
+			$("tbody #deleteCheck").prop("checked", false);			
+		}
+	
 		var arr = [];
-		console.log("클릭됨")
-		$("#deleteCheck:checked").each(function(){
+		$("tbody #deleteCheck:checked").each(function(){
 			arr.push($(this).val());
-		})
+		});
+		
 		$("#delete").val(arr);
+	});	
+	
+	
+	$("tbody").on("click", "#deleteCheck", function(){
+		var arr = [];
+		
+		$("tbody #deleteCheck:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == $("tbody #deleteCheck").length){
+			$("thead #allCheck").prop("checked", true);
+		}else{
+			$("thead #allCheck").prop("checked", false);
+		}
+			// arr에 체크된 곳에 no 값을 넣어줌
+			$("#delete").val(arr);		
 	});
 	
 	reloadList();
 		
 	$("#delBtn").on("click",function(){
-		reloadList();
+		makePopup({
+        	title : "알림",
+            contents : "삭제 하시겠습니까?",
+            buttons   : [{
+            	name : "확인",
+              	func : function(){
+              		   reloadList();
+              		   makeAlert("알림", "삭제가 완료되었습니다.");
+                 	   closePopup();
+                }
+            },{
+               name : "취소"
+           	  }]   
+        })
 	});
 	
 	$(".pagination").on("click","span",function(){
@@ -111,10 +154,10 @@ function drawList(list){
 	var html = "";
 	   
 	   for(var data of list) { 
-	      html += "<tr>";
-	      html += "<td class=\"boardcontents\" no=\"" + data.POST_NO + "\">" + data.POST_NO + "</td>";
-	      html += "<td class=\"boardcontents\" no=\"" + data.POST_NO + "\">" + data.TITLE + "</td>";
-	      html += "<td class=\"boardcontents\" no=\"" + data.POST_NO + "\">" + data.CONTENTS + "</td>";
+	      html += "<tr no=\""+ data.POST_NO +"\">";
+	      html += "<td>" + data.POST_NO + "</td>";
+	      html += "<td cate=\""+ data.BLTNBOARD_NO +"\">" + data.TITLE + "</td>";
+	      html += "<td>" + data.CONTENTS + "</td>";
 	      html += "<td>" + data.REG_DT + "</td>";
 	      html += "<td> <input type=\"checkbox\" id=\"deleteCheck\" name=\"deleteCheck\" value=\""+data.POST_NO+"\"></td>";
 	      html += "</tr>";
@@ -191,7 +234,7 @@ function drawPaging(pd){
 								<th>글제목</th>
 								<th>댓글내용</th>
 								<th>작성일</th>
-								<th>삭제</th>
+								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							</tr>
 							</thead>
 							<tbody>

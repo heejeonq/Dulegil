@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.catalina.mapper.Mapper;
 import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,11 @@ public class adCommentController {
 	// 리스트 취득
 	@RequestMapping(value="/adCmtList")
 	public ModelAndView adCmtList(
+			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
 		int page = 1;
 
@@ -43,7 +47,9 @@ public class adCommentController {
 		
 		mav.addObject("page", page);
 		mav.setViewName("admin/2_adMember/ad_comment");
-		return mav;
+		}else
+			mav.setViewName("admin/0_adLogin/ad_Login");
+			return mav;
 	}
 
 

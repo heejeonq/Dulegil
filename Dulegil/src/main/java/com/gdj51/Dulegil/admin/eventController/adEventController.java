@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,10 +30,11 @@ public class adEventController {
 	
 	@RequestMapping(value="/adEvt")
 	public ModelAndView adEvt (
-			
+			HttpSession session,
 			@RequestParam HashMap<String, String>params,
 			ModelAndView mav) throws Throwable {
-		
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+
 		int page = 1;
 		
 		if(params.get("page") != null && params.get("page") != "") {
@@ -41,6 +44,9 @@ public class adEventController {
 		mav.addObject("page", page);
 		
 		mav.setViewName("admin/4_adEvent/ad_event_list");
+		}else 
+			
+			mav.setViewName("admin/0_adLogin/ad_Login");
 		return mav;
 	} 
 	
@@ -71,29 +77,66 @@ public class adEventController {
 	}
 	
 	@RequestMapping(value = "adEvtDtl")
-	public ModelAndView adEvtDtl(ModelAndView mav) throws Throwable {
+	public ModelAndView adEvtDtl(
+			HttpSession session,
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
-		mav.setViewName("admin/4_adEvent/ad_event_detail");
+		if(params.get("no") != null && params.get("no") != "") {
+			
+			HashMap<String, String> data = dao.getMap("evt.getEvtDtl", params);
+			
+			mav.addObject("data", data);
+			
+			mav.setViewName("admin/4_adEvent/ad_event_detail");
+			
+		}else {
+			mav.setViewName("redirect:adEvt");
+		}
+		
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
 
+		}
 		return mav;
 	}
 	
 	@RequestMapping(value = "adEvtUpd")
-	public ModelAndView adEvtUpd(ModelAndView mav) throws Throwable {
+	public ModelAndView adEvtUpd(
+			HttpSession session,
+			@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
-		mav.setViewName("admin/4_adEvent/ad_event_update");
-
+		if(params.get("no") != null && params.get("no") != "") {
+			
+			HashMap<String, String> data = dao.getMap("evt.getEvtDtl", params);
+		
+			mav.addObject("data", data);
+			
+			mav.setViewName("admin/4_adEvent/ad_event_update");
+			
+		}else {
+			mav.setViewName("redirect:adEvt");
+		}
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
+		}
 		return mav;
 	}
 	
 	@RequestMapping(value = "adEvtReg")
 	public ModelAndView adEvtReg(
-			
+			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
 		mav.setViewName("admin/4_adEvent/ad_event_write");
-
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
+		}
 		return mav;
 	}
 	

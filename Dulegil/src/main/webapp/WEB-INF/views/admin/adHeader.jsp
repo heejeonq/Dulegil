@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
-		location.href = "adNtc";
+		location.href = "adNtList";
 	});
 	
 	// 메뉴 - 이벤트관리
@@ -32,7 +32,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
@@ -42,12 +42,12 @@ $(document).ready(function(){
 	
 	// 메뉴 - 게시물 관리
 	$("#memPostBtn").on("click", function() {
-		location.href = "adMemPost";
+		location.href = "adPostList";
 	});
 	
 	// 메뉴 - 댓글 관리
 	$("#memCmtBtn").on("click", function() {
-		location.href = "adMemCmt";
+		location.href = "adCmtList";
 	});	
 	
 });
@@ -111,6 +111,7 @@ $(document).ready(function(){
 	<div id="header2">
 		<div id="hd2_header">
 			<div class="hh2_icon">
+			
 				<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
 			</div>
 		</div>

@@ -102,10 +102,10 @@ $(document).ready(function(){
 		            });
 
 		         }else{
-					action("insert");	 			
+					action("insert");	 
+					
 		         }
-				$("#commentsForm").attr("action","freeBoardDetail")
-				$("#commentsForm").submit();
+		
 		
 		});
 		
@@ -124,8 +124,7 @@ $(document).ready(function(){
 						$("#commentNo").val(commentNo);
 						action("delete");
 						closePopup()//제일위의 팝업닫기
-			$("#commentsForm").attr("action","freeBoardDetail")
-			$("#commentsForm").submit();
+	
 					}			
 				
 				},{
@@ -166,8 +165,7 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-		$("#commentsForm").attr("action","freeBoardDetail")
-		$("#commentsForm").submit();
+
 		
 	});
 	
@@ -205,7 +203,12 @@ function action(flag){
          
          switch(res.msg){         
          case "success" :
-        	 $("#ccon").val("");       	 
+        	 $("#ccon").val(""); 
+        	 //페이지를 1로바꾸고
+        	 //empty
+        	 $("#cpage").val(1);
+        	 $("#cpage").empty();
+        	 //empty
         		reloadList();
             //목록 재조회
             switch(flag) {
@@ -231,7 +234,7 @@ function action(flag){
 					$(".update").hide();
             		break;
             }            
-            reloadList();
+            
             
             break;
          case "fail" :
@@ -274,6 +277,9 @@ function reloadList(){
 //만약 다섯개 미만이면 버튼을 삭제하고	
 	if(list.length<5){
 		$("#moreBtn").remove();		
+	}else{
+		$("#moreBtn").show();
+		console.log("안나와");
 	}
 	console.log(list);
 	
@@ -297,8 +303,9 @@ function reloadList(){
  		}
  			html += " </div>";		
 	}//여기까지 for
-		
 	$(".mainView4").append(html);
+	
+		
 } 
 
 

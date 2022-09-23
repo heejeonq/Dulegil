@@ -61,6 +61,22 @@ public class adLoginController {
 		}
 		return mapper.writeValueAsString(model);
 	}
+	
+	//로그인 후 관리자 페이지로 이동 화면
+		@RequestMapping(value="/adAccountMng")
+		public ModelAndView adAccountMng(HttpSession session,
+				ModelAndView mav) {
+			
+			if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+
+			mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
+			}else {
+				mav.setViewName("admin/0_adLogin/ad_Login");
+
+			}
+		return mav;
+		}
+		
 
 	// 로그아웃
 	@RequestMapping(value="/adLogout")

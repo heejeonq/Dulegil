@@ -42,9 +42,9 @@ $(document).ready(function() {
 					</tr>
 					<tr id="dh">
 						<td></td>	
-						<td>작성자:${data.NM}</td>
-						<td>등록일:${data.REG_DT}</td>
-						<td>조회수:${data.HIT}</td>
+						<td>작성자&nbsp;:&nbsp;${data.NM}</td>
+						<td>등록일&nbsp;:&nbsp;${data.REG_DT}</td>
+						<td>조회수&nbsp;:&nbsp;${data.HIT}</td>
 					</tr>
 				</thead>
 				
