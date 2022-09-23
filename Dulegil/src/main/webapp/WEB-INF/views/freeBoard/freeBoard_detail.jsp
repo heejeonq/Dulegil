@@ -10,7 +10,6 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
-<link rel="stylesheet" href="resources/css/freeBorDet.css" />
 <title>자유게시판상세</title>
 <style>
 .update{
@@ -27,9 +26,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	reloadList();
+
 	
 	//게시글 버튼
-	$("#listBtn").on("click",function(){
+	$("#clistBtn").on("click",function(){
 		$("#actionForm").attr("action","freeBoard")
 		$("#actionForm").submit();
 	});
@@ -54,8 +54,7 @@ $(document).ready(function(){
 								 case "success" :
 		        	                    $("#page").val("1");
 		        	                    $("#searchgbn").val("0");
-		        	                    $("#searchTxt").val("");
-		        	                    
+		        	                    $("#searchTxt").val("");		        	                    
 		        	                    
 		        	                    $("#actionForm").attr("action","freeBoard");									
 		        	                    $("#actionForm").submit();									
@@ -380,7 +379,7 @@ function reloadList(){
 			<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 			<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if>
-			<input type="button" class="btn" id="listBtn" value="목록"/>
+			<input type="button" class="btn" id="clistBtn" value="목록"/>
 		</div>
 
 		

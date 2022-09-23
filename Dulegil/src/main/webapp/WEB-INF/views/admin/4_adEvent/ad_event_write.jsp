@@ -6,17 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 등록</title>
-<script type="text/javascript">
-$(document).ready(function() {
-	CKEDITOR.replace("ct", {
-		resize_enabled : false, 
-        language : "ko", 
-        enterMode : "2", 
-        width : "700px", 
-        height : 450
-	});
-});
-</script>
 <style type="text/css">
 body input{
 	font-family: "Gothic A1";
@@ -95,10 +84,83 @@ input:focus {
 	margin-right: 10px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+	CKEDITOR.replace("ct", {
+		resize_enabled : false, 
+        language : "ko", 
+        enterMode : "2", 
+        width : "700px", 
+        height : 450
+	});
+	
+	$("#canBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+	
+	$("#regBtn").on("click", function() {
+		$("#ct").val(CKEDITOR.instances['ct'].getData())
+		
+		if($.trim($("#tit").val()) == "") {
+			makeAlert("알림", "제목을 입력하세요.", function() {
+				$("#tit").focus();
+			});
+
+		}else if ($("#startDt").val() == "") {
+			makeAlert("알림", "시작일을 입력하세요.", function() {
+				$("#startDt").focus();
+			});
+
+		}else if ($("#endDt").val() == "") {
+			makeAlert("알림", "종료일을 입력하세요.", function() {
+				$("#endDt").focus();
+			});
+			
+		}else if ($("#ct").val() == "") {
+			makeAlert("알림", "내용을 입력하세요.", function() {
+				$("#ct").focus();
+			});
+
+		}else {
+			var params = $("#actionForm").serialize();  
+			
+			$.ajax({
+				url:"adEvtAction/insert", 
+				type: "POST", 
+      			dataType: "json",
+				data: params,
+				success : function(res){ 
+				console.log(res);
+					switch(res.msg){
+					case "success" :
+						makeAlert("알림", "등록에 성공하였습니다.") 
+					break;
+					case "fail" :
+  						makeAlert("알림", "등록에 실패하였습니다.")
+					break;
+  					case "error" :                     
+   	                     makeAlert("알림", "등록 중 문제가 발생하였습니다.")
+					break;
+					}
+				},
+   	            error : function(request, status, error) { 
+   	                     console.log(request,responseText); 
+   	            }
+			});
+		}
+	});
+});
+</script>
 </head>
 <body>
 	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
+	
+	<form action="adEvt" id="backForm" method="post">
+		<input type="hidden" id="page" name="page" value="${param.page}" />
+		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+	</form>
 	
 	<div id="hd2_content">
 		<div id="hd2_Cname">
@@ -108,36 +170,38 @@ input:focus {
 			</div>
 		</div>
 		<div id="hd2_CC">
-			<div>
-				<div id="Ctitle">
-					<div class="CTN">제목</div>
-					<div class="CTC">
-						<input type="text" class="commentBoxT">
+			<form action="#" id="actionForm" method="post">
+				<div>
+					<div id="Ctitle">
+						<div class="CTN">제목</div>
+						<div class="CTC">
+							<input type="text" class="commentBoxT" id="tit" name="tit" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN">시작일</div>
+						<div class="CTC">
+							<input type="date" class="commentBoxT" id="startDt" name="startDt" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN">종료일</div>
+						<div class="CTC">
+							<input type="date" class="commentBoxT" id="endDt" name="endDt" />
+						</div>
+					</div>
+					<div id="Ctitle">
+						<div class="CTN">내용</div>
+						<div class="CTC">
+							<textarea id="ct" name="ct" class="textarea"></textarea>
+						</div>
 					</div>
 				</div>
-				<div id="Ctitle">
-					<div class="CTN">시작일</div>
-					<div class="CTC">
-						<input type="date" class="commentBoxT" />
-					</div>
+				<div id="buttons">
+					<input type="button" value="취소" class="myButton" id="canBtn" />
+					<input type="button" value="등록" class="myButton" id="regBtn" /> 
 				</div>
-				<div id="Ctitle">
-					<div class="CTN">종료일</div>
-					<div class="CTC">
-						<input type="date" class="commentBoxT" />
-					</div>
-				</div>
-				<div id="Ctitle">
-					<div class="CTN">내용</div>
-					<div class="CTC">
-						<textarea id="ct" name="ct" class="textarea"></textarea>
-					</div>
-				</div>
-			</div>
-			<div id="buttons">
-				<input type="button" value="취소" class="myButton" />
-				<input type="button" value="등록" class="myButton" /> 
-			</div>
+			</form>
 		</div>
 	</div>
 </body>

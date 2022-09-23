@@ -183,7 +183,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 공지사항
 	$("#ntcBtn").on("click", function() {
-		location.href = "adNtc";
+		location.href = "adNtList";
 	});
 	
 	
@@ -216,14 +216,128 @@ $(document).ready(function(){
 	
 	// 메뉴 - 댓글 관리
 	$("#memCmtBtn").on("click", function() {
-		location.href = "adMemCmt";
+		location.href = "adCmtList";
 	});
 	
 	
 	
 	
 	
-});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}); // document ready end
+
+
+// 게시글 그리기
+function drawList(list){
+	var html ="";
+	
+	for(var data of list){
+		
+		// "+ +"
+		html += "<tr no=\"" +data.POST_NO +"\">";
+		html += "<td colspan=\"1\"><input type=\"checkbox\" /></td>";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"5\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"1\">"+ +"</td>";
+		html += "<td colspan=\"2\"><span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
+		html += "</tr>                                                                                                           ";
+	}
+	
+	$("tbody").html(html);
+};// drawList end
+
+
+function drawPaging(pd){
+	var html = "";
+	// " + + " 복사
+	
+	// 처음
+	html += "<div id=\"pBtn\">";
+	html += "<input type=\"button\" page=\"1\" value=\"<<\" class=\"pBtn\" />";
+	html += "</div>";
+	
+	//이전
+	if($("#page").val()=="1"){		
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"1\" value=\"<\" class=\"pBtn\" />";
+		html += "</div>";
+		
+	} else{
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"<\" class=\"pBtn\" />";
+		html += "</div>";
+	}
+	
+	// 현재 페이지
+	for(var i = pd.startP; i<=pd.endP; i++){
+		if($("#page").val() * 1 == i){
+			html += "<div id=\"pBtn_GD\">";
+			html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn_GD\" />";
+			html += "</div>";		
+		}else{
+			html += "<div id=\"pBtn\">";
+			html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
+			html += "</div>";	
+			
+		}
+	}
+		
+	
+	// 다음
+	if($("#page").val() * 1 == pd.maxP){
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">\" class=\"pBtn\" />";
+		html += "</div>";	
+	}else{
+		html += "<div id=\"pBtn\">";
+		html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\">\" class=\"pBtn\" />";
+		html += "</div>";	
+	}
+	
+	// 끝
+	html += "<div id=\"pBtn\">";
+	html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">>\" class=\"pBtn\" />";
+	html += "</div>";
+	
+	$("#hd2_paging").html(html);
+};// paging end
+
+
+function reloadList(){
+	var params = $("#actionForm").serialize();
+	
+	$.ajax({
+		url:"adMemAjax",
+		type: "POST",
+		dataType: "json",
+		data : params,
+		success : function(res){
+			drawList(res.list);
+			drawPaging(res.pd);
+			console.log(res);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+			
+		}
+		
+		
+	});
+	
+}; // reloadList end
+
+
+
 </script>
 
 
@@ -328,32 +442,43 @@ $(document).ready(function(){
 
 			<div id="hd2_CC">
 				<div id="CCbox">
+					<!-- 검색 구분, 검색어 보내기 -->
+					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }"/>
+					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }"/>
 
+					<!-- 기존 검색 내용 유지용 -->
+					
+					
+					
 					<!-- 검색 부분 -->
 					<div id="hd2_search">
+					<form action="#" id="actionForm" method="post">
+						<input type="hidden" name="no" id="no"/>
+						<input type="hidden" name="page" id="page" value="${page}"/>
 
-						<div class="Sbar1">
-							<select class="sel">
-								<option>코스별 평가</option>
-								<option>동행 구하기</option>
-								<option>자유게시판</option>
+						<div class="Sbar1" >
+							<select class="sel" name="searchGbn" id="searchGbn">
+								<option value="0">코스별 평가</option>
+								<option value="1">동행 구하기</option>
+								<option value="2">자유게시판</option>
 							</select>
 						</div>
 
 						<div class="Sbar11">
-							<select class="sel">
-								<option>회원번호</option>
-								<option>글번호</option>
-								<option>아이디</option>
-								<option>제목</option>
+							<select class="sel" name="searchGbn" id="searchGbn">
+								<option value="0">회원번호</option>
+								<option value="1">글번호</option>
+								<option value="2">아이디</option>
+								<option value="3">제목</option>
 							</select>
 						</div>
 						<div class="Sbar2">
-							<input type="text" class="commentBoxT" />
+							<input type="text" class="commentBoxT" name="searchTxt" value="${param.searchTxt}"/>
 						</div>
 						<div class="Sbar3">
 							<input type="button" id="hdSearch" value="검색" />
 						</div>
+						</form>
 					</div>
 
 
@@ -372,73 +497,6 @@ $(document).ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-							
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행 구하기</td>
-								<td colspan="5">scone</td>
-								<td colspan="1">둘레길 걸어보자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행 구하기</td>
-								<td colspan="5">scone</td>
-								<td colspan="1">둘레길 걸어보자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행 구하기</td>
-								<td colspan="5">scone</td>
-								<td colspan="1">둘레길 걸어보자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행 구하기</td>
-								<td colspan="5">scone</td>
-								<td colspan="1">둘레길 걸어보자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행 구하기</td>
-								<td colspan="5">scone</td>
-								<td colspan="1">둘레길 걸어보자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
-							<tr>
-								<td colspan="1"><input type="checkbox" /></td>
-								<td colspan="1">1</td>
-								<td colspan="1">동행 구하기</td>
-								<td colspan="5">scone</td>
-								<td colspan="1">둘레길 걸어보자</td>
-								<td colspan="1">22.05.07</td>
-								<td colspan="2"><span
-									class="material-icons"
-									style="font-size: 14px; cursor: pointer;"> close </span></td>
-							</tr>
 							
 						</tbody>
 					</table>

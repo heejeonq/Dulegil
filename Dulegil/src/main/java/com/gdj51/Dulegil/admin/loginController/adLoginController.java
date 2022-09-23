@@ -1,6 +1,5 @@
 package com.gdj51.Dulegil.admin.loginController;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,12 +36,6 @@ public class adLoginController {
 		return mav;
 	}
 
-
-
-	
-	
-	
-
 	// 로그인 아작스(로그인 정보 취득)
 	@RequestMapping(value = "/loginAjax",
 			method = RequestMethod.POST,
@@ -56,7 +49,6 @@ public class adLoginController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
 
-
 		HashMap<String, String> data = dao.getMap("adLogin.checkAd", params);
 		
 		if(data != null) {
@@ -67,13 +59,9 @@ public class adLoginController {
 		}else {
 			model.put("msg", "failed");
 		}
-
 		return mapper.writeValueAsString(model);
 	}
 
-
-
-	
 	// 로그아웃
 	@RequestMapping(value="/adLogout")
 	public ModelAndView adLogout(
@@ -84,7 +72,4 @@ public class adLoginController {
 		mav.setViewName("redirect:adLogin");
 		return mav;
 	}
-	
-	
-
 }

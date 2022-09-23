@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,17 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 수정</title>
-<script type="text/javascript">
-$(document).ready(function() {
-	CKEDITOR.replace("ct", {
-		resize_enabled : false, 
-        language : "ko", 
-        enterMode : "2", 
-        width : "700px", 
-        height : 450
-	});
-});
-</script>
 <style type="text/css">
 body input{
 	font-family: "Gothic A1";
@@ -37,7 +27,7 @@ body input{
 	width: 100%;
 	height: 10%;
 }
-
+ 
 #buttons {
 	text-align: center;
 	margin-right: 125px;
@@ -95,6 +85,25 @@ input:focus {
 	margin-right: 10px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+	CKEDITOR.replace("ct", {
+		resize_enabled : false, 
+        language : "ko", 
+        enterMode : "2", 
+        width : "700px", 
+        height : 450
+	});
+	
+	$("#updBtn").on("click", function() {
+		location.href = "";
+	});
+	
+	$("#canBtn").on("click", function() {
+		location.href = "adEvt";
+	});
+});
+</script>
 </head>
 <body>
 	<!--  header 1  -->
@@ -135,8 +144,8 @@ input:focus {
 				</div>
 			</div>
 			<div id="buttons">
-				<input type="button" value="취소" class="myButton" />
-				<input type="button" value="추가" class="myButton" /> 
+				<input type="button" value="취소" class="myButton" id="canBtn" />
+				<input type="button" value="수정" class="myButton" id="updBtn" /> 
 			</div>
 		</div>
 	</div>

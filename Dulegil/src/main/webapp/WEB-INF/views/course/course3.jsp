@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="resources/css/course.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	$("ul.infoBtn li").click(function(){
 		var tab_id = $(this).attr("data-tab");
 
@@ -20,15 +19,13 @@ $(document).ready(function(){
 		$(this).addClass("on");
 		$("#"+tab_id).addClass("on");
 	});
-	
 });
 </script>
 </head>
 <body>
 
 	<!-- Header -->
-		<jsp:include page="../common/header.jsp" flush="true"/>
-	
+	<c:import url="/header"></c:import>
 	
 	<!-- Container -->
 	<div class="container-main">

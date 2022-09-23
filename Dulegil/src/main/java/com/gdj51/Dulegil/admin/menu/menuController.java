@@ -34,13 +34,7 @@ public class menuController {
 	} 
 	
 	
-	// 메뉴 - 이벤트관리
-	@RequestMapping(value="/adEvt")
-	public ModelAndView adEvt (ModelAndView mav) {
-		
-		mav.setViewName("admin/4_adEvent/ad_event_list");
-	return mav;
-	} 
+	
 	
 	
 	// 메뉴 - 웹사이트 활동 집계
