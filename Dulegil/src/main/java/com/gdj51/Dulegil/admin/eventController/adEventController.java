@@ -78,10 +78,11 @@ public class adEventController {
 	
 	@RequestMapping(value = "adEvtDtl")
 	public ModelAndView adEvtDtl(
-			
+			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-		
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+
 		if(params.get("no") != null && params.get("no") != "") {
 			
 			HashMap<String, String> data = dao.getMap("evt.getEvtDtl", params);
@@ -93,15 +94,21 @@ public class adEventController {
 		}else {
 			mav.setViewName("redirect:adEvt");
 		}
+		
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
+
+		}
 		return mav;
 	}
 	
 	@RequestMapping(value = "adEvtUpd")
 	public ModelAndView adEvtUpd(
-			
+			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-		
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+
 		if(params.get("no") != null && params.get("no") != "") {
 			
 			HashMap<String, String> data = dao.getMap("evt.getEvtDtl", params);
@@ -113,17 +120,23 @@ public class adEventController {
 		}else {
 			mav.setViewName("redirect:adEvt");
 		}
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
+		}
 		return mav;
 	}
 	
 	@RequestMapping(value = "adEvtReg")
 	public ModelAndView adEvtReg(
-			
+			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
+		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
 		mav.setViewName("admin/4_adEvent/ad_event_write");
-
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
+		}
 		return mav;
 	}
 	
