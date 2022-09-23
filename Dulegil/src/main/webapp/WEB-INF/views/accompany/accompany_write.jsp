@@ -67,7 +67,7 @@ $(document).ready(function(){
 			</div>
 			<hr width="80%"/>
 		 <div class="datWrap">            
-            <div class="datNm">날짜</div>
+            <div class="datNm">동행날짜</div>
             <div class="dateBox">
             <input type="date" class="dateCon" />
             </div>
