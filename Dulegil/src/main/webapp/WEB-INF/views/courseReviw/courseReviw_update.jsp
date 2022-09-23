@@ -55,7 +55,7 @@ $("select[name=courseNo]").change(function(){
 }); 
 	
 //목록버튼
-$("#listBtn").on("click", function() {
+$("#wlistBtn").on("click", function() {
    history.back();
 });
 
@@ -226,11 +226,9 @@ $("#insertBtn").on("click", function() {
 			</form>
 				<div class="btnWrap">
 					<div class="btnBox">
-					<input type="button" class="btn" id="insertBtn" value="등록">
-					</div>
-					<div class="btnBox">
-					<input type="button" class="btn" id="listBtn" value="목록">
-					</div>
+						<input type="button" class="btn" id="updateBtn" value="수정">
+						<input type="button" class="btn" id="cancelBtn" value="취소">
+					</div>			
 				</div>
 
 	</div>
