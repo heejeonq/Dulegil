@@ -391,6 +391,7 @@ function reloadList(){
 		<hr/>
 			<div class= mainview3>
 			<form action="#" id="commentsForm" method="post">
+			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
@@ -445,8 +446,7 @@ function reloadList(){
 				
 				</div>
 				<div class="more">
-					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+" 
-					/>							 
+					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
 				</div>
 
 		

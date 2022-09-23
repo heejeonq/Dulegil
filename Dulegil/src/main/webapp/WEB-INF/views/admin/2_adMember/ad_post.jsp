@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="../../common/jscss.jsp" flush="true" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,6 +137,48 @@ td {
 */
 
 /* 페이징 */
+
+/* 페이징 */
+#header2 #hd2_CC #hd2_paging {
+	display: inline-block;
+	margin-top: 3px;
+	text-align: -webkit-center;
+	width: 40%;
+	height: 5%;
+}
+
+#header2 #hd2_CC #hd2_paging #pBtn {
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+	margin-right: 11px;
+}
+
+#header2 #hd2_CC #hd2_paging #pBtn_GD {
+	width: 15px;
+	height: 15px;
+	margin-right: 11px;
+	display: inline-block;
+	border: none;
+	font-size: 12px;
+}
+
+.pBtn {
+	border: none;
+	font-size: 12px;
+	background-color: white;
+	display: inline-box;
+}
+.pBtn_GD {
+	border: none;
+	font-size: 12px;
+	background-color: #ECECEC;
+	display: inline-box;
+}
+
+.pBtn:hover {
+	background-color: #ECECEC;
+}
 .sel {
 	border: none;
 	outline: none;
@@ -201,7 +245,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 회원관리
 	$("#memMngBtn").on("click", function() {
-		location.href = "adMemMng";
+		location.href = "adMemList";
 	});
 	
 	// 메뉴 - 신고 내역 관리
@@ -211,7 +255,7 @@ $(document).ready(function(){
 	
 	// 메뉴 - 게시물 관리
 	$("#memPostBtn").on("click", function() {
-		location.href = "adMemPost";
+		location.href = "adPostList";
 	});
 	
 	// 메뉴 - 댓글 관리
@@ -222,17 +266,192 @@ $(document).ready(function(){
 	
 	
 	
+	// 목록 구분 설정
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}	
+	reloadList();
+	
+	// 검색 버튼 클릭시
+	$("#hdSearch").on("click", function(){
+		$("#page").val("1");
+		
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	});
+	
+	
+	// 페이징 버튼
+	$("#hd2_paging").on("click", ".pBtn", function(){
+			// 기존 검색상태 유지
+			$("#searchGbn").val($("#oldGbn").val());
+			$("#searchTxt").val($("#oldTxt").val());
+			
+			$("#page").val($(this).attr("page"));
+			reloadList();		
+		});
+
 	
 	
 	
+	// thead 체크박스
+	$("thead").on("click", "#allCheck", function(){
+		if($(this).is(":checked")){
+			$("tbody #Check").prop("checked", true);
+		}else{
+			$("tbody #Check").prop("checked", false);			
+		}
+		
+		var arr = [];
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		$("#no").val(arr);
+	});	
+	
+	
+	// tbody 체크박스
+	$("tbody").on("click", "#Check", function(){
+		var arr = [];
+		
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).val());
+		});
+		
+		if(arr.length == $("tbody #Check").length){
+			$("thead #allChecked", true)
+		}else{
+			$("thead #allCheck").prop("checked", false);
+		}
+			// arr에 체크된 곳에 no 값을 넣어줌
+			$("#no").val(arr);		
+	});
 	
 	
 	
+	// 체크박스 삭제
+	$("#deleteBtn").on("click", function(){
+		var arr = [];
+		
+		
+		// 내가 체크박스에 값 1 넣어놔서 tr의 no 취득하기
+		$("tbody #Check:checked").each(function(){
+			arr.push($(this).parent().parent().attr("no"));
+		});
+		console.log(arr);
+		$("#delNo").val(arr);
+		
+		if(arr.length == ""){
+			makeAlert("알림", "삭제할 공지사항을 선택해주세요.");
+		}else{
+			makePopup({
+				title : "알림",
+				contents : "삭제 하시겠습니까?",
+				buttons	: [{
+					name : "삭제",
+					func : function(){
+						// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
+						var params = $("#actionForm").serialize();
+						console.log(params);
+						$.ajax({
+							url : "adPostAction/delete",
+							type :"POST",
+							dataType :"json",
+							data : params,
+							success : function(res){
+								// 성공했을 때 결과를 res에 받고 함수 실행
+								
+								switch(res.msg){
+								case "success" :
+									reloadList();
+									break;
+								case "fail" :
+									makeAlert("알림", "삭제에 실패했습니다.")
+									break;
+								case "exception" :
+									makeAlert("알림", "삭제 중 문제가 발생했습니다.")
+									break;
+								}
+							},
+							error : function(request, status, error){
+								console.log(request.responseText);
+								
+							}
+						});
+						
+						closePopup();
+					}
+				},{
+					name : "취소"
+				}]	
+			})
+		}
+	});
 	
 	
+	
+	// 개별 삭제
+	$("tbody").on("click","#delBtn", function(){
+		var del = $(this).parent().parent().attr("no");
+		$("#no").val(del);
+		console.log(del);
+		
+		makePopup({
+			title : "알림",
+			contents : "삭제 하시겠습니까?",
+			buttons	: [{
+				name : "삭제",
+				func : function(){
+					// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
+					var params = $("#actionForm").serialize();
+					console.log(params);
+					$.ajax({
+						url : "adPostAction/del",
+						type :"POST",
+						dataType :"json",
+						data : params,
+						success : function(res){
+							// 성공했을 때 결과를 res에 받고 함수 실행
+							
+							switch(res.msg){
+							case "success" :
+								reloadList();
+								break;
+							case "fail" :
+								makeAlert("알림", "삭제에 실패했습니다.")
+								break;
+							case "exception" :
+								makeAlert("알림", "삭제 중 문제가 발생했습니다.")
+								break;
+							}
+						},
+						error : function(request, status, error){
+							console.log(request.responseText);
+							
+						}
+					});
+					
+					closePopup();
+				}
+			},{
+				name : "취소"
+			}]	
+		})
+		
+	});
 	
 	
 }); // document ready end
+
+
+
+
+
 
 
 // 게시글 그리기
@@ -243,13 +462,15 @@ function drawList(list){
 		
 		// "+ +"
 		html += "<tr no=\"" +data.POST_NO +"\">";
-		html += "<td colspan=\"1\"><input type=\"checkbox\" /></td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"5\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"1\">"+ +"</td>";
-		html += "<td colspan=\"2\"><span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
+		html += "<td colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\"/></td>";
+		html += "<td colspan=\"1\">"+ data.MEMBER_NO +"</td>";
+		
+		// 게시판 벨류 0,1,2 일때 이름 도출하는거 하기 
+		html += "<td colspan=\"1\">"+ data.BLTNBOARD_NO +"</td>";
+		html += "<td colspan=\"5\">"+ data.NM +"</td>";
+		html += "<td colspan=\"1\">"+ data.TITLE +"</td>";
+		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
+		html += "<td colspan=\"2\"><span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
 		html += "</tr>                                                                                                           ";
 	}
 	
@@ -317,7 +538,7 @@ function reloadList(){
 	var params = $("#actionForm").serialize();
 	
 	$.ajax({
-		url:"adMemAjax",
+		url:"adPostAjax",
 		type: "POST",
 		dataType: "json",
 		data : params,
@@ -444,6 +665,7 @@ function reloadList(){
 				<div id="CCbox">
 					<!-- 검색 구분, 검색어 보내기 -->
 					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }"/>
+					<input type="hidden" id="searchGbn2" name="searchGbn2" value="${param.searchGbn2 }"/>
 					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }"/>
 
 					<!-- 기존 검색 내용 유지용 -->
@@ -454,6 +676,7 @@ function reloadList(){
 					<div id="hd2_search">
 					<form action="#" id="actionForm" method="post">
 						<input type="hidden" name="no" id="no"/>
+						<input type="hidden" id="delNo" name="delNo"/><!-- 목록 체크박스 삭제 -->
 						<input type="hidden" name="page" id="page" value="${page}"/>
 
 						<div class="Sbar1" >
@@ -465,7 +688,7 @@ function reloadList(){
 						</div>
 
 						<div class="Sbar11">
-							<select class="sel" name="searchGbn" id="searchGbn">
+							<select class="sel" name="searchGbn2" id="searchGbn2">
 								<option value="0">회원번호</option>
 								<option value="1">글번호</option>
 								<option value="2">아이디</option>
@@ -478,7 +701,7 @@ function reloadList(){
 						<div class="Sbar3">
 							<input type="button" id="hdSearch" value="검색" />
 						</div>
-						</form>
+						
 					</div>
 
 
@@ -487,7 +710,7 @@ function reloadList(){
 					<table>
 						<thead>
 							<tr>
-								<th colspan="1"><input type="checkbox" /></th>
+								<th colspan="1"><input type="checkbox" id="allCheck" name="allCheck"/></th>
 								<th colspan="1">회원번호</th>
 								<th colspan="1">카테고리</th>
 								<th colspan="1">아이디</th>
@@ -502,9 +725,10 @@ function reloadList(){
 					</table>
 					<!-- 작성 삭제 버튼 -->
 					<div id="write">
-						<input type="button" value="삭제" class="delBtn" />
+						<input type="button" value="삭제" class="delBtn" id="deleteBtn" />
 					</div>
 				</div>
+				</form>
 				<!-- ccbox -->
 
 
