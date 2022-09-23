@@ -119,7 +119,7 @@ $("#insertBtn").on("click", function() {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 	<!-- Container -->
 	<div class="container-main">
 

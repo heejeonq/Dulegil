@@ -73,6 +73,74 @@ public class CourseReviewController {
 			return mapper.writeValueAsString(model);
 	}
 	
+	// 글쓰기 업뎃 수정
+	
+	@RequestMapping(value="/courseReviewWrite")
+	public ModelAndView courseReviewWrite(
+			@RequestParam HashMap<String,String> params,
+			ModelAndView mav) {
+		
+		mav.setViewName("courseReviw/courseReviw_write");
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/CoreseRevAction/{gbn}", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String CoreseRevAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		int cnt = 0;
+
+		try {
+			switch (gbn) {
+			case "insert":
+				cnt = dao.insert("courseR.insert", params);
+				break;
+			case "update":
+				cnt = dao.update("courseR.update", params);
+				break;
+			case "delete":
+				cnt = dao.update("courseR.delete", params);
+				break;
+			}
+			if (cnt > 0) {
+				model.put("msg", "success");
+			} else {
+				model.put("msg", "fail");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+
+		return mapper.writeValueAsString(model);
+	}
+
+	@RequestMapping(value = "/courseReviewUpdate")
+	public ModelAndView courseReviewUpdate(@RequestParam HashMap<String, String> params, ModelAndView mav)
+			throws Throwable {
+		if (params.get("no") != null && params.get("no") != "") {
+
+			HashMap<String, String> data = dao.getMap("courseR.getCR", params);
+
+			mav.addObject("data", data);
+
+			mav.setViewName("courseReviw/courseReviw_update");
+		} else {
+			mav.setViewName("redirect:courseReview");
+		}
+
+		return mav;
+	}
+
+	
 	//상세보기
 	@RequestMapping(value="/courseReviewDetail")
 	public ModelAndView courseReviewDetail(
@@ -86,30 +154,21 @@ public class CourseReviewController {
 			mav.addObject("data", data);
 		
 		mav.setViewName("courseReviw/courseReviw_detail");
-		}
-		 else { 
-			 mav.setViewName("redirect:courseReview"); 
-			 
+		}else { 
+			 mav.setViewName("redirect:courseReview");  
 		 }
 		
 		return mav;
 	}
 	
-	//글쓰기
-	@RequestMapping(value="/courseReviewWrite")
-	public ModelAndView courseReviewWrite(
-			@RequestParam HashMap<String,String> params,
-			ModelAndView mav) {
-		
-		mav.setViewName("courseReviw/courseReviw_write");
-		
-		return mav;
-	}
-	@RequestMapping(value="/CourseRevAction/{gbn}",
+
+	
+	//댓글
+	@RequestMapping(value="/CourseRevCAction/{gbn}",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String FREEAction(
+	public String CourseRevCAction(
 			@PathVariable String gbn,
 			@RequestParam HashMap<String,String> params) throws Throwable{
 			ObjectMapper mapper =  new ObjectMapper();
@@ -119,13 +178,13 @@ public class CourseReviewController {
 		int cnt=0;
 	
 		try {
-		switch(gbn) {
-		case "insert": cnt=dao.insert("courseR.insert",params);
-			break;
-		case "update": cnt=dao.update("courseR.update",params);
-			break;
-		case "delete": cnt=dao.update("courseR.delete",params);
-			break;
+			switch(gbn) {
+			case "insert": cnt=dao.insert("courseR.Cinsert",params);
+				break;
+			case "update": cnt=dao.update("courseR.Cupdate",params);
+				break;
+			case "delete": cnt=dao.update("courseR.Cdelete",params);
+				break;
 		}
 			if(cnt > 0) {
 				model.put("msg","success");
