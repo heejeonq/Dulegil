@@ -111,6 +111,7 @@ $(document).ready(function(){
 	<div id="header2">
 		<div id="hd2_header">
 			<div class="hh2_icon">
+			
 				<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
 			</div>
 		</div>

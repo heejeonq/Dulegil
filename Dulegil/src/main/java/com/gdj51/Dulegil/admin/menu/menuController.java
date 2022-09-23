@@ -16,13 +16,6 @@ public class menuController {
 	
 	
 	
-	//로그인 후 관리자 페이지로 이동 화면
-	@RequestMapping(value="/adAccountMng")
-	public ModelAndView adAccountMng(ModelAndView mav) {
-		mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
-		
-	return mav;
-	}
 	
 	
 	// 메뉴 - 공지사항
