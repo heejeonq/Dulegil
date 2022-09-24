@@ -8,105 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공지사항 목록</title>
 <style type="text/css">
-#ccboxCon td{
-	padding: 10px;
-}
-
-#header2 #hd2_CC #hd2_paging #pBtn_GD {
-	width: 15px;
-	height: 15px;
-	margin-right: 11px;
-	display: inline-block;
-	border: none;
-	font-size: 12px;
-}
-.pBtn_GD {
-	border: none;
-	font-size: 12px;
-	background-color: #ECECEC;
-	display: inline-box;
-}
-
-/* 검색창 */
-#header2 #search {
-	width: 100%;
-	height: 10%;
-	text-align: center;
-	font-size: 20px;
-	background-color: white;
-}
-
-/* vertical-align 은 여기 버튼 css에서 설정해준다. div아님*/
-#header2 #search .Sbar1, .Sbar11, .Sbar2, .Sbar3 {
-	margin-top: 20px;
-	display: -webkit-inline-box;
-}
-
-.Sbar3 {
-width: 6%;
-	height: 46%;
-	display: inline-block;
-	text-align: left;
-	vertical-align: top;
-	position: relative;
-	border: 1px solid #ddd;
-}
-
-.Sbar2 {
-	width: 25%;
-	height: 46%;
-	display: inline-block;
-	text-align: left;
-	vertical-align: top;
-	border: 1px solid #ddd;
-	position: relative;
-}
-
-.Sbar1 {
-	width: 6%;
-	height: 46%;
-	display: inline-block;
-	text-align: left;
-	vertical-align: top;
-	border: 1px solid #ddd;
-	position: relative;
-}
-
-.commentBoxT {
-	border: none;
-	width: 100%;
-    height: 100%;
-	position: absolute;
-}
-
-#searchBtn {
-background-color: #ededed;
-    border-radius: 0px;
-    border: #ededed;
-    display: inline-block;
-    cursor: pointer;
-    color: #5e5e5e;
-    font-family: Arial;
-    font-weight: 700;
-    width: 100%;
-    height: 100%;
-    position: inherit;
-}
-
-input:focus {
-	outline: none;
-}
-
-#hdSearch:hover {
-	background-color: #ECECEC;
-}
-
-.sel {
-	border: none;
-	outline: none;
-	position:absolute;
-	width: 100%;
-    height: 100%;
+#ntcTit:hover{
+	text-decoration: underline;
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript">
@@ -118,10 +22,7 @@ $(document).ready(function(){
 	}else{
 		$("#oldGbn").val("0");
 	}
-	
 	reloadList();
-	
-	
 	
 	// 검색 버튼 클릭시
 	$("#searchBtn").on("click", function(){
@@ -133,7 +34,6 @@ $(document).ready(function(){
 		reloadList();
 	})
 	
-	
 	// 페이징 버튼
 	$("#hd2_paging").on("click", ".pBtn", function(){
 		//기존 검색 상태 유지
@@ -142,22 +42,17 @@ $(document).ready(function(){
 		
 		$("#page").val($(this).attr("page"));
 		reloadList();
-		
 	});
 	
-	
 	// 글 목록 클릭시 상세보기 // 체크 박스 선택시 x 
-	$("tbody").on("click", "td:nth-child(1)", function(){
-		$("#no").val($(this).attr("no"));
+	$("tbody").on("click", "#ntcTit", function(){
+		$("#no").val($(this).parent().attr("no"));
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action", "adNtDetail");
+		$("#actionForm").attr("action", "adNtDetail"); 
 		$("#actionForm").submit();
-	});
-	
-	
-	
+	});	
 	
 	// 공지 등록 버튼
 	$("#insertBtn").on("click", function(){
@@ -299,10 +194,10 @@ function drawList(list){
 	for(var data of list){                                                           
 		html += "<tr no=\"" + data.POST_NO + "\">";
 		html += "<td>"+ data.POST_NO +"</td>";
-		html += "<td>"+ data.TITLE +"</td>";
+		html += "<td id=\"ntcTit\">"+ data.TITLE +"</td>";
 		html += "<td>"+ data.NM +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
-		html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\""+data.POST_NO+"\" /></td>";
+		html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"" + data.POST_NO + "\" /></td>";
 		html += "</tr>";                                                                
 	}   
 	$("tbody").html(html);
@@ -336,76 +231,66 @@ function drawPaging(pd) {
 	
 	html += "<span class=\"page_btn page_last\" id=\"pBtn\" page=\"" + pd.maxP + "\">>></span>";
 	
-	$("#hd2_paging").html(html);
+	$(".Cpaging").html(html);
 }
 </script>
 </head>
 <body>
-	<!-- 기존 검색 내용 유지용 -->
+	<!-- 검색어 유지용 -->
 	<input type="hidden" id="oldGbn" value="${param.searchGbn}"/>
 	<input type="hidden" id="oldTxt" value="${param.searchTxt}"/>
 
-	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 
-	<div id="hd2_content">
-		<div id="hd2_Cname">
-			<div id="Cname_box">
-				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span>
-				공지사항 목록
-			</div>
+	<div class="container">
+		<div class="Cname">
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_document</span>
+			공지사항 목록
 		</div>
-
-		<div id="hd2_CC">
-			<div id="CCbox">
-				<table>
-					<colgroup>
-						<col width="100px">
-						<col width="800px">
-						<col width="150px">
-						<col width="200px">
-						<col width="100px">
-					</colgroup>
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
-						</tr>
-					</thead>
-					<tbody id="ccboxCon"></tbody>
-				</table>
+		<form action="#" id="actionForm" method="post">
+			<input type="hidden" id="no" name="no"/><!-- 상세보기 -->
+			<input type="hidden" id="delNo" name="delNo"/><!-- 목록 체크박스 삭제 -->
+			<input type="hidden" name="page" id="page" value="${page}" />	
+			<div class="Csearch">
+				<select class="sel" name="searchGbn" id="searchGbn">
+					<option value="0">제목</option>
+					<option value="1">내용</option>
+				</select>
+				<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
+				<input type="button" class="btn src" id="searchBtn" value="검색" />
 			</div>
-			<div id="write">
-				<input type="button" value="삭제" class="btn right" id="deleteBtn" />
-				<input type="button" value="글쓰기" class="btn right" id="insertBtn" />	
+	
+			<div class="Ccon">
+				<div class="Ctable">
+					<table>
+						<colgroup>
+							<col width="100px">
+							<col width="800px">
+							<col width="150px">
+							<col width="200px">
+							<col width="100px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
+							</tr>
+						</thead>
+						<tbody id="Ctbody"></tbody>
+					</table>
+				</div>
+				
+				<div class="Cbtnright">
+					<input type="button" value="등록" class="btn" id="insertBtn" />	
+					<input type="button" value="삭제" class="btn" id="deleteBtn" />
+				</div>
+				
+				<div class="Cpaging" ></div>
 			</div>
-			<div id="hd2_paging" ></div>
-			<div id="search">
-				<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
-				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-				<form action="#" id="actionForm" method="post">
-					<input type="hidden" id="no" name="no"/><!-- 상세보기 -->
-					<input type="hidden" id="delNo" name="delNo"/><!-- 목록 체크박스 삭제 -->
-					<input type="hidden" name="page" id="page" value="${page}" />
-					<div class="Sbar1">
-						<select class="sel" name="searchGbn" id="searchGbn">
-							<option value="0">제목</option>
-							<option value="1">내용</option>
-						</select>
-					</div>
-					<div class="Sbar2">
-						<input type="text" class="commentBoxT" name="searchTxt"
-							id="searchTxt" value="${param.searchTxt }" />
-					</div>
-					<div class="Sbar3">
-						<input type="button" id="searchBtn" value="검색" />
-					</div>
-				</form>
-			</div>
-		</div>
+		</form>
 	</div>
 </body>
 </html>

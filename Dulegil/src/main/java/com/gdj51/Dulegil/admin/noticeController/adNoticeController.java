@@ -39,7 +39,7 @@ public class adNoticeController {
          int page = 1;
 
          if(params.get("page") != null && params.get("page") != "") {
-            page = Integer.parseInt(params.get("page"));
+ 			page = Integer.parseInt(params.get("page"));
          }
 
          mav.addObject("page", page);

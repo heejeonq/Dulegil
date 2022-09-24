@@ -11,35 +11,32 @@
 </style>
 </head>
 <body>
-	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
-	<div id="hd2_content">
-		<div id="hd2_Cname"></div>
-		<div id="hd2_CC">
-			<div id="CCbox" style="display: block">
-				<div class="login_banner">
-					<p>관리자 정보</p>
-				</div>
-				<div class="icon">
+	
+	<div class="container">
+		<div class="Cname">
+			<div class="login_banner">
+				<p>관리자 정보</p>
+			</div>
+			<div class="icon">
+				<span class="material-symbols-outlined"
+					style="font-size: 200px; color: #C0C0C0;"> badge </span>
+			</div>
+			<div class="login_box">
+				<div class="id_box">
 					<span class="material-symbols-outlined"
-						style="font-size: 200px; color: #C0C0C0;"> badge </span>
+						style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
+						info </span>  <input type="text" class="input" placeholder="아이디"
+						maxlength="20" value="${sMemNm}"/>
 				</div>
-				<div class="login_box">
-					<div class="id_box">
-						<span class="material-symbols-outlined"
-							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-							info </span>  <input type="text" class="input" placeholder="아이디"
-							maxlength="20" value="${sMemNm}"/>
-					</div>
-					<div class="pw_box">
-						<span class="material-symbols-outlined"
-							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-							lock </span> <input type="text" class="input" placeholder="비밀번호"
-							maxlength="20" value="${sMemPw}" />
-					</div>
-				</div> <!-- login box end -->
-			</div> <!-- cc box end -->
-		</div>  <!-- cc end -->
-	</div> <!-- hd2 content end -->
+				<div class="pw_box">
+					<span class="material-symbols-outlined"
+						style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
+						lock </span> <input type="text" class="input" placeholder="비밀번호"
+						maxlength="20" value="${sMemPw}" />
+				</div>
+			</div> 
+		</div> 
+	</div>  
 </body>
 </html>
