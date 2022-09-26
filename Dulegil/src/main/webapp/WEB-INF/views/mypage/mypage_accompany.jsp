@@ -178,6 +178,11 @@ function drawList(list1, list2, list3, list4, list5){
 			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\" disabled=\"disabled\"></td>   ";
 			
 		}
+		else {
+			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">        ";
+			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>   ";
+			
+		}
 		html1 += "		</tr>                                                               ";
 		html1 += "</table>";
 	

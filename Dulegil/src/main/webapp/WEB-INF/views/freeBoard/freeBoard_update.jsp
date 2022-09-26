@@ -189,7 +189,7 @@ $("#updateBtn").on("click", function() {
 				 
 				<div class="titNm">제목</div>
 				<div class="titBox">
-				<input type="text" class="titCon" name="title" id="title"value="${data.TITLE}" />
+				<input type="text" class="titCon" name="title" id="title" value="${data.TITLE}" />
 				</div>
 			</div>
 

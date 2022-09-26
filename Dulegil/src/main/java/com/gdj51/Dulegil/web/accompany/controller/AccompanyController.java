@@ -119,7 +119,7 @@ public class AccompanyController {
 			throws Throwable {
 		if (params.get("no") != null && params.get("no") != "") {
 
-			HashMap<String, String> data = dao.getMap("accom.getA", params);
+			HashMap<String, String> data = dao.getMap("accom.getAC", params);
 
 			mav.addObject("data", data);
 

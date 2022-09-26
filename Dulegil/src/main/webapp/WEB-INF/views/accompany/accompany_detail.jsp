@@ -27,7 +27,8 @@
 $(document).ready(function(){
 	reloadList();
 
-	
+	console.log(${data.MEMBER_NO});
+	console.log("dfs");
 	//게시글 버튼
 	$("#listBtn").on("click",function(){
 		$("#actionForm").attr("action","accompany")
@@ -44,7 +45,7 @@ $(document).ready(function(){
 						func : function() {
 							var params = $("#actionForm").serialize();
 							$.ajax({
-								url : "FREEAction/delete", //경로
+								url : "accompanyAction/delete", //경로
 								type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
 								dataType : "json",
 								data : params,
@@ -56,7 +57,7 @@ $(document).ready(function(){
 			        	                    $("#searchTxt").val("");
 			        	                    
 			        	                    
-			        	                    $("#actionForm").attr("action","freeBoard");									
+			        	                    $("#actionForm").attr("action","accompany");									
 			        	                    $("#actionForm").submit();									
 										
 										break;
@@ -506,6 +507,7 @@ function reloadList(){
          	<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
+			<input type="hidden" name="memberNo" value="${data.MEMBER_NO}">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
 			<input type="hidden" name="cpage" id="cpage" value="5" />
 			
