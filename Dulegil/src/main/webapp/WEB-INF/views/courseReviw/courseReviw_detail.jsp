@@ -35,6 +35,7 @@ $(document).ready(function(){
 	
 	 $(".goodBtn").on("click",function(){
 		 
+		 
 		 var params = $("#actionForm").serialize();
 
 		 $.ajax({
@@ -42,11 +43,18 @@ $(document).ready(function(){
 	         type:"POST",
 	         dataType:"json",
 	         data:params,
-	         success : function(res){ //gcnt안에 good 이라는 데이터를 씀 gcnt 여기서 짓는 이름
-	        	 console.log(res);
-	        	 draw(res.gcnt);
+	         success : function(res){
+	      
+   	        	 console.log(res);
+		        	 draw(res.gcnt);
+		     
+	        		 
+	       `	 }
+	        	 //gcnt안에 good 이라는 데이터를 씀 gcnt 여기서 짓는 이름
+
 	        	 //console.log(gcnt);
-	         },
+	        	 },
+
 	         error :function(request, status, error) { //실패했을 때 함수 실행 isfp
 	             console.log(request.responseText); //실패 상세내역
 	          }
@@ -324,13 +332,36 @@ function reloadList(){
 	} 
  
  function draw(data){
+	 //로그인이 안돼있으면 알림 뜬후 로그인 페이지로 이동
+	 //만약 작성자와 일치하면 '좋아요 누를수 없습니다' 알람(memberNo=sMemNo){}
+	 //만약 좋아요 눌렀으면 빨간하트
+	 //안눌렀으면 하얀하트.
+	/* if("${empty sMemNo}"){
+		 makeAlert("알림","회원만 가능합니다.");
+		 location.href="login"
+	 }else if(data.MEMBER_NO == "${sMemNo}"){
+		 makeAlert("알림","좋아요 안돼 ");
+	 }else if(data.MEMBER_NO != "${sMemNo}" || gcnt==0){
+		 makeAlert("알림","좋아요!");
+		 $('#goodCnt').val(1);
+	 }else if(data.MEMBER_NO != "${sMemNo}" || gcnt==1){
+		 makeAlert("알림","좋아요취소");
+		 $('#goodCnt').val(0);
+	 } */
+	 
+	 // " +  + " 1(내용) 대신 넣자
 	 console.log(data);
 	 var html="";
 	 
 		html += " <span class=\"like\">";
-		html += " <img src=\"resources/images/like.png\" >";
-		html += " <div class=\"goodCnt\" id=\"goodCnt\" name=\"goodCnt\">" + data + "</div> ";
-	
+		//이미 눌렀으면
+		if(data == 0){
+			html += " <img src=\"resources/images/like.png\" >";
+			html += " <div class=\"goodCnt\" id=\"goodICnt\" name=\"goodCnt\">" + data + "</div> ";
+		}else{
+			html += " <img src=\"resources/images/likeAft.png\" >";
+			html += " <div class=\"goodCnt\" id=\"goodDCnt\" name=\"goodCnt\">" + data + "</div> ";
+			}
 		$(".goodBtn").html(html);
  };
 
