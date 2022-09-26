@@ -1,43 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="../../common/jscss.jsp" flush="true"/>
+<jsp:include page="../adjscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 수정</title>
-<style type="text/css">
-.Cinput{
-	margin: 40px 10px 0;
-    font-size: 11pt;
-}
-
-.Cinput tr{
-	border: none;
-}
-
-.Cinput th {
-	width: 60px;
-    padding: 8px;
-}
-
-.Cinput input[type='text'], .Cinput input[type='date']{
-	width: 100%;
-    height: 35px;
-    padding: 5px;
-    border: none;
-	border-bottom: 1px solid #ddd;
-}
-
-.Cinput input[type='date']{
-	width: 40%;
-}
-
-input:focus {
-	outline: none;
-}
-</style>
 <script type="text/javascript">
 $(document).ready(function() {
 	CKEDITOR.replace("contents", {
@@ -48,14 +17,14 @@ $(document).ready(function() {
         height : 450
 	});
 	
-	$("#updBtn").on("click", function() {
-		$("#ct").val(CKEDITOR.instances['ct'].getData());
+	$("#updateBtn").on("click", function() {
+		$("#contents").val(CKEDITOR.instances['contents'].getData());
 		var startDate = $('#startDt').val();    // 시작일
 		var endDate = $('#endDt').val();        // 종료일  
 		
-		if($.trim($("#tit").val()) == "") {
+		if($.trim($("#title").val()) == "") {
 			makeAlert("알림", "제목을 입력하세요.", function() {
-				$("#tit").focus();
+				$("#title").focus();
 			});
 
 		}else if ($("#startDt").val() == "") {
@@ -109,9 +78,9 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#canBtn").on("click", function() {
-		location.href = "adEvt";
-	});
+	$("#cancelBtn").on("click", function() {
+		history.back();
+	}); 
 });
 </script>
 </head>
@@ -136,7 +105,7 @@ $(document).ready(function() {
 				<table class="Cinput">
 					<tr>
 						<th>제목</th>
-						<td><input type="text" id="tit" name="tit" value="${data.TITLE}" /></td>
+						<td><input type="text" id="title" name="title" value="${data.TITLE}" /></td>
 					</tr>
 					<tr>
 						<th>시작일</th>
@@ -153,8 +122,8 @@ $(document).ready(function() {
 				</table>
 			</form>	
 			<div class="Cbtncenter">
-				<input type="button" value="취소" class="btn" id="canBtn" />
-				<input type="button" value="수정" class="btn" id="updBtn" /> 
+				<input type="button" value="취소" class="btn" id="cancelBtn" />
+				<input type="button" value="수정" class="btn" id="updateBtn" /> 
 			</div>
 		</div>
 	</div>
