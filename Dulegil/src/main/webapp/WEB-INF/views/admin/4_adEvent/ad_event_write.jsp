@@ -7,37 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 등록</title>
-<style type="text/css">
-.Cinput{
-	margin: 40px 10px 0;
-    font-size: 11pt;
-}
-
-.Cinput tr{
-	border: none;
-}
-
-.Cinput th {
-	width: 60px;
-    padding: 8px;
-}
-
-.Cinput input[type='text'], .Cinput input[type='date']{
-	width: 100%;
-    height: 35px;
-    padding: 5px;
-    border: none;
-	border-bottom: 1px solid #ddd;
-}
-
-.Cinput input[type='date']{
-	width: 40%;
-}
-
-input:focus {
-	outline: none;
-}
-</style>
 <script type="text/javascript">
 $(document).ready(function() {
 	CKEDITOR.replace("contents", {
@@ -48,18 +17,18 @@ $(document).ready(function() {
         height : 450
 	});
 	
-	$("#canBtn").on("click", function() {
+	$("#cancelBtn").on("click", function() {
 		location.href = "adEvt";
 	});
 	
-	$("#regBtn").on("click", function() {
-		$("#ct").val(CKEDITOR.instances['ct'].getData());
+	$("#insertBtn").on("click", function() { 
+		$("#contents").val(CKEDITOR.instances['contents'].getData());
 		var startDate = $('#startDt').val();    // 시작일
 		var endDate = $('#endDt').val();        // 종료일  
 		
-		if($.trim($("#tit").val()) == "") {
+		if($.trim($("#title").val()) == "") {
 			makeAlert("알림", "제목을 입력하세요.", function() {
-				$("#tit").focus();
+				$("#title").focus();
 			});
 
 		}else if ($("#startDt").val() == "") {
@@ -93,6 +62,9 @@ $(document).ready(function() {
 				console.log(res);
 					switch(res.msg){
 					case "success" :
+						$("#page").val("1");
+   	                    $("#searchgbn").val("0");
+   	                    $("#searchTxt").val("");
 						makeAlert("알림", "이벤트가 등록되었습니다.", function() {
 							location.href="adEvt";
 						}) ;
@@ -133,7 +105,7 @@ $(document).ready(function() {
 				<table class="Cinput">
 					<tr>
 						<th>제목</th>
-						<td><input type="text" id="tit" name="tit" /></td>
+						<td><input type="text" id="title" name="title" /></td>
 					</tr>
 					<tr>
 						<th>시작일</th>
@@ -149,8 +121,8 @@ $(document).ready(function() {
 					</tr>
 				</table>
 				<div class="Cbtncenter">
-					<input type="button" value="취소" class="btn" id="canBtn" />
-					<input type="button" value="등록" class="btn" id="regBtn" /> 
+					<input type="button" value="취소" class="btn" id="cancelBtn" />
+					<input type="button" value="등록" class="btn" id="insertBtn" /> 
 				</div>
 			</form>
 		</div>

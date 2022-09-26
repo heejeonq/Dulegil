@@ -51,7 +51,8 @@ public class CourseReviewController {
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String CourseRevListAjax(
-			@RequestParam HashMap<String,String> params) throws Throwable{
+			@RequestParam HashMap<String,String> params) 
+					throws Throwable{
 			ObjectMapper mapper =  new ObjectMapper();
 			
 			Map<String,Object> model = new HashMap<String,Object>();
@@ -60,7 +61,7 @@ public class CourseReviewController {
 			
 			HashMap<String, Integer> pd
 			= ips.getPagingData(Integer.parseInt(params.get("page")),						
-				cnt,10,5);
+				cnt,8,5);
 			
 			params.put("start", Integer.toString(pd.get("start")));
 			params.put("end", Integer.toString(pd.get("end")));
@@ -91,7 +92,9 @@ public class CourseReviewController {
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String CoreseRevAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String CoreseRevAction(
+			@PathVariable String gbn, 
+			@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -154,6 +157,13 @@ public class CourseReviewController {
 			
 			HashMap<String,String> data = dao.getMap("courseR.getCR",params);
 			mav.addObject("data", data);
+			
+			
+			/*
+			  int gcnt = dao.getInt("courseR.gcnt",params); 			 			 
+			  cnt=dao.insert("courseR.insertG",params); int
+			  cnt=dao.insert("courseR.deleteG",params);
+			 */
 		
 		mav.setViewName("courseReviw/courseReviw_detail");
 		}else { 
@@ -166,7 +176,7 @@ public class CourseReviewController {
 
 	
 	//댓글
-	/*@RequestMapping(value="/CourseRevCAction/{gbn}",
+	@RequestMapping(value="/CourseRevCAction/{gbn}",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -181,11 +191,11 @@ public class CourseReviewController {
 	
 		try {
 			switch(gbn) {
-			case "insert": cnt=dao.insert("courseR.Cinsert",params);
+			case "insert": cnt=dao.insert("courseR.insertC",params);
 				break;
-			case "update": cnt=dao.update("courseR.Cupdate",params);
+			case "update": cnt=dao.update("courseR.updateC",params);
 				break;
-			case "delete": cnt=dao.update("courseR.Cdelete",params);
+			case "delete": cnt=dao.update("courseR.deleteC",params);
 				break;
 		}
 			if(cnt > 0) {
@@ -203,7 +213,75 @@ public class CourseReviewController {
 			
 		return mapper.writeValueAsString(model);	
 }
-	*/
+	@RequestMapping(value = "/commentCAjax", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		int cnt =dao.getInt("courseR.getCCnt",params);//댓글갯수
+
+		HashMap<String, Integer> pd =
+				ips.getPagingData(1,cnt,Integer.parseInt(params.get("cpage")),1); //페이징하는데
+		//현재페이지 /총 게시물 개수/ 보여지는 게시물 수/ 페이징수
+		params.put("start", Integer.toString(pd.get("start"))); //댓글 시작
+		params.put("end", Integer.toString(pd.get("end"))); //댓글 끝
+
+		List<HashMap<String, String>> list = dao.getList("courseR.getCList", params);
+
+
+		model.put("list", list);
+
+		model.put("pd", pd);//
+
+		return mapper.writeValueAsString(model);
+
+	}
 	
+	//좋아요
+	@RequestMapping(value = "/goodajax/{gbn}", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String goodajax(
+			@PathVariable String gbn, 
+			@RequestParam HashMap<String, String> params) 
+					throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		
+		
+		int cnt = 0;//insert,delete받기위해
+		
+		int gcnt=0; //gcnt 받기위해
+		
+		try {
+			switch(gbn) {
+			case "insert": cnt=dao.insert("courseR.insertG",params);
+					gcnt =dao.getInt("courseR.gcnt",params);
+				break;
+			case "delete": cnt=dao.delete("courseR.deleteG",params);
+				break;
+			}
+			if (cnt > 0) {
+				model.put("msg", "success");
+			} else {
+				model.put("msg", "fail");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+		
+		model.put("gcnt", gcnt); //gcnt를 good으로 보여줄게
+		
+		return mapper.writeValueAsString(model);
+	}
 	
 }

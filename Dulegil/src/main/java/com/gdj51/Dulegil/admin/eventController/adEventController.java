@@ -160,8 +160,10 @@ public class adEventController {
 				break;
 			case "update": cnt = dao.update("evt.upd", params);
 				break;
-			case "delete": cnt = dao.update("evt.del", params);
+			case "deleteList": cnt = dao.update("evt.delList", params);
 				break;
+			case "deleteDetail": cnt = dao.update("evt.delDetail", params);
+			break;	
 			}
 			
 			if (cnt > 0) {

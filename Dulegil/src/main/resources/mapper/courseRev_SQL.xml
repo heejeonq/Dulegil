@@ -28,7 +28,6 @@ WHERE BLTNBOARD_NO=1
 				</when>
 				<when test="searchGbn eq 3">
 				AND BC.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
-				OR COURSE_NM LIKE '%'|| #{searchTxt} ||'%'
 				
 				</when>
 			</choose>		
@@ -37,14 +36,14 @@ WHERE BLTNBOARD_NO=1
 
 <!-- 목록 -->
 <select id="courseRList" parameterType="hashmap" resultType="hashmap">
-SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.BLTNBOARD_NO,F.MEMBER_NO,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.RNUM,F.GOOD,F.NM,F.CNT
+SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.BLTNBOARD_NO,F.MEMBER_NO,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.RNUM,F.GOOD,F.NM,F.CNT,F.DEL_DT
 FROM(SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
  CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')                 
        			END AS DT,
                 ROW_NUMBER() OVER(ORDER BY BB.POST_NO DESC) AS RNUM,
-               NVL(CNT,0)AS GOOD,NVL(CCNT,0)AS CNT
+               NVL(CNT,0)AS GOOD,NVL(CCNT,0)AS CNT,BB.DEL_DT
 FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               INNER JOIN BULLETIN_BOARD BB ON BC.POST_NO=BB.POST_NO  
               INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
@@ -59,6 +58,7 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
                WHERE DEL_DT IS NULL
              GROUP BY POST_NO) CC ON BB.POST_NO=CC.POST_NO
 WHERE BLTNBOARD_NO=1
+AND BB.DEL_DT IS NULL
 	<if test="searchTxt != null and searchTxt !=''">
 			<choose>
 				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
@@ -114,14 +114,14 @@ AND MEMBER_NO != #{sMemNo}
 
 <!-- 상세보기 -->
 <select id="getCR" parameterType="hashmap" resultType="hashmap">
-SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GOOD,F.MEMBER_NO     
+SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GCNT,F.MEMBER_NO,F.DEL_DT
 FROM (SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
  CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')                 
        			END AS DT,
                 ROW_NUMBER() OVER(ORDER BY BB.POST_NO DESC) AS RNUM,
-               NVL(CNT,0)AS GOOD
+                NVL(CNT,0)AS GCNT,BB.DEL_DT
 FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               INNER JOIN BULLETIN_BOARD BB ON BC.POST_NO=BB.POST_NO  
               INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
@@ -135,6 +135,72 @@ WHERE BLTNBOARD_NO=1
 WHERE POST_NO=#{no}
 </select>
 
+<!-- 댓글 카운트 -->
+<select id="getCCnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT(*)AS CNT
+FROM COMMENTS C INNER JOIN MEMBER M
+     ON C.MEMBER_NO=M.MEMBER_NO
+     AND C.DEL_DT IS NULL
+     AND M.DEL_DT IS NULL
+     WHERE POST_NO=#{no}
+</select>
+
+<!-- 댓글리스트 -->
+<select id="getCList"  parameterType="hashmap" resultType="hashmap">
+ SELECT F.COMMENT_NO,F.POST_NO,F.CCONTENTS,F.CREG_DT,F.CMEMBER_NO,F.CNM,F.P_IMG,F.RCNUM
+FROM (SELECT COMMENT_NO,POST_NO,C.CONTENTS AS CCONTENTS,
+     CASE WHEN TO_CHAR(C.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+				THEN TO_CHAR(C.REG_DT, 'HH24:MI')
+				ELSE TO_CHAR(C.REG_DT, 'YY.MM.DD')
+                END AS CREG_DT,
+     M.MEMBER_NO AS CMEMBER_NO,M.NM AS CNM,M.IMG_FILE AS P_IMG,     
+     ROW_NUMBER() OVER(ORDER BY COMMENT_NO DESC) AS RCNUM
+FROM COMMENTS C INNER JOIN MEMBER M
+     ON C.MEMBER_NO=M.MEMBER_NO
+     AND C.DEL_DT IS NULL
+     AND M.DEL_DT IS NULL
+     WHERE POST_NO=#{no})F
+   WHERE F.RCNUM &lt;= #{end} 
+</select>
+
+<!-- 댓글추가 -->
+<insert id="insertC" parameterType="hashmap">		
+INSERT INTO COMMENTS(COMMENT_NO,POST_NO,MEMBER_NO,CONTENTS,REG_DT)
+VALUES (COMMENT_SEQ.NEXTVAL,#{no},#{cmemberNo},#{ccon},SYSDATE)
+</insert>
+
+<!-- 댓글수정 -->
+<update id="updateC" parameterType="hashmap">
+UPDATE COMMENTS SET CONTENTS = #{ccon}
+WHERE COMMENT_NO = #{commentNo}
+</update>
+
+<!-- 댓글삭제 -->
+<delete id="deleteC" parameterType="hashmap">
+UPDATE COMMENTS SET DEL_DT = SYSDATE
+WHERE COMMENT_NO =#{commentNo}
+</delete>
+
+
+
+<!-- 좋아요 추가 -->
+<insert id="insertG" parameterType="hashmap">
+INSERT INTO GOOD(POST_NO,MEMBER_NO,REG_DT)
+VALUES(#{no},#{sMemNo},SYSDATE)
+</insert>
+
+<!-- 좋아요 취소 -->
+<delete id="deleteG" parameterType="hashmap">
+DELETE GOOD
+WHERE POST_NO=#{no}
+</delete>
+
+<!-- 좋아요 카운트 -->
+<select id="gcnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT(*) AS GCNT
+FROM GOOD
+WHERE POST_NO=#{no}
+</select><!-- 좋아요 누른 사람 다 데려와서 세션이랑 비교 -->
 
 
 </mapper>

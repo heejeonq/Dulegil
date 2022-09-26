@@ -21,7 +21,50 @@ $(document).ready(function(){
 	
 	$("#updateBtn").on("click", function() {
 		$("#actionForm").attr("action", "adEvtUpd");
-		$("#actionForm").submit();
+		$("#actionForm").submit(); 
+	});
+	
+	$("#deleteBtn").on("click", function() {
+		makePopup({
+			title : "알림",
+			contents : "삭제하시겠습니까?",
+			buttons : [{
+				name : "삭제",
+				func:function() {
+					var params = $("#actionForm").serialize();
+					
+					$.ajax({
+						url:"adEvtAction/deleteDetail", 
+						type:"POST", 
+						dataType:"json", 
+						data : params,
+						success: function(res) { 
+							switch (res.msg) {
+							case "success":
+								makeAlert("알림", "삭제가 완료되었습니다.", function(){
+									closePopup();
+									location.href = "adEvt";
+								});
+								break;
+							case "fail":
+								makeAlert("알림", "삭제에 실패하였습니다.");
+								closePopup();
+								break;
+							case "error": 
+								makeAlert("알림", "삭제 중 문제가 발행하였습니다.");
+								closePopup();
+								break;
+							}
+						}, 
+						error: function(request, status, error) { 
+							console.log(request.responseText); 
+						}
+					});
+				}
+			}, {
+				name : "취소"
+			}]
+		})
 	});
 });
 </script>
@@ -33,7 +76,7 @@ $(document).ready(function(){
 		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 	</form>
-
+				
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
 	<div class="container">
@@ -47,6 +90,15 @@ $(document).ready(function(){
 		<div class="Ccon">
 			<div class="Cdeailtable">
 				<table>
+					<colgroup>
+							<col width="370">
+							<col width="80">
+							<col width="70">
+							<col width="130">
+							<col width="200">
+							<col width="80">
+							<col width="50">
+						</colgroup>
 					<thead>
 						<tr no="${data.POST_NO}">
 							<th colspan="7" style="font-size: 13pt; text-align: left;">${data.TITLE}</th>

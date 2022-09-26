@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <jsp:include page="../adjscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,30 +12,27 @@
 .btn.list{
 	float: right;
 }
+#file_present{
+	display: flex;
+	align-items: center;
+    flex-direction: row;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	// 목록 버튼
+
 	$("#backListBtn").on("click", function(){
 		$("#detailForm").attr("action", "adNtList");
 		$("#detailForm").submit();
-	})
+	});
 	
-	
-	// 수정 버튼
 	$("#updateBtn").on("click", function(){
 		//$("#no").val($(this).attr("no"));
 		$("#detailForm").attr("action", "adNtUpdate");
 		$("#detailForm").submit();
-		
-	})
+	});
 	
-	// 삭제 버튼
 	$("#deleteBtn").on("click", function(){
-		
-		
-		
 		makePopup({
 			title : "알림",
 			contents : "삭제 하시겠습니까?",
@@ -49,7 +47,6 @@ $(document).ready(function(){
 						dataType : "json",
 						data : params,
 						success : function(res){
-							
 							switch(res.msg){
 							case "success" :
 								location.href = "adNtList"
@@ -67,53 +64,23 @@ $(document).ready(function(){
 							console.log(request.responseText);
 						}
 					});
-					
 					closePopup();
 				}
 			},{
 				name : "취소"
 			}]
-		
 		})
-		
-
 	});
-	
-	// 디테일 그리기 function
-	function drawDetail(detail){
-		var html = "";
-		
-		for(var data of detail){
-			// "+ +"
-			html += "<tr no=\""+ data.POST_NO +"\">                ";
-			html += "	<td colspan=\"1\">"+ data.POST_NO +"</td>  ";
-			html += "	<td colspan=\"6\">"+ data.TITLE +"</td>  ";
-			html += "	<td colspan=\"1\">"+ data.NM +"</td>  ";
-			html += "	<td colspan=\"1\">"+ data.REG_DT +"</td>  ";
-			html += "	<td colspan=\"1\">"+ data.HIT +"</td>  ";
-			html += "</tr>                            ";
-			
-			html += "<div no=\""+ data.POST_NO +"\" id=\"gongzi\"> ";
-			html += "	<a>"+ data.CONTENTS +"</a>                 ";
-			html += "</div>                                        ";
-		}
-		$("tbody").html(html);
-		$("#gongzi").html(html);
-		
-	}
-	
-	
-	
 	
 });
 </script>
 </head>
 <body>
 	<form id="detailForm" action="#" method="post">
-		<input type="hidden" id="no" name="no" value="${data.POST_NO}"/>
+		<input type="hidden" id="no" name="no" value="${data.POST_NO}" />
 		<input type="hidden" name="page" id="page" value= "${param.page}" />
-		<input type="hidden" id="oldGbn" value="${param.searchGbn}"/>
-		<input type="hidden" id="oldTxt" value="${param.searchTxt}"/>
+		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 	</form>
 	
 	<jsp:include page="../adHeader.jsp" flush="true"/>
@@ -129,17 +96,26 @@ $(document).ready(function(){
 			<div class="Ccon">
 				<div class="Cdeailtable">
 					<table>
+						<colgroup>
+							<col width="530">
+							<col width="80">
+							<col width="70">
+							<col width="80">
+							<col width="100">
+							<col width="80">
+							<col width="50">
+						</colgroup>
 						<thead>
 							<tr no="${data.POST_NO}">
 								<th colspan="7" style="font-size: 13pt; text-align: left;">${data.TITLE}</th>
 							</tr>
 							<tr>	
 								<th></th>
-								<th>작성자 : </th>
+								<th>작성자</th>
 								<td>${data.NM}</td>
-								<th>작성일 : </th>
+								<th>작성일</th>
 								<td>${data.REG_DT}</td>
-								<th>조회수 : </th>
+								<th>조회수</th>
 								<td>${data.HIT}</td>
 							</tr>
 						</thead>
@@ -147,6 +123,16 @@ $(document).ready(function(){
 							<tr>
 								<td colspan="7" id="Cdetail" style="text-align: left">${data.CONTENTS}</td>
 							</tr>
+							<c:if test="${!empty data.ATT_FILE}">
+								<c:set var="fileLength" value="${fn:length(data.ATT_FILE)}"></c:set>
+								<c:set var="fileName" value="${fn:substring(data.ATT_FILE, 20, fileLength)}"></c:set>
+									<tr>
+										<th id="file_present" colspan="7">
+											<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span>
+											<a href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>
+										</th>
+									</tr>
+							</c:if>
 						</tbody>
 					</table>
 					<div class="Cbtnright">

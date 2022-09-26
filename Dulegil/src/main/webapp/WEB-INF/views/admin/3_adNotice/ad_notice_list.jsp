@@ -12,11 +12,19 @@
 	text-decoration: underline;
 	cursor: pointer;
 }
+
+#file_present{
+	margin-left: 10px;
+	font-size: 14pt;
+}
+
+#campaign {
+    margin-right: 10px;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	// 목록 구분 설정
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
@@ -24,7 +32,6 @@ $(document).ready(function(){
 	}
 	reloadList();
 	
-	// 검색 버튼 클릭시
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
 		
@@ -32,29 +39,17 @@ $(document).ready(function(){
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
-	})
+	});
 	
-	// 페이징 버튼
-	$("#hd2_paging").on("click", ".pBtn", function(){
-		//기존 검색 상태 유지
-		$("#searchGbn").val($("#oldGbn").val());
-		$("#searchTxt").val($("#oldTxt").val());
+	$(".Cpaging").on("click", "#pBtn", function(){
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
 		
 		$("#page").val($(this).attr("page"));
+		
 		reloadList();
 	});
 	
-	// 글 목록 클릭시 상세보기 // 체크 박스 선택시 x 
-	$("tbody").on("click", "#ntcTit", function(){
-		$("#no").val($(this).parent().attr("no"));
-		$("#searchGbn").val($("#oldGbn").val());
-		$("#searchTxt").val($("#oldTxt").val());
-		
-		$("#actionForm").attr("action", "adNtDetail"); 
-		$("#actionForm").submit();
-	});	
-	
-	// 공지 등록 버튼
 	$("#insertBtn").on("click", function(){
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
@@ -63,6 +58,15 @@ $(document).ready(function(){
 		$("#actionForm").submit();
 	});
 	
+	$("tbody").on("click", "#ntcTit", function(){
+		$("#no").val($(this).parent().attr("no"));
+		
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		$("#actionForm").attr("action", "adNtDetail"); 
+		$("#actionForm").submit();
+	});	
 	
 	// th 전체 선택 박스 클릭시 -> td 전체 선택 
 	// $('input:checkbox[name="allCheck"]').change(function(){
@@ -71,7 +75,6 @@ $(document).ready(function(){
     //    });
    // });
 
-	// thead 체크박스
 	$("thead").on("click", "#allCheck", function(){
 		if($(this).is(":checked")){
 			$("tbody #Check").prop("checked", true);
@@ -86,7 +89,6 @@ $(document).ready(function(){
 		
 		$("#no").val(arr);
 	});	
-	
 	
 	// tbody 체크박스
 	$("tbody").on("click", "#Check", function(){
@@ -105,12 +107,8 @@ $(document).ready(function(){
 			$("#no").val(arr);		
 	});
 	
-	
-	
-	// 삭제
 	$("#deleteBtn").on("click", function(){
 		var arr = [];
-		
 		
 		// 내가 체크박스에 값 1 넣어놔서 tr의 no 취득하기
 		$("tbody #Check:checked").each(function(){
@@ -163,10 +161,7 @@ $(document).ready(function(){
 		}
 	});
 	
-
-	
-}); // document.ready end
-
+}); 
 
 function reloadList(){
 	var params = $("#actionForm").serialize();
@@ -180,7 +175,6 @@ function reloadList(){
 			drawList(res.list);
 			drawPaging(res.pd);
 			console.log(res);
-
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내역
@@ -191,18 +185,39 @@ function reloadList(){
 function drawList(list){
 	var html = "";
 	
-	for(var data of list){                                                           
-		html += "<tr no=\"" + data.POST_NO + "\">";
-		html += "<td>"+ data.POST_NO +"</td>";
-		html += "<td id=\"ntcTit\">"+ data.TITLE +"</td>";
-		html += "<td>"+ data.NM +"</td>";
-		html += "<td>"+ data.REG_DT +"</td>";
-		html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"" + data.POST_NO + "\" /></td>";
-		html += "</tr>";                                                                
+	for(var data of list){        
+		if(data.MUST_READ_YN == "0"){
+			html += "<tr no=\"" + data.POST_NO + "\">";
+			html += "<td>"+ data.POST_NO +"</td>";
+			html += "<td id=\"ntcTit\">"
+			html += "<span id=\"campaign\" class=\"material-symbols-outlined\">campaign</span>";
+			html +=  data.TITLE;
+			if(typeof(data.ATT_FILE) !="undefined"){
+				html += "<span id=\"file_present\" class=\"material-symbols-outlined\">attach_file</span>";
+			}
+			html += "</td>";
+			html += "<td>"+ data.NM +"</td>";
+			html += "<td>"+ data.REG_DT +"</td>";
+			html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"" + data.POST_NO + "\" /></td>";
+			html += "</tr>";      
+		}else{
+			html += "<tr no=\"" + data.POST_NO + "\">";
+			html += "<td>"+ data.POST_NO +"</td>";
+			html += "<td id=\"ntcTit\">"
+			html +=  data.TITLE;
+			if(typeof(data.ATT_FILE) !="undefined"){
+				html += "<span id=\"file_present\" class=\"material-symbols-outlined\">attach_file</span>";
+			}
+			html += "</td>";
+			html += "<td>"+ data.NM +"</td>";
+			html += "<td>"+ data.REG_DT +"</td>";
+			html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\" value=\"" + data.POST_NO + "\" /></td>";
+			html += "</tr>";    
+		}
 	}   
 	$("tbody").html(html);
-};
 
+};
 
 function drawPaging(pd) {
 	var html = "";
@@ -231,7 +246,7 @@ function drawPaging(pd) {
 	
 	html += "<span class=\"page_btn page_last\" id=\"pBtn\" page=\"" + pd.maxP + "\">>></span>";
 	
-	$(".Cpaging").html(html);
+	$(".Cpaging").html(html); 
 }
 </script>
 </head>
