@@ -174,10 +174,17 @@ $(document).ready(function(){
 	
 	//동행신청 버튼 누르면 
 	$("#withMBtn").on("click",function(){ 
-		action("apply");
+		 if ($("#sMemNo").val() == "") {
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       });
+	     } else{
+			action("apply");
+			 
+		 }
+	 });
 
 			
-	});
+
 
 });
 var msg = {
@@ -282,6 +289,7 @@ function reloadList(){
 	}
 	else{
 		$("#moreBtn").show();
+	
 	}
 	console.log(list);
 	
@@ -409,7 +417,10 @@ function reloadList(){
       <div class="conBox">
       <div class="emptyBox"></div>
       <div class= "imgg">
-      <img src="resources/upload/${data.B_FILE}" /><br/>
+      <c:if test="${!empty data.B_IMG}">			
+		<img src="resources/upload/${data.B_FILE}" /><br/>
+	  </c:if>
+     
       <div class="te"> ${data.CONTENTS}</div>
       </div>
       

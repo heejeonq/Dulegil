@@ -86,7 +86,8 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,B.COU
 <insert id="insert" parameterType="hashmap">
 INSERT ALL
 INTO BOARD_COURSE(POST_NO,COURSE_NO) VALUES (COMMUNITY_SEQ.NEXTVAL,#{courseNo})
-INTO BULLETIN_BOARD(POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE,REG_DT) VALUES(COMMUNITY_SEQ.NEXTVAL,2,#{memberNo},#{title}',#{contents},#{imgFile},SYSDATE)
+INTO BULLETIN_BOARD(POST_NO,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,IMG_FILE) VALUES(COMMUNITY_SEQ.NEXTVAL,2,#{memberNo},#{title},#{contents},#{imgFile, jdbcType = VARCHAR})
+INTO BOARD_ACCOMPANY(POST_NO, ACCOMPANY_DT, PUBLIC_GENDER, PUBLIC_AGE) VALUES(COMMUNITY_SEQ.NEXTVAL, #{accompanyDt}, #{publicGender}, #{publicAge})
 SELECT * FROM DUAL
 </insert>
 
@@ -103,11 +104,13 @@ WHERE POST_NO=#{no}
 </update>
 
 <!-- 조회수 -->
-<!-- <update id="updateTHit" parameterType="hashmap">
+<update id="updateTHit" parameterType="hashmap">
 UPDATE BULLETIN_BOARD SET HIT = HIT+1
-WHERE BLTNBOARD_NO =2
-AND POST_NO= #{no}
-</update> -->
+WHERE POST_NO= #{no} 
+<if test="sMemNo != null and sMemNo != ''">
+	AND MEMBER_NO != #{sMemNo}
+</if> 
+</update>
 
 <!-- 상세보기 -->
 <select id="getAC" parameterType="hashmap" resultType="hashmap">
@@ -193,8 +196,12 @@ FROM ACCOMPANY_APPLY AA INNER JOIN BOARD_ACCOMPANY BA
                                 AND M.DEL_DT IS NULL
 WHERE BA.POST_NO = #{no}
 </select>
+<!-- 동행 신청 -->
 <insert id="insertApply" parameterType="hashmap">		
-INSERT INTO ACCOMPANY_APPLY(POST_NO, MEMBER_NO, LAST_NO)
-VALUES (#{no},#{cmemberNo},#{no})
+INSERT ALL
+INTO ACCOMPANY_APPLY(POST_NO, MEMBER_NO) VALUES (#{no},#{cmemberNo})
+INTO NOTIFICATION(NOTIFICATION_NO ,POST_NO, APPLICANT_NO, MEMBER_NO) 
+VALUES (NOTIFICATION_SEQ.NEXTVAL, #{no},#{cmemberNo}, #{sMemNo})
+SELECT * FROM DUAL
 </insert>
 </mapper>
