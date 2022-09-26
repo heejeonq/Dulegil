@@ -104,11 +104,13 @@ WHERE POST_NO=#{no}
 </update>
 
 <!-- 조회수 -->
-<!-- <update id="updateTHit" parameterType="hashmap">
+<update id="updateTHit" parameterType="hashmap">
 UPDATE BULLETIN_BOARD SET HIT = HIT+1
-WHERE BLTNBOARD_NO =2
-AND POST_NO= #{no}
-</update> -->
+WHERE POST_NO= #{no} 
+<if test="sMemNo != null and sMemNo != ''">
+	AND MEMBER_NO != #{sMemNo}
+</if> 
+</update>
 
 <!-- 상세보기 -->
 <select id="getAC" parameterType="hashmap" resultType="hashmap">

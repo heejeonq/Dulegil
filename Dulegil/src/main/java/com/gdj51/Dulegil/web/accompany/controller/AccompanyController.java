@@ -138,14 +138,12 @@ public class AccompanyController {
 			(@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable {
 		if(params.get("no") != null && params.get("no") != "") {
-			dao.update("updateTHit",params);
+			dao.update("accom.updateTHit",params);
 						
 			HashMap<String,String> data = dao.getMap("accom.getAC",params);	
-		
 					
 			mav.addObject("data", data);
 		
-			
 			mav.setViewName("accompany/accompany_detail");
 		} 
 			 else { mav.setViewName("accompany"); }
