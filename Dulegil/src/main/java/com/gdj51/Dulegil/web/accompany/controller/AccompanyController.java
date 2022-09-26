@@ -43,13 +43,10 @@ public class AccompanyController {
 
 		return mav;
 	}
-	@RequestMapping(value="/AccompanyAjax",
-			method = RequestMethod.POST,
-			produces = "text/json;charset=UTF-8")
+	@RequestMapping(value="/AccompanyAjax", method = RequestMethod.POST,produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	
-	public String AccompanyAjax(
-			@RequestParam HashMap<String,String> params) throws Throwable{
+	public String AccompanyAjax(@RequestParam HashMap<String,String> params) throws Throwable{
 			ObjectMapper mapper =  new ObjectMapper();
 			
 			Map<String,Object> model = new HashMap<String,Object>();
@@ -71,6 +68,51 @@ public class AccompanyController {
 		
 			return mapper.writeValueAsString(model);
 	}
+	
+	// 글쓰기 업뎃 수정
+		@RequestMapping(value = "/accompanyWrite")
+		public ModelAndView accompanyWrite(@RequestParam HashMap<String, String> params, ModelAndView mav)
+				throws Throwable {
+
+			mav.setViewName("accompany/accompany_write");
+
+			return mav;
+		}
+
+		@RequestMapping(value = "/accompanyAction/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String accompanyAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+			ObjectMapper mapper = new ObjectMapper();
+
+			Map<String, Object> model = new HashMap<String, Object>();
+
+			int cnt = 0;
+
+			try {
+				switch (gbn) {
+				case "insert":
+					cnt = dao.insert("accom.insert", params);
+					break;
+				case "update":
+					cnt = dao.update("accom.update", params);
+					break;
+				case "delete":
+					cnt = dao.update("accom.delete", params);
+					break;
+				}
+				if (cnt > 0) {
+					model.put("msg", "success");
+				} else {
+					model.put("msg", "fail");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.put("msg", "error");
+			}
+
+			return mapper.writeValueAsString(model);
+		}
 	
 	@RequestMapping(value = "/accompanyUpdate")
 	public ModelAndView accompanyUpdate(@RequestParam HashMap<String, String> params, ModelAndView mav)
@@ -191,11 +233,4 @@ public class AccompanyController {
 	}
 	
 		
-	@RequestMapping(value="/accompanyWrite")
-	public ModelAndView AccompanyWrite(ModelAndView mav) {
-		
-		mav.setViewName("accompany/accompany_write");
-		
-		return mav;
-	}
 }
