@@ -24,6 +24,7 @@
 <!-- 제이쿼리 -->
 <script type="text/javascript">
 $(document).ready(function(){
+
 	reloadList();
 	
 	//게시글 버튼
@@ -32,6 +33,27 @@ $(document).ready(function(){
 		$("#actionForm").submit();
 	});
 	
+	 $(".goodBtn").on("click",function(){
+		 
+		 var params = $("#actionForm").serialize();
+
+		 $.ajax({
+	         url:"goodajax/insert",
+	         type:"POST",
+	         dataType:"json",
+	         data:params,
+	         success : function(res){ //gcnt안에 good 이라는 데이터를 씀 gcnt 여기서 짓는 이름
+	        	 console.log(res);
+	        	 draw(res.gcnt);
+	        	 //console.log(gcnt);
+	         },
+	         error :function(request, status, error) { //실패했을 때 함수 실행 isfp
+	             console.log(request.responseText); //실패 상세내역
+	          }
+	     
+	     })	;	 
+	 });
+
 	
 	$("#deleteBtn").on("click",function(){
 
@@ -54,7 +76,7 @@ $(document).ready(function(){
 		        	                    $("#searchgbn").val("0");
 		        	                    $("#searchTxt").val("");
 		        	                    		        	                    
-		        	                    $("#actionForm").attr("action","CourseReview");									
+		        	                    $("#actionForm").attr("action","courseReview");									
 		        	                    $("#actionForm").submit();									
 									
 									break;
@@ -101,8 +123,7 @@ $(document).ready(function(){
 
 		         }else{
 					action("insert");
-					$("#commentsForm").attr("action","courseReviewDetail")
-					$("#commentsForm").submit();
+		
 		         }
 		});
 		
@@ -120,8 +141,7 @@ $(document).ready(function(){
 						$("#commentNo").val(commentNo);
 						action("delete");
 						closePopup()//제일위의 팝업닫기
-						$("#commentsForm").attr("action","courseReviewDetail")
-						$("#commentsForm").submit();
+
 					}			
 				
 				},{
@@ -147,6 +167,7 @@ $(document).ready(function(){
 		
 		});
 	
+ 		
 	//수정영역의 취소버튼
 	$(".box3 #cancelCBtn").on("click",function(){
 		//입력내용 초기화
@@ -160,14 +181,13 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-		$("#commentsForm").attr("action","courseReviewDetail")
-		$("#commentsForm").submit();
 		
 	});
 	
+	
  	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
-		$("#cpage").val($("#cpage").val() * 1 + 1);
+		$("#cpage").val($("#cpage").val() * 1 + 5); // 다섯개씩 늘어난다
 		reloadList(); 	
 	});
 }); //document
@@ -191,7 +211,7 @@ function action(flag){
 
 	 var params = $("#commentsForm").serialize();   
       $.ajax({
-         url:"freeCRAction/" + flag, //경로 주소 새로생기면 컨트롤러 가
+         url:"CourseRevCAction/" + flag, //경로 주소 새로생기면 컨트롤러 가
          type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
          dataType: "json", //
          data: params, //json 으로 보낼데이터
@@ -253,7 +273,7 @@ function reloadList(){
 	var params = $("#commentsForm").serialize();
 	
 	$.ajax({
-		url : "commentAjax", //경로
+		url : "commentCAjax", //경로
 		type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
 		dataType : "json",
 		data : params,
@@ -266,11 +286,16 @@ function reloadList(){
 
 	});
 }
+
  function drawList(list) {
 	//만약 다섯개 미만이면 버튼을 삭제하고	
-		if(list.length<5){
-			$("#moreBtn").remove();		
+		if(list.length<=5){
+			$("#moreBtn").hide();		
+		}else{
+			$("#moreBtn").show();
+		
 		}
+		
 		console.log(list);
 		
 		var html = ""; //변수선언
@@ -294,8 +319,20 @@ function reloadList(){
 	 			html += " </div>";		
 		}//여기까지 for
 			
-		$(".mainView4").append(html);
+		$(".mainView4").html(html);
+
 	} 
+ 
+ function draw(data){
+	 console.log(data);
+	 var html="";
+	 
+		html += " <span class=\"like\">";
+		html += " <img src=\"resources/images/like.png\" >";
+		html += " <div class=\"goodCnt\" id=\"goodCnt\" name=\"goodCnt\">" + data + "</div> ";
+	
+		$(".goodBtn").html(html);
+ };
 
 
 </script>
@@ -314,6 +351,7 @@ function reloadList(){
 			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
 			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
 			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 		</form>
 
 	<div class="mainWrap">
@@ -350,10 +388,12 @@ function reloadList(){
 					</c:if>
 					<div class="te"> ${data.CONTENTS}</div>
 			    </div>
+			    <!-- 좋아요버튼 : 좋아요 누른사람,post_no, -->
+			    
 				<div class="goodBtn">
 					<span class="like">
-					<img src="resources/images/goodIco.png">
-					<div class="goodCnt">${data.GOOD}</div>
+					<img src="resources/images/like.png" >
+					<div class="goodCnt" id="goodCnt" name="goodCnt">${data.GCNT}</div> 
 				</div>		
 			</div>
 		<!-- cunBox완 ------------------------------------------>
@@ -390,10 +430,13 @@ function reloadList(){
 	
 			<div class= mainview3>
 				<form action="#" id="commentsForm" method="post">
+					<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 					<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 					<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 					<input type="hidden" name="no" id="no" value="${param.no}">	
-					<input type="hidden" name="cpage" id="cpage" value="1" />
+					<input type="hidden" name="cpage" id="cpage" value="5" />
+					<!-- 댓글 다섯개씩 보여줄게 -->
+					
 					<div class="box3">
 						<div class="comment">comment</div>
 						<c:choose>

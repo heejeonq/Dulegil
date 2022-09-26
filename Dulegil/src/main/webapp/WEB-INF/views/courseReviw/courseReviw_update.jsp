@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
   <jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
@@ -54,13 +55,27 @@ $("select[name=courseNo]").change(function(){
 	  console.log($("select[name=courseNo] option:selected").text()); //text값 가져오기
 }); 
 	
-//목록버튼
-$("#wlistBtn").on("click", function() {
-   history.back();
+//취소버튼
+$("#cancelBtn").on("click", function() {
+	$("#backForm").submit();
+ });
+ 
+//파일삭제버튼
+$(".fileDelBtn").on("click",function(){
+	//기존파일 내역 영역 제거
+	$(".attOld").remove();
+	
+	//기존 값 제거
+	$("#imgFile").val("");
+	//파일선택 영역 제공
+	$(".imgFile").show();
+	
+	
 });
-
+ 
+ 
 //등록버튼
-$("#insertBtn").on("click", function() {
+$("#updateBtn").on("click", function() {
     $("#contents").val(CKEDITOR.instances['contents'].getData())
 
     // $.trim(값) : 값 앞 뒤 공백제거
@@ -96,7 +111,7 @@ $("#insertBtn").on("click", function() {
     	   	 		*/
     	   	 			 var params = $("#actionForm").serialize();   
     	   	               $.ajax({
-    	   	                  url:"CourseRevAction/insert", //경로 주소 새로생기면 컨트롤러 가
+    	   	                  url:"CourseRevAction/update", //경로 주소 새로생기면 컨트롤러 가
     	   	                  type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
     	   	                  dataType: "json", //
     	   	                  data: params, //json 으로 보낼데이터
@@ -107,10 +122,6 @@ $("#insertBtn").on("click", function() {
     	   	                  switch(res.msg){
     	   	                  
     	   	                  case "success" :
-    	   	                    $("#page").val("1");
-    	   	                    $("#searchgbn").val("0");
-    	   	                    $("#searchTxt").val("");
-    	   	                    
     	   	                    $("#backForm").submit();
     	   	                     break;
     	   	                  case "fail" :
@@ -161,11 +172,11 @@ $("#insertBtn").on("click", function() {
 			<form action="courseReview" id="backForm" method="post">
 		  		<!-- 전화면에서 넘어온 페이지정보 -->
 		   		<input type="hidden" id="page" name="page" value="${param.page}"/>
+		   		<input type="hidden" name="no" value="${data.POST_NO}" />
 		      	<!-- 전화면에서 넘어온 검색 정보 -->
 		      	<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
 		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-		        
-		       
+		        		       
 		   </form>
 			
 			<div class="midBox">			
@@ -175,6 +186,7 @@ $("#insertBtn").on("click", function() {
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
 				<!-- <input type="hidden" name="courseNo" id="courseNo" />실 저장된 파일명 보관용 -->
 				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
+				 <input type="hidden" name="no" value="${data.POST_NO}" />
 				
 				<div class="titNm">제목</div>
 				<div class="titBox">
@@ -205,7 +217,12 @@ $("#insertBtn").on("click", function() {
 			<div class="conWrap">
 				<div class="conNm">내용</div>
 				<div class="contentBox">
-				<textarea rows="19" cols="100" name="contents" id="contents"></textarea>
+				<textarea rows="19" cols="100" name="contents" id="contents">
+				
+					<img src="resources/upload/${data.B_IMG}"/>
+
+				${data.CONTENTS}
+				</textarea>
 				</div>
 	
 	</div>
@@ -213,14 +230,40 @@ $("#insertBtn").on("click", function() {
 			
 				<hr width="80%"/>
 			<div class="filWrap">
-			
 				<div class="filNm">대표이미지</div>
-				<div class="filBox">
+					<div class="filBox">
+				<c:choose>
+					<c:when test="${empty data.B_IMG}">
+					<!-- 파일 없을때 -->
+						<input type="file" class="file" name="attFile"/>					
+						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div> 
+						<input type="hidden" name="imgFile" id="imgFile" />			
+					</c:when>
+					<c:otherwise>
+					<!-- 파일 있을때 -->
 				
-					<input type="file" class="file" name="attFile" id="attFile"/>
+					<span class="attOld"><!-- 기존파일 -->
+						<span>
+							<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
 					
-					<div class="fileT">*이미지 파일만 첨부하여 주세요.</div>
-				</div>
+							<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
+							<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
+							<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
+							${fileName}
+						</span>	
+							<span class="fileDelBtn">파일삭제</span>						
+					</span>
+														
+					<span class="imgFile"> <!-- 기존파일 삭제후 새파일 용도 -->			
+						<input type="file" class="file" name="attFile"/>
+						<input type="hidden" name="imgFile" id="imgFile" value="${data.B_IMG}"/>
+						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div> 
+					</span>
+					</c:otherwise>
+				</c:choose>
+				
+					</div>
+				
 			</div>
 			
 			</form>
