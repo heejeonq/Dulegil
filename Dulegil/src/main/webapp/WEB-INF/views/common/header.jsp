@@ -6,6 +6,14 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	$(".alarm_num").hide();
+	if($("#memNo").val() != "" && $("#memNo").val() != null){
+		alarm("alarm");		
+		
+	}else{
+		
+	}
+	
 	// 로그인/로그아웃	
 	$("#logout").on("click", function(){
 		location.href ="logout";
@@ -21,6 +29,9 @@ $(document).ready(function(){
 	$(".alarm").on("click", function(){
 		if($(".alarm_contents").css("display") == "none"){
 			$(".alarm_contents").show();
+			alarm("alarmCheck");
+			
+		
 		}
 		else {
 			$(".alarm_contents").hide();
@@ -30,10 +41,70 @@ $(document).ready(function(){
 		
 	});
 });
+
+
+function alarm(flag){
+	var params = $("#alarmForm").serialize();   
+	
+	if(flag == "alarmCheck"){
+
+	      $.ajax({
+	         url:"alarm/" + flag,
+	         type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
+	         dataType: "json", //
+	         data: params, //json 으로 보낼데이터
+	         success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행        
+	        	 drawAlarm(res.cnt, res.list);
+	         },
+	         error :function(request, status, error) { //실패했을 때 함수 실행 isfp
+	            console.log(request.responseText); //실패 상세내역
+	         }
+	         });
+		
+	}
+	else{
+	
+      $.ajax({
+          url:"alarm/"+ flag,
+          type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
+          dataType: "json", //
+          data: params, //json 으로 보낼데이터
+          success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행        
+       			drawAlarm(res.cnt, res.list);
+                
+          },
+          error :function(request, status, error) { //실패했을 때 함수 실행 isfp
+             console.log(request.responseText); //실패 상세내역
+          }
+          });
+		
+	}
+      
+}
+function drawAlarm(cnt, list){
+	if(cnt != "0"){
+		$(".alarm_num").show();
+	}
+	else {
+		$(".alarm_num").hide();
+	}
+	$(".alarm_num").html(cnt);
+	
+	let html = "";
+	for(let data of list){
+		html += "<li postNo=\"" + data.POST_NO + "\">" +data.NM + "님이 동행을 신청하였습니다</li>";		
+	}
+	
+	$(".alarm_contents").html(html);
+}
+
 </script> 
 
 <!-- Header -->
 	<div class="header">
+	<form action="#" id="alarmForm">
+		<input type="hidden" name="memNo" id="memNo" value="${sMemNo}">
+	</form>
 		<div class="util">
 			<ul>
 			<c:choose>
@@ -60,12 +131,12 @@ $(document).ready(function(){
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 				</svg>
 				</li>
-				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num">${cnt}</span>
+				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num"></span>
 					<div class="alarm_contents">
 						<ul> 
-							<c:forEach var="d" items="${data}">
-								<li>${d.MNM}님이 동행을 신청하였습니다</li>
-							</c:forEach>
+						
+								<li>님이 동행을 신청하였습니다</li>
+						
 						</ul>
 					</div>
 				</li>
