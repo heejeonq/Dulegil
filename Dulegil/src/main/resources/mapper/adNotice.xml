@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adNotice">
-	<!-- 목록 -->
-	<select id="list" resultType="hashmap">
-		SELECT POST_NO, TITLE, NM, REG_DT, RNK
-		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT,
-					ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
-			FROM NOTICE N INNER JOIN MEMBER M
-              					  ON N.MEMBER_NO = M.MEMBER_NO
-			WHERE N.DEL_DT IS NULL) A
-		<if test="searchTxt != null and searchTxt !='' ">
-			<choose>
-				<when test="searchGbn == 0">
-					AND TITLE LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn == 1">
-					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
-				</when>
-			</choose>
-		</if>
-	</select>
 
 	<!-- 페이징 -->
 	<select id="cnt" parameterType="hashmap" resultType="integer">
@@ -33,57 +14,72 @@
 				</when>
 				<when test="searchGbn == 1">
 					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
-
 				</when>
 			</choose>
 		</if>
+		AND MUST_READ_YN = 1
 	</select>
 
 	<!-- 디테일 -->
 	<select id="detail" parameterType="hashmap" resultType="hashmap">
-	SELECT N.POST_NO, N.TITLE, N.CONTENTS, M.NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT, N.HIT, N.ATT_FILE			
-	FROM NOTICE N INNER JOIN MEMBER M
-              		ON N.MEMBER_NO = M.MEMBER_NO
-	WHERE N.DEL_DT IS NULL
-	AND N.POST_NO=#{no}
+		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT, HIT, ATT_FILE, MUST_READ_YN	
+		FROM NOTICE N INNER JOIN MEMBER M
+	              		ON N.MEMBER_NO = M.MEMBER_NO
+		WHERE N.DEL_DT IS NULL
+		AND N.POST_NO=#{no}
 	</select>
-	
 	
 	<!-- 작성 -->
 	<insert id="insert" parameterType="hashmap">
-		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE,
-		MUST_READ_YN)
+		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE, MUST_READ_YN)
 		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 109, #{contents}, #{attFile}, 
-		<choose>
-			<when test="mainCheck == 0">
-				0
-			</when>
-			<otherwise>
-				1
-			</otherwise>
-		</choose>
-		
+			<choose>
+				<when test="mainCheck != null and mainCheck != ''">
+					0
+				</when>
+				<otherwise>
+					1
+				</otherwise>
+			</choose>
 		)
 	</insert>
 
-
 	<!-- 수정 -->
 	<update id="update" parameterType="hashmap">
-	UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}, ATT_FILE=#{attFile}, MUST_READ_YN=#{mainCheck}	
-	WHERE POST_NO = #{no}
+		UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}, ATT_FILE=#{att}, MUST_READ_YN=#{mainCheck}	
+		WHERE POST_NO = #{no}
 	</update>
-
 
 	<!-- 목록에서 체크박스 삭제 -->
 	<update id="delete" parameterType="hashmap">
-	UPDATE NOTICE SET DEL_DT = SYSDATE
-	WHERE POST_NO IN (${delNo})
+		UPDATE NOTICE SET DEL_DT = SYSDATE
+		WHERE POST_NO IN (${delNo})
 	</update>
 	
 	<!-- 디테일에서 삭제버튼 -->
 	<update id="detailDelete" parameterType="hashmap" >
-	UPDATE NOTICE SET DEL_DT = SYSDATE
-	WHERE POST_NO = #{no}
+		UPDATE NOTICE SET DEL_DT = SYSDATE
+		WHERE POST_NO = #{no}
 	</update>
+	
+	<select id="list" parameterType="hashmap" resultType="hashmap" >
+		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK
+		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, N.REG_DT, ATT_FILE, MUST_READ_YN,
+		            ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
+		     FROM NOTICE N INNER JOIN MEMBER M
+		                           ON N.MEMBER_NO = M.MEMBER_NO 
+		     WHERE N.DEL_DT IS NULL
+		     AND MUST_READ_YN = 0 ) N
+		<![CDATA[WHERE RNK <= 3]]>
+		UNION ALL         
+		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK
+		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, N.REG_DT, ATT_FILE, MUST_READ_YN,
+					ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
+			 FROM NOTICE N INNER JOIN MEMBER M
+					               ON N.MEMBER_NO = M.MEMBER_NO
+			 WHERE N.DEL_DT IS NULL
+			 AND MUST_READ_YN = 1 ) N
+		WHERE RNK BETWEEN #{start} AND #{end}  
+	</select>
 
 </mapper>

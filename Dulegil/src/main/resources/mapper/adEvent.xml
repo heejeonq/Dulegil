@@ -40,37 +40,42 @@
 	
 	<select id="getAdEvtList" resultType="hashmap" parameterType="hashmap">
 		SELECT E.POST_NO, E.TITLE, E.CONTENTS, E.REG_DT
-			FROM(SELECT POST_NO, TITLE, CONTENTS, TO_CHAR(E.REG_DT, 'YYYY.MM.DD') AS REG_DT,
-				        ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM 
-				 FROM EVENT E INNER JOIN MEMBER M
-				                      ON E.MEMBER_NO = M.MEMBER_NO
-				 WHERE E.DEL_DT IS NULL
-				 <if test="searchTxt != null and searchTxt != ''">
-				 	 <choose>
-					 	 <when test="searchGbn == 0">
-							AND TITLE LIKE '%' || #{searchTxt} || '%'	
-						</when>			
-						<when test="searchGbn == 1">
-							AND CONTENTS LIKE '%' || #{searchTxt} || '%'
-						</when>
-					 </choose>	
-				</if>
-				) E
-			WHERE E.RNUM BETWEEN #{start} AND #{end}
+		FROM(SELECT POST_NO, TITLE, CONTENTS, TO_CHAR(E.REG_DT, 'YYYY.MM.DD') AS REG_DT,
+			        ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM 
+			 FROM EVENT E INNER JOIN MEMBER M
+			                      ON E.MEMBER_NO = M.MEMBER_NO
+			 WHERE E.DEL_DT IS NULL
+			 <if test="searchTxt != null and searchTxt != ''">
+			 	 <choose>
+				 	 <when test="searchGbn == 0">
+						AND TITLE LIKE '%' || #{searchTxt} || '%'	
+					</when>			
+					<when test="searchGbn == 1">
+						AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+					</when>
+				 </choose>	
+			</if>
+			) E
+		WHERE E.RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	<insert id="reg" parameterType="hashmap">
 		INSERT INTO EVENT(POST_NO, MEMBER_NO, TITLE, CONTENTS, EVENT_START_DT, EVENT_END_DT)
-		VALUES(EVENT_SEQ.NEXTVAL, 109, #{tit}, #{ct}, #{startDt}, #{endDt})
+		VALUES(EVENT_SEQ.NEXTVAL, 109, #{title}, #{contents}, #{startDt}, #{endDt})
 	</insert>
 	
-	<update id="del" parameterType="hashmap">
+	<update id="delList" parameterType="hashmap">
 		UPDATE EVENT SET DEL_DT = SYSDATE
 		WHERE POST_NO IN (${delNo})
 	</update>
 	
+	<update id="delDetail" parameterType="hashmap">
+		UPDATE EVENT SET DEL_DT = SYSDATE
+		WHERE POST_NO = #{no}
+	</update>
+	
 	<update id="upd" parameterType="hashmap">
-		UPDATE EVENT SET TITLE = #{tit} , CONTENTS = #{ct}, EVENT_START_DT = #{startDt}, EVENT_END_DT = #{endDt}
+		UPDATE EVENT SET TITLE = #{title} , CONTENTS = #{contents}, EVENT_START_DT = #{startDt}, EVENT_END_DT = #{endDt}
 		WHERE POST_NO = #{no}
 	</update>
 </mapper>

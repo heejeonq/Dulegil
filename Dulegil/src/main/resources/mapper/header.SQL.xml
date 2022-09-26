@@ -4,19 +4,23 @@
 
 <select id="alarmCnt" parameterType="hashmap" resultType="Integer">
 SELECT COUNT(*)
-FROM BULLETIN_BOARD B INNER JOIN ACCOMPANY_APPLY A
-ON B.POST_NO = A.POST_NO
-WHERE B.MEMBER_NO = #{memNo}
+FROM NOTIFICATION 
+WHERE MEMBER_NO = #{memNo}
+AND CHECK_YN = 1
 </select>
 
-<select id="AANm" parameterType="hashmap" resultType="hashmap">
-SELECT M.NM AS MNM
-FROM MEMBER M INNER JOIN 
-(SELECT A.MEMBER_NO
-FROM BULLETIN_BOARD B INNER JOIN ACCOMPANY_APPLY A
-ON B.POST_NO = A.POST_NO
-WHERE B.MEMBER_NO = #{memNo})BA
-ON M.MEMBER_NO = BA.MEMBER_NO
+<update id="alarmCheck" parameterType="hashmap">
+UPDATE NOTIFICATION SET CHECK_YN = 0
+WHERE MEMBER_NO = #{memNo}
+</update>
+
+
+<select id="alarmContents" parameterType="hashmap" resultType="hashmap">
+SELECT N.POST_NO, N.REG_DT, N.MEMBER_NO, M.NM
+FROM NOTIFICATION N INNER JOIN MEMBER M
+                            ON N.APPLICANT_NO = M.MEMBER_NO
+WHERE N.MEMBER_NO = #{memNo}
+AND N.REG_DT >= TO_CHAR(SYSDATE-7,'YYYYMMDD')
 </select>
 
 

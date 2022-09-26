@@ -147,7 +147,7 @@ public class FreeBoardController {
 
 			if (params.get("no") != null && params.get("no") != "") { //만약 데이터가 넘어오면		
 					
-				dao.update("updateTHit", params);	//조회수를 업뎃해라
+				dao.update("free.updateTHit", params);	//조회수를 업뎃해라
 																	
 					mav.setViewName("freeBoard/freeBoard_detail"); //디테일 보여줘
 					//그리고 

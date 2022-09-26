@@ -17,11 +17,19 @@
 .btn.del{
 	margin-right: -10px;
 }
+#calendar table{
+	table-layout: fixed;
+}
 </style>
 <!-- 달력 -->
 <script src='resources/css/fullcalendar/main.js'></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	if("${param.searchGbn}" !=""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}
 	reloadList();
 	
 	$("#searchBtn").on("click", function(){
@@ -33,8 +41,7 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
-	$("#paging").on("click", "span", function(){
-		
+	$(".Cpaging").on("click", "#pBtn", function(){
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
@@ -103,7 +110,7 @@ $(document).ready(function(){
 						var params = $("#actionForm").serialize();
 						
 						$.ajax({
-							url:"adEvtAction/delete", 
+							url:"adEvtAction/deleteList", 
 							type:"POST", 
 							dataType:"json", 
 							data : params,
@@ -243,6 +250,7 @@ function drawPaging(pd) {
 			<input type="hidden" id="no" name="no" />
 			<input type="hidden" name="delNo" id="delNo" />
 			<input type="hidden" name="page" id="page" value="${page}" />
+			
 			<div class="Csearch">
 				<select class="sel" name="searchGbn" id="searchGbn">
 					<option value="0">제목</option>
