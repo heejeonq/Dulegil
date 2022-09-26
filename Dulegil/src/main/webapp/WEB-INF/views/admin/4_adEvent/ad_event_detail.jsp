@@ -8,57 +8,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 상세</title>
 <style type="text/css">
-#hd2_CC{
-	padding: 20px 45px 0;
-}
-
-#dtlbtn {
-	margin-top: 20px; 
-}
-
-table {
-	border-collapse: collapse;
-	margin-bottom: 0px;
-}
-th {
-	font-size: 13px;
-	border-bottom: solid 1px #ededed;
-	color: #a1a1a1;
-	text-align: center;
-}
-td {
-	font-size: small;
-	font-weight: 500;
-	padding: 10px;
-	border-bottom: solid 1px #ededed;
-}
-#gongzi {
-	border-bottom: solid 1px #ededed;
-	color: #444;
-	font-weight: 400;
-	padding: 20px 50px;
-}
-
-#listBtn, #updBtn{
-	background-color: #ededed;
-    border-radius: 4px;
-    border: 1px solid #f4f5ee;
-    cursor: pointer;
-    color: #5e5e5e;
-    font-weight: 600;
-    padding: 10px;
-    margin-right: 10px;
-    font-family: "Gothic A1";
+.btn.list{
+	float: right;
 }
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#listBtn").on("click", function() {
+	$("#backListBtn").on("click", function() {
 		$("#actionForm").attr("action", "adEvt");
 		$("#actionForm").submit();
 	});
 	
-	$("#updBtn").on("click", function() {
+	$("#updateBtn").on("click", function() {
 		$("#actionForm").attr("action", "adEvtUpd");
 		$("#actionForm").submit();
 	});
@@ -67,58 +28,48 @@ $(document).ready(function(){
 </head>
 <body>
 	<form action="#" id= "actionForm" method="post">
-		<input type="hidden" name="no" value="${data.POST_NO}" />
+		<input type="hidden" id="no" name="no" value="${data.POST_NO}" />
 		<input type="hidden" name="page" id="page" value= "${param.page}" />
 		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 	</form>
 
-	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
-	<div id="hd2_content">
-		<div id="hd2_Cname">
-			<div id="Cname_box">
-				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span> 
-				이벤트 상세보기
-			</div>
+	<div class="container">
+		<div class="Cname">
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span> 
+			이벤트 상세보기
 		</div>
-		<div id="hd2_CC">
-			<div id="CCbox">
+		<div class="Cbtn">
+			<input type="button" class="btn list" id="backListBtn" value="목록" />
+		</div>
+		<div class="Ccon">
+			<div class="Cdeailtable">
 				<table>
-					<colgroup>
-						<col width="70px">
-						<col width="500px">
-						<col width="100px">
-						<col width="250px">
-						<col width="80px">
-					</colgroup>
 					<thead>
+						<tr no="${data.POST_NO}">
+							<th colspan="7" style="font-size: 13pt; text-align: left;">${data.TITLE}</th>
+						</tr>
 						<tr>
-							<th>번호</th>
-							<th>제목</th>
+							<th></th>
 							<th>작성자</th>
+							<td>${data.NM}</td>
 							<th>이벤트 기간</th>
+							<td>${data.EVENT_START_DT} ~ ${data.EVENT_END_DT}</td>
 							<th>조회수</th>
+							<td>${data.HIT}</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>${data.POST_NO}</td>
-							<td>${data.TITLE}</td>
-							<td>${data.NM}</td>
-							<td>${data.EVENT_START_DT} ~ ${data.EVENT_END_DT}</td>
-							<td>${data.HIT}</td>
-						</tr>
-						<tr>
-							<th style="padding-bottom: 0;">내용</th>
-							<td colspan="5" id="gongzi" style="text-align: left">${data.CONTENTS}</td>
+							<td colspan="7" id="Cdetail" style="text-align: left">${data.CONTENTS}</td>
 						</tr>
 					</tbody>
 				</table>
-				<div id="dtlbtn">
-					<input type="button" id="listBtn" value="목록" />
-					<input type="button" id="updBtn" value="수정" />
+				<div class="Cbtnright">
+					<input type="button" id="deleteBtn" value="삭제" class="btn" />
+					<input type="button" id="updateBtn" value="수정" class="btn" />
 				</div>
 			</div>
 		</div>

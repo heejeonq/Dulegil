@@ -1,24 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adMember">
-
-
-
-
 <!-- 목록 -->
-<select id="list" resultType="hashmap">
-SELECT A.MEMBER_NO, A.AUTHORITY_NO, A.NM, A.EMAIL, A.PHONE_NO, A.DATE_BIRTH, A.GENDER, A.ADDRESS, A.SCOURE, A.CNT, A.REG_DT, A.DEL_DT,A.RNK
-    FROM(   SELECT M.MEMBER_NO, M.AUTHORITY_NO, M.NM, M.PHONE_NO, M.EMAIL, M.DATE_BIRTH, M.GENDER, M.ADDRESS, REL.SCOURE, RP.CNT, M.REG_DT, M.DEL_DT,
-            	ROW_NUMBER()OVER( ORDER BY M.REG_DT DESC) AS RNK
-            FROM MEMBER M LEFT JOIN RELIABILITY REL
-                         ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
-                    	 LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
-                                       		  FROM REPORT                                   
-                                       		  GROUP BY TARGET_REPORT_MEMBER_NO   )RP
-                          ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
-       		 WHERE M.DEL_DT IS NULL  
-			 AND M.AUTHORITY_NO = 2
-			<if test="searchTxt != null and searchTxt != ''">
+	<select id="list" resultType="hashmap">
+		SELECT A.MEMBER_NO, A.AUTHORITY_NO, A.NM, A.EMAIL, A.PHONE_NO, TO_CHAR(A.DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, A.GENDER, A.ADDRESS, A.SCOURE, A.CNT, TO_CHAR(A.REG_DT, 'YYYY-MM-DD') AS REG_DT, A.DEL_DT, A.RNK
+		    FROM(   SELECT M.MEMBER_NO, M.AUTHORITY_NO, M.NM, M.PHONE_NO, M.EMAIL, M.DATE_BIRTH, M.GENDER, M.ADDRESS, REL.SCOURE, RP.CNT, M.REG_DT, M.DEL_DT,
+		            	ROW_NUMBER()OVER( ORDER BY M.REG_DT DESC) AS RNK
+		            FROM MEMBER M LEFT JOIN RELIABILITY REL
+		                         ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
+		                    	 LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
+		                                       		  FROM REPORT                                   
+		                                       		  GROUP BY TARGET_REPORT_MEMBER_NO   )RP
+		                          ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
+		       		 WHERE M.DEL_DT IS NULL  
+					 AND M.AUTHORITY_NO = 2
+					<if test="searchTxt != null and searchTxt != ''">
+					<choose>
+						<when test="searchGbn == 0">
+							AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn == 1">
+							AND NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+						<when test="searchGbn == 2">
+							AND GENDER LIKE '%' || #{searchTxt} || '%'
+				
+						</when>
+						<when test="searchGbn == 3">
+							AND ADDRESS LIKE '%' || #{searchTxt} || '%'
+				
+						</when>
+						<when test="searchGbn == 4">
+							AND SCOURE LIKE '%' || #{searchTxt} || '%'
+				
+						</when>
+					</choose>
+				</if> 
+					)A
+		WHERE A.RNK BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 페이징 -->
+	<select id="cnt" parameterType="hashmap" resultType="integer">	
+		SELECT COUNT(*) AS CNT
+		FROM MEMBER M LEFT JOIN RELIABILITY REL
+		               		 ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
+		                	LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
+		                                    FROM REPORT                                   
+		                                    GROUP BY TARGET_REPORT_MEMBER_NO)RP
+		               		 ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
+		WHERE M.DEL_DT IS NULL	
+		AND M.AUTHORITY_NO = 2	
+		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchGbn == 0">
 					AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
@@ -27,77 +60,27 @@ SELECT A.MEMBER_NO, A.AUTHORITY_NO, A.NM, A.EMAIL, A.PHONE_NO, A.DATE_BIRTH, A.G
 					AND NM LIKE '%' || #{searchTxt} || '%'		
 				</when>
 				<when test="searchGbn == 2">
-					AND GENDER LIKE '%' || #{searchTxt} || '%'
-		
+					AND GENDER LIKE '%' || #{searchTxt} || '%'		
 				</when>
 				<when test="searchGbn == 3">
-					AND ADDRESS LIKE '%' || #{searchTxt} || '%'
-		
+					AND ADDRESS LIKE '%' || #{searchTxt} || '%'		
 				</when>
 				<when test="searchGbn == 4">
-					AND SCOURE LIKE '%' || #{searchTxt} || '%'
-		
+					AND SCOURE LIKE '%' || #{searchTxt} || '%'		
 				</when>
 			</choose>
 		</if> 
-			)A
-WHERE A.RNK BETWEEN #{start} AND #{end}
-</select>
-
-
-
-
-<!-- 페이징 -->
-<select id="cnt" parameterType="hashmap" resultType="integer">	
-SELECT COUNT(*) AS CNT
-FROM MEMBER M LEFT JOIN RELIABILITY REL
-               		 ON M.MEMBER_NO = REL.TARGET_RATING_MEMBER_NO
-                	LEFT OUTER JOIN (   SELECT COUNT(*) AS CNT, TARGET_REPORT_MEMBER_NO
-                                    FROM REPORT                                   
-                                    GROUP BY TARGET_REPORT_MEMBER_NO)RP
-               		 ON M.MEMBER_NO = RP.TARGET_REPORT_MEMBER_NO
-WHERE M.DEL_DT IS NULL	
-AND M.AUTHORITY_NO = 2	
-<if test="searchTxt != null and searchTxt != ''">
-	<choose>
-		<when test="searchGbn == 0">
-			AND MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-		</when>
-		<when test="searchGbn == 1">
-			AND NM LIKE '%' || #{searchTxt} || '%'		
-		</when>
-		<when test="searchGbn == 2">
-			AND GENDER LIKE '%' || #{searchTxt} || '%'		
-		</when>
-		<when test="searchGbn == 3">
-			AND ADDRESS LIKE '%' || #{searchTxt} || '%'		
-		</when>
-		<when test="searchGbn == 4">
-			AND SCOURE LIKE '%' || #{searchTxt} || '%'		
-		</when>
-	</choose>
-</if> 
-</select>
-
-
-
-
-
-<!-- 삭제 -->
-<update id ="delete" parameterType="hashmap">
-UPDATE MEMBER SET DEL_DT = SYSDATE
-WHERE MEMBER_NO IN (${no})
-</update>
-
-
-
-
-<!-- 개별 삭제 -->
-<update id ="update" parameterType="hashmap">
-UPDATE MEMBER SET EMAIL = #{email}
-WHERE MEMBER_NO = #{no}
-</update>
-
-
-
+	</select>
+		
+	<!-- 삭제 -->
+	<update id ="delete" parameterType="hashmap">
+		UPDATE MEMBER SET DEL_DT = SYSDATE
+		WHERE MEMBER_NO IN (${no})
+	</update>
+	
+	<!-- 개별 삭제 -->
+	<update id ="update" parameterType="hashmap">
+		UPDATE MEMBER SET EMAIL = #{email}
+		WHERE MEMBER_NO = #{no}
+	</update>
 </mapper>

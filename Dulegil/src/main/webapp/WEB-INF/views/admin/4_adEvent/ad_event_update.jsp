@@ -8,90 +8,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이벤트 수정</title>
 <style type="text/css">
-body input{
-	font-family: "Gothic A1";
-	font-weight: 600;
-}
-
-#hd2_CC{
-	padding: 20px 45px 0;
-}
-
-#Ctitle {
-	width: 100%;
-	text-align: left;
-	margin-bottom: 10px;
-}
-
-#Ccontents {
-	width: 100%;
-	height: 10%;
-}
- 
-#buttons {
-	text-align: center;
-	margin-right: 125px;
-    margin-top: 10px;
-}
-
-.CTN {
-	width: 8%;
-    display: inline-block;
+.Cinput{
+	margin: 40px 10px 0;
     font-size: 11pt;
-    padding: 4px;
-    line-height: revert;
 }
 
-.CTC {
-    display: inline-block;
-    text-align: left;
-    vertical-align: top;
-    position: relative;
+.Cinput tr{
+	border: none;
 }
 
-.CTC input[type='text']{
-	width: 700px;
-    height: 28px;
-	border: 1px solid #ddd;
+.Cinput th {
+	width: 60px;
+    padding: 8px;
 }
 
-.CTC input[type='date']{
-	width: 150px;
-	height: 28px
+.Cinput input[type='text'], .Cinput input[type='date']{
+	width: 100%;
+    height: 35px;
+    padding: 5px;
+    border: none;
+	border-bottom: 1px solid #ddd;
 }
 
-.commentBox {
-	display: inline-block;
-	vertical-align: top;
-	width: 708px;
-	height: 36px;
-	border: 1px solid #ddd;
-}
-
-.checkbox {
-	width: 50%;
-	height: 60%;
-	display: inline-block;
-	text-align: left;
-	vertical-align: middle;
-	position: relative;
+.Cinput input[type='date']{
+	width: 40%;
 }
 
 input:focus {
 	outline: none;
 }
-
-.myButton{
-	margin-right: 10px;
-}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-	CKEDITOR.replace("ct", {
+	CKEDITOR.replace("contents", {
 		resize_enabled : false, 
         language : "ko", 
         enterMode : "2", 
-        width : "700px", 
+        width : "800px", 
         height : 450
 	});
 	
@@ -119,9 +72,9 @@ $(document).ready(function() {
 			makeAlert("알림", "시작일이 종료일보다 이후 일 수 없습니다.", function() {
 				$("#endDt").focus();
 			});
-		}else if ($("#ct").val() == "") {
+		}else if ($("#contents").val() == "") {
 			makeAlert("알림", "내용을 입력하세요.", function() {
-				$("#ct").focus();
+				$("#contents").focus();
 			});
 
 		}else {
@@ -170,49 +123,38 @@ $(document).ready(function() {
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 	</form>
 	
-	<!--  header 1  -->
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
-	<div id="hd2_content">
-		<div id="hd2_Cname">
-			<div id="Cname_box">
-				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_calendar</span>
-				이벤트 수정
-			</div>	
-		</div>
-		<div id="hd2_CC">
+	<div class="container">
+		<div class="Cname">
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_calendar</span>
+			이벤트 수정
+		</div>	
+		<div class="Ccon">
 			<form action="#" id="actionForm" method="post">
 				<input type="hidden" id="no" name="no" value="${data.POST_NO}" />
-				<div>
-					<div id="Ctitle">
-						<div class="CTN">제목</div>
-						<div class="CTC">
-							<input type="text" class="commentBoxT" id="tit" name="tit" value="${data.TITLE}" />
-						</div>
-					</div>
-					<div id="Ctitle">
-						<div class="CTN">시작일</div>
-						<div class="CTC">
-							<input type="date" class="commentBoxT" id="startDt" name="startDt" value="${data.EVENT_START_DT}" />
-						</div>
-					</div>
-					<div id="Ctitle">
-						<div class="CTN">종료일</div>
-						<div class="CTC">
-							<input type="date" class="commentBoxT" id="endDt" name="endDt" value="${data.EVENT_END_DT}" />
-						</div>
-					</div>
-					<div id="Ctitle">
-						<div class="CTN">내용</div>
-						<div class="CTC">
-							<textarea id="ct" name="ct" class="textarea">${data.CONTENTS}</textarea>
-						</div>
-					</div>
-				</div>
+				<table class="Cinput">
+					<tr>
+						<th>제목</th>
+						<td><input type="text" id="tit" name="tit" value="${data.TITLE}" /></td>
+					</tr>
+					<tr>
+						<th>시작일</th>
+						<td><input type="date" id="startDt" name="startDt" value="${data.EVENT_START_DT}" /></td>
+					</tr>
+					<tr>
+						<th>종료일</th>
+						<td><input type="date" id="endDt" name="endDt" value="${data.EVENT_END_DT}" /></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td><textarea id="contents" name="contents" class="textarea">${data.CONTENTS}</textarea></td>
+					</tr>
+				</table>
 			</form>	
-			<div id="buttons">
-				<input type="button" value="취소" class="myButton" id="canBtn" />
-				<input type="button" value="수정" class="myButton" id="updBtn" /> 
+			<div class="Cbtncenter">
+				<input type="button" value="취소" class="btn" id="canBtn" />
+				<input type="button" value="수정" class="btn" id="updBtn" /> 
 			</div>
 		</div>
 	</div>

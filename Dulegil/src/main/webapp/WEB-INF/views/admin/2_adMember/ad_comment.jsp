@@ -1,94 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../adjscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>댓글 관리</title>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-<!-- 팝업 CSS -->
-<link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
-
-<!-- 폰트 -->
-<link rel="stylesheet" href="resources/css/fonts.css" />
-<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
-
 <style type="text/css">
-
-/*오른쪽 전체 크기*/
-#header2 #hd2_content {
-	width: 100%;
-	height: 88%;
-	/*border: solid 1px #444;*/
-	background-color: white;
-}
-
-#header2 #hd2_search {
-	height: 60px;
-	text-align: left;
-	font-size: 20px;
-	background-color: white;
-}
-
-/* vertical-align 은 여기 버튼 css에서 설정해준다. div아님*/
-#header2 #hd2_search .Sbar1, .Sbar11, .Sbar2, .Sbar3 {
-	margin: 20px 0px 0px 0px;
-	display: -webkit-inline-box;
-	border: 1px solid #ddd;
-	position: relative;
-}
-
-.Sbar3 {
-	border: none;
-}
-
-/* 상단바 */
-#header2 #hd2_Cname {
-	width: 100%;
-	height: 35px;
-	text-align: center;
-	font-size: 20px;
-	font-weight: 800;
-	background-color: white;
-	margin-top: 2%;
-	margin-bottom: 1%;
-}
-
-#header2 #hd2_Cname #Cname_box {
-	display: inline-block;
-	width: 22%;
-	/*border: solid 1px #444;*/
-}
-
-/* 오른쪽 하단 크기 스크롤*/
-#header2 #hd2_CC {
-	width: 100%;
-	height: 87%;
-	background-color: rgb(255, 255, 255);
-	text-align: center;
-	/*text-align: center;쓰려면 자식 css에 인라인블록*/
-}
-
-/* 내용 크기 */
-#header2 #hd2_CC #CCbox {
-	display: inline-block;
-	/*width: 1000px;*/
-	height: 70%;
-	/*border: solid 1px #000;*/
-	font-size: 25px;
-	padding: 23px;
-}
-
 /* 테이블 */
 table  {
 	width: 100%;
@@ -98,7 +16,7 @@ table  {
 	box-shadow: 3px 3px 3px 0px #ebebeb;
 	border-radius: 4px;
 }
-
+ 
 th, td {
 	border-collapse: collapse;
 	text-align: center;
@@ -113,9 +31,7 @@ th:nth-child(12) {
 
 th {
 	width: 114px;
-	padding: 6px;
 	background: #f4f5ee;
-	font-size: small;
 }
 
 td {
@@ -123,146 +39,9 @@ td {
 	border-bottom: solid 0.5px #ebebeb;
 	padding: 8px;
 }
-
-/* 페이징 */
-#header2 #hd2_CC #hd2_paging {
-	display: inline-block;
-	margin-top: 3px;
-	text-align: -webkit-center;
-	width: 40%;
-	height: 5%;
-}
-
-#header2 #hd2_CC #hd2_paging #pBtn {
-	width: 15px;
-	height: 15px;
-	display: inline-block;
-	margin-right: 11px;
-}
-
-#header2 #hd2_CC #hd2_paging #pBtn_GD {
-	width: 15px;
-	height: 15px;
-	margin-right: 11px;
-	display: inline-block;
-	border: none;
-	font-size: 12px;
-}
-
-.pBtn {
-	border: none;
-	font-size: 12px;
-	background-color: white;
-	display: inline-box;
-}
-
-.pBtn_GD {
-	border: none;
-	font-size: 12px;
-	background-color: #ECECEC;
-	display: inline-box;
-}
-
-.pBtn:hover {
-	background-color: #ECECEC;
-}
-
-/* 작성 & 수정 & 삭제 버튼 */
-#write {
-	width: 100%;
-	text-align: right;
-}
-
-input:focus {
-	outline: none;
-}
-
-#searchBtn {
-	background-color: #ededed;
-	border-radius: 5px;
-	border: 1px solid #f4f5ee;
-	display: inline-block;
-	cursor: pointer;
-	color: #5e5e5e;
-	font-family: Arial;
-	font-size: 13px;
-	text-decoration: none;
-	font-weight: 700;
-	padding: 4px 10px;
-}
-
-.commentBoxT {
-	border: none;
-	width: 96%;
-	height: 86%;
-}
-
-.sel {
-	border: none;
-	outline: none;
-}
 </style>
-<!-- 팝업 js -->
-<script type="text/javascript" src="resources/script/common/popup.js"></script>
-<script type="text/javascript"
-	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	// 로그아웃 버튼 클릭시
-	$("#logoutBtn").on("click", function() {
-		location.href = "adLogout";
-	});
-	
-	
-	// 메뉴 - 관리자 계정 관리 
-	$("#actMngBtn").on("click", function() {
-		location.href = "adAccountMng";
-	});
-	
-	
-	// 메뉴 - 공지사항
-	$("#ntcBtn").on("click", function() {
-		location.href = "adNtList";
-	});
-	
-	
-	// 메뉴 - 이벤트관리
-	$("#evtBtn").on("click", function() {
-		location.href = "adEvt";
-	});
-	
-	
-	// 메뉴 - 웹사이트 활동 집계
-	$("#webTotalBtn").on("click", function() {
-		location.href = "adWebTotal";
-	});
-	
-	
-	// 메뉴 - 회원관리
-	$("#memMngBtn").on("click", function() {
-		location.href = "adMemList";
-	});
-	
-	// 메뉴 - 신고 내역 관리
-	$("#memRepBtn").on("click", function() {
-		location.href = "adMemRep";
-	});
-	
-	// 메뉴 - 게시물 관리
-	$("#memPostBtn").on("click", function() {
-		location.href = "adMemPost";
-	});
-	
-	// 메뉴 - 댓글 관리
-	$("#memCmtBtn").on("click", function() {
-		location.href = "adCmtList";
-	});
-	
-	
-	
-	
-	
 	// 목록 구분 설정
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
@@ -292,17 +71,6 @@ $(document).ready(function(){
 			reloadList();		
 		});
 
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	// thead 체크박스
@@ -461,9 +229,7 @@ $(document).ready(function(){
 		}
 	});
 
-	
 }); // document ready end
-
 
 // 게시글 목록 함수
 function drawList(list){
@@ -472,23 +238,18 @@ var html = "";
 for(var data of list){
 	//"+ +"
 	html += "<tr no=\"" +data.COMMENT_NO +"\">";
-	html +="	<td colspan=\"1\"><input type=\"checkbox\"id=\"Check\" name=\"Check\" value=\""+data.COMMENT_NO+"\" /></td>";
-	html +="	<td colspan=\"1\">"+ data.MEMBER_NO +"</td>";
-	html +="	<td colspan=\"1\">"+ data.BLTNBOARD_NM +"</td>";
-	html +="	<td colspan=\"1\">"+ data.NM +"</td>";
-	html +="	<td colspan=\"5\">"+ data.CONTENTS +"</td>";
-	html +="	<td colspan=\"1\">"+ data.REG_DT +"</td>";
-	html +="	<td colspan=\"2\"><span class=\"material-icons\" value=\""+data.COMMENT_NO+"\" id=\"delBtn\" name=\"delBtn\" style=\"font-size: 14px; cursor: pointer; line-height:2;\">\close\</span></td>";
+	html += "<td>"+ data.MEMBER_NO +"</td>";
+	html += "<td>"+ data.NM +"</td>";
+	html += "<td>"+ data.BLTNBOARD_NM +"</td>";
+	html += "<td colspan=\"2\">"+ data.CONTENTS +"</td>";
+	html += "<td>"+ data.REG_DT +"</td>";
+	html += "<td><input type=\"checkbox\"id=\"Check\" name=\"Check\" value=\""+data.COMMENT_NO+"\" /></td>";
+	html += "<td><span class=\"material-icons\" value=\""+data.COMMENT_NO+"\" id=\"delBtn\" name=\"delBtn\" style=\"font-size: 14px; cursor: pointer; line-height:2;\">\close\</span></td>";
 	html += "</tr>";
 }
 
 $("tbody").html(html);
 };
-
-
-
-
-	
 
 	function drawPaging(pd){
 		var html = "";
@@ -524,7 +285,6 @@ $("tbody").html(html);
 				
 			}
 		}
-		
 		
 		
 		// 다음
@@ -566,199 +326,64 @@ function reloadList(){
 			
 		}
 		
-		
 	});
 	
 }; // reloadList end
 
 </script>
-
-
-
-
-
-
-
-
 </head>
 <body>
-	<!--  header 1  -->
-	<div id="header1">
-		<div id="logo"></div>
-		<div id="time"></div>
+	<!-- 기존 검색 내용 유지용 -->
+	<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+	<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 
-		<div id="h_1">
-			<div class="btnMembers">manager menu</div>
+	<jsp:include page="../adHeader.jsp" flush="true"/>
 
-			<div class="btnAll" id="actMngBtn">
-				<span class="material-symbols-outlined">account_circle </span> <span>관리자
-					계정 관리</span>
+	<div class="container">
+		<div class="Cname">
+			<span class="material-icons" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">comment</span> 
+			댓글 관리
+		</div>
+
+		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+
+		<!-- 검색 구분 -->
+		<div class="Csearch">
+			<form action="#" id="actionForm" method="post">
+				<input type="hidden" name="no" id="no" /> 
+				<input type="hidden" name="page" id="page" value="${page}" />
+				<select class="sel" name="searchGbn" id="searchGbn">
+					<option value="0">댓글 내용</option>
+					<option value="1">아이디</option>
+				</select>
+				<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
+				<input type="button" class="btn src" id="searchBtn" value="검색" />
+			</form>
+		</div>
+
+		<div class="Ccon">
+			<div class="Ctable">
+				<table>
+					<thead>
+						<tr>
+							<th>회원 번호</th>
+							<th>아이디</th>
+							<th>게시판</th>
+							<th colspan="2">댓글 내용</th>
+							<th>등록일</th>
+							<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
-
-
-
-
-			<div class="btnAll" id="ntcBtn">
-				<span class="material-symbols-outlined"> edit_document </span> <span>공지사항</span>
+			<div class="Cbtnright">
+				<input type="button" value="삭제" class="btn" id="deleteBtn" />
 			</div>
-
-
-			<div class="btnAll" id="evtBtn">
-				<span class="material-symbols-outlined"> calendar_month </span> <span>이벤트
-					관리</span>
-
-			</div>
-
-
-			<div class="btnAll" id="webTotalBtn">
-				<span class="material-symbols-outlined"> bar_chart </span> <span>웹사이트
-					활동 집계</span>
-			</div>
-
-			<div id="empty"></div>
-			<div class="btnMembers">members</div>
-
-			<div class="btnOne" id="memMngBtn">
-				<span class="material-symbols-outlined"> person </span> <span>회원
-					관리</span>
-			</div>
-
-
-			<div class="btnOne" id="memRepBtn">
-				<span class="material-symbols-outlined"> person_off </span> <span>신고내역
-					관리</span>
-			</div>
-
-
-			<div class="btnOne" id="memPostBtn">
-				<span class="material-symbols-outlined"> edit_note </span> <span>게시물
-					관리</span>
-			</div>
-
-
-			<div class="btnOne" id="memCmtBtn">
-				<span class="material-symbols-outlined"> comment </span> <span>댓글
-					관리</span>
-			</div>
+			<div class="Cpaging" ></div>
 		</div>
 	</div>
-	<!-- 헤더 1 -->
-
-
-
-
-
-
-	<div id="header2">
-		<!-- 상단바 -->
-		<div id="hd2_header">
-			<div class="hh2_icon">
-				<div>알림</div>
-				<div>
-					<span class="material-symbols-outlined" id="logoutBtn">
-						exit_to_app </span>로그아웃
-				</div>
-			</div>
-		</div>
-
-
-		<!-- 오른쪽 하단 전체 크기 -->
-		<div id="hd2_content">
-			<div id="hd2_Cname"></div>
-			<!-- 공백 -->
-			<div id="hd2_Cname">
-				<div id="Cname_box">
-					<span class="material-icons"
-						style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">
-						comment </span> 댓글 관리
-				</div>
-			</div>
-
-
-
-			<div id="hd2_CC">
-				<div id="CCbox">
-
-					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
-					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-
-					<!-- 기존 검색 내용 유지용 -->
-					<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
-					<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
-
-					<!-- 검색 구분 -->
-					<div id="hd2_search">
-					
-						<form action="#" id="actionForm" method="post">
-							<input type="hidden" name="no" id="no" /> 
-							
-
-							<input type="hidden"
-								name="page" id="page" value="${page}" />
-
-							<div class="Sbar1">
-								<select class="sel" name="searchGbn" id="searchGbn">
-									<option value="0">댓글 내용</option>
-									<option value="1">아이디</option>
-								</select>
-							</div>
-
-							<div class="Sbar2">
-								<input type="text" class="commentBoxT" name="searchTxt" value="${param.searchTxt}" />
-							</div>
-
-							<div class="Sbar3">
-								<input type="button" id="searchBtn" value="검색" />
-							</div>
-
-						</form>
-					</div>
-
-
-
-					<!-- 테이블  -->
-					<table class="board_table">
-						<thead>
-							<tr>
-								<th colspan="1"><input type="checkbox" id="allCheck" name="allCheck"/></th>
-								<th colspan="1">회원번호</th>
-								<th colspan="1">카테고리</th>
-								<th colspan="1">아이디</th>
-								<th colspan="5">댓글 내용</th>
-								<th colspan="1">날짜</th>
-								<th colspan="2"></th>
-							</tr>
-						</thead>
-						<tbody>
-
-						</tbody>
-					</table>
-					<!-- 작성 삭제 버튼 -->
-					<div id="write">
-						<input type="button" id="deleteBtn" name="deleteBtn" value="삭제"
-							class="delBtn" />
-					</div>
-				</div>
-				<!-- ccbox -->
-
-
-
-
-				<!--  페이징  -->
-				<div id="hd2_paging"></div>
-				<!-- 페이징 -->
-
-			</div>
-			<!-- hd2_CC -->
-		</div>
-		<!-- 오른쪽 하단 전체 크기 hd2_content -->
-	</div>
-	<!-- header2 -->
-
-
-
-
-
-
 </body>
 </html>

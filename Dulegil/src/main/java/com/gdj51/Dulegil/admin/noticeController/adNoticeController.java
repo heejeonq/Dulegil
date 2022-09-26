@@ -27,9 +27,6 @@ public class adNoticeController {
    @Autowired
    public IPagingService ips;
 
-
-
-
    //리스트
    @RequestMapping(value = "/adNtList")
    public ModelAndView adNtList(
@@ -42,25 +39,19 @@ public class adNoticeController {
          int page = 1;
 
          if(params.get("page") != null && params.get("page") != "") {
-            page = Integer.parseInt(params.get("page"));
+ 			page = Integer.parseInt(params.get("page"));
          }
 
-
-
-
          mav.addObject("page", page);
+         
          mav.setViewName("admin/3_adNotice/ad_notice_list");
+         
       }else {
          mav.setViewName("admin/0_adLogin/ad_Login");
 
       }
       return mav;
    }
-
-
-
-
-
 
    // 리스트 아작스
    @RequestMapping(value = "/adNtAjax",
@@ -71,10 +62,12 @@ public class adNoticeController {
    public String adNtAjax(
          @RequestParam HashMap<String, String> params)throws Throwable {
       ObjectMapper mapper = new ObjectMapper();
+      
       Map<String, Object> model = new HashMap<String, Object>();
 
       int cnt = dao.getInt("adNotice.cnt",params);
-      HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
+      
+      HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,10,5);
 
       params.put("start", Integer.toString(pd.get("start")));
       params.put("end", Integer.toString(pd.get("end")));
@@ -87,35 +80,21 @@ public class adNoticeController {
       return mapper.writeValueAsString(model);
    }
 
-
-
-
-
-
-
-
-
-
    // 등록
    @RequestMapping(value = "/adNtWrite")
    public ModelAndView adNtWrite(
+		   
          HttpSession session,
          @RequestParam HashMap<String, String> params,
          ModelAndView mav) throws Throwable {
+	   
       if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
-
-
          mav.setViewName("admin/3_adNotice/ad_notice_write");
       }else {
          mav.setViewName("admin/0_adLogin/ad_Login");
-
       }
       return mav;
    }
-
-
-
-
 
    // 액션 아작스   
    @RequestMapping(value = "/adNtAction/{gbn}",
@@ -141,27 +120,18 @@ public class adNoticeController {
          break;
          case "detailDelete": cnt=dao.update("adNotice.detailDelete", params);
          break;
-
          }
          if(cnt>0) {
             model.put("msg", "success");
          }else {
             model.put("msg", "fail");
          }
-
       } catch (Exception e) {
          e.printStackTrace();
          model.put("msg", "exception");
       }
-
       return mapper.writeValueAsString(model);
    }
-
-
-
-
-
-
 
    // 상세보기
    @RequestMapping(value = "/adNtDetail")
@@ -179,15 +149,11 @@ public class adNoticeController {
          }else {
             mav.setViewName("redirect:adNtList");
          }
-
       }else {
          mav.setViewName("admin/0_adLogin/ad_Login");
-
       }
       return mav;
    }
-
-
 
    // 수정
    @RequestMapping(value = "/adNtUpdate")
@@ -197,24 +163,17 @@ public class adNoticeController {
          ModelAndView mav) throws Throwable {
       if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
-      if(params.get("no") != null && params.get("no") != "") {
-         HashMap<String, String> data = dao.getMap("adNotice.detail", params);
-
-         mav.addObject("data", data);
-         mav.setViewName("admin/3_adNotice/ad_notice_update");
-      }else {
-         mav.setViewName("redirect:adNtList");
-      }
-
+	      if(params.get("no") != null && params.get("no") != "") {
+	         HashMap<String, String> data = dao.getMap("adNotice.detail", params);
+	
+	         mav.addObject("data", data);
+	         mav.setViewName("admin/3_adNotice/ad_notice_update");
+	      }else {
+	         mav.setViewName("redirect:adNtList");
+	      }
       }else {
          mav.setViewName("admin/0_adLogin/ad_Login");
-
       }
       return mav;
    }
-
-
-
-
-
 }

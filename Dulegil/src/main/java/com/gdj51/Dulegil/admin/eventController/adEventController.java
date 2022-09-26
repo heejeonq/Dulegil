@@ -41,12 +41,12 @@ public class adEventController {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
-		mav.addObject("page", page);
-		
-		mav.setViewName("admin/4_adEvent/ad_event_list");
-		}else 
+			mav.addObject("page", page);
 			
+			mav.setViewName("admin/4_adEvent/ad_event_list");
+		}else {
 			mav.setViewName("admin/0_adLogin/ad_Login");
+		}
 		return mav;
 	} 
 	
@@ -63,7 +63,7 @@ public class adEventController {
 		
 		int cnt = dao.getInt("evt.getAdEvtCnt", params);
 		
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 5);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 3);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));

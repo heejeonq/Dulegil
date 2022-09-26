@@ -1,92 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../adjscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>member manage</title>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-<!-- 팝업 CSS -->
-<link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
-
-<!-- 폰트 -->
-<link rel="stylesheet" href="resources/css/fonts.css" />
-<link rel="stylesheet" type="text/css" href="resources/css/admin.css">
-
 <style type="text/css">
-
-/*오른쪽 전체 크기*/
-#header2 #hd2_content {
-	width: 100%;
-	height: 88%;
-	/*border: solid 1px #444;*/
-	background-color: white;
-}
-
-#header2 #hd2_search {
-	height: 60px;
-	text-align: left;
-	font-size: 20px;
-	background-color: white;
-}
-
-/* vertical-align 은 여기 버튼 css에서 설정해준다. div아님*/
-#header2 #hd2_search .Sbar1, .Sbar2, .Sbar3 {
-	margin-top: 20px;
-	display: -webkit-inline-box;
-}
-
-.Sbar3 {
-	border: none;
-}
-
-/* 상단바 */
-#header2 #hd2_Cname {
-	width: 100%;
-	height: 35px;
-	text-align: center;
-	font-size: 20px;
-	font-weight: 800;
-	background-color: white;
-	margin-top: 2%;
-	margin-bottom: 1%;
-}
-
-#header2 #hd2_Cname #Cname_box {
-	display: inline-block;
-	width: 22%;
-	/*border: solid 1px #444;*/
-}
-
-/* 오른쪽 하단 크기 */
-#header2 #hd2_CC {
-	width: 100%;
-	height: 87%;
-	background-color: rgb(255, 255, 255);
-	text-align: center;
-	/*text-align: center;쓰려면 자식 css에 인라인블록*/
-}
-
-/* 내용 크기 */
-#header2 #hd2_CC #CCbox {
-	display: inline-block;
-	text-align: -webkit-center;
-	/*width: 1000px;*/
-	height: 70%;
-	/*border: solid 1px #000;*/
-	font-size: 25px;
-	padding: 23px;
-}
-
 /* 테이블 */
 table  {
 	border-collapse: collapse;
@@ -261,69 +181,8 @@ input:focus {
 
 
 </style>
-
-<script type="text/javascript"
-	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<!-- 팝업 js -->
-<script type="text/javascript" src="resources/script/common/popup.js"></script>
-<script type="text/javascript"
-	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	// 로그아웃 버튼 클릭시
-	$("#logoutBtn").on("click", function() {
-		location.href = "adLogout";
-	});
-	
-	
-	// 메뉴 - 관리자 계정 관리 
-	$("#actMngBtn").on("click", function() {
-		location.href = "adAccountMng";
-	});
-	
-	
-	// 메뉴 - 공지사항
-	$("#ntcBtn").on("click", function() {
-		location.href = "adNtList";
-	});
-	
-	
-	// 메뉴 - 이벤트관리
-	$("#evtBtn").on("click", function() {
-		location.href = "adEvt";
-	});
-	
-	
-	// 메뉴 - 웹사이트 활동 집계
-	$("#webTotalBtn").on("click", function() {
-		location.href = "adWebTotal";
-	});
-	
-	
-	// 메뉴 - 회원관리
-	$("#memMngBtn").on("click", function() {
-		location.href = "adMemList";
-	});
-	
-	// 메뉴 - 신고 내역 관리
-	$("#memRepBtn").on("click", function() {
-		location.href = "adMemRep";
-	});
-	
-	// 메뉴 - 게시물 관리
-	$("#memPostBtn").on("click", function() {
-		location.href = "adMemPost";
-	});
-	
-	// 메뉴 - 댓글 관리
-	$("#memCmtBtn").on("click", function() {
-		location.href = "adCmtList";
-	});
-	
-	
-	
-	
 	
 	// 목록 구분 설정
 	if("${param.searchGbn}" != ""){
@@ -354,20 +213,6 @@ $(document).ready(function(){
 			reloadList();		
 		});
 
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// 개별 수정
 	$("tbody").on("click", "#update", function() {
@@ -431,38 +276,34 @@ $(document).ready(function(){
 	});
 
 	
-	
-	
-
-	
 }); // document ready end
 
 
 // 게시글 목록 함수
 function drawList(list){
-var html = "";
-
-for(var data of list){
-	//"+ +"
-html += "<tr class=\"tr_td\"no=\"" +data.MEMBER_NO +"\">";
-html += "<td>"+ data.MEMBER_NO +"</td>";
-html += "<td>"+ data.AUTHORITY_NO +"</td>";
-html += "<td>"+ data.NM +"</td>";
-//html += "<td>" + data.EMAIL +"</td>";
-html += "<td><input type=\"text\" id=\"emailUpdate\" name=\"emailUpdate\" value=\"" + data.EMAIL +"\"</td>";
-html += "<td>"+ data.PHONE_NO +"</td>";
-html += "<td>"+ data.DATE_BIRTH +"</td>";
-html += "<td>"+ data.GENDER +"</td>";
-html += "<td>"+ data.ADDRESS +"</td>";
-html += "<td>"+ data.SCOURE +"</td>";
-html += "<td>"+ data.CNT +"</td>";
-html += "<td>	<span id=\"update\" name=\"update\" class=\"material-icons-outlined\" style=\"font-size: 14px; cursor: pointer;\"> \edit\ </span>";
-html += "		<span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
-html += "</td>";
-html += "</tr>";
-}
-
-$("tbody").html(html);
+	var html = "";
+	
+	for(var data of list){
+		//"+ +"
+	html += "<tr class=\"tr_td\"no=\"" +data.MEMBER_NO +"\">";
+	html += "<td>"+ data.MEMBER_NO +"</td>";
+	html += "<td>"+ data.AUTHORITY_NO +"</td>";
+	html += "<td>"+ data.NM +"</td>";
+	//html += "<td>" + data.EMAIL +"</td>";
+	html += "<td><input type=\"text\" id=\"emailUpdate\" name=\"emailUpdate\" value=\"" + data.EMAIL +"\"</td>";
+	html += "<td>"+ data.PHONE_NO +"</td>";
+	html += "<td>"+ data.DATE_BIRTH +"</td>";
+	html += "<td>"+ data.GENDER +"</td>";
+	html += "<td>"+ data.ADDRESS +"</td>";
+	html += "<td>"+ data.SCOURE +"</td>";
+	html += "<td>"+ data.CNT +"</td>";
+	html += "<td>	<span id=\"update\" name=\"update\" class=\"material-icons-outlined\" style=\"font-size: 14px; cursor: pointer;\"> \edit\ </span>";
+	html += "		<span class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
+	html += "</td>";
+	html += "</tr>";
+	}
+	
+	$("tbody").html(html);
 };
 
 
@@ -552,108 +393,19 @@ function reloadList(){
 }; // reloadList end
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </head>
 <body>
-		<!--  header 1  -->
-	<div id="header1">
-		<div id="logo"></div>
-		<div id="time"></div>
+	<!-- 기존 검색 내용 유지용 -->
+	<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+	<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 
-		<div id="h_1">
-			<div class="btnMembers">manager menu</div>
+	<jsp:include page="../adHeader.jsp" flush="true"/>
 
-			<div class="btnAll" id="actMngBtn">
-				<span class="material-symbols-outlined">account_circle </span>
-				<span>관리자 계정 관리</span>
-			</div>
-			
-			
-	
-
-			<div class="btnAll" id="ntcBtn">
-				<span class="material-symbols-outlined" > edit_document </span>
-				<span>공지사항</span>
-			</div>
-
-
-			<div class="btnAll" id="evtBtn">
-				<span class="material-symbols-outlined"> calendar_month </span>
-				<span>이벤트 관리</span>
-
-			</div>
-
-
-			<div class="btnAll" id="webTotalBtn">
-				<span class="material-symbols-outlined"> bar_chart </span> 
-				<span>웹사이트 활동 집계</span>
-			</div>
-
-			<div id="empty"></div>
-			<div class="btnMembers">members</div>
-
-			<div class="btnOne" id="memMngBtn">
-				<span class="material-symbols-outlined"> person </span>
-				<span>회원 관리</span>
-			</div>
-
-
-			<div class="btnOne" id="memRepBtn">
-				<span class="material-symbols-outlined"> person_off </span>
-				<span>신고내역 관리</span>
-			</div>
-
-
-			<div class="btnOne" id="memPostBtn">
-				<span class="material-symbols-outlined"> edit_note </span>
-				<span>게시물 관리</span>
-			</div>
-
-
-			<div class="btnOne" id="memCmtBtn">
-				<span class="material-symbols-outlined"> comment </span>
-				<span>댓글 관리</span>
-			</div>
+	<div class="container">
+		<div class="Cname">
+			<span class="material-icons" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">manage_accounts </span> 
+			회원 관리
 		</div>
-	</div> <!-- 헤더 1 -->
-
-
-
-
-
-	<div id="header2">
-		<!-- 상단바 -->
-		<div id="hd2_header">
-			<div class="hh2_icon">
-				<div>알림</div>
-				<div>
-					<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
-				</div>
-			</div>
-		</div>
-
-
-
-		<div id="hd2_content">
-			<div id="hd2_Cname"></div>
-			<div id="hd2_Cname">
-				<div id="Cname_box">
-					<span class="material-icons"
-						style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">
-						manage_accounts </span> 회원 관리
-				</div>
 			</div>
 
 
