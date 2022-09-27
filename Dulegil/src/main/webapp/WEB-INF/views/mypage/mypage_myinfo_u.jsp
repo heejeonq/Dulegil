@@ -202,6 +202,10 @@ function readURL(input) {
 						</div>
 						<div class="name01">
 							<label for="name"></label>
+							                   <!--xml에 있는 #이 name이야!..
+							                   name은 그냥 이름일뿐 값은 따로 있어. 그 값이 input은 벨류가 입력 값이야.
+							                   이게무슨말이냐. 입력값이 없으면 원래 받아온 정보를 보여주고,
+							                   있으면 그값으로 바뀜.-->
 							<input type="text" name="nm" id="nm" value="${data.NM}">
 						</div>	
 						<div class="input">*선택 입력 사항</div>
