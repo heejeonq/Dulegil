@@ -27,19 +27,26 @@ $(document).ready(function(){
 
 	reloadList();
 	
+	
 	//게시글 버튼
 	$("#clistBtn").on("click",function(){
 		$("#actionForm").attr("action","courseReview")
 		$("#actionForm").submit();
 	});
 	
-	 $(".goodBtn").on("click",function(){
-		 
-		 
-		 var params = $("#actionForm").serialize();
+	  $("#goodICnt").on("click",function(){
+		  like("insert");
+	  });
+	  
+	  $("#goodDCnt").on("click",function(){
+		  like("delete");
+	  });
+	  
+	  function like(gbn){
+		 var params = $("#commentsForm").serialize();
 
 		 $.ajax({
-	         url:"goodajax/insert",
+	         url:"goodajax/"+gbn,
 	         type:"POST",
 	         dataType:"json",
 	         data:params,
@@ -49,7 +56,7 @@ $(document).ready(function(){
 		        	 draw(res.gcnt);
 		     
 	        		 
-	       `	 }
+	       
 	        	 //gcnt안에 good 이라는 데이터를 씀 gcnt 여기서 짓는 이름
 
 	        	 //console.log(gcnt);
@@ -59,9 +66,9 @@ $(document).ready(function(){
 	             console.log(request.responseText); //실패 상세내역
 	          }
 	     
-	     })	;	 
-	 });
-
+	     })	;	
+	  }
+	 
 	
 	$("#deleteBtn").on("click",function(){
 
@@ -287,6 +294,7 @@ function reloadList(){
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
 			drawList(res.list);
+			draw(res.gList);
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
@@ -331,7 +339,6 @@ function reloadList(){
 
 	} 
  
- function draw(data){
 	 //로그인이 안돼있으면 알림 뜬후 로그인 페이지로 이동
 	 //만약 작성자와 일치하면 '좋아요 누를수 없습니다' 알람(memberNo=sMemNo){}
 	 //만약 좋아요 눌렀으면 빨간하트
@@ -350,20 +357,24 @@ function reloadList(){
 	 } */
 	 
 	 // " +  + " 1(내용) 대신 넣자
-	 console.log(data);
-	 var html="";
 	 
-		html += " <span class=\"like\">";
-		//이미 눌렀으면
-		if(data == 0){
-			html += " <img src=\"resources/images/like.png\" >";
-			html += " <div class=\"goodCnt\" id=\"goodICnt\" name=\"goodCnt\">" + data + "</div> ";
-		}else{
-			html += " <img src=\"resources/images/likeAft.png\" >";
-			html += " <div class=\"goodCnt\" id=\"goodDCnt\" name=\"goodCnt\">" + data + "</div> ";
-			}
-		$(".goodBtn").html(html);
+ function draw(gList){
+	 
+		 var html="";
+	 
+	html += " <span class=\"like\">";
+	//이미 눌렀으면 가져온 gList.MEMBER_NO 값과 로그인한 사람이 같지 않으면 .
+
+		html += " <img src=\"resources/images/like.png\" >";
+		//하얀하트
+		html += " <div class=\"goodCnt\" id=\"goodICnt\" name=\"goodCnt\">" + gList.GCNT + "</div> ";
+
+		
+	
+	$(".goodBtn").html(html);
  };
+ 
+ 
 
 
 </script>
@@ -422,9 +433,7 @@ function reloadList(){
 			    <!-- 좋아요버튼 : 좋아요 누른사람,post_no, -->
 			    
 				<div class="goodBtn">
-					<span class="like">
-					<img src="resources/images/like.png" >
-					<div class="goodCnt" id="goodCnt" name="goodCnt">${data.GCNT}</div> 
+				<!-- DNLFH -->
 				</div>		
 			</div>
 		<!-- cunBox완 ------------------------------------------>
