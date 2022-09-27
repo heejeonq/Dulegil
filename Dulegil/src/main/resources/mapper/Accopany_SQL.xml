@@ -22,11 +22,13 @@
 </select>
 
 <select id="chatList" resultType="hashmap" parameterType="hashmap">
-	SELECT TITLE 
-	FROM BULLETIN_BOARD
-	WHERE MEMBER_NO = #{memNo}
-	AND BLTNBOARD_NO = 2     
-	AND BULLETIN_BOARD.DEL_DT IS NULL                           
+	SELECT BB.TITLE 
+	FROM BULLETIN_BOARD BB INNER JOIN BOARD_ACCOMPANY BA
+                                   ON BB.POST_NO = BA.POST_NO
+                                  AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD')  
+	WHERE BB.MEMBER_NO = #{memNo}
+	AND BB.BLTNBOARD_NO = 2     
+	AND BB.DEL_DT IS NULL                           
 </select>
 
 <select id="myApply" resultType="hashmap" parameterType="hashmap">

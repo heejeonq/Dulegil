@@ -545,7 +545,7 @@ $(document).ready(function(){
 								</th>
 								<th colspan="1">신고날짜</th>
 								<th colspan="1">게시글 카테고리</th>
-								<th colspan="1">항목</th>
+								<th colspan="1"></th>
 								<th colspan="2">처리여부</th>
 							</tr>
 						</thead>
