@@ -23,6 +23,7 @@ public class MypageInfoController {
 	public IDao dao;
 
 	@RequestMapping(value = "/mypageMyinfo")
+	// 값을 받아와서 화면에 출력시켜줌.
 	public ModelAndView mypageMyinfo(HttpSession session, @RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
 		// 로그인 안했을때 마이페이지 클릭했을 때 로그인 페이지로
@@ -31,7 +32,7 @@ public class MypageInfoController {
 			mav.setViewName("login/login");
 
 		} else {
-			
+
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
 			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
@@ -50,19 +51,21 @@ public class MypageInfoController {
 			mav.setViewName("login/login");
 
 		} else {
-			
+
 			mav.setViewName("mypage/mypage_password_check");
-			
+
 		}
 
 		return mav;
 	}
 
 	@RequestMapping(value = "/mypageAjax/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	// ModelAndView는 ModelAndView만 줄수 있는데 @ResponseBody는 스트링으로 줄 수 있음.
 	@ResponseBody
 	public String mypageAjax(@PathVariable String gbn, HttpSession session,
 			@RequestParam HashMap<String, String> params) throws Throwable {
 
+		// 스트링을 제이슨으로 바꿔주는 라이브러리가 ObjectMapper임.
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -80,6 +83,14 @@ public class MypageInfoController {
 		try {
 			switch (gbn) {
 			case "passwordCheck":
+
+				// int qwe = dao.getInt2(7, 5);
+
+				// 메소드 = 함수
+
+				// 메소드 생성()괄호 안에 있는 값을 받아야함
+
+				// 메소드 호출()괄호 안에 있는 것은 보내주는 값.
 				data = dao.getMap("member.checkPwd", params);
 				if (data != null) {
 					model.put("msg", "success");
@@ -101,7 +112,7 @@ public class MypageInfoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msg", "error");
-		}
+		} // writeValueAsString: model을 제이슨형태로 돌려주는 메서드
 		return mapper.writeValueAsString(model);
 	}
 

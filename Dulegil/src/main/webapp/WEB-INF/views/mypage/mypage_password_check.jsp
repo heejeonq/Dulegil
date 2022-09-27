@@ -29,6 +29,8 @@ $(document).ready(function(){
 		}
 		
 		else {
+			
+			  //serialize: id=actionForm 아래에 있는 것들을 해쉬맵으로 바꿔줌 (네임을 키로) 
 			var params = $("#actionForm").serialize();
 			$.ajax({
 				url : "mypageAjax/passwordCheck", //경로
@@ -87,7 +89,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>	
-			
+
 <!-- footer -->
 <jsp:include page="../common/footer.jsp" flush="true"/>
 </body>
