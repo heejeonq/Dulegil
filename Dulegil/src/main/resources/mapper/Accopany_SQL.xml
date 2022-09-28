@@ -42,7 +42,7 @@
 	                                ON BB.POST_NO = BC.POST_NO
 	                        INNER JOIN BOARD_ACCOMPANY BA
 	                                ON BA.POST_NO = BC.POST_NO
-	                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD') 
+	                               
 	                        INNER JOIN MEMBER MEM
 	                                ON MEM.MEMBER_NO = BB.MEMBER_NO 
 	 WHERE M.MEMBER_NO = #{memNo}                                                                                           
@@ -170,4 +170,6 @@
 	AND TARGET_RATING_MEMBER_NO = #{amemNo}
 	AND RATING_MEMBER_NO = #{amemNo}                       
 </select>
+
+
 </mapper>

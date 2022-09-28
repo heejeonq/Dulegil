@@ -99,8 +99,14 @@ WHERE POST_NO= #{no}
 
 <!-- 게시글수정 -->
 <update id="update"  parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET TITLE=#{title}, CONTENTS=#{contents}, IMG_FILE=#{imgFile}
-WHERE POST_NO=#{no}
+BEGIN
+UPDATE BULLETIN_BOARD SET TITLE = #{title}, CONTENTS = #{contents}, IMG_FILE = #{imgFile, jdbcType = VARCHAR}
+WHERE POST_NO = #{no};
+UPDATE BOARD_COURSE SET COURSE_NO = #{courseNo}
+WHERE POST_NO = #{no};
+UPDATE BOARD_ACCOMPANY SET  ACCOMPANY_DT = #{accompanyDt}, PUBLIC_GENDER= #{publicGender}, PUBLIC_AGE= #{publicAge}
+WHERE POST_NO = #{no};
+END;
 </update>
 
 <!-- 조회수 -->
@@ -204,4 +210,17 @@ INTO NOTIFICATION(NOTIFICATION_NO ,POST_NO, APPLICANT_NO, MEMBER_NO)
 VALUES (NOTIFICATION_SEQ.NEXTVAL, #{no},#{sMemNo}, #{memberNo})
 SELECT * FROM DUAL
 </insert>
+<!-- 동행신청 확인 -->
+<select id="applyCheck" resultType="hashmap" parameterType="hashmap">
+SELECT *
+FROM ACCOMPANY_APPLY
+WHERE POST_NO = #{no}
+AND MEMBER_NO = #{sMemNo}                          
+</select>
+<!-- 동행신청 취소 -->
+<delete id="deleteApply" parameterType="hashmap">
+DELETE FROM ACCOMPANY_APPLY
+WHERE POST_NO = #{no}
+AND MEMBER_NO = #{sMemNo}
+</delete>
 </mapper>
