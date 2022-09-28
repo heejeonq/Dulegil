@@ -204,10 +204,12 @@ WHERE BA.POST_NO = #{no}
 </select>
 <!-- 동행 신청 -->
 <insert id="insertApply" parameterType="hashmap">		
+<if test="sMemNo != memberNo">
 INSERT ALL
 INTO ACCOMPANY_APPLY(POST_NO, MEMBER_NO) VALUES (#{no},#{cmemberNo})
 INTO NOTIFICATION(NOTIFICATION_NO ,POST_NO, APPLICANT_NO, MEMBER_NO) 
 VALUES (NOTIFICATION_SEQ.NEXTVAL, #{no},#{sMemNo}, #{memberNo})
+</if>
 SELECT * FROM DUAL
 </insert>
 <!-- 동행신청 확인 -->

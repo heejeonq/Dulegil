@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -119,8 +121,16 @@ public class AccompanyController {
 		}
 	
 	@RequestMapping(value = "/accompanyUpdate")
-	public ModelAndView accompanyUpdate(@RequestParam HashMap<String, String> params, ModelAndView mav)
+	public ModelAndView accompanyUpdate(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
+		System.out.println(session.getAttribute("sMemNm"));
+		// 로그인 안되어있을 경우 수정페이지에서 게시판으로 이동
+		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
+
+			mav.setViewName("redirect:accompany");
+			System.out.println("로그아웃");
+		} 
+						
 		if (params.get("no") != null && params.get("no") != "") {
 
 			HashMap<String, String> data = dao.getMap("accom.getAC", params);

@@ -286,7 +286,13 @@ function action(flag){
             
             break;
          case "fail" :
-            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+        	 if(msg[flag] == "동행신청"){
+        		 makeAlert("알림","본인이 작성한 게시글은 동행신청할 수 없습니다");
+        	 }
+        	 else{
+	            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+        		 
+        	 }
             break;
          case "error" :                     
             makeAlert("알림", msg[flag]+"중 문제가 발생하였습니다.")
