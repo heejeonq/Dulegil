@@ -14,6 +14,7 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               GROUP BY POST_NO) G
               ON BB.POST_NO= G.POST_NO            
 WHERE BLTNBOARD_NO=1
+AND BB.DEL_DT IS NULL
 	<if test="searchTxt != null and searchTxt !=''">
 			<choose>
 				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
@@ -193,13 +194,22 @@ VALUES(#{no},#{sMemNo},SYSDATE)
 <delete id="deleteG" parameterType="hashmap">
 DELETE GOOD
 WHERE POST_NO=#{no}
+AND MEMBER_NO=#{sMemNo}
 </delete>
 
 <!-- 좋아요 카운트 -->
-<select id="gcnt" resultType="integer" parameterType="hashmap">
-SELECT COUNT(*) AS GCNT
-FROM GOOD
-WHERE POST_NO=#{no}
+<select id="gcnt" resultType="hashmap" parameterType="hashmap">
+	SELECT BB.POST_NO, G.MEMBER_NO, NVL(GC.GCNT,0)AS GCNT
+	FROM BULLETIN_BOARD BB LEFT OUTER JOIN GOOD G
+	                                    ON BB.POST_NO = G.POST_NO
+	                                    AND G.MEMBER_NO= #{sMemNo}    
+	                       LEFT OUTER JOIN (SELECT COUNT(*) AS GCNT, POST_NO
+	                                        FROM GOOD 
+	                                        WHERE POST_NO= #{no}
+	                                        GROUP BY POST_NO) GC
+	                                    ON BB.POST_NO = GC.POST_NO
+	WHERE BB.POST_NO = #{no}
+	
 </select><!-- 좋아요 누른 사람 다 데려와서 세션이랑 비교 -->
 
 
