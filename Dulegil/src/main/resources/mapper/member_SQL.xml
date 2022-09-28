@@ -12,6 +12,7 @@
 		WHERE MEMBER_NO = #{memNo}
 	</select>
 
+                            <!-- 받는 타입이야          결과 보내주는 타입이야-->
 	<select id="checkPwd" parameterType="hashmap" resultType="hashmap">
 		SELECT MEMBER_NO, NM
 		FROM MEMBER
@@ -21,6 +22,10 @@
 		AND MEMBER_NO = #{memNo}
 	</select>
 	
+	
+	<!-- 업데이트할때는  parameterType="hashmap",resultType="hashmap"필요 없음. 
+	무조건 해쉬맵으로 받아줌. 
+	카운트 일때만 resultType="integer"-->
 	<update id="updateMyinfo">
 		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt, jdbcType = DATE}, GENDER = #{gen, jdbcType = VARCHAR}, ZIP_CODE = #{zcd, jdbcType = VARCHAR}, 
 		ADDRESS =  #{adr, jdbcType = VARCHAR}, DETAIL_ADDRESS = #{adrDtl, jdbcType = VARCHAR}, IMG_FILE = #{imgFile, jdbcType = VARCHAR}

@@ -389,6 +389,9 @@ $(document).ready(function(){
 	
 	
 	
+	// 글 댓글 박스
+	
+	
 	
 });
 </script>
@@ -500,8 +503,8 @@ $(document).ready(function(){
 					<!-- 검색 구분  -->
 					<div id="hd2_search">
 					<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }"/>
-					<input type="hidden" id="searchGbn2" name="searchGbn2" value="${param.searchGbn2 }"/>
 					<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }"/>
+					<input type="hidden" id="process" name="process" value="${param.process }"/>
 			
 					<!-- 기존 검색 내용 유지용 -->
 					
@@ -511,7 +514,6 @@ $(document).ready(function(){
 					<div id="hd2_search">
 					<form action="#" id="actionForm" method="post">
 						<input type="hidden" name="no" id="no"/>
-						<input type="hidden" id="delNo" name="delNo"/><!-- 목록 체크박스 삭제 -->
 						<input type="hidden" name="page" id="page" value="${page}"/>
 
 				
@@ -544,8 +546,7 @@ $(document).ready(function(){
 								<th colspan="1">신고자<br />아이디
 								</th>
 								<th colspan="1">신고날짜</th>
-								<th colspan="1">게시글 카테고리</th>
-								<th colspan="1"></th>
+								<th colspan="1">항목</th>
 								<th colspan="2">처리여부</th>
 							</tr>
 						</thead>
@@ -606,18 +607,20 @@ $(document).ready(function(){
 										</div>
 									</div>
 								</td>
+								
+								
 								<td colspan="1">REPORT_NO</td>
 								<td colspan="1">REPORT_TYPE_NM</td>
-								<td colspan="1">R.NM AS 신고자</td>
-								<td colspan="1">T.NM AS 신고당한자</td>
-								<td colspan="1">R.REG_DT</td>
-								<td colspan="1">T.BLTNBOARD_NM</td>
-								<td colspan="1">T.POST_NO, T.COMMENT_NO</td>
+								<td colspan="1">ACCUSER</td>
+								<td colspan="1">ACCUSED</td>
+								<td colspan="1">REG_DT</td>
+								<td colspan="1">CATE</td>
 								<td colspan="2">
 								<select class="sel" id="process" name="process">
-										<option>활동 중지</option>
-										<option>반려</option>
-										<option>강제 탈퇴</option>
+										<option value="0">처리중</option>
+										<option value="1">활동 중지</option>
+										<option value="2">반려</option>
+										<option value="3">강제 탈퇴</option>
 								</select></td>
 							</tr>
 
