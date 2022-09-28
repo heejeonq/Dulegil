@@ -237,7 +237,7 @@ public class CourseReviewController {
 
 		List<HashMap<String, String>> list = dao.getList("courseR.getCList", params);
 		
-		List<HashMap<String, String>> gList = dao.getList("courseR.gcnt",params);
+		HashMap<String, String> gList = dao.getMap("courseR.gcnt",params);
 		
 		model.put("list", list);	
 
@@ -270,7 +270,6 @@ public class CourseReviewController {
 		
 		int cnt = 0;//insert,delete받기위해
 		
-		int gcnt=0; //gcnt 받기위해
 		
 		try {
 			switch(gbn) {
@@ -291,7 +290,6 @@ public class CourseReviewController {
 			model.put("msg", "error");
 		}
 		
-		model.put("gcnt", gcnt); //gcnt를 good으로 보여줄게
 		
 		return mapper.writeValueAsString(model);
 	}
