@@ -44,7 +44,9 @@ public class FreeBoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/FreeListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/FreeListAjax", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String FreeListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();

@@ -1,24 +1,148 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/noticList.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
+
 <title>공지사항목록</title>
 <!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	reloadList();
+	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+	
+	if("${param.searchGbn}" !=""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}
+	
+
+	$("#searchBtn").on("click",function(){
+		$("#page").val("1");
+		
+		//신규 상태 적용
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	})	
+
+	$(".pagination").on("click","span",function(){
+		
+		//기존검색유지		
+		if($("#oldGbn").val() != "") {
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		//전에 입력한 구분과 텍스트를 현재로 데려옴
+		}
+		
+		$("#page").val($(this).attr("page"));
+		
+		reloadList();
+	});
+	
+	$("tbody").on("click","tr",function(){
+		$("#no").val($(this).attr("no"));
+		
+		//기존 검색상태 유지
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		$("#actionForm").attr("action","noticDetail");
+		$("#actionForm").submit();
+		
+	});
+	
+}); //document.ready end
+
+function reloadList(){
+	
+	var params = $("#actionForm").serialize();
+
+	$.ajax({
+		url : "noticeAjax", //경로
+		type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
+		dataType : "json",
+		data : params,
+		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
+			drawList(res.list);
+			drawPaging(res.pd);
+		},
+		error : function(request, status, error) { //실패했을 때 함수 실행
+			console.log(request.responseText); //실패 상세내용
+		}
+
+	});
+	
+}
+function drawList(list) {
+	var html = "";
+	
+	for(var data of list){ // " +  + " 1(내용) 대신 넣자
+	html +=	"<div class=\"noticCon\">";
+	html += "	<div no=\"" + data.POST_NO + "class=listTit>";
+	html += "	<div class=\"labelNotic\">필독</div>";
+	html += "	<span class=\"p\">" + data.TITLE + "</span>";
+	html += "	<span class=\"date\">" + data.DT + "</span>";
+	html += "	<span class=\"hit\">" + data.HIT + "</span>	";
+	html += "	<span class=\"fileF\">";
+	html += "	<img src=\"resources/images/diskette.png\" id=\"searIcon\" />";
+	html += "	</span>	";
+	html += "	</div> ";
+	html += "	</div> ";
+		
+	}
+	
+	$(".noticBody").html(html); //내가 받은 html로 갈아 엎어라
+} 
+
+function drawPaging(pd){
+	var html="";
+	
+   html += "<span class=\"first_arw\"page=\"1\"><<</span> ";
+   if($("#page").val() == "1" ) {
+   html += "<span class=\"prev_arw\" page=\"1\" ><</span>   ";
+   }else{
+	   html += "<span class=\"prev_arw\" page=\"" + ($("#page").val() *1 -1 )+ "\" ><</span>   ";
+   }
+   for(var i = pd.startP; i<=pd.endP; i++){
+	   if($("#page").val() * 1 ==i){//현재페이지라면
+		  html += "<span class=\"page_btn_on\" page=\"" + i + "\">" + i + "</span>"   
+	   }else{
+		  html += "<span class=\"page_btn\" page=\"" + i + "\">" + i + "</span>";	   
+	   }	   
+   }
+   if($("#page").val() * 1 == pd.maxP){ //현재 체이지가 마지막 페이지면...
+	   html += "<span class=\"next_arw\" page=\"" + pd.maxP + "\">></span>  ";
+   }else{
+	   html += "<span class=\"next_arw\"  page=\"" + ($("#page").val() * 1 + 1) + "\">></span>  ";
+   }
+   
+   //마지막 페이지는 마지막 페이지
+     html += "<span class=\"end_arw\" page=\"" + pd.maxP + "\">>></span>  ";
+     
+     $(".pagination").html(html);
+   
+}
 
 </script>
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp" flush="true"/>
+	<c:import url="/header"></c:import>
 
 
 	<!-- Container -->
@@ -28,26 +152,28 @@
 			<div class="col"></div>			
 			<div class="midBox">
 				<!-- <div class=box1>글쓰기</div> -->
-				
+			<form action="#" id="actionForm" method="post">
+			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+			<input type="hidden" name="no" id="no"/>
+			<input type="hidden" name="page" id="page" value="${page}" />	
 			<div class="searchWrap">
 				<div class="selBox">
-					<select class="sel">
-						<option selected="selected">select</option>
-						<option>제목</option>
-						<option>내용</option>
+					<select class="sel" name="searchGbn" id="searchGbn">					
+						<option value="0">제목</option>
+						<option value="1">내용</option>
 					</select>
 
 				</div>
 				<div class="searchBox">
-					<input type="text" class="serchTxt" placeholder="검색하기" />
-					
-					<div class="search_ico" onclick="chk_search();">
+					<input type="text" class="serchTxt" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색하기" />					
+					<div class="search_ico">
 						<img src="resources/images/search_icon.png" id="searIcon" />
 					</div>
 					
 				</div>
 			</div>
 
+			</form>
 			</div>
 			<div class="content">
 				<div class="noticConTit">
@@ -55,89 +181,17 @@
 				  	<div class="num"> </div>
 				
 					<span class="pTit">제목</span>
-					<span class="date">2022-08-13</span>
+					<span class="date"></span>
 					<span class="hit">조회수</span>				
 					<span class="file">첨부파일</span>				
 				 </div>
 				</div>
 				
 				
-				<div class="noticCon">
-				  <div class=listTit>
-					<div class="labelNotic">필독</div>
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>				
-					<span class="hit">30</span>	
-					<span class="fileF">
-					<img src="resources/images/diskette.png" id="searIcon" />
-					</span>	
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-					<div class="labelNotic">필독</div>
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
+				<div class="noticBody">
 				
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
 				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					
-					<span class="hit">30</span>				
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>	
-					<span class="hit">30</span>				
-				 </div>
-				</div>
-				<div class="noticCon">
-				  <div class=listTit>
-
-					<span class="p">서울둘레길 통행금지구간 안내</span>
-					<span class="date">2022-08-13</span>
-					<span class="hit">30</span>					
-				</div>
-			</div>
+	
 		</div>
  			<div class="emptyBox"></div>
 		
@@ -146,16 +200,7 @@
 	
 	
 			<div class="pagination">
-				<span class="first_arw">&lt;&lt;</span>
-				<span class="prev_arw">&lt;</span>
-				<span >1</span>
-				<span >2</span>
-				<span >3</span>
-				<span >4</span>
-				<span >5</span>
-				
-				<span class="next_arw" >&gt;</span>
-				<span class="end_arw" >&gt;&gt;</span>
+			<!-- 위로 올림 -->
 	      	</div>
 		
 		</div>
