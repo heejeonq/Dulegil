@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,20 +89,24 @@ public class AccompanyController {
 			Map<String, Object> model = new HashMap<String, Object>();
 
 			int cnt = 0;
-
+		
 			try {
 				switch (gbn) {
 				case "insert":
 					cnt = dao.insert("accom.insert", params);
+					System.out.println(cnt);
 					break;
 				case "update":
+					System.out.println("dddddd");
 					cnt = dao.update("accom.update", params);
+					System.out.println(cnt);
+					System.out.println("??");
 					break;
 				case "delete":
 					cnt = dao.update("accom.delete", params);
 					break;
 				}
-				if (cnt > 0) {
+				if (cnt != 0) {
 					model.put("msg", "success");
 				} else {
 					model.put("msg", "fail");
@@ -115,8 +121,16 @@ public class AccompanyController {
 		}
 	
 	@RequestMapping(value = "/accompanyUpdate")
-	public ModelAndView accompanyUpdate(@RequestParam HashMap<String, String> params, ModelAndView mav)
+	public ModelAndView accompanyUpdate(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
+		System.out.println(session.getAttribute("sMemNm"));
+		// 로그인 안되어있을 경우 수정페이지에서 게시판으로 이동
+		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
+
+			mav.setViewName("redirect:accompany");
+			System.out.println("로그아웃");
+		} 
+						
 		if (params.get("no") != null && params.get("no") != "") {
 
 			HashMap<String, String> data = dao.getMap("accom.getAC", params);
@@ -178,6 +192,12 @@ public class AccompanyController {
 			case "apply":
 				cnt = dao.insert("accom.insertApply", params);
 				break;
+			case "applyCancel":
+				cnt = dao.delete("accom.deleteApply", params);
+				break;
+			case "report":
+				cnt = dao.insert("accom.report", params);
+				break;
 			}
 			if (cnt > 0) {
 				model.put("msg", "success");
@@ -205,7 +225,7 @@ public class AccompanyController {
 		Map<String, Object> model = new HashMap<String, Object>();
 
 		int cnt = dao.getInt("accom.getCCnt",params);//댓글갯수
-
+		String applyCheck = "";
 		HashMap<String, Integer> pd =
 				ips.getPagingData(1, cnt,Integer.parseInt(params.get("cpage")),1); //페이징하는데
 		//현재페이지 /총 게시물갯수/ 보여지는 게시물수/ 페이징수
@@ -219,10 +239,21 @@ public class AccompanyController {
 
 		//동행 신청자 수
 		HashMap<String,String> applyCnt = dao.getMap("accom.getApplyCnt",params);	
+		
+		//동행신청 확인
+		HashMap<String,String> applyCheckData = dao.getMap("accom.applyCheck",params);	
 
+		if(applyCheckData != null) {
+			applyCheck = "0";
+		}else {
+			applyCheck = "1";
+		}
+		
+		
 		model.put("list", list);
 		model.put("list2", list2);
 		model.put("applyCnt", applyCnt);
+		model.put("applyCheck", applyCheck);
 
 		model.put("pd", pd);//
 

@@ -120,6 +120,7 @@ $(document).ready(function(){
        	 		$("#publicGender").val($('input[name=age]:checked').val());
        	 		
        	 			 var params = $("#actionForm").serialize();   
+       	 			 console.log(params);
        	               $.ajax({
        	                  url:"accompanyAction/update", //경로 주소 새로생기면 컨트롤러 가
        	                  type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
@@ -201,6 +202,7 @@ $(document).ready(function(){
 				 <input type="hidden" name="courseNo" id="courseNo"  />
 				 <input type="hidden" name="publicGender" id="publicGender"  />
 				 <input type="hidden" name="publicAge" id="publicAge"  />
+				 <input type="hidden" name="no" value="${data.POST_NO}"  />
 				<div class="titNm">제목</div>
 				<div class="titBox">
 				<input type="text" class="titCon" name="title" id="title" value="${data.TITLE}">

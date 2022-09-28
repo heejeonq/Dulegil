@@ -277,11 +277,11 @@ function drawList2(memList){
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td class=\"singo\"><img src=\"resources/images/detailViewIcon.png\" />                                                       ";
 		html2 += "			<div class=\"singo_contents\">                                                         ";
-		html2 += "				<label><input type=\"radio\" value=\"성희롱\">성희롱</label>                         ";
-		html2 += "				<label><input type=\"radio\" value=\"욕설\">욕설</label>                             ";
-		html2 += "				<label><input type=\"radio\" value=\"악의적 비방\">악의적</label>                    ";
-		html2 += "				<label><input type=\"radio\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
-		html2 += "				<label><input type=\"radio\" value=\"기타\">기타</label>                             ";
+		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"기타\">기타</label>                             ";
 		html2 += "				<input type=\"button\" value=\"신고\">                                               ";
 		html2 += "			</div>                                                                               ";
 		html2 += "		</td>                                                                                    ";

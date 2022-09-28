@@ -41,8 +41,7 @@ $(document).ready(function(){
 	      }else{
 	    	 $("#actionForm").attr("action","freeBoardDetail");  
 	      }
-		$("#actionForm").submit();
-		
+		$("#actionForm").submit();	
 	});
 	
 	$("thead").on("click", "#allCheck", function(){
@@ -95,6 +94,7 @@ $(document).ready(function(){
             buttons   : [{
             	name : "확인",
               	func : function(){
+              		   deleteList();
               		   reloadList();
               		   makeAlert("알림", "삭제가 완료되었습니다.");
                  	   closePopup();
@@ -133,10 +133,36 @@ $(document).ready(function(){
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 	
-		reloadList();
-		
+		reloadList();	
 	});
 });
+
+function deleteList(){
+	
+	$("#cate").val($("#cateNo").val());
+	
+	   var params = $("#actionForm").serialize();
+	                                                            
+	   $.ajax({                                                 
+	      url:"mypageCommentAjax/delete",                                     
+	      type:"POST",                                          
+	      dataType:"json",                                      
+	      data : params,                                        
+	      success: function(res) {     
+	    	  switch (res.msg) {
+				case "success":
+					reloadList();
+					break;
+				case "fail":
+					alert("실패 했습니다.");
+					break;
+				}
+	      },                                                    
+	      error: function(request, status, error) {             
+	         console.log(request.responseText);                 
+	      }                                                     
+	   });                                                      
+	} 
 
 function reloadList(){
 	
@@ -145,7 +171,7 @@ function reloadList(){
 	   var params = $("#actionForm").serialize();
 	                                                            
 	   $.ajax({                                                 
-	      url:"mypageCommentAjax",                                     
+	      url:"mypageCommentAjax/select",                                     
 	      type:"POST",                                          
 	      dataType:"json",                                      
 	      data : params,                                        
