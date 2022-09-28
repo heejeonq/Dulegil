@@ -13,6 +13,7 @@
 <title>게시글 관리</title>
 <script type="text/javascript">
 $(document).ready(function(){
+	
 	$("#cateNo").on("change", function() {
 		$("#page").val("1");
 		
@@ -23,6 +24,7 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 		$("#oldTxt").val("");
 		
+		// reloadList() DB에서 가져오는 값을 그려줌.
 		reloadList();
 	});
 	
@@ -40,8 +42,7 @@ $(document).ready(function(){
 	      }else{
 	    	 $("#actionForm").attr("action","freeBoardDetail");  
 	      }
-		$("#actionForm").submit();
-		
+		$("#actionForm").submit();	
 	});
 	
 	$("thead").on("click", "#allCheck", function(){
@@ -93,7 +94,8 @@ $(document).ready(function(){
             contents : "삭제 하시겠습니까?",
             buttons   : [{
             	name : "확인",
-              	func : function(){
+              	func : function (){
+              		   deleteList();
               		   reloadList();
               		   makeAlert("알림", "삭제가 완료되었습니다.");
                  	   closePopup();
@@ -132,10 +134,36 @@ $(document).ready(function(){
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 	
-		reloadList();
-		
+		reloadList();	
 	});
 });
+
+function deleteList(){
+	
+	$("#cate").val($("#cateNo").val());
+	
+	   var params = $("#actionForm").serialize();
+	                                                            
+	   $.ajax({                                                 
+	      url:"mypageBoardAjax/delete",                                     
+	      type:"POST",                                          
+	      dataType:"json",                                      
+	      data : params,                                        
+	      success: function(res) {     
+	    	  switch (res.msg) {
+				case "success":
+					reloadList();
+					break;
+				case "fail":
+					alert("실패 했습니다.");
+					break;
+				}
+	      },                                                    
+	      error: function(request, status, error) {             
+	         console.log(request.responseText);                 
+	      }                                                     
+	   });                                                      
+	} 
 
 function reloadList(){
 	
@@ -144,7 +172,7 @@ function reloadList(){
 	   var params = $("#actionForm").serialize();
 	                                                            
 	   $.ajax({                                                 
-	      url:"mypageBoardAjax",                                     
+	      url:"mypageBoardAjax/select",                                     
 	      type:"POST",                                          
 	      dataType:"json",                                      
 	      data : params,                                        
@@ -159,10 +187,17 @@ function reloadList(){
 	}  
 
 function drawList(list){
-	   
+/*     김슬아:estp 박현철 :intp
+	   김슬아:27 박현철:29 
+	   list.김슬아 => 누굴 부르는지 몰라서오류
+	   list[0].김슬아 => estp 
+	   list[1].김슬아 => 27 */
 	var html = "";
 	   
+	   //list에서 0번째 인덱스(배열)부터 차례대로 data에 넣어줌. 그래서 data.키를 쓰는 것임.
+	   
 	   for(var data of list) { 
+		  // data.김슬아 = > estp // 그 다음 돌때는 27
 	      html += "<tr no=\""+ data.POST_NO +"\">";
 	      html += "<td>" + data.POST_NO + "</td>";
 	      html += "<td cate=\""+ data.BLTNBOARD_NO +"\">" + data.BLTNBOARD_NM + "</td>";

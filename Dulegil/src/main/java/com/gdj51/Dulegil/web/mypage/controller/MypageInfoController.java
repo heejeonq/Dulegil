@@ -84,12 +84,9 @@ public class MypageInfoController {
 			switch (gbn) {
 			case "passwordCheck":
 
-				// int qwe = dao.getInt2(7, 5);
-
+				// ex)int qwe = dao.getInt2(7, 5);
 				// 메소드 = 함수
-
 				// 메소드 생성()괄호 안에 있는 값을 받아야함
-
 				// 메소드 호출()괄호 안에 있는 것은 보내주는 값.
 				data = dao.getMap("member.checkPwd", params);
 				if (data != null) {

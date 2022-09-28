@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,43 +42,51 @@ public class MypageCommentController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/mypageCommentAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/mypageCommentAjax/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 
 	@ResponseBody
-	public String mypageCommentAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String mypageCommentAjax(@PathVariable String gbn, @RequestParam HashMap<String, String> params)
+			throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
+		Map<String, Object> model = new HashMap<String, Object>();
+
 		int delete = 0;
+
 		try {
-			delete = iDao.delete("mypage.deleteComment", params);
-			if (delete > 0) {
-				System.out.println("success");
-			} else {
-				System.out.println("fail");
+			switch (gbn) {
+			case "delete":
+				delete = iDao.delete("mypage.deleteComment", params);
+				if (delete > 0) {
+					model.put("msg", "success");
+				} else {
+					model.put("msg", "fail");
+				}
+				break;
+			case "select":
+				int cnt = iDao.getInt("mypage.getCCnt", params);
+
+				HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 5);
+
+				params.put("start", Integer.toString(pd.get("start")));
+				params.put("end", Integer.toString(pd.get("end")));
+
+				List<HashMap<String, String>> list = iDao.getList("mypage.getCommentList", params);
+
+				List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
+
+				model.put("list", list);
+				model.put("cate", cate);
+				model.put("pd", pd);
+				break;
+			default:
+				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error");
 		}
-
-		Map<String, Object> model = new HashMap<String, Object>();
-
-		int cnt = iDao.getInt("mypage.getCCnt", params);
-
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 5);
-
-		params.put("start", Integer.toString(pd.get("start")));
-		params.put("end", Integer.toString(pd.get("end")));
-
-		List<HashMap<String, String>> list = iDao.getList("mypage.getCommentList", params);
-
-		List<HashMap<String, String>> cate = iDao.getList("mypage.getCateAllList");
-
-		model.put("list", list);
-		model.put("cate", cate);
-		model.put("pd", pd);
-
 		return mapper.writeValueAsString(model);
 	}
 }
