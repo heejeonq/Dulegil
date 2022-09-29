@@ -160,10 +160,21 @@
 	
 </select>	
 <!-- 동행 상대평가 신뢰도 주기 -->
-<insert id="rateUpdate" parameterType="hashmap">
+<insert id="rateInsert" parameterType="hashmap">
 	INSERT INTO RELIABILITY(POST_NO, TARGET_RATING_MEMBER_NO, RATING_MEMBER_NO, SCOURE)
  	VALUES(#{postNo}, #{amemNo}, #{memNo}, #{rate})
 </insert>
+<!-- 동행 상대평가 신뢰도 반영 업데이트 -->
+<update id="rateUpdate" parameterType="hashmap">
+	 UPDATE MEMBER SET RELIABILITY = (SELECT ROUND(SUM/CNT, 1)
+	                                 FROM(SELECT COUNT(*) +1 AS CNT
+	                                      FROM RELIABILITY
+	                                      WHERE TARGET_RATING_MEMBER_NO = #{amemNo}),
+	                                     (SELECT  SUM(SCOURE)+3 AS SUM
+	                                      FROM RELIABILITY
+	                                      WHERE TARGET_RATING_MEMBER_NO = #{amemNo}))
+	WHERE MEMBER_NO = #{amemNo}
+</update>
 <!-- 동행 상대평가 신뢰도값 -->
 <select id="accompanyScoure" resultType="hashmap" parameterType="hashmap">
 	SELECT SCOURE
