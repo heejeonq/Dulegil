@@ -1,5 +1,6 @@
 package com.gdj51.Dulegil.web.freeBoard.controller;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,9 +145,17 @@ public class FreeBoardController {
 	public ModelAndView freeBoardDetail(		
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav)throws Throwable {
+			
+			//HashMap<String, String> referer = dao.getMap("Referer", params);
+		//	String referer = RequestMapping.getHeader("Referer");
+		
 			HashMap<String, String> data = dao.getMap("free.getF", params);
 			mav.addObject("data", data);		
-
+			//mav.addObject("referer", referer);
+			
+			
+		//	System.out.println(referer);
+			
 			if (params.get("no") != null && params.get("no") != "") { //만약 데이터가 넘어오면		
 					
 				dao.update("free.updateTHit", params);	//조회수를 업뎃해라

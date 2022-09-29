@@ -92,8 +92,8 @@ function drawList(list) {
 	var html = "";
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
-	html +=	"<div class=\"noticCon\">";
-	html += "	<div no=\"" + data.POST_NO + "class=listTit>";
+	html +=	"<div class=\"noticCon\" no=\"" + data.POST_NO + "\">";
+	html += "	<div class=\"listTit\">";
 	html += "	<div class=\"labelNotic\">필독</div>";
 	html += "	<span class=\"p\">" + data.TITLE + "</span>";
 	html += "	<span class=\"date\">" + data.DT + "</span>";
