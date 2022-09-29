@@ -165,37 +165,25 @@ td:nth-child(9) {
 	font-weight: 700px !important;
 }
 
+
+tr{
+position:relative;
+}
 /* 펼치기 */
 #header2 #hd2_CC #CCbox #hide {
 	padding: 56px 80px;
-	margin: auto;
-	width: 50%;
-	height: 38%;
-	font-size: 11px;
-	position: absolute;
-	background-color: rgb(254, 250, 239);
-	background-color: rgb(231 231 231/ 26%);
-	backdrop-filter: blur(30px);
-	-webkit-backdrop-filter: blur(30px);
-	border: 0px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	border-radius: 12px;
-	-webkit-border-radius: 12px;
-	color: #f5f5f1;
-	width: 50%;
-	height: 38%;
-	font-size: 11px;
-	position: absolute;
-	background-color: rgb(254, 250, 239);
-	background-color: rgb(231 231 231/ 26%);
-	backdrop-filter: blur(30px);
-	-webkit-backdrop-filter: blur(30px);
-	border: 0px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-border-radius: 12px;
-	z-index: 10;
+    margin: auto;
+    color: #f5f5f1;
+    width: 50%;
+    height: 38%;
+    font-size: 11px;
+    position: absolute;
+    background-color: rgb(231 231 231/ 26%);
+    backdrop-filter: blur(30px);
+    border: 0px solid rgba(255, 255, 255, 0.18);
+    -webkit-box-shadow: rgb(142 142 142 / 19%) 0px 6px 15px 0px;
+    -webkit-border-radius: 12px;
+    z-index: 10;
 }
 
 #hidebox {
@@ -502,7 +490,7 @@ $(document).ready(function(){
 	for(var data of list){
 		//"+ +"
 	html += "<tr no=\""+ data.REPORT_NO +"\">";
-	html += "<td colspan=\"1\"><div><span id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \arrow_drop_down\ </span></div></td> ";
+	html += "<td colspan=\"1\"><div><span href=\#none\ id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
 	html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
 	html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
 	html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
@@ -553,8 +541,7 @@ $(document).ready(function(){
 			data : params,
 			success : function(res){
 	
-				drawList2(res.comment);
-	
+				drawList2(res.comment);	
 				console.log(res);
 			},
 			error : function(request, status, error){
@@ -591,14 +578,24 @@ $(document).ready(function(){
 	
 		if(hide.style.display=='none') {
 			hide.style.display='';
-			// this 로 위치 따와서 innerHTML 로 span 넣어둔
+			$(this).children().eq(0).children().children().html("expand_less");
+			/* // java script로 풀기
 			show.innerText='▲'
 			
+			var icon = document.getElementById("#show")
+			var icoon= document.getElementsByClassName("material-symbols-outlined")[10];
+			console.log(icoon);
+			icoon.innerText="expand_less"
 			
+			
+			
+			//jquery로 풀기
+			$("#show").text("expand_less");
+			 */
 			
 			} else {
 				hide.style.display='none';
-				show.innerText='▼'
+				$(this).children().eq(0).children().children().html("expand_more");
 				
 			}
 	});
@@ -607,7 +604,7 @@ $(document).ready(function(){
 	function drawList2(comment){
 		var html = "";
 		
-		
+		var a ="";
 
 		for(var data of comment){
 			//"+ data. +"
@@ -620,9 +617,23 @@ $(document).ready(function(){
 			html += "<td>"+ data.REG_DT +"</td>";
 			html += "</tr>";
 		
+
+			a += "<div class=\"cmtBoxWrap\">";
+			a += "<div class=\"CB\">"+ data.POST +"</div>";
+			a += "<div class=\"CBC\">";
+			a += "<div id=\"wrap\">";
+			a += "<div class=\"comment_icon\"></div>";
+			a += "<div class=\"comment_nm\">"+ data.CNM +"</div>";
+			a += "</div>";
+			a += "<div class=\"comment_box\">"+ data.CMT +"</div>";
+			a += "</div>";
+			a += "</div>";
+		
 		}
+		
 
 		$("#hide tbody").html(html);
+		$("#hide .cmtBoxWrap").html(a);
 		}
 		
 	
@@ -828,15 +839,14 @@ $(document).ready(function(){
 											
 											<!-- 테이블2 포스트 내용 -->
 											<div class="cmtBoxWrap">
-												<div class="CB">${data.POST}</div>
-
+												<div class="CB"></div>
 												<!-- 댓글박스 -->
 												<div class="CBC">
 													<div id="wrap">
 														<div class="comment_icon"></div>
-														<div class="comment_nm">${data.CNM}코멘트멤버NM</div>
+														<div class="comment_nm"></div>
 													</div>
-													<div class="comment_box">${data.CMT}코멘트CONTENTS</div>
+													<div class="comment_box"></div>
 												</div>
 											</div>
 											
