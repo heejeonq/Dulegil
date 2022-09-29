@@ -189,3 +189,18 @@ td{
 	padding: 3px 0;
   }
 
+/*별그리기*/
+.star {
+    position: relative;
+    font-size: 20px;
+    color: #ddd;
+}
+.star span {
+    width: 0;
+    position: absolute;
+    left: 0;
+    color: #f0c41994;
+    overflow: hidden;
+    pointer-events: none;
+}
+

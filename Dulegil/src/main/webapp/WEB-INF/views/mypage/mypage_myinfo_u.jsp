@@ -131,8 +131,9 @@ $(document).ready(function(){
     // 파일 삭제 버튼
 	$("#fileDelBtn").on("click",function(){
 	      $(".imgOld").remove();
-	      $("#img").val("");
 	      $(".img").show();
+	      $("#imgFile").val("");
+	      $("#preview").attr("src", "resources/upload/profile_img.png")
 	   });
 	
 	$("#backBtn").on("click", function(){
@@ -161,7 +162,7 @@ function readURL(input) {
 	   };
 	   reader.readAsDataURL(input.files[0]);
 	 } else {
-	   document.getElementById('preview').src = "";
+	   document.getElementById('preview').src = "resources/upload/${data.IMG_FILE}";
 	 }
   }
   
@@ -185,22 +186,16 @@ function readURL(input) {
 			    <!-- value="${sMemNo}"를 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 값을 가져오기 위해 -->
 			    <!-- 수정할 정보를 쿼리에 주기 위해서(컨트롤러에서 /mypageAjax/{gbn}부분 업데이트문에 영향) --> 
 				<input type="hidden" name="memNo" value="${sMemNo}">
-	
+	 
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
 					
-					<c:choose>
-					 <c:when test="${empty data.IMG_FILE}">
-                        <div class="filBox">   
-                           <input type="file" name="img"/>
-                           <input type="hidden" name="img" id="img" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
-                        </div>
-                    
-                     </c:when>
-					  <c:otherwise>
+				
+					  
+					  
                         <td class="filBox">
                            <!-- 기존파일 --> 
                            <span class="imgOld">
@@ -211,14 +206,15 @@ function readURL(input) {
                               <c:set var="fileName" value="${fn:substring(data.IMG_FILE, 20, fileLength)}"></c:set>
                               <span id="fileName">${fileName}</span>
                            </span>
+                           
+                           
                            <span class="img"> <!-- 기존파일 삭제후 새파일 용도 --> 
-                              <input type="file" name="img" /> 
-                              <input type="hidden" name="img" id="img" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
+                              <input type="file" name="img" onchange="readURL(this);"/> 
+                              <!-- value="${data.IMG_FILE}"이게 없으면 사진 수정 없이 수정완료를 했을때 사진이 빔. -->
+                              <input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
                            </span>
                         </td>
-                     </c:otherwise>
-                     </c:choose>
-					
+                 
 					
 			
 					<div>*이미지 파일만 첨부하여 주세요 </div>

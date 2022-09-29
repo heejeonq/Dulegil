@@ -191,6 +191,7 @@ FROM ACCOMPANY_APPLY AA INNER JOIN BOARD_ACCOMPANY BA
                                 ON AA.MEMBER_NO = M.MEMBER_NO
                                 AND M.DEL_DT IS NULL
 WHERE BA.POST_NO = #{no}
+ORDER BY AA.REG_DT ASC
 </select>
 <!-- 동행 신청자 수 -->
 <select id="getApplyCnt" resultType="hashmap" parameterType="hashmap">
