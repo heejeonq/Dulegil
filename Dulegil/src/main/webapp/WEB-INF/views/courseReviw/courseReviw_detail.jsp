@@ -27,6 +27,13 @@ $(document).ready(function(){
 
 	reloadList();
 	
+	$("#clistBtn").on("click",function(list){	
+		history.go(-1);
+		$("#actionForm").attr();
+		$("#actionForm").submit();
+		
+	}); 
+	
 	
 	//게시글 버튼
 	$("#clistBtn").on("click",function(){
