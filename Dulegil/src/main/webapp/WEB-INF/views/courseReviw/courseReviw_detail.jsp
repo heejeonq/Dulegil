@@ -30,19 +30,27 @@ $(document).ready(function(){
 	
 	//게시글 버튼
 	$("#clistBtn").on("click",function(){
+		
 		$("#actionForm").attr("action","courseReview")
 		$("#actionForm").submit();
 	});
 	
-	  $(".goodBtn").on("click",function(){
-		  console.log("굿")
-		 if(){			 
-		  like("insert");
-		 }else{
-			 like("delete"); 
+	
+	//하얀 좋아요 버튼을 누르면
+	  $(".goodBtn").on("click", function(){
+		  if ($("#sMemNo").val() == "") {
+		       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+		       });
+		  }else{
+			  like("insert");
+			  makeAlert("알림", "좋아요.")		
 		 }
 	  });
-	  
+	  //빨간 좋아요 버튼을 누르면 
+	  $(".goodCancelBtn").on("click",function(){	  
+		  like("delete");
+		  makeAlert("알림", "좋아요취소.")
+	  });
 	  
 	  function like(gbn){
 		 
@@ -60,9 +68,9 @@ $(document).ready(function(){
 				 case "success" :
 					 switch(gbn) {
 		            	case "insert" : 		            		
-		            	 consol.log("좋아요")
+		            		 reloadList();
 		            	case "delete":
-		            		 consol.log("좋아요취소")
+		            		 reloadList();
 		            		break;
 		        	    }				
 					
@@ -222,6 +230,18 @@ $(document).ready(function(){
 		$("#cpage").val($("#cpage").val() * 1 + 5); // 다섯개씩 늘어난다
 		reloadList(); 	
 	});
+ 	
+ 	//신고하기 버튼 누르면 
+	$("#reporBtn").on("click",function(){ 
+		 if ($("#sMemNo").val() == "") {
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       });
+	     } else{
+			action("report");
+			 
+		 }
+	 });
+ 	
 }); //document
 
 
@@ -277,6 +297,9 @@ function action(flag){
 					$(".insert").show();
 					$(".update").hide();
             		break;
+				case "report":
+            		
+            		break;
             }
             
             reloadList();
@@ -311,7 +334,7 @@ function reloadList(){
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
 			drawList(res.list);
-			draw(res.gList);
+			draw(res.gList,res.goodCheck);
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
@@ -356,42 +379,22 @@ function reloadList(){
 
 	} 
  
-	 //로그인이 안돼있으면 알림 뜬후 로그인 페이지로 이동
-	 //만약 작성자와 일치하면 '좋아요 누를수 없습니다' 알람(memberNo=sMemNo){}
-	 //만약 좋아요 눌렀으면 빨간하트
-	 //안눌렀으면 하얀하트.
-	/* if("${empty sMemNo}"){
-		 makeAlert("알림","회원만 가능합니다.");
-		 location.href="login"
-	 }else if(data.MEMBER_NO == "${sMemNo}"){
-		 makeAlert("알림","좋아요 안돼 ");
-	 }else if(data.MEMBER_NO != "${sMemNo}" || gcnt==0){
-		 makeAlert("알림","좋아요!");
-		 $('#goodCnt').val(1);
-	 }else if(data.MEMBER_NO != "${sMemNo}" || gcnt==1){
-		 makeAlert("알림","좋아요취소");
-		 $('#goodCnt').val(0);
-	 } */
 	 
-	 // " +  + " 1(내용) 대신 넣자
-	 
- function draw(gList){
-	 
-		 var html="";
-	 
-	html += " <span class=\"like\">";
-	//이미 눌렀으면 가져온 gList.MEMBER_NO 값과 로그인한 사람이 같지 않으면 .
-	if(gList.MEMBER_NO != "${sMemNo}"){
-		html += " <img src=\"resources/images/like.png\" >";
-		//하얀하트
-		html += " <div class=\"goodCnt\" id=\"goodICnt\" name=\"goodCnt\">" + gList.GCNT + "</div> ";
-	}else{
-		html += " <img src=\"resources/images/likeAft.png\" >";
-		//빨간하트
-		html += " <div class=\"goodCnt\" id=\"goodDCnt\" name=\"goodCnt\">" + gList.GCNT + "</div> ";
-		}
+ function draw(gList,goodCheck){
+	 var html="";
+		 
+	 if(goodCheck == "1"){
+		  $(".goodBtn").hide();
+		  $(".goodCancelBtn").show();
+	 }else{
+		  $(".goodCancelBtn").hide();
+		  $(".goodBtn").show();
+	 } 
+
+	html += gList.GCNT  
+		
 	
-	$(".goodBtn").html(html);
+	$(".gcnt").html(html);
  };
  
  
@@ -452,10 +455,27 @@ function reloadList(){
 			    </div>
 			    <!-- 좋아요버튼 : 좋아요 누른사람,post_no, -->
 			    
-				<div class="goodBtn">
-				<!-- DNLFH -->
-				</div>		
-			</div>
+
+			    		<div class="goodBtn">				 
+						 	<span class="like">			 
+								 <img src="resources/images/like.png" />
+								 <div class="gcnt">						
+								 </div>
+							</span>	
+						</div>
+						<div class="goodCancelBtn">				 
+						 	<span class="like">			 
+								 <img src="resources/images/likeAft.png" />
+								 <div class="gcnt">						
+								 </div>
+							</span>	
+						</div>
+						
+						
+			    
+			    	
+		
+			
 		<!-- cunBox완 ------------------------------------------>
 			
 		<div class="emptyBox">
@@ -471,7 +491,7 @@ function reloadList(){
 		<!-- emptyBox완 ------------------------------------------>
 		
 		<div class="box2">		
-			<div class="reporBtn">
+			<div class="reporBtn" id="reporBtn">
 				<span class="report">
 					<img src="resources/images/report1.png" />
 				</span>

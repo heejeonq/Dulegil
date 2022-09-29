@@ -200,6 +200,9 @@ public class CourseReviewController {
 				break;
 			case "delete": cnt=dao.update("courseR.deleteC",params);
 				break;
+			case "report":
+				cnt = dao.insert("courseR.report", params);
+			break;	
 		}
 			if(cnt > 0) {
 				model.put("msg","success");
@@ -225,8 +228,6 @@ public class CourseReviewController {
 
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		params.put("sMemNo", String.valueOf(session.getAttribute("sMemNo")));
-
 		int cnt =dao.getInt("courseR.getCCnt",params);//댓글갯수
 		
 		HashMap<String, Integer> pd =
@@ -237,16 +238,25 @@ public class CourseReviewController {
 
 		List<HashMap<String, String>> list = dao.getList("courseR.getCList", params);
 		
+		HashMap<String,String> goodCheckData = dao.getMap("courseR.goodCheck",params);
+		
+		String goodCheck = "";
+		
+		if(goodCheckData == null) {
+			goodCheck = "0";
+		}else {
+			goodCheck = "1";
+		}
+		
 		HashMap<String, String> gList = dao.getMap("courseR.gcnt",params);
 		
-		model.put("list", list);	
+		model.put("list", list);
+		
+		model.put("goodCheck", goodCheck);	
+		
+		model.put("gList", gList);		
 
-		model.put("gList", gList);
-		
-		System.out.println(gList);
-		
 		model.put("pd", pd);//
-
 		return mapper.writeValueAsString(model);
 
 	}
@@ -266,6 +276,8 @@ public class CourseReviewController {
 
 		Map<String, Object> model = new HashMap<String, Object>();
 	
+		
+		//좋아요 누른사람 확인
 		
 		
 		int cnt = 0;//insert,delete받기위해

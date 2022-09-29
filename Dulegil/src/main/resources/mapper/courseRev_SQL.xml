@@ -115,8 +115,8 @@ AND MEMBER_NO != #{sMemNo}
 
 <!-- 상세보기 -->
 <select id="getCR" parameterType="hashmap" resultType="hashmap">
-SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GCNT,F.MEMBER_NO,F.DEL_DT
-FROM (SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
+SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GCNT,F.MEMBER_NO,F.DEL_DT,F.M_IMG
+FROM (SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,M.IMG_FILE AS M_IMG,
  CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')                 
@@ -210,7 +210,17 @@ AND MEMBER_NO=#{sMemNo}
 	                                    ON BB.POST_NO = GC.POST_NO
 	WHERE BB.POST_NO = #{no}
 	
-</select><!-- 좋아요 누른 사람 다 데려와서 세션이랑 비교 -->
+</select>
+
+
+<select id="goodCheck" resultType="hashmap" parameterType="hashmap">
+SELECT *
+FROM GOOD
+WHERE POST_NO = #{no}
+AND MEMBER_NO = #{sMemNo}     
+</select>
+
+<!-- 좋아요 누른 사람 다 데려와서 세션이랑 비교 -->
 
 
 </mapper>
