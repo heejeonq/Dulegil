@@ -17,6 +17,15 @@
 $(document).ready(function(){
 	
 	
+//현재페이지 값을 reloadList 하기전에 세팅
+//디테일에서 목록 버튼 누르면 
+	
+	//var link = document.location.href("?");
+	//consol.log(link);
+	
+	//$("#page").val($("#page").val());
+	
+	
 	$('#searchTxt').keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $('#searchBtn').click();
@@ -31,7 +40,10 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 
 	}
+	
 	reloadList();
+	
+	
 	$("#searchBtn").on("click",function(){
 		$("#page").val("1");
 		

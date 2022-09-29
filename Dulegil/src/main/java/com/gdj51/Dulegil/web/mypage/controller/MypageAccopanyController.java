@@ -67,7 +67,11 @@ public class MypageAccopanyController {
 				break;
 			case "rateUpdate": cnt = dao.insert("accompany.rateUpdate", params);
 				break;
-
+			
+			case "report": cnt = dao.insert("accompany.report", params);
+				System.out.println(cnt);
+				break;
+			
 			default:
 				break;
 			}

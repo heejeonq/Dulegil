@@ -279,11 +279,11 @@ function drawPaging(pd) {
 				<div class="Ctable">
 					<table>
 						<colgroup>
-							<col width="100px">
-							<col width="800px">
-							<col width="150px">
-							<col width="200px">
-							<col width="100px">
+							<col width="90px">
+							<col width="640px">
+							<col width="130px">
+							<col width="130px">
+							<col width="40px">
 						</colgroup>
 						<thead>
 							<tr>
@@ -297,12 +297,10 @@ function drawPaging(pd) {
 						<tbody id="Ctbody"></tbody>
 					</table>
 				</div>
-				
 				<div class="Cbtnright">
 					<input type="button" value="등록" class="btn" id="insertBtn" />	
 					<input type="button" value="삭제" class="btn" id="deleteBtn" />
 				</div>
-				
 				<div class="Cpaging" ></div>
 			</div>
 		</form>
