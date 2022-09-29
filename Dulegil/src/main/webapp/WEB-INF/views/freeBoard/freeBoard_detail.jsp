@@ -319,7 +319,7 @@ function reloadList(){
 		<form action="#" id= "actionForm" method="post">
 	
 			<input type="hidden" name="no" value="${data.POST_NO}" />
-			<input type="hidden" name="gbn" value="d" />
+			<!-- <input type="hidden" name="gbn" value="d" /> -->
 			<input type="hidden" name="page" value= "${param.page}" />
 			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
 			

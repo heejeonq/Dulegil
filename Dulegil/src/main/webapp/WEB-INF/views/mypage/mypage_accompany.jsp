@@ -344,7 +344,7 @@ function drawList2(memList){
 	
 	//동행 히스토리의 동행자들
 	for(var data of memList){  
-		html1 += data.NM + ", ";
+		html1 += data.NM + " ";
 	}
 	
 	//신뢰도평가멤버 리스트
