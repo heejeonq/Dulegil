@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>member manage</title>
+<title>회원 관리</title>
 <style type="text/css">
 .Ccate{
 	display: flex;
@@ -178,7 +178,7 @@ $(document).ready(function(){
 	   	                    $("#searchgbn").val("0");
 	   	                    $("#searchTxt").val("");
 							makeAlert("알림", "회원정보가 수정되었습니다.", function() {
-								location.href="adMemList";
+								reloadDetail();
 							});
 						break;
 						case "fail" :

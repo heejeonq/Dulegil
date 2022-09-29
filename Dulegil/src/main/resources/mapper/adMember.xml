@@ -99,7 +99,7 @@
 		                                GROUP BY TARGET_REPORT_MEMBER_NO) R
 		                            ON R.TARGET_REPORT_MEMBER_NO = M.MEMBER_NO
 		      WHERE M.DEL_DT IS NULL 
-		      AND A.AUTHORITY_NO IN (2, 3) ) AM
+		      AND A.AUTHORITY_NO IN (2, 3) )AM
 		WHERE RNK BETWEEN 1 AND 10
         AND MEMBER_NO = #{no}
 	</select>
