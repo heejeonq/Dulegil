@@ -24,14 +24,76 @@
 <!-- 제이쿼리 -->
 <script type="text/javascript">
 $(document).ready(function(){
+
 	reloadList();
+	
 	
 	//게시글 버튼
 	$("#clistBtn").on("click",function(){
+		
 		$("#actionForm").attr("action","courseReview")
 		$("#actionForm").submit();
 	});
 	
+	
+	//하얀 좋아요 버튼을 누르면
+	  $(".goodBtn").on("click", function(){
+		  if ($("#sMemNo").val() == "") {
+		       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+		       });
+		  }else{
+			  like("insert");
+			  makeAlert("알림", "좋아요.")		
+		 }
+	  });
+	  //빨간 좋아요 버튼을 누르면 
+	  $(".goodCancelBtn").on("click",function(){	  
+		  like("delete");
+		  makeAlert("알림", "좋아요취소.")
+	  });
+	  
+	  function like(gbn){
+		 
+		 var params = $("#commentsForm").serialize();
+		console.log(params)
+		 $.ajax({
+	         url:"goodajax/"+gbn,
+	         type:"POST",
+	         dataType:"json",
+	         data:params,
+	         success : function(res){
+	        	 
+	        	 console.log(res)
+	     		switch (res.msg) {// 성공했을 때 결과를 res에 받고 함수 실행
+				 case "success" :
+					 switch(gbn) {
+		            	case "insert" : 		            		
+		            		 reloadList();
+		            	case "delete":
+		            		 reloadList();
+		            		break;
+		        	    }				
+					
+					break;
+				case "failed":
+					makeAlert("알림", "삭제에 실패했습니다");
+					break;
+				case "error":
+					makeAlert("알림", "삭제중 문제가 발생했습니다");
+					break;
+				}
+	        		
+	        	   
+        	 //gcnt안에 good 이라는 데이터를 씀 gcnt 여기서 짓는 이름
+	        
+	         },
+	         error :function(request, status, error) { //실패했을 때 함수 실행 isfp
+	             console.log(request.responseText); //실패 상세내역
+	         
+	     	}
+	     })	;	
+	  }
+	 
 	
 	$("#deleteBtn").on("click",function(){
 
@@ -54,7 +116,7 @@ $(document).ready(function(){
 		        	                    $("#searchgbn").val("0");
 		        	                    $("#searchTxt").val("");
 		        	                    		        	                    
-		        	                    $("#actionForm").attr("action","CourseReview");									
+		        	                    $("#actionForm").attr("action","courseReview");									
 		        	                    $("#actionForm").submit();									
 									
 									break;
@@ -101,8 +163,7 @@ $(document).ready(function(){
 
 		         }else{
 					action("insert");
-					$("#commentsForm").attr("action","courseReviewDetail")
-					$("#commentsForm").submit();
+		
 		         }
 		});
 		
@@ -120,8 +181,7 @@ $(document).ready(function(){
 						$("#commentNo").val(commentNo);
 						action("delete");
 						closePopup()//제일위의 팝업닫기
-						$("#commentsForm").attr("action","courseReviewDetail")
-						$("#commentsForm").submit();
+
 					}			
 				
 				},{
@@ -147,6 +207,7 @@ $(document).ready(function(){
 		
 		});
 	
+ 		
 	//수정영역의 취소버튼
 	$(".box3 #cancelCBtn").on("click",function(){
 		//입력내용 초기화
@@ -160,16 +221,27 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-		$("#commentsForm").attr("action","courseReviewDetail")
-		$("#commentsForm").submit();
 		
 	});
 	
+	
  	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
-		$("#cpage").val($("#cpage").val() * 1 + 1);
+		$("#cpage").val($("#cpage").val() * 1 + 5); // 다섯개씩 늘어난다
 		reloadList(); 	
 	});
+ 	
+ 	//신고하기 버튼 누르면 
+	$("#reporBtn").on("click",function(){ 
+		 if ($("#sMemNo").val() == "") {
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       });
+	     } else{
+			action("report");
+			 
+		 }
+	 });
+ 	
 }); //document
 
 
@@ -191,7 +263,7 @@ function action(flag){
 
 	 var params = $("#commentsForm").serialize();   
       $.ajax({
-         url:"freeCRAction/" + flag, //경로 주소 새로생기면 컨트롤러 가
+         url:"CourseRevCAction/" + flag, //경로 주소 새로생기면 컨트롤러 가
          type: "POST", //전송방식(GET : 주소 형태, POST: 주소 헤더)
          dataType: "json", //
          data: params, //json 으로 보낼데이터
@@ -225,6 +297,9 @@ function action(flag){
 					$(".insert").show();
 					$(".update").hide();
             		break;
+				case "report":
+            		
+            		break;
             }
             
             reloadList();
@@ -253,12 +328,13 @@ function reloadList(){
 	var params = $("#commentsForm").serialize();
 	
 	$.ajax({
-		url : "commentAjax", //경로
+		url : "commentCAjax", //경로
 		type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
 		dataType : "json",
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
 			drawList(res.list);
+			draw(res.gList,res.goodCheck);
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
@@ -266,11 +342,16 @@ function reloadList(){
 
 	});
 }
+
  function drawList(list) {
 	//만약 다섯개 미만이면 버튼을 삭제하고	
-		if(list.length<5){
-			$("#moreBtn").remove();		
+		if(list.length<=5){
+			$("#moreBtn").hide();		
+		}else{
+			$("#moreBtn").show();
+		
 		}
+		
 		console.log(list);
 		
 		var html = ""; //변수선언
@@ -294,8 +375,29 @@ function reloadList(){
 	 			html += " </div>";		
 		}//여기까지 for
 			
-		$(".mainView4").append(html);
+		$(".mainView4").html(html);
+
 	} 
+ 
+	 
+ function draw(gList,goodCheck){
+	 var html="";
+		 
+	 if(goodCheck == "1"){
+		  $(".goodBtn").hide();
+		  $(".goodCancelBtn").show();
+	 }else{
+		  $(".goodCancelBtn").hide();
+		  $(".goodBtn").show();
+	 } 
+
+	html += gList.GCNT  
+		
+	
+	$(".gcnt").html(html);
+ };
+ 
+ 
 
 
 </script>
@@ -314,6 +416,7 @@ function reloadList(){
 			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
 			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
 			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 		</form>
 
 	<div class="mainWrap">
@@ -350,12 +453,29 @@ function reloadList(){
 					</c:if>
 					<div class="te"> ${data.CONTENTS}</div>
 			    </div>
-				<div class="goodBtn">
-					<span class="like">
-					<img src="resources/images/goodIco.png">
-					<div class="goodCnt">${data.GOOD}</div>
-				</div>		
-			</div>
+			    <!-- 좋아요버튼 : 좋아요 누른사람,post_no, -->
+			    
+
+			    		<div class="goodBtn">				 
+						 	<span class="like">			 
+								 <img src="resources/images/like.png" />
+								 <div class="gcnt">						
+								 </div>
+							</span>	
+						</div>
+						<div class="goodCancelBtn">				 
+						 	<span class="like">			 
+								 <img src="resources/images/likeAft.png" />
+								 <div class="gcnt">						
+								 </div>
+							</span>	
+						</div>
+						
+						
+			    
+			    	
+		
+			
 		<!-- cunBox완 ------------------------------------------>
 			
 		<div class="emptyBox">
@@ -371,7 +491,7 @@ function reloadList(){
 		<!-- emptyBox완 ------------------------------------------>
 		
 		<div class="box2">		
-			<div class="reporBtn">
+			<div class="reporBtn" id="reporBtn">
 				<span class="report">
 					<img src="resources/images/report1.png" />
 				</span>
@@ -390,10 +510,13 @@ function reloadList(){
 	
 			<div class= mainview3>
 				<form action="#" id="commentsForm" method="post">
+					<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 					<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 					<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 					<input type="hidden" name="no" id="no" value="${param.no}">	
-					<input type="hidden" name="cpage" id="cpage" value="1" />
+					<input type="hidden" name="cpage" id="cpage" value="5" />
+					<!-- 댓글 다섯개씩 보여줄게 -->
+					
 					<div class="box3">
 						<div class="comment">comment</div>
 						<c:choose>

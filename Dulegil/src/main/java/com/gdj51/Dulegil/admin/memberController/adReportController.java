@@ -72,9 +72,14 @@ public class adReportController {
 
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
-
+		
+		// LIST
 		List<HashMap<String, String>> list = dao.getList("adReport.list", params);
+		List<HashMap<String, String>> comment = dao.getList("adReport.comment", params);
+		//List<HashMap<String, String>> post = dao.getList("adReport.post", params);
 
+		//model.put("post", post);
+		model.put("comment", comment);
 		model.put("list", list);
 		model.put("pd", pd);
 		return mapper.writeValueAsString(model);

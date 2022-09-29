@@ -4,163 +4,130 @@
 
 
 
-<!-- 목록 -->
-<select id="list" resultType="hashmap">
-SELECT A.MEMBER_NO, A.POST_NO, A.BLTNBOARD_NO, A.NM, A.TITLE, A.REG_DT, A.RNK
-FROM(   SELECT M.MEMBER_NO, B.POST_NO, B.BLTNBOARD_NO, M.NM, B.TITLE, B.REG_DT,
-            ROW_NUMBER() OVER(ORDER BY B.REG_DT DESC)AS RNK
-        FROM MEMBER M INNER JOIN BULLETIN_BOARD B
-                        ON M.MEMBER_NO = B.MEMBER_NO
-        WHERE B.DEL_DT IS NULL  
-			<if test="searchTxt != null and searchTxt != ''">
+	<!-- 목록 -->
+	<select id="list" resultType="hashmap">
+		SELECT A.REPORT_NO, A.REPORT_MEMBER_NO,A.ACCUSER,
+				A.TARGET_REPORT_MEMBER_NO, A.ACCUSED, A.PROCESS_NO, A.REPORT_TYPE_NM,
+				A.CATE ,A.REG_DT
+		FROM	(	SELECT R.REPORT_NO, R.REPORT_MEMBER_NO, C.NM AS ACCUSER,
+							R.TARGET_REPORT_MEMBER_NO,P.NM AS ACCUSED, R.PROCESS_NO,
+							RT.REPORT_TYPE_NM,
+							CASE
+								WHEN COMMENT_NO IS NOT NULL AND POST_NO IS NULL AND TARGET_REPORT_MEMBER_NO IS NULL
+								THEN '댓글'
+								WHEN COMMENT_NO IS NULL AND POST_NO IS NOT NULL AND TARGET_REPORT_MEMBER_NO IS NULL
+								THEN '글'
+								ELSE '회원'
+								END AS CATE, R.REG_DT,
+							ROW_NUMBER() OVER(ORDER BY R.REG_DT DESC)AS RNK
+					FROM REPORT R INNER JOIN REPORT_TYPE RT
+										ON R.REPORT_TYPE_NO = RT.REPORT_TYPE_NO
+									LEFT JOIN MEMBER P
+										ON R.TARGET_REPORT_MEMBER_NO = P.MEMBER_NO
+									LEFT JOIN MEMBER C
+										ON R.REPORT_MEMBER_NO = C.MEMBER_NO
+					WHERE R.DEL_DT IS NULL
+
+		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchGbn == 0">
-					AND B.BLTNBOARD_NO = 1
-					<choose>
-						<when test="searchGbn2 == 0">
-							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-						</when>
-						<when test="searchGbn2 == 1">
-							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 2">
-							AND M.NM LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 3">
-							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
-						</when>				
-					</choose>					
+					AND CATE LIKE '%' || #{searchTxt} || '%'
 				</when>
-				
 				<when test="searchGbn == 1">
-				AND BLTNBOARD_NO = 2
-					<choose>
-						<when test="searchGbn2 == 0">
-							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-						</when>
-						<when test="searchGbn2 == 1">
-							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 2">
-							AND M.NM LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 3">
-							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
-						</when>				
-					</choose>		
+					AND ACCUSER '%' || #{searchTxt} || '%'
 				</when>
-				
 				<when test="searchGbn == 2">
-					AND BLTNBOARD_NO = 3
-					<choose>
-						<when test="searchGbn2 == 0">
-							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-						</when>
-						<when test="searchGbn2 == 1">
-							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 2">
-							AND M.NM LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 3">
-							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
-						</when>				
-					</choose>		
-				</when>	
-							
+					AND ACCUSED LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 3">
+					AND REPORT_TYPE_NM LIKE '%' || #{searchTxt} || '%'
+				</when>
 			</choose>
-		</if> 
-			)A
-WHERE A.RNK BETWEEN #{start} AND #{end}
-</select>
+		</if>
+				)A
+		WHERE A.RNK BETWEEN #{start} AND #{end}
+	</select>
+
+	
 
 
+	<!-- 페이징 -->
+	<select id="cnt" parameterType="hashmap" resultType="integer">
+	SELECT COUNT(*) AS CNT
+	FROM REPORT R INNER JOIN REPORT_TYPE RT
+		ON R.REPORT_TYPE_NO = RT.REPORT_TYPE_NO
+		LEFT JOIN MEMBER P
+		ON R.TARGET_REPORT_MEMBER_NO = P.MEMBER_NO
+		LEFT JOIN MEMBER C
+		ON R.REPORT_MEMBER_NO = C.MEMBER_NO
+		WHERE R.DEL_DT IS NULL
 
-
-<!-- 페이징 -->
-<select id="cnt" parameterType="hashmap" resultType="integer">	
-  SELECT COUNT(*) AS CNT
-        FROM MEMBER M INNER JOIN BULLETIN_BOARD B
-                        ON M.MEMBER_NO = B.MEMBER_NO
-        WHERE B.DEL_DT IS NULL  
-			<if test="searchTxt != null and searchTxt != ''">
+		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchGbn == 0">
-					AND B.BLTNBOARD_NO = 1
-					<choose>
-						<when test="searchGbn2 == 0">
-							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-						</when>
-						<when test="searchGbn2 == 1">
-							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 2">
-							AND M.NM LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 3">
-							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
-						</when>				
-					</choose>					
+					AND CATE LIKE '%' || #{searchTxt} || '%'
 				</when>
-				
 				<when test="searchGbn == 1">
-				AND BLTNBOARD_NO = 2
-					<choose>
-						<when test="searchGbn2 == 0">
-							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-						</when>
-						<when test="searchGbn2 == 1">
-							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 2">
-							AND M.NM LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 3">
-							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
-						</when>				
-					</choose>		
+					AND ACCUSER '%' || #{searchTxt} || '%'
 				</when>
-				
 				<when test="searchGbn == 2">
-					AND BLTNBOARD_NO = 3
-					<choose>
-						<when test="searchGbn2 == 0">
-							AND M.MEMBER_NO LIKE '%' || #{searchTxt} || '%'
-						</when>
-						<when test="searchGbn2 == 1">
-							AND B.POST_NO LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 2">
-							AND M.NM LIKE '%' || #{searchTxt} || '%'		
-						</when>
-						<when test="searchGbn2 == 3">
-							AND B.TITLE LIKE '%' || #{searchTxt} || '%'		
-						</when>				
-					</choose>		
-				</when>	
-							
+					AND ACCUSED LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 3">
+					AND REPORT_TYPE_NM LIKE '%' || #{searchTxt} || '%'
+				</when>
 			</choose>
-		</if> 
-</select>
+		</if>
+	</select>
+
+
+	<!-- 더보기 - 댓글 -->
+	<select id="comment" resultType="hashmap">
+	SELECT R.REPORT_NO,C.POST_NO, BT.BLTNBOARD_NM, PO.NM AS PNM, P.TITLE, P.REG_DT, P.CONTENTS AS POST, C.COMMENT_NO,M.NM AS CNM,M.IMG_FILE,C.CONTENTS AS CMT
+	FROM COMMENTS C INNER JOIN REPORT R
+                ON C.COMMENT_NO = R.COMMENT_NO
+                INNER JOIN BULLETIN_BOARD P
+                ON C.POST_NO = P.POST_NO
+                INNER JOIN MEMBER PO
+                ON P.MEMBER_NO = PO.MEMBER_NO
+                INNER JOIN BOARD_TYPE BT
+                ON P.BLTNBOARD_NO = BT.BLTNBOARD_NO
+                INNER JOIN MEMBER M
+                ON M.MEMBER_NO= R.TARGET_REPORT_MEMBER_NO
+	WHERE C.COMMENT_NO = #{cmtNo}
+	</select>
 
 
 
 
+	<!-- 처리상태 업데이트 -->
+	<update id="update" parameterType="hashmap">
+		UPDATE REPORT SET
+		<choose>
+			<when test="process == 0">
+				PROCESS_NO = 0
+			</when>
+			<when test="process == 1">
+				PROCESS_NO = 1
+			</when>
+			<when test="process == 2">
+				PROCESS_NO = 2
+			</when>
+			<when test="process == 3">
+				PROCESS_NO = 3
+			</when>
+		</choose>		
+		WHERE REPORT_NO = #{no}
+	</update>
 
-<!-- 삭제 -->
-<update id ="delete" parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
-WHERE POST_NO IN (${delNo})
-</update>
 
 
 
-
-<!-- 개별 삭제 -->
-<update id ="del" parameterType="hashmap">
-UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
-WHERE POST_NO = #{no}
-</update>
+	<!-- 개별 삭제 -->
+	<update id="del" parameterType="hashmap">
+		UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
+		WHERE POST_NO = #{no}
+	</update>
 
 
 

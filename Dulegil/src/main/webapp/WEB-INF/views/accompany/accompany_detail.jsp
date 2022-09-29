@@ -27,6 +27,8 @@
 $(document).ready(function(){
 	reloadList();
 
+	$(".cancelwithMBtn").hide();
+	
 	
 	//게시글 버튼
 	$("#listBtn").on("click",function(){
@@ -44,7 +46,7 @@ $(document).ready(function(){
 						func : function() {
 							var params = $("#actionForm").serialize();
 							$.ajax({
-								url : "FREEAction/delete", //경로
+								url : "accompanyAction/delete", //경로
 								type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
 								dataType : "json",
 								data : params,
@@ -56,7 +58,7 @@ $(document).ready(function(){
 			        	                    $("#searchTxt").val("");
 			        	                    
 			        	                    
-			        	                    $("#actionForm").attr("action","freeBoard");									
+			        	                    $("#actionForm").attr("action","accompany");									
 			        	                    $("#actionForm").submit();									
 										
 										break;
@@ -182,6 +184,36 @@ $(document).ready(function(){
 			 
 		 }
 	 });
+	
+	//동행신청중 버튼 누르면 동행신청 취소하기 띄우기 
+	$("#cancelwithMBtn").on("click",function(){ 
+		makePopup({
+			title:"알림",
+			contents : "동행신청 취소하시겠습니까?",
+			buttons : [{
+				name:"확인",
+				func:function() {
+					action("applyCancel");
+					closePopup()//제일위의 팝업닫기
+
+				}			
+			
+			},{
+				name : "취소"
+			}]
+		});
+	 });
+	
+	//신고하기 버튼 누르면 
+	$("#reporBtn").on("click",function(){ 
+		 if ($("#sMemNo").val() == "") {
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       });
+	     } else{
+			action("report");
+			 
+		 }
+	 });
 
 			
 
@@ -242,12 +274,25 @@ function action(flag){
             	case "apply":
             		
             		break;
+				case "applyCancel":
+					
+            		
+            		break;
+				case "report":
+            		
+            		break;
             }            
             reloadList();
             
             break;
          case "fail" :
-            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+        	 if(msg[flag] == "동행신청"){
+        		 makeAlert("알림","본인이 작성한 게시글은 동행신청할 수 없습니다");
+        	 }
+        	 else{
+	            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+        		 
+        	 }
             break;
          case "error" :                     
             makeAlert("알림", msg[flag]+"중 문제가 발생하였습니다.")
@@ -272,7 +317,7 @@ function reloadList(){
 		dataType : "json",
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행			
-			drawList(res.list, res.list2, res.applyCnt);		
+			drawList(res.list, res.list2, res.applyCnt, res.applyCheck);		
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
@@ -281,9 +326,20 @@ function reloadList(){
 	});
 };
 
- function drawList(list, list2, applyCnt) {
-//만약 다섯개 미만이면 버튼을 삭제하고	
-	console.log(list.length);
+ function drawList(list, list2, applyCnt, applyCheck) {
+
+	
+	//이미 동행신청을 했으면 동행신청중 버튼 보이게
+	if(applyCheck == "0"){
+		$(".withMBtn").hide();
+		$(".cancelwithMBtn").show();
+	}
+	else{
+		$(".cancelwithMBtn").hide();
+		$(".withMBtn").show();
+	}
+	
+	//만약 다섯개 미만이면 버튼을 삭제하고	
 	if(list.length < 5){
 		$("#moreBtn").hide();		
 	}
@@ -293,7 +349,7 @@ function reloadList(){
 	}
 	console.log(list);
 	
-	var html = ""; //변수선언
+	var html = ""; //변수선언 댓글 목록
 	var html2 = ""; //동행 신청자 목록
 	var html3 ="";
 	
@@ -435,7 +491,16 @@ function reloadList(){
 	         </div>               
          </div>
          
-         <div class="reporBtn">
+         <div class="cancelwithMBtn" id="cancelwithMBtn">
+	         <span class="withMB">
+	         <img src="resources/images/manico.png" />
+	         </span>
+	         <div class="withMTitW">
+	         <span class="withMTit">동행신청중</span>   
+	         </div>               
+         </div>
+         
+         <div class="reporBtn" id="reporBtn">
          <span class="report">
          <img src="resources/images/report1.png" />
          </span>
@@ -506,6 +571,7 @@ function reloadList(){
          	<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
+			<input type="hidden" name="memberNo" value="${data.MEMBER_NO}">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
 			<input type="hidden" name="cpage" id="cpage" value="5" />
 			

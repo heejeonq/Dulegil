@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
 
+<!-- 카테고리 목록 -->
 <select id="getCateAllList" resultType="hashmap">
 		SELECT *
 		FROM BOARD_TYPE
 </select>
 
+<!-- 게시물 개수 -->
 <select id="getBCnt" resultType="integer" parameterType="hashmap">
 SELECT COUNT(*) AS CNT
 FROM BOARD_TYPE T INNER JOIN  BULLETIN_BOARD B 
@@ -25,6 +27,7 @@ AND B.MEMBER_NO = #{sMemNo}
 </if>	
 </select>
 
+<!-- 댓글 개수 -->
 <select id="getCCnt" resultType="integer" parameterType="hashmap">
 SELECT COUNT(*) AS CNT
 FROM COMMENTS C INNER JOIN  BULLETIN_BOARD B 
@@ -44,6 +47,7 @@ AND C.MEMBER_NO = #{sMemNo}
 </if>	
 </select>
 
+<!-- 게시판 목록 -->
 <select id="getBoardList" resultType="hashmap">
 SELECT F.POST_NO,F.BLTNBOARD_NO, F.BLTNBOARD_NM,F.TITLE,F.REG_DT, F.CONTENTS
 FROM(SELECT B.POST_NO, T.BLTNBOARD_NO, T.BLTNBOARD_NM, B.TITLE, B.CONTENTS,
@@ -77,6 +81,7 @@ AND MEMBER_NO = #{sMemNo}
 WHERE F.RNUM BETWEEN #{start} AND #{end}		
 </select>
 
+<!-- 댓글 목록 -->
 <select id="getCommentList" resultType="hashmap">
 SELECT C.POST_NO, C.BLTNBOARD_NO, C.TITLE, C.CONTENTS, C.REG_DT
 FROM(SELECT B.POST_NO, B.BLTNBOARD_NO, B.TITLE, C.CONTENTS,
@@ -111,11 +116,13 @@ AND C.MEMBER_NO = #{sMemNo}
 WHERE C.RNUM BETWEEN #{start} AND #{end}		
 </select>
 
+<!-- 게시판 삭제 -->
 <update id="deleteBoard" parameterType="hashmap">
 	  UPDATE BULLETIN_BOARD SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
       WHERE POST_NO IN(${delete})
 </update>
 
+<!-- 댓글 삭제 -->
 <update id="deleteComment" parameterType="hashmap">
 	  UPDATE COMMENTS SET DEL_DT = TO_CHAR(SYSDATE, 'YY.MM.DD')
       WHERE POST_NO IN(${delete})

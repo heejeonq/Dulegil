@@ -58,7 +58,7 @@ public class menuController {
 	@RequestMapping(value="/adMemRep")
 	public ModelAndView adMemRep (ModelAndView mav) {
 		
-		mav.setViewName("admin/2_adMember/ad_report");
+		mav.setViewName("admin/2_adMember/ad_report2__TEST");
 		return mav;
 	} 
 	

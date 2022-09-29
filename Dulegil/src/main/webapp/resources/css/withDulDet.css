@@ -130,7 +130,7 @@ td{
 }
 
 
-.reporBtn,.withMBtn {
+.reporBtn,.withMBtn, .cancelwithMBtn{
    display: inline-block;
    vertical-align: top;
    font-size: 11px;
@@ -144,6 +144,9 @@ td{
    float: left;
    margin:5px;
    
+}
+.cancelwithMBtn{
+	background-color: #34a3ad;
 }
 .withMTitW{
    margin-top:-2px;

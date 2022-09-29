@@ -142,7 +142,7 @@ FROM COMMENTS C INNER JOIN MEMBER M
      AND C.DEL_DT IS NULL
      AND M.DEL_DT IS NULL
      WHERE POST_NO=#{no})F
-   WHERE F.RCNUM &lt;= #{end}
+   WHERE F.RCNUM &lt;= #{end} 
 </select>
 
 <!-- 댓글추가 -->

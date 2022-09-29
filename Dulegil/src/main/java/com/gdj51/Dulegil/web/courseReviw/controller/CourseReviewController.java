@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj51.Dulegil.common.service.IPagingService;
 import com.gdj51.Dulegil.web.dao.IDao;
+import com.mysql.jdbc.interceptors.SessionAssociationInterceptor;
 
 @Controller
 public class CourseReviewController {
@@ -51,7 +54,8 @@ public class CourseReviewController {
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String CourseRevListAjax(
-			@RequestParam HashMap<String,String> params) throws Throwable{
+			@RequestParam HashMap<String,String> params) 
+					throws Throwable{
 			ObjectMapper mapper =  new ObjectMapper();
 			
 			Map<String,Object> model = new HashMap<String,Object>();
@@ -60,7 +64,7 @@ public class CourseReviewController {
 			
 			HashMap<String, Integer> pd
 			= ips.getPagingData(Integer.parseInt(params.get("page")),						
-				cnt,10,5);
+				cnt,8,5);
 			
 			params.put("start", Integer.toString(pd.get("start")));
 			params.put("end", Integer.toString(pd.get("end")));
@@ -91,7 +95,9 @@ public class CourseReviewController {
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String CoreseRevAction(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String CoreseRevAction(
+			@PathVariable String gbn, 
+			@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -154,6 +160,13 @@ public class CourseReviewController {
 			
 			HashMap<String,String> data = dao.getMap("courseR.getCR",params);
 			mav.addObject("data", data);
+			
+			
+			/*
+			  int gcnt = dao.getInt("courseR.gcnt",params); 			 			 
+			  cnt=dao.insert("courseR.insertG",params); int
+			  cnt=dao.insert("courseR.deleteG",params);
+			 */
 		
 		mav.setViewName("courseReviw/courseReviw_detail");
 		}else { 
@@ -166,7 +179,7 @@ public class CourseReviewController {
 
 	
 	//댓글
-	/*@RequestMapping(value="/CourseRevCAction/{gbn}",
+	@RequestMapping(value="/CourseRevCAction/{gbn}",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -181,12 +194,15 @@ public class CourseReviewController {
 	
 		try {
 			switch(gbn) {
-			case "insert": cnt=dao.insert("courseR.Cinsert",params);
+			case "insert": cnt=dao.insert("courseR.insertC",params);
 				break;
-			case "update": cnt=dao.update("courseR.Cupdate",params);
+			case "update": cnt=dao.update("courseR.updateC",params);
 				break;
-			case "delete": cnt=dao.update("courseR.Cdelete",params);
+			case "delete": cnt=dao.update("courseR.deleteC",params);
 				break;
+			case "report":
+				cnt = dao.insert("courseR.report", params);
+			break;	
 		}
 			if(cnt > 0) {
 				model.put("msg","success");
@@ -203,7 +219,91 @@ public class CourseReviewController {
 			
 		return mapper.writeValueAsString(model);	
 }
-	*/
+	@RequestMapping(value = "/commentCAjax", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String commentAjax(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		int cnt =dao.getInt("courseR.getCCnt",params);//댓글갯수
+		
+		HashMap<String, Integer> pd =
+				ips.getPagingData(1,cnt,Integer.parseInt(params.get("cpage")),1); //페이징하는데
+		//현재페이지 /총 게시물 개수/ 보여지는 게시물 수/ 페이징수
+		params.put("start", Integer.toString(pd.get("start"))); //댓글 시작
+		params.put("end", Integer.toString(pd.get("end"))); //댓글 끝
+
+		List<HashMap<String, String>> list = dao.getList("courseR.getCList", params);
+		
+		HashMap<String,String> goodCheckData = dao.getMap("courseR.goodCheck",params);
+		
+		String goodCheck = "";
+		
+		if(goodCheckData == null) {
+			goodCheck = "0";
+		}else {
+			goodCheck = "1";
+		}
+		
+		HashMap<String, String> gList = dao.getMap("courseR.gcnt",params);
+		
+		model.put("list", list);
+		
+		model.put("goodCheck", goodCheck);	
+		
+		model.put("gList", gList);		
+
+		model.put("pd", pd);//
+		return mapper.writeValueAsString(model);
+
+	}
 	
+
+	
+	//좋아요
+	@RequestMapping(value = "/goodajax/{gbn}", 
+			method = RequestMethod.POST, 
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String goodajaxgbn(
+			@PathVariable String gbn, 
+			@RequestParam HashMap<String, String> params) 
+					throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> model = new HashMap<String, Object>();
+	
+		
+		//좋아요 누른사람 확인
+		
+		
+		int cnt = 0;//insert,delete받기위해
+		
+		
+		try {
+			switch(gbn) {
+			case "insert": cnt= dao.insert("courseR.insertG",params);
+						 
+				break;
+			case "delete": cnt= dao.delete("courseR.deleteG",params);
+				break;
+			}
+			if (cnt > 0) {
+				model.put("msg", "success");
+			} else {
+				model.put("msg", "fail");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+		
+		
+		return mapper.writeValueAsString(model);
+	}
 	
 }
