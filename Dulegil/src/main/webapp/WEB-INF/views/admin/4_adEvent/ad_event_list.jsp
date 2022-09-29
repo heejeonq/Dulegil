@@ -267,7 +267,7 @@ function drawPaging(pd) {
 					<table style="table-layout: fixed; width:250px;">
 						<colgroup>
 							<col width="70px">
-							<col width="230px">
+							<col width="290px">
 							<col width="110px">
 							<col width="50px">
 						</colgroup>
@@ -283,7 +283,7 @@ function drawPaging(pd) {
 					</table>
 				</div> 
 				<div class="Cbtnright">
-					<input type="button" class="btn del" value="삭제" id="evtDelBtn" />
+					<input type="button" class="btn" value="삭제" id="evtDelBtn" />
 				</div>
 				<div class="Cpaging"></div>
 			</div>

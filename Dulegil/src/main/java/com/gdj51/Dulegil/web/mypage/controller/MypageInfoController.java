@@ -125,6 +125,7 @@ public class MypageInfoController {
 		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
 			mav.setViewName("login/login");
 		} else {
+			// 여기서의 memNo는 수정페이지를 보여주기 위해 정보를 불러오기 위한 memNo
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 			// params를 쓰는 이유가 member.getMyinfo에 해당하는 특정 값.쿼리문에서 검색한 값만 가져옴.
 			// ex)상세 정보,검색,수정,추가,삭제(전체를 가져오면 안되니까 전체를 가져오면 전체가 삭제 됨.)

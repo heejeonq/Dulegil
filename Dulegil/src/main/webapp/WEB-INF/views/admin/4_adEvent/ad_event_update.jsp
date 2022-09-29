@@ -85,16 +85,16 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<form action="adEvtDtl" id="BackForm" method="post">
-		<input type="hidden" name="no" value="${data.POST_NO}" />
-		<input type="hidden" name="page" id="page" value= "${param.page}" />
-		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
-		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-	</form>
-	
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
 	<div class="container">
+		<form action="adEvtDtl" id="BackForm" method="post">
+			<input type="hidden" name="no" value="${data.POST_NO}" />
+			<input type="hidden" name="page" id="page" value= "${param.page}" />
+			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+		</form>
+	
 		<div class="Cname">
 			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_calendar</span>
 			이벤트 수정

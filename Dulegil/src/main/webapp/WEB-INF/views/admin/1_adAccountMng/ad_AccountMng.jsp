@@ -14,7 +14,7 @@
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
 	<div class="container">
-		<div class="Cname">
+		<div class="adTit">
 			<div class="login_banner">
 				<p>관리자 정보</p>
 			</div>

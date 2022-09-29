@@ -28,23 +28,14 @@ $(document).ready(function(){
 	reloadList();
 
 	
-	//게시글 버튼
-/* 	$("#clistBtn").on("click",function(list){
-		
-		<input type="button" value="BACK" onClick="history.go(-1)"> 
-		
-		var referer = document.referrer;
-		
-		if(list.referer == 1){
-			window.location.href="mypage_board";
-		}else{
-			$("#actionForm").attr("action", "freeBoard")
-			$("#actionForm").submit();
-		}
-		
-		//$("#actionForm").attr("action", referer)
-		//$("#actionForm").submit(referer);
-	}); */
+	
+
+	$("#clistBtn").on("click",function(list){	
+		history.go(-1);
+		$("#actionForm").attr();
+		$("#actionForm").submit();
+	
+	}); 
 	
 	
 	$("#deleteBtn").on("click",function(){
@@ -388,7 +379,7 @@ function reloadList(){
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if>
-			<input type="button" class="btn" id="clistBtn" value="목록"  onClick="history.go(-1)"/>
+			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
 		</div>
 		
 		
