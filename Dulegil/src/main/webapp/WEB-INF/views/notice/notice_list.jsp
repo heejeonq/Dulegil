@@ -54,14 +54,14 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
-	$("tbody").on("click","tr",function(){
+	$(".noticeContent").on("click",".noticCon",function(){
 		$("#no").val($(this).attr("no"));
 		
 		//기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
 		
-		$("#actionForm").attr("action","noticDetail");
+		$("#actionForm").attr("action","noticeDetail");
 		$("#actionForm").submit();
 		
 	});
@@ -92,17 +92,31 @@ function drawList(list) {
 	var html = "";
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
-	html +=	"<div class=\"noticCon\" no=\"" + data.POST_NO + "\">";
-	html += "	<div class=\"listTit\">";
-	html += "	<div class=\"labelNotic\">필독</div>";
-	html += "	<span class=\"p\">" + data.TITLE + "</span>";
-	html += "	<span class=\"date\">" + data.DT + "</span>";
-	html += "	<span class=\"hit\">" + data.HIT + "</span>	";
-	html += "	<span class=\"fileF\">";
-	html += "	<img src=\"resources/images/diskette.png\" id=\"searIcon\" />";
-	html += "	</span>	";
-	html += "	</div> ";
-	html += "	</div> ";
+		if(data.MUST_READ_YN == "0"){
+			html +=	"<div class=\"noticCon\" no=\"" + data.POST_NO + "\">";
+			html += "	<div class=\"listTit\">";
+			html += "	<div class=\"labelNotic\">필독</div>";
+		}else{
+			html +=	"<div class=\"noticCon\" no=\"" + data.POST_NO + "\">";
+			html += "	<div class=\"listTit\">";			
+		}
+	
+			html += "	<span class=\"p\">" + data.TITLE + "</span>";
+			html += "	<span class=\"date1\">" + data.REG_DT + "</span>";
+			html += "	<span class=\"hit\">" + data.HIT + "</span>	";
+		if(typeof(data.ATT_FILE) !="undefined"){
+			html += "	<span class=\"fileF\">";
+			html += "	<img src=\"resources/images/diskette.png\" id=\"searIcon\" />";
+			html += "	</span>	";
+		}else{
+			html += "	<span class=\"fileF\">";
+			
+			
+			
+			html += "	</span>	";
+		}
+			html += "	</div> ";
+			html += "	</div> ";
 		
 	}
 	
@@ -150,12 +164,12 @@ function drawPaging(pd){
 		<div class="mainWrap">
 			<div class="tit">공지사항</div>
 			<div class="col"></div>			
+			<form action="#" id="actionForm" method="post">
 			<div class="midBox">
 				<!-- <div class=box1>글쓰기</div> -->
-			<form action="#" id="actionForm" method="post">
-			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
-			<input type="hidden" name="no" id="no"/>
-			<input type="hidden" name="page" id="page" value="${page}" />	
+				<input type="hidden" name="no" id="no"/>
+				<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+				<input type="hidden" name="page" id="page" value="${page}" />	
 			<div class="searchWrap">
 				<div class="selBox">
 					<select class="sel" name="searchGbn" id="searchGbn">					
@@ -173,17 +187,17 @@ function drawPaging(pd){
 				</div>
 			</div>
 
-			</form>
 			</div>
-			<div class="content">
+			</form>
+			<div class="noticeContent">
 				<div class="noticConTit">
 				  <div class=listTit>
 				  	<div class="num"> </div>
 				
-					<span class="pTit">제목</span>
-					<span class="date"></span>
-					<span class="hit">조회수</span>				
-					<span class="file">첨부파일</span>				
+					<span class="pTitTh">제목</span>
+					<span class="fileTh">첨부파일</span>				
+					<span class="hitTh">조회수</span>				
+					<span class="dateTh">날짜</span>
 				 </div>
 				</div>
 				
