@@ -29,13 +29,12 @@ $(document).ready(function(){
 
 	
 	
-	$("#clistBtn").on("click",function(list){
+
+	$("#clistBtn").on("click",function(list){	
+		history.go(-1);
+		$("#actionForm").attr();
+		$("#actionForm").submit();
 	
-			$("#actionForm").submit();
-		}
-		
-		//$("#actionForm").attr("action", referer)
-		//$("#actionForm").submit(referer);
 	}); 
 	
 	
@@ -380,7 +379,7 @@ function reloadList(){
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if>
-			<input type="button" class="btn" id="clistBtn" value="목록"  onClick="history.go(-1)"/>
+			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
 		</div>
 		
 		

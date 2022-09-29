@@ -195,8 +195,11 @@ public class AccompanyController {
 			case "applyCancel":
 				cnt = dao.delete("accom.deleteApply", params);
 				break;
-			case "report":
-				cnt = dao.insert("accom.report", params);
+			case "commentReport":
+				cnt = dao.insert("accom.commentReport", params);
+				break;
+			case "postReport":
+				cnt = dao.insert("accom.postReport", params);
 				break;
 			}
 			if (cnt > 0) {

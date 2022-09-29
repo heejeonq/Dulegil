@@ -87,21 +87,22 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<form action="adEvt" id="backForm" method="post">
-		<input type="hidden" id="page" name="page" value="${param.page}" />
-		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
-		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-	</form>
-	
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
 	<div class="container">
+		<form action="adEvt" id="backForm" method="post">
+			<input type="hidden" id="page" name="page" value="${param.page}" />
+			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+		</form>
+	
 		<div class="Cname">
 			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>
 			이벤트 등록
 		</div>
 		<div class="Ccon">
 			<form action="#" id="actionForm" method="post">
+				<input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
 				<table class="Cinput">
 					<tr>
 						<th>제목</th>
