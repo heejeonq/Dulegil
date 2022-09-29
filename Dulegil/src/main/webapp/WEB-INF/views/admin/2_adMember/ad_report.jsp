@@ -198,10 +198,6 @@ td:nth-child(9) {
 	z-index: 10;
 }
 
-#show {
-	font-size: 11px;
-}
-
 #hidebox {
 	text-ailgn: center;
 	text-align: -webkit-center;
@@ -506,7 +502,7 @@ $(document).ready(function(){
 	for(var data of list){
 		//"+ +"
 	html += "<tr no=\""+ data.REPORT_NO +"\">";
-	html += "<td colspan=\"1\"><div><span id=\"add\" name=\"add\" class=\"material-symbols-outlined\"> \arrow_drop_down\ </span></div></td> ";
+	html += "<td colspan=\"1\"><div><span id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \arrow_drop_down\ </span></div></td> ";
 	html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
 	html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
 	html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
@@ -551,7 +547,7 @@ $(document).ready(function(){
 		var params = $("#actionForm").serialize();
 		
 		$.ajax({
-			url:"adReportAjax",
+			url:"addAjax",
 			type: "POST",
 			dataType: "json",
 			data : params,
@@ -580,15 +576,22 @@ $(document).ready(function(){
 	
 	
 	// 더보기 클릭시
-	$("tbody").on("click","tr", "#add", function(){
+	$("tbody").on("click","tr", "#show", function(){
 		
-		var no = $((this).parent().parent().attr("no"))).val();
-		$("#cmtNo").val("no");
+		
+		// 2. 두번째 리스트에 위에서 취득한 no 값 넣어주기
+		$("#cmtNo").val($(this).attr("no"));
+		console.log($("#cmtNo").val());
+		
+		
+		// 3. 리스트 불러오기
+		
 		reloadList2();
 
 	
 		if(hide.style.display=='none') {
 			hide.style.display='';
+			// this 로 위치 따와서 innerHTML 로 span 넣어둔
 			show.innerText='▲'
 			
 			
@@ -598,7 +601,7 @@ $(document).ready(function(){
 				show.innerText='▼'
 				
 			}
-	})
+	});
 	
 	//comment가 있을때
 	function drawList2(comment){
@@ -609,7 +612,7 @@ $(document).ready(function(){
 		for(var data of comment){
 			//"+ data. +"
 
-			html += "<tr cmtNo=\""+ data.REPORT_NO+"\">";
+			html += "<tr id=\"cmtNo\" name=\"cmtNo\"  cmtNo=\""+ data.REPORT_NO+"\">";
 			html += "<td>"+ data.POST_NO+"</td>";
 			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
 			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
@@ -619,7 +622,7 @@ $(document).ready(function(){
 		
 		}
 
-		$(".table_1 tbody").html(html);
+		$("#hide tbody").html(html);
 		}
 		
 	
@@ -749,10 +752,9 @@ $(document).ready(function(){
 						<!-- 검색 부분 -->
 						<div id="hd2_search">
 							<form action="#" id="actionForm" method="post">
-								<input type="hidden" name="no" id="no" /> <input type="hidden"
-									name="cmtNo" id="cmtNo" /> <input type="hidden" name="postNo"
-									id="postNo" /> <input type="hidden" name="page" id="page"
-									value="${page}" />
+								<input type="hidden" name="no" id="no" /> 
+								<input type="hidden" name="cmtNo" id="cmtNo" />  
+								<input type="hidden" name="page" id="page" value="${page}" />
 
 
 								<div class="Sbar1">
@@ -826,15 +828,15 @@ $(document).ready(function(){
 											
 											<!-- 테이블2 포스트 내용 -->
 											<div class="cmtBoxWrap">
-												<div class="CB">${data.POST }</div>
+												<div class="CB">${data.POST}</div>
 
 												<!-- 댓글박스 -->
 												<div class="CBC">
 													<div id="wrap">
 														<div class="comment_icon"></div>
-														<div class="comment_nm">${data.CNM }코멘트멤버NM</div>
+														<div class="comment_nm">${data.CNM}코멘트멤버NM</div>
 													</div>
-													<div class="comment_box">${data.CMT }코멘트CONTENTS</div>
+													<div class="comment_box">${data.CMT}코멘트CONTENTS</div>
 												</div>
 											</div>
 											

@@ -122,8 +122,26 @@ public class adReportController {
 
 
 
+	//더보기 아작스	
+	@RequestMapping(value="/addAjax",
+			method=RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+
+	@ResponseBody
+	public String addAjax(
+			@RequestParam HashMap<String, String> params)throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> model = new HashMap<String, Object>();
 
 
+		// LIST
+		List<HashMap<String, String>> comment = dao.getList("adReport.comment", params);
+		//List<HashMap<String, String>> post = dao.getList("adReport.post", params);
+
+		//model.put("post", post);
+		model.put("comment", comment);
+		return mapper.writeValueAsString(model);
+	}
 
 
 }
