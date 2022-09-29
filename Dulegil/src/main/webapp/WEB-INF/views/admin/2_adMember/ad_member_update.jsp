@@ -402,7 +402,7 @@ function reloadList(){
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 
 	<div class="container">
-		<div class="Cname">
+		<div class="adTit">
 			<span class="material-icons" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">manage_accounts </span> 
 			회원 관리
 		</div>

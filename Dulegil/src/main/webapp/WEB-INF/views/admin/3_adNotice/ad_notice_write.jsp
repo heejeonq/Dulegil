@@ -25,7 +25,7 @@ $(document).ready(function(){
 	$("#insertBtn").on("click", function() {
 	    $("#contents").val(CKEDITOR.instances['contents'].getData())
 
-			if ($.trim($("#title").val()) == "") {
+			if($.trim($("#title").val()) == "") {
 				makeAlert("알림", "제목을 입력하세요.", function() {
 					$("#title").focus();
 				});

@@ -45,7 +45,14 @@ public class adMemberController {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
+		List<HashMap<String, String>> cate = dao.getList("adMember.category");
+		List<HashMap<String, String>> cmCate = dao.getList("adMember.commonCategory", params);
+		
 		mav.addObject("page", page);
+		
+		mav.addObject("cate", cate);
+		mav.addObject("cmCate", cmCate);
+		
 		mav.setViewName("admin/2_adMember/ad_member");
 		}else
 			mav.setViewName("admin/0_adLogin/ad_Login");
@@ -68,14 +75,17 @@ public class adMemberController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		int cnt = dao.getInt("adMember.cnt",params);
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,10,3);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 		
 		List<HashMap<String, String>> list = dao.getList("adMember.list", params);
+		
+		List<HashMap<String, String>> cate = dao.getList("adMember.category", params);
 
 		model.put("list", list);
+		model.put("cate", cate);
 		model.put("pd", pd);
 		return mapper.writeValueAsString(model);
 	}
@@ -96,9 +106,7 @@ public class adMemberController {
 		
 		try {
 			switch(gbn) {
-			case "delete" : cnt=dao.update("adMember.delete",params);
-			break;
-			case "update" : cnt=dao.update("adMember.update",params);
+			case "update" : cnt = dao.update("adMember.update",params);
 			break;
 			}
 			if(cnt>0) {
@@ -109,13 +117,11 @@ public class adMemberController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.put("msg", "exception");
+			model.put("msg", "error");
 		}
 
 		return mapper.writeValueAsString(model);
 	}
-
-	
 	
 	
 	// 리스트 취득
@@ -143,6 +149,20 @@ public class adMemberController {
 			return mav;
 		}
 
+		@RequestMapping(value = "/adMemDetailAjax",
+				method = RequestMethod.POST,
+				produces = "text/json;charset=UTF-8")
 		
+		@ResponseBody
+		public String adMemDetailAjax(
+				@RequestParam HashMap<String, String> params) throws Throwable {
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> model = new HashMap<String, Object>();
+			
+			HashMap<String, String> data = dao.getMap("adMember.info", params);
+			model.put("data", data);
+			
+			return mapper.writeValueAsString(model);
+		}	
 
 }
