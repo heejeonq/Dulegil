@@ -169,10 +169,7 @@
 	font-size:26px;
 	font-weight: bold;		
 }
-.ti_ttt{
-	margin-bottom:20px;
-	
-}
+
 
 .tit_cos, .tit_writer, .tit_date{
 	display: inline-block;
@@ -264,7 +261,7 @@
     margin: 10px auto;
     background: white;
 }
-.goodBtn {
+.goodBtn,.goodCancelBtn {
     vertical-align: top;
     font-size: 11px;
     width: 60px;
@@ -276,9 +273,10 @@
     padding: 9px;
     background-color: #f5f3f3;
     margin: 0 auto;
-    text-align:center;
+    text-align:center;    
 }
-.goodCnt{
+
+.goodCnt,.goodDCnt{
 	font-size: 12px;
 }
 
@@ -460,7 +458,9 @@
 }
 .report img, .like img {
 	transition: all ease 0.25s;
+	
 }
+
 .report img:hover,.like img:hover{
 	transform: rotate(45deg);
 }

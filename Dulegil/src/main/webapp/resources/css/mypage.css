@@ -369,8 +369,9 @@ img#preview {
 
 /* Paging */
 .pagination {
-    margin-bottom: 50px;
-    margin-left: 332.5px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 .pagination span {
     float: left;

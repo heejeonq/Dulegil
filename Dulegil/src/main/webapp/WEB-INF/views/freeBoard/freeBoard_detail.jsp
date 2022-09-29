@@ -28,11 +28,12 @@ $(document).ready(function(){
 	reloadList();
 
 	
-	//게시글 버튼
-	$("#clistBtn").on("click",function(){
-		$("#actionForm").attr("action","freeBoard")
-		$("#actionForm").submit();
-	});
+	
+	$("#clistBtn").on("click",function(list){
+	
+			$("#actionForm").submit();
+
+	}); 
 	
 	
 	$("#deleteBtn").on("click",function(){
@@ -314,6 +315,7 @@ function reloadList(){
 
 	<div class="container-main">		
 		<form action="#" id= "actionForm" method="post">
+	
 			<input type="hidden" name="no" value="${data.POST_NO}" />
 			<input type="hidden" name="gbn" value="d" />
 			<input type="hidden" name="page" value= "${param.page}" />
@@ -375,7 +377,7 @@ function reloadList(){
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if>
-			<input type="button" class="btn" id="clistBtn" value="목록"/>
+			<input type="button" class="btn" id="clistBtn" value="목록"  onClick="history.go(-1)"/>
 		</div>
 		
 		
@@ -387,6 +389,7 @@ function reloadList(){
 		<hr/>
 		<div class= mainview3>
 			<form action="#" id="commentsForm" method="post">
+		
 				<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 				<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 				<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">

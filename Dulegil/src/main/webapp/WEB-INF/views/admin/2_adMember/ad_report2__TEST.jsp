@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="../adjscss.jsp" flush="true" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,10 +167,9 @@ td:nth-child(9) {
 #header2 #hd2_CC #CCbox #hide {
 	padding: 56px 80px;
 	margin: auto;
-	width: 50%;
-	height: 38%;
+	width: 60%;
+	height: 50%;
 	font-size: 11px;
-	position: absolute;
 	background-color: rgb(254, 250, 239);
 	background-color: rgb(231 231 231/ 26%);
 	backdrop-filter: blur(30px);
@@ -183,19 +180,12 @@ td:nth-child(9) {
 	border-radius: 12px;
 	-webkit-border-radius: 12px;
 	color: #f5f5f1;
-	width: 50%;
-	height: 38%;
-	font-size: 11px;
 	position: absolute;
-	background-color: rgb(254, 250, 239);
-	background-color: rgb(231 231 231/ 26%);
-	backdrop-filter: blur(30px);
-	-webkit-backdrop-filter: blur(30px);
-	border: 0px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-border-radius: 12px;
 	z-index: 10;
+}
+
+#show {
+	font-size: 11px;
 }
 
 #hidebox {
@@ -327,309 +317,56 @@ input:focus {
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	// 로그아웃 버튼 클릭시
-	$("#logoutBtn").on("click", function() {
-		location.href = "adLogout";
-	});
-	
-	
-	// 메뉴 - 관리자 계정 관리 
-	$("#actMngBtn").on("click", function() {
-		location.href = "adAccountMng";
-	});
-	
-	
-	// 메뉴 - 공지사항
-	$("#ntcBtn").on("click", function() {
-		location.href = "adNtList";
-	});
-	
-	
-	// 메뉴 - 이벤트관리
-	$("#evtBtn").on("click", function() {
-		location.href = "adEvt";
-	});
-	
-	
-	// 메뉴 - 웹사이트 활동 집계
-	$("#webTotalBtn").on("click", function() {
-		location.href = "adWebTotal";
-	});
-	
-	
-	// 메뉴 - 회원관리
-	$("#memMngBtn").on("click", function() {
-		location.href = "adMemList";
-	});
-	
-	// 메뉴 - 신고 내역 관리
-	$("#memRepBtn").on("click", function() {
-		location.href = "adMemRep";
-	});
-	
-	// 메뉴 - 게시물 관리
-	$("#memPostBtn").on("click", function() {
-		location.href = "adPostList";
-	});
-	
-	// 메뉴 - 댓글 관리
-	$("#memCmtBtn").on("click", function() {
-		location.href = "adCmtList";
-	});
-	
-	
-	// 목록 구분 설정
-	if("${param.searchGbn}" != ""){
-		$("#searchGbn").val("${param.searchGbn}");
-	}else{
-		$("#oldGbn").val("0");
-	}	
-	reloadList();
-	
-	// 검색 버튼 클릭시
-	$("#searchBtn").on("click", function(){
-		$("#page").val("1");
-		
-		$("#oldGbn").val($("#searchGbn").val());
-		$("#oldTxt").val($("#searchTxt").val());
-		
-		reloadList();
-	});
-	
-	
-	// 페이징 버튼
-	$("#hd2_paging").on("click", ".pBtn", function(){
-			// 기존 검색상태 유지
-			$("#searchGbn").val($("#oldGbn").val());
-			$("#searchTxt").val($("#oldTxt").val());
-			
-			$("#page").val($(this).attr("page"));
-			reloadList();		
+	$(document).ready(function() {
+
+		// 로그아웃 버튼 클릭시
+		$("#logoutBtn").on("click", function() {
+			location.href = "adLogout";
 		});
 
-	
-	function reloadList(){
-		var params = $("#actionForm").serialize();
-		
-		$.ajax({
-			url:"adReportAjax",
-			type: "POST",
-			dataType: "json",
-			data : params,
-			success : function(res){
-				drawList(res.list);
-				drawPaging(res.pd);
-				console.log(res);
-			},
-			error : function(request, status, error){
-				console.log(request.responseText);
-				
-			}
-			
+		// 메뉴 - 관리자 계정 관리 
+		$("#actMngBtn").on("click", function() {
+			location.href = "adAccountMng";
 		});
-		
-	}; // reloadList end
-	
-	function drawPaging(pd){
-		var html = "";
-		// " + + " 복사
-		
-		// 처음
-		html += "<div id=\"pBtn\">";
-		html += "<input type=\"button\" page=\"1\" value=\"<<\" class=\"pBtn\" />";
-		html += "</div>";
-		
-		//이전
-		if($("#page").val()=="1"){		
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"1\" value=\"<\" class=\"pBtn\" />";
-			html += "</div>";
-			
-		} else{
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"<\" class=\"pBtn\" />";
-			html += "</div>";
-		}
-		
-		// 현재 페이지
-		for(var i = pd.startP; i<=pd.endP; i++){
-			if($("#page").val() * 1 == i){
-				html += "<div id=\"pBtn_GD\">";
-				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn_GD\" />";
-				html += "</div>";		
-			}else{
-				html += "<div id=\"pBtn\">";
-				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
-				html += "</div>";	
-				
-			}
-		}
-		
-		
-		// 다음
-		if($("#page").val() * 1 == pd.maxP){
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">\" class=\"pBtn\" />";
-			html += "</div>";	
-		}else{
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\">\" class=\"pBtn\" />";
-			html += "</div>";	
-		}
-		
-		// 끝
-		html += "<div id=\"pBtn\">";
-		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">>\" class=\"pBtn\" />";
-		html += "</div>";
-		
-		$("#hd2_paging").html(html);
-	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 게시글 목록 함수
-	function drawList(list){
-	var html = "";
 
-	for(var data of list){
-		//"+ +"
-	html += "<tr no=\""+ data.REPORT_NO +"\">";
-	html += "<td colspan=\"1\"><div><span id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \arrow_drop_down\ </span></div></td> ";
-	html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
-	html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
-	html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
-	html += "<td colspan=\"1\">"+ data.ACCUSED +"</td>";
-	html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
-	html += "<td colspan=\"1\">"+ data.CATE +"</td>";
-	html += "<td colspan=\"2\">";
-	html += "<select class=\"sel\" id=\"process\" name=\"process\">";
-	html += "<option value=\"0\">처리중</option>";
-	html += "<option value=\"1\">활동 중지</option>";
-	html += "<option value=\"2\">반려</option>";
-	html += "<option value=\"3\">강제 탈퇴</option>";
-	html += "</select></td>";
-	html += "</tr>";
-
-	}
-
-	$(".list tbody").html(html);
-	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-		
-		
-	function reloadList2(){
-		var params = $("#actionForm").serialize();
-		
-		$.ajax({
-			url:"addAjax",
-			type: "POST",
-			dataType: "json",
-			data : params,
-			success : function(res){
-	
-				drawList2(res.comment);
-	
-				console.log(res);
-			},
-			error : function(request, status, error){
-				console.log(request.responseText);
-				
-			}
-			
+		// 메뉴 - 공지사항
+		$("#ntcBtn").on("click", function() {
+			location.href = "adNtList";
 		});
-		
-	}; // reloadList end
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	// 더보기 클릭시
-	$("tbody").on("click","tr", "#show", function(){
-		
-		
-		// 2. 두번째 리스트에 위에서 취득한 no 값 넣어주기
-		$("#cmtNo").val($(this).attr("no"));
-		console.log($("#cmtNo").val());
-		
-		
-		// 3. 리스트 불러오기
-		
-		reloadList2();
 
-	
-		if(hide.style.display=='none') {
-			hide.style.display='';
-			// this 로 위치 따와서 innerHTML 로 span 넣어둔
-			show.innerText='▲'
-			
-			
-			
-			} else {
-				hide.style.display='none';
-				show.innerText='▼'
-				
-			}
+		// 메뉴 - 이벤트관리
+		$("#evtBtn").on("click", function() {
+			location.href = "adEvt";
+		});
+
+		// 메뉴 - 웹사이트 활동 집계
+		$("#webTotalBtn").on("click", function() {
+			location.href = "adWebTotal";
+		});
+
+		// 메뉴 - 회원관리
+		$("#memMngBtn").on("click", function() {
+			location.href = "adMemList";
+		});
+
+		// 메뉴 - 신고 내역 관리
+		$("#memRepBtn").on("click", function() {
+			location.href = "adMemRep";
+		});
+
+		// 메뉴 - 게시물 관리
+		$("#memPostBtn").on("click", function() {
+			location.href = "adPostList";
+		});
+
+		// 메뉴 - 댓글 관리
+		$("#memCmtBtn").on("click", function() {
+			location.href = "adCmtList";
+		});
+
+		// 글 댓글 박스
+
 	});
-	
-	//comment가 있을때
-	function drawList2(comment){
-		var html = "";
-		
-		
-
-		for(var data of comment){
-			//"+ data. +"
-
-			html += "<tr id=\"cmtNo\" name=\"cmtNo\"  cmtNo=\""+ data.REPORT_NO+"\">";
-			html += "<td>"+ data.POST_NO+"</td>";
-			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
-			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
-			html += "<td>"+ data.PNM +"</td>";
-			html += "<td>"+ data.REG_DT +"</td>";
-			html += "</tr>";
-		
-		}
-
-		$("#hide tbody").html(html);
-		}
-		
-	
-});
-
-
-	
 </script>
 
 
@@ -752,9 +489,8 @@ $(document).ready(function(){
 						<!-- 검색 부분 -->
 						<div id="hd2_search">
 							<form action="#" id="actionForm" method="post">
-								<input type="hidden" name="no" id="no" /> 
-								<input type="hidden" name="cmtNo" id="cmtNo" />  
-								<input type="hidden" name="page" id="page" value="${page}" />
+								<input type="hidden" name="no" id="no" /> <input type="hidden"
+									name="page" id="page" value="${page}" />
 
 
 								<div class="Sbar1">
@@ -777,14 +513,15 @@ $(document).ready(function(){
 
 
 						<!-- 테이블 -->
-						<table class="list">
+						<table>
 							<thead>
 								<tr id="tr_1">
 									<th colspan="1"></th>
 									<th colspan="1">번호</th>
 									<th colspan="1">신고 카테고리</th>
 									<th colspan="1">아이디</th>
-									<th colspan="1">신고자<br />아이디</th>
+									<th colspan="1">신고자<br />아이디
+									</th>
 									<th colspan="1">신고날짜</th>
 									<th colspan="1">항목</th>
 									<th colspan="2">처리여부</th>
@@ -792,59 +529,85 @@ $(document).ready(function(){
 							</thead>
 
 
-							<tbody class="table_1">
+							<tbody>
+								<tr>
+									<td colspan="1">
+										<div>
+											<a href=#none id="show"
+												onclick="if(hide.style.display=='none') {
+												hide.style.display='';
+												show.innerText='▲'
+												
+												} else {
+													hide.style.display='none';
+													show.innerText='▼'
+													
+												}">
+
+
+												<span class="material-symbols-outlined">
+													arrow_drop_down </span>
+											</a>
+											<div class="hideWrap">
+												<div id="hide" style="display: none">
+													<div id="hidebox">
+														<div class="hb_left">
+															<table class="hide_table">
+																<thead>
+																	<tr>
+																		<th>번호</th>
+																		<th>게시판 카테고리</th>
+																		<th colspan='2'>글 제목</th>
+																		<th>작성자</th>
+																		<th>작성일</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>POST_NO</td>
+																		<td>POST.BLTNBOARD_NM</td>
+																		<td colspan='2'>POST.TITLE</td>
+																		<td>POST.NM</td>
+																		<td>POST.REG_DT</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+
+
+													</div>
+													<div class="CB">POST.CONTENTS</div>
+													<div class="CBC">
+														내용 박스
+														<div id="wrap">
+															<div class="comment_icon"></div>
+															<div class="comment_nm">코멘트멤버NM</div>
+														</div>
+														<div class="comment_box">코멘트CONTENTS</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+
+
+									<td colspan="1">REPORT_NO</td>
+									<td colspan="1">REPORT_TYPE_NM</td>
+									<td colspan="1">ACCUSER</td>
+									<td colspan="1">ACCUSED</td>
+									<td colspan="1">REG_DT</td>
+									<td colspan="1">CATE</td>
+									<td colspan="2"><select class="sel" id="process"
+										name="process">
+											<option value="0">처리중</option>
+											<option value="1">활동 중지</option>
+											<option value="2">반려</option>
+											<option value="3">강제 탈퇴</option>
+									</select></td>
+								</tr>
 
 							</tbody>
 						</table>
-
-
-
-
-							<!-- 더보기 박스 // 원래 테이블에서 no값 가져오기..-->
-							<div id="hide" style="display: none" >
-											
-											
-											<!-- 테이블2 포스트 th -->
-											<div id="hidebox">	
-												<div class="hb_left">
-													<table class="hide_table">
-														<thead>
-															<tr>
-																<th>번호</th>
-																<th>게시판 카테고리</th>
-																<th colspan='2'>글 제목</th>
-																<th>작성자</th>
-																<th>작성일</th>
-															</tr>
-														</thead>
-									
-														<tbody class="cPost">
-
-														</tbody>
-													</table>
-												</div>
-											</div>
-											
-											
-											<!-- 테이블2 포스트 내용 -->
-											<div class="cmtBoxWrap">
-												<div class="CB">${data.POST}</div>
-
-												<!-- 댓글박스 -->
-												<div class="CBC">
-													<div id="wrap">
-														<div class="comment_icon"></div>
-														<div class="comment_nm">${data.CNM}코멘트멤버NM</div>
-													</div>
-													<div class="comment_box">${data.CMT}코멘트CONTENTS</div>
-												</div>
-											</div>
-											
-											
-										</div> <!-- 더보기 박스 end -->
-
-
-
 
 
 					</div>
