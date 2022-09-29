@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="resources/css/mypage.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>개인 정보 수정</title>
-<!-- 주소검색 -->
+<!-- 주소 검색 (다음 우편번호 서비스 api 사용) -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function sample6_execDaumPostcode() {
@@ -27,7 +27,7 @@ function sample6_execDaumPostcode() {
                 addr = data.jibunAddress;
             }
 
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            // 사용자가 선택한 주소가 도로명 타입일 때 참고항목을 조합한다.
             if(data.userSelectedType === 'R'){
                 // 법정동명이 있을 경우 추가한다. (법정리는 제외)
                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
@@ -48,6 +48,7 @@ function sample6_execDaumPostcode() {
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('zcd').value = data.zonecode;
             document.getElementById("adr").value = addr;
+            // 위에 두개를 넣으면 상세주소가 다시 비워지게끔.
             $("#adrDtl").val('');
            	document.getElementById("adrDtl").focus();     
         }
@@ -173,14 +174,15 @@ function readURL(input) {
 				<span>개인 정보 수정</span>
 			</div>
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="memNo" value="${sMemNo}">
+			    <!-- 내가 어떤 데이터를 수정할지 그 폼에 인풋을 담아서 수정할 정보를 쿼리에 주기 위해서 --> 
+				<input type="hidden" name="memNo">
 				<input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}"> <!-- 실 저장된 파일명 보관용 -->
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-					<input type="file" onchange="readURL(this);" name="img">
+					<input type="file" onchange="readURL(this);" name="img" >
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">

@@ -121,6 +121,9 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
+	//param은 전 페이지에서 불러오는 데이터
+	//페이지가 바뀔때 검색 유지 되게
+	//목록을 조회하려면 필요한 페이지 검색 검색어, 동기화가 섞인 상태에서는 이렇게 써야한다.
 	if("${param.searchGbn}" !=""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{

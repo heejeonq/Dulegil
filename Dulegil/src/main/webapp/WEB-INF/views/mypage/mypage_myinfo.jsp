@@ -11,11 +11,12 @@
 <title>내 정보</title>
 </head>
 <body>
-<!-- Header -->
+<!-- Header (공용으로 사용하는 헤더 쪽 부분) -->
 	<c:import url="/header"></c:import>
 	
 	<!-- Container -->
 	<div class="container-mypage">
+	    <!-- mypage 상단 메뉴 바(누르면 이동 되고, 누른 메뉴 바가 색이 바뀌는 기능) -->
 		<jsp:include page="mypage_tab.jsp"></jsp:include>
 		
 		<!-- Contents -->
@@ -26,6 +27,8 @@
 				</div>
 				<div class="mem_box">
 					<div class="mem_profile">
+					    <!-- 컨트롤러에서 data 값으로
+                        resources/upload에 있는 이미지 파일을 불러옴.(밑에도 같은 방식) -->
 						<img alt="" src="resources/upload/${data.IMG_FILE}">
 					</div>
 					<div class="mem_info">
@@ -44,6 +47,11 @@
 							</div>
 							<div>
 								<dt>성별</dt>
+						    <!-- 사용하려면 꼭 헤더에 코어 태그 추가 switch문과 비슷. -->
+							<!-- switch문 case에 해당. data.GENDER0이라면 남성 -->
+							<!-- switch문 default에 해당. 아니라면 여성 -->
+							<!-- c:태그에는 주석 제대로 달아야 안 터짐. -->
+							<%--이렇게 달면 됨--%>
 							<c:choose>
 							<c:when test="${data.GENDER == 0}">
 								<dd>남성</dd>

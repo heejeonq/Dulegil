@@ -20,7 +20,7 @@ $(document).ready(function(){
 			//login();
 			//버튼 이벤트 발생
 			$("#confirmBtn").click();
-			//밑에 설명 참조.(값이 들어가 있지 않으면 submit을 하지 않고, false로 return한다는 뜻)
+			//값이 들어가 있지 않으면 submit을 하지 않고, false로 return한다는 뜻
 			return false;
 		}
 	});
