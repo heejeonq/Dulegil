@@ -28,23 +28,12 @@ $(document).ready(function(){
 	reloadList();
 
 	
-	//게시글 버튼
-/* 	$("#clistBtn").on("click",function(list){
-		
-		<input type="button" value="BACK" onClick="history.go(-1)"> 
-		
-		var referer = document.referrer;
-		
-		if(list.referer == 1){
-			window.location.href="mypage_board";
-		}else{
-			$("#actionForm").attr("action", "freeBoard")
+	
+	$("#clistBtn").on("click",function(list){
+	
 			$("#actionForm").submit();
-		}
-		
-		//$("#actionForm").attr("action", referer)
-		//$("#actionForm").submit(referer);
-	}); */
+
+	}); 
 	
 	
 	$("#deleteBtn").on("click",function(){
