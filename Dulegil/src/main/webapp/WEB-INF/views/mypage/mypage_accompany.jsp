@@ -31,14 +31,38 @@ $(document).ready(function(){
 	});
 	//신고하기
 	$("#memRate").on("click", ".singo img", function(){
-	
+		
 		if($(this).parent().children(".singo_contents").css("display") == "none"){
+			$(".singo_contents").css("display", "none");
 			$(this).parent().children(".singo_contents").css("display", "flex");
 			//$(".singo_contents").show();		
 		}
 		else {
-			$(this).parent().children(".singo_contents").hide();
+			$(this).parent().children(".singo_contents").css("display", "none");
 		}
+		
+	});
+	$("#memRate").on("click", "#reportBtn", function(){
+		let amemNo = $(this).parent().parent().parent().parent().children().eq(2).attr("amemNo");
+		let reportNo = $('input[name="report"]:checked').val();
+
+		$("#applyMemNo").val(amemNo);
+		$("#reportTypeNo").val(reportNo);
+		if (reportNo == null) {
+            makeAlert("알림", "신고내용을 선택하세요.", function() {
+            });
+		 }
+		else{
+			if($("#reportTypeNo").val() == "5"){
+				reportText();
+			}
+			else{
+				action("report");			
+			}
+			$(".singo_contents").css("display", "none");
+			
+		}
+
 		
 	});
 	
@@ -54,7 +78,7 @@ $(document).ready(function(){
 
 		action("applyMemUpdate");
 	});
-	
+	//거절 버튼 클릭시
 	$(".join_mem_list").on("click", "#rejectBtn" , function(){
 		var amemNo = $(this).parent().parent().attr("amemNo");
 		var postNo = $(this).parent().parent().attr("postNo");
@@ -64,7 +88,58 @@ $(document).ready(function(){
 		$("#stateNo").val(0);
 		action("applyMemUpdate");
 	});
+	
+	
+	
 });
+function reportText() {
+	html = "";
+	
+	html += "			<table class=\"board_detail_table\">  		";
+	html += "				<tbody>                                                                   			";
+	html += "				<tr>                                                                  			";
+	html += "					<th class=\"popup_th\">신고 내용을 입력하세요</th>                                                      			";
+	html += "				</tr>                                                                  			";
+	html += "				<tr>                                                                  			";
+	html += "					<td>";
+	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+	html += "					</td>    ";
+	html += "				</tr>                                                                  			";
+	html += "				</tbody>                                                                  			";
+	html += "			</table>";
+	
+		makePopup({
+			depth : 1,
+			width : 300,
+			height : 200,
+			bg : true,
+			bgClose : false,
+			title : "신고하기 기타사유",
+			contents : html,
+			draggable : false,
+			buttons : [{
+				name : "신고하기",
+				func:function() {
+					console.log("기타사유 쓰기");
+					$("#reportContents").val($("#descript").val());
+					console.log($("#reportContents").val());
+					
+					if ($.trim($("#descript").val()) == "") {
+			             makeAlert("알림", "내용을 입력하세요.", function() {
+			                $("#descript").focus();
+			             });
+					 }
+					 else{
+						action("report");
+						closePopup();
+						 
+					 }
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+}
 function action(flag){
 
 		 var params = $("#actionForm").serialize();
@@ -81,8 +156,13 @@ function action(flag){
 					
 	        		reloadList();
 	        		break;
-	        	
-	        	case "fail" :  makeAlert("알림",  "에 실패하였습니다.");
+	        	case "fail" :
+	        		if(flag == "report"){
+	        			 makeAlert("알림",  "이미 신고한 회원입니다.");
+	        		}
+	        		else {
+	        			  makeAlert("알림",  "에 실패하였습니다.");
+	        		}
 	    			break;
 	    		
 	     		case "error" : makeAlert("알림", " 중 문제가 발생하였습니다.");
@@ -277,12 +357,12 @@ function drawList2(memList){
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td class=\"singo\"><img src=\"resources/images/detailViewIcon.png\" />                                                       ";
 		html2 += "			<div class=\"singo_contents\">                                                         ";
-		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
-		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"욕설\">욕설</label>                             ";
-		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
-		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
-		html2 += "				<label><input type=\"radio\" name=\"report\" value=\"기타\">기타</label>                             ";
-		html2 += "				<input type=\"button\" value=\"신고\">                                               ";
+		html2 += "				<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+		html2 += "				<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+		html2 += "				<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+		html2 += "				<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+		html2 += "				<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
+		html2 += "				<input type=\"button\" value=\"신고\" id=\"reportBtn\">                                               ";
 		html2 += "			</div>                                                                               ";
 		html2 += "		</td>                                                                                    ";
 		html2 += "	</tr>                                                                                        ";
@@ -346,6 +426,8 @@ function drawList2(memList){
 				<input type="hidden" name="postNo" id="applyPostNo">
 				<input type="hidden" name="stateNo" id="stateNo">
 				<input type="hidden" name="rate" id="rateValue">
+				<input type="hidden" name ="reportTypeNo" id="reportTypeNo">
+				<input type="hidden" name ="reportContents" id="reportContents">
 			</form>
 
 			<div class="mypage_contents">

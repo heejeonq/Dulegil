@@ -165,5 +165,27 @@ td{
    transform: rotate(45deg);
 }
 
+  /*신고하기*/
+  
+  .singo {
+  	cursor: pointer;
+    float: right;
+    position: relative;
 
+
+  }
+  .singo_contents {
+  	position:absolute;
+  	flex-direction: column;
+  	display : none;
+  	font-size: 13px;
+  	right: 10px;
+  	box-shadow: 1px 1px 3px #777;
+    padding: 7px;
+   background-color: #ffff;
+   width: 100px;
+  }
+  .singo_contents > label {
+	padding: 3px 0;
+  }
 

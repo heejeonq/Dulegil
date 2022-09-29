@@ -29,11 +29,12 @@ $(document).ready(function(){
 
 	
 	
+
 	$("#clistBtn").on("click",function(list){	
 		history.go(-1);
 		$("#actionForm").attr();
 		$("#actionForm").submit();
-		
+	
 	}); 
 	
 	

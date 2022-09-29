@@ -170,6 +170,13 @@
 	AND TARGET_RATING_MEMBER_NO = #{amemNo}
 	AND RATING_MEMBER_NO = #{amemNo}                       
 </select>
-
+<insert id="report" parameterType="hashmap">
+MERGE INTO REPORT
+USING DUAL
+    ON (REPORT_MEMBER_NO = #{memNo} AND TARGET_REPORT_MEMBER_NO = #{amemNo})
+WHEN NOT MATCHED THEN
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, TARGET_REPORT_MEMBER_NO, OTHER)
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{memNo}, #{amemNo}, #{reportContents, jdbcType = VARCHAR})
+</insert>
 
 </mapper>

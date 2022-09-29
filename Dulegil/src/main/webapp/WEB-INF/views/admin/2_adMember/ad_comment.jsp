@@ -7,50 +7,17 @@
 <meta charset="UTF-8">
 <title>댓글 관리</title>
 <style type="text/css">
-/* 테이블 */
-table  {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 30px;
-	color: #404040;
-	box-shadow: 3px 3px 3px 0px #ebebeb;
-	border-radius: 4px;
-}
- 
-th, td {
-	border-collapse: collapse;
-	text-align: center;
-	padding: 4px;
-	color: #404040;
-	font-weight: 500;
-}
 
-th:nth-child(12) {
-	width: 70px;
-}
-
-th {
-	width: 114px;
-	background: #f4f5ee;
-}
-
-td {
-	font-size: small;
-	border-bottom: solid 0.5px #ebebeb;
-	padding: 8px;
-}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	// 목록 구분 설정
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
 		$("#oldGbn").val("0");
-	}	
+	}
 	reloadList();
 	
-	// 검색 버튼 클릭시
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
 		
@@ -60,18 +27,14 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
-	
-	// 페이징 버튼
-	$("#hd2_paging").on("click", ".pBtn", function(){
-			// 기존 검색상태 유지
-			$("#searchGbn").val($("#oldGbn").val());
-			$("#searchTxt").val($("#oldTxt").val());
-			
-			$("#page").val($(this).attr("page"));
-			reloadList();		
-		});
-
-	
+	$(".Cpaging").on("click", "#pBtn", function(){
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		$("#page").val($(this).attr("page"));
+		
+		reloadList();
+	});
 	
 	// thead 체크박스
 	$("thead").on("click", "#allCheck", function(){
@@ -231,82 +194,6 @@ $(document).ready(function(){
 
 }); // document ready end
 
-// 게시글 목록 함수
-function drawList(list){
-var html = "";
-
-for(var data of list){
-	//"+ +"
-	html += "<tr no=\"" +data.COMMENT_NO +"\">";
-	html += "<td>"+ data.MEMBER_NO +"</td>";
-	html += "<td>"+ data.NM +"</td>";
-	html += "<td>"+ data.BLTNBOARD_NM +"</td>";
-	html += "<td colspan=\"2\">"+ data.CONTENTS +"</td>";
-	html += "<td>"+ data.REG_DT +"</td>";
-	html += "<td><input type=\"checkbox\"id=\"Check\" name=\"Check\" value=\""+data.COMMENT_NO+"\" /></td>";
-	html += "<td><span class=\"material-icons\" value=\""+data.COMMENT_NO+"\" id=\"delBtn\" name=\"delBtn\" style=\"font-size: 14px; cursor: pointer; line-height:2;\">\close\</span></td>";
-	html += "</tr>";
-}
-
-$("tbody").html(html);
-};
-
-	function drawPaging(pd){
-		var html = "";
-		// " + + " 복사
-		
-		// 처음
-		html += "<div id=\"pBtn\">";
-		html += "<input type=\"button\" page=\"1\" value=\"<<\" class=\"pBtn\" />";
-		html += "</div>";
-		
-		//이전
-		if($("#page").val()=="1"){		
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"1\" value=\"<\" class=\"pBtn\" />";
-			html += "</div>";
-			
-		} else{
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"<\" class=\"pBtn\" />";
-			html += "</div>";
-		}
-		
-		// 현재 페이지
-		for(var i = pd.startP; i<=pd.endP; i++){
-			if($("#page").val() * 1 == i){
-				html += "<div id=\"pBtn_GD\">";
-				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn_GD\" />";
-				html += "</div>";		
-			}else{
-				html += "<div id=\"pBtn\">";
-				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
-				html += "</div>";	
-				
-			}
-		}
-		
-		
-		// 다음
-		if($("#page").val() * 1 == pd.maxP){
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">\" class=\"pBtn\" />";
-			html += "</div>";	
-		}else{
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\">\" class=\"pBtn\" />";
-			html += "</div>";	
-		}
-		
-		// 끝
-		html += "<div id=\"pBtn\">";
-		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">>\" class=\"pBtn\" />";
-		html += "</div>";
-		
-		$("#hd2_paging").html(html);
-	};
-	
-	
 
 function reloadList(){
 	var params = $("#actionForm").serialize();
@@ -330,27 +217,73 @@ function reloadList(){
 	
 }; // reloadList end
 
+
+// 게시글 목록 함수
+function drawList(list){
+var html = "";
+
+for(var data of list){
+	//"+ +"
+	html += "<tr no=\"" +data.COMMENT_NO +"\">";
+	html += "<td>"+ data.MEMBER_NO +"</td>";
+	html += "<td>"+ data.NM +"</td>";
+	html += "<td>"+ data.BLTNBOARD_NM +"</td>";
+	html += "<td>"+ data.CONTENTS +"</td>";
+	html += "<td>"+ data.REG_DT +"</td>";
+	html += "<td><span class=\"material-icons\" value=\""+data.COMMENT_NO+"\" id=\"delBtn\" name=\"delBtn\" style=\"font-size: 14px; cursor: pointer; line-height:2;\">\close\</span></td>";
+	html += "<td><input type=\"checkbox\"id=\"Check\" name=\"Check\" value=\""+data.COMMENT_NO+"\" /></td>";
+	html += "</tr>";
+}
+
+$("tbody").html(html);
+};
+
+function drawPaging(pd) {
+	var html = "";
+	
+	html += "<span class=\"page_btn page_first\" id=\"pBtn\" page=\"1\"><<</span>";
+	
+	if($("#page").val() == "1" ) {
+		html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"1\"><</span>";
+	}else {		
+	html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"" + ($("#page").val() *1 -1 )+ "\"><</span>";
+	}
+	
+	for(var i = pd.startP; i<=pd.endP; i++){
+		if($("#page").val() * 1 == i){
+	html += "<span class=\"page_btn_on\" id=\"pBtn\" page=\"" + i + "\">" + i + "</span>";			
+		}else{
+	html += "<span class=\"page_btn\" id=\"pBtn\" page=\"" + i + "\">" + i + "</span>";			
+		}
+	}
+	if($("#page").val() * 1 == pd.maxP){ 
+		
+	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + pd.maxP + "\">></span>";
+	}else{		
+	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + ($("#page").val() * 1 + 1) + "\">></span>";
+	}
+	
+	html += "<span class=\"page_btn page_last\" id=\"pBtn\" page=\"" + pd.maxP + "\">>></span>";
+	
+	$(".Cpaging").html(html); 
+}	
 </script>
 </head>
 <body>
-	<!-- 기존 검색 내용 유지용 -->
-	<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
-	<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
-
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 
 	<div class="container">
+		<!-- 기존 검색 내용 유지용 -->
+		<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+		<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
+		
 		<div class="Cname">
 			<span class="material-icons" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">comment</span> 
 			댓글 관리
 		</div>
 
-		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
-		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-
-		<!-- 검색 구분 -->
-		<div class="Csearch">
-			<form action="#" id="actionForm" method="post">
+		<form action="#" id="actionForm" method="post">
+			<div class="Csearch">
 				<input type="hidden" name="no" id="no" /> 
 				<input type="hidden" name="page" id="page" value="${page}" />
 				<select class="sel" name="searchGbn" id="searchGbn">
@@ -359,21 +292,30 @@ function reloadList(){
 				</select>
 				<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
 				<input type="button" class="btn src" id="searchBtn" value="검색" />
-			</form>
-		</div>
+			</div>
+		</form>
 
 		<div class="Ccon">
 			<div class="Ctable">
 				<table>
+					<colgroup>
+						<col width="80px">
+						<col width="120px">
+						<col width="150px">
+						<col width="400px"> 
+						<col width="110px">
+						<col width="50px">
+						<col width="50px">
+					</colgroup>
 					<thead>
 						<tr>
 							<th>회원 번호</th>
 							<th>아이디</th>
 							<th>게시판</th>
-							<th colspan="2">댓글 내용</th>
+							<th>댓글 내용</th>
 							<th>등록일</th>
-							<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							<th></th>
+							<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 						</tr>
 					</thead>
 					<tbody></tbody>
@@ -382,7 +324,7 @@ function reloadList(){
 			<div class="Cbtnright">
 				<input type="button" value="삭제" class="btn" id="deleteBtn" />
 			</div>
-			<div class="Cpaging" ></div>
+			<div class="Cpaging"></div>
 		</div>
 	</div>
 </body>
