@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
@@ -127,6 +128,12 @@ $(document).ready(function(){
 	    	  form.submit();
 	      }
 	   });	
+    // 파일 삭제 버튼
+	$("#fileDelBtn").on("click",function(){
+	      $(".imgOld").remove();
+	      $("#img").val("");
+	      $(".img").show();
+	   });
 	
 	$("#backBtn").on("click", function(){
    	 	makePopup({
@@ -174,16 +181,46 @@ function readURL(input) {
 				<span>개인 정보 수정</span>
 			</div>
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
-			    <!-- 내가 어떤 데이터를 수정할지 그 폼에 인풋을 담아서 수정할 정보를 쿼리에 주기 위해서 -->
-			    <!-- 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 실현 시키기 위해서...--> 
+			    <!-- 내가 어떤 데이터를 수정할지 그 폼에 인풋을 담아서 수정할 정보를 쿼리에 주기 위한 부분 -->
+			    <!-- value="${sMemNo}"를 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 값을 가져오기 위해 -->
+			    <!-- 수정할 정보를 쿼리에 주기 위해서(컨트롤러에서 /mypageAjax/{gbn}부분 업데이트문에 영향) --> 
 				<input type="hidden" name="memNo" value="${sMemNo}">
-				<input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}"> <!-- 실 저장된 파일명 보관용 -->
+	
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-					<input type="file" onchange="readURL(this);" name="img" >
+					
+					<c:choose>
+					 <c:when test="${empty data.IMG_FILE}">
+                        <div class="filBox">   
+                           <input type="file" name="img"/>
+                           <input type="hidden" name="img" id="img" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
+                        </div>
+                    
+                     </c:when>
+					  <c:otherwise>
+                        <td class="filBox">
+                           <!-- 기존파일 --> 
+                           <span class="imgOld">
+                              <div id="fileDelBtn">파일 삭제</div>
+                              <%-- 파일명 가져오는거 --%>
+                              <c:set var="fileLength" value="${fn:length(data.IMG_FILE)}"></c:set>
+                              <%-- 파일명 잘라주기 --%>
+                              <c:set var="fileName" value="${fn:substring(data.IMG_FILE, 20, fileLength)}"></c:set>
+                              <span id="fileName">${fileName}</span>
+                           </span>
+                           <span class="img"> <!-- 기존파일 삭제후 새파일 용도 --> 
+                              <input type="file" name="img" /> 
+                              <input type="hidden" name="img" id="img" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
+                           </span>
+                        </td>
+                     </c:otherwise>
+                     </c:choose>
+					
+					
+			
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">
