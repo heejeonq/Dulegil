@@ -15,7 +15,8 @@
 <
 <script type="text/javascript">
 $(document).ready(function(){
-	reloadList();
+	
+	
 	$('#searchTxt').keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $('#searchBtn').click();
@@ -28,9 +29,9 @@ $(document).ready(function(){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
 		$("#oldGbn").val("0");
-	}
-	
 
+	}
+	reloadList();
 	$("#searchBtn").on("click",function(){
 		$("#page").val("1");
 		
