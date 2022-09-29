@@ -32,10 +32,7 @@ $(document).ready(function(){
 	$("#clistBtn").on("click",function(list){
 	
 			$("#actionForm").submit();
-	
-		
-		//$("#actionForm").attr("action", referer)
-		//$("#actionForm").submit(referer);
+
 	}); 
 	
 	
