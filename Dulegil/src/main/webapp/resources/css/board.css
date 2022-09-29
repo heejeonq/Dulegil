@@ -2,7 +2,7 @@
 /*list*/
 .mainWrap{
 	margin: 50px 0;
-    overflow: hidden;
+
 }
 
 .tit{
@@ -660,4 +660,8 @@ titCon:focus,.cosSell:focus {
 .emptyBox span{
 	font-size:12px;
 	
+}
+.singo_label label {
+	display: block;
+    padding: 3px 0;
 }
