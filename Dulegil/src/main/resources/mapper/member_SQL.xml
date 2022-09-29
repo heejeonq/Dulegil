@@ -23,10 +23,9 @@
 	</select>
 	
 	
-	<!-- 업데이트할때는  parameterType="hashmap",resultType="hashmap"필요 없음. 
-	무조건 해쉬맵으로 받아줌. 
-	카운트 일때만 resultType="integer"-->
-	<update id="updateMyinfo">
+	<!-- 업데이트/델리트/인서트 할때는 resultType="hashmap"필요 없음. 
+	무조건 해쉬맵으로 받아줌. 카운트 일때만 resultType="integer"-->
+	<update id="updateMyinfo" parameterType="hashmap">
 		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt, jdbcType = DATE}, GENDER = #{gen, jdbcType = VARCHAR}, ZIP_CODE = #{zcd, jdbcType = VARCHAR}, 
 		ADDRESS =  #{adr, jdbcType = VARCHAR}, DETAIL_ADDRESS = #{adrDtl, jdbcType = VARCHAR}, IMG_FILE = #{imgFile, jdbcType = VARCHAR}
 		WHERE MEMBER_NO = #{memNo}
