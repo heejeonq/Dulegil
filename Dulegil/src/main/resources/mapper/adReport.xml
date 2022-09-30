@@ -94,7 +94,7 @@
                 ON P.BLTNBOARD_NO = BT.BLTNBOARD_NO
                 INNER JOIN MEMBER M
                 ON M.MEMBER_NO= C.MEMBER_NO
-	WHERE R.REPORT_NO = #{cmtNo}
+	WHERE R.REPORT_NO = #{rptNo}
 	</select>
 
 
@@ -117,7 +117,7 @@
 				PROCESS_NO = 3
 			</when>
 		</choose>		
-		WHERE REPORT_NO = #{no}
+		WHERE REPORT_NO = #{rptNo}
 	</update>
 
 
