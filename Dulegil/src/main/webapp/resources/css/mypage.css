@@ -628,6 +628,42 @@ table.standard th{
 	color:#000;
     padding:6px; 
 }
+<<<<<<< HEAD
+=======
+
+.accompanyHistory td:nth-child(4){
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+table.standard.a th:nth-child(1){width: 10%;}
+table.standard.a th:nth-child(2){width: 10%;}
+table.standard.a th:nth-child(3){width: 45%;}
+table.standard.a th:nth-child(4){width: 10%;}
+table.standard.a th:nth-child(5){width: 10%;}
+table.standard.a th:nth-child(6){width: 15%;}
+
+table.standard.b th:nth-child(1){width: 10%;}
+table.standard.b th:nth-child(2){width: 10%;}
+table.standard.b th:nth-child(3){width: 45%;}
+table.standard.b th:nth-child(4){width: 20%;}
+table.standard.b th:nth-child(5){width: 15%;}
+
+table.standard.c th:nth-child(1){width: 15%;}
+table.standard.c th:nth-child(2){width: 85%;}
+
+table.standard.c td:nth-child(1){width: 15%;}
+table.standard.c td:nth-child(2){width: 15%;}
+table.standard.c td:nth-child(3){width: 10%;}
+table.standard.c td:nth-child(4){width: 15%;}
+table.standard.c td:nth-child(5){width: 15%;}
+table.standard.c td:nth-child(6){width: 30%;}
+
+table.standard, .mem_rate {
+	table-layout: fixed;
+}
+
+
+>>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
 table.standard td{
 	text-align:center;
 	font-size:13px;
@@ -658,6 +694,7 @@ table.standard td:nth-child(3){font-weight:500; color:#333; text-align:center; }
     border: 1px solid #ddd;  
 }
 table.mem_rate {
+	width:100%;
     margin-bottom: 10px;
 }
 

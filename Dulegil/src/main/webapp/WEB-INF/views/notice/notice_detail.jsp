@@ -16,7 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#listBtn").on("click",function(list){	
+	$("#NlistBtn").on("click",function(list){	
 		history.go(-1);
 		$("#actionForm").attr();
 		$("#actionForm").submit();
@@ -64,11 +64,18 @@ $(document).ready(function(){
 					<div class="te"> ${data.CONTENTS}</div>
 				</div>
 			</div>
-				<div class="emptyBox"></div>
+				<div class="emptyBox">
+						<c:if test="${!empty data.ATT_FILE}">
+							<c:set var="fileLength" value="${fn:length(data.ATT_FILE)}"></c:set>
+							<c:set var="fileName" value="${fn:substring(data.ATT_FILE, 20, fileLength)}"></c:set>
+							<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span>
+							<a class="aL" href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>							
+						</c:if>
+				</div>
 				<div class="col"></div>	
 				<div class="emptyBox"></div>
 				<div class="btnBox">		
-					<input type="button" class="btn" id="listBtn" value="목록"/>
+					<input type="button" class="btn" id="NlistBtn" value="목록"/>
 				</div>
 			
 		</div>

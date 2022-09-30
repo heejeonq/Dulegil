@@ -37,7 +37,7 @@ public class adReportController {
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 
 			int page = 1;
@@ -136,9 +136,9 @@ public class adReportController {
 
 		// LIST
 		List<HashMap<String, String>> comment = dao.getList("adReport.comment", params);
-		//List<HashMap<String, String>> post = dao.getList("adReport.post", params);
+		List<HashMap<String, String>> post = dao.getList("adReport.post", params);
 
-		//model.put("post", post);
+		model.put("post", post);
 		model.put("comment", comment);
 		return mapper.writeValueAsString(model);
 	}
