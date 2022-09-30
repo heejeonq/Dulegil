@@ -601,6 +601,8 @@ $(document).ready(function(){
 			$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
 			console.log("------");
 			console.log($("#rptNoP").val());
+			console.log($(this).val());
+			
 			reloadList2();
 
 			
@@ -692,7 +694,7 @@ $(document).ready(function(){
 		
 		}
 		
-		$("#hide .cPost tbody").html(html);
+		$("#hide tbody.cPost").html(html);
 	}
 		
 	

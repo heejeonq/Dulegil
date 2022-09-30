@@ -37,7 +37,7 @@ public class adMemberController {
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		int page = 1;
 
@@ -131,7 +131,7 @@ public class adMemberController {
 				@RequestParam HashMap<String, String> params,
 				ModelAndView mav) throws Throwable{
 
-			if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+			if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 			int page = 1;
 
