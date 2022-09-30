@@ -2,16 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
-
-
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".alarm_num").hide();
 	if($("#memNo").val() != "" && $("#memNo").val() != null){
 		alarm("alarm");		
-		
 	}else{
-		
 	}
 	
 	// 로그인/로그아웃	
@@ -23,22 +19,15 @@ $(document).ready(function(){
 		location.href = "login";
 	});
 	
-	
-	
 	//알람 버튼
 	$(".alarm").on("click", function(){
 		if($(".alarm_contents").css("display") == "none"){
 			$(".alarm_contents").show();
-			alarm("alarmCheck");
-			
-		
+			alarm("alarmCheck");	
 		}
 		else {
 			$(".alarm_contents").hide();
 		}
-		
-		
-		
 	});
 });
 
@@ -60,7 +49,6 @@ function alarm(flag){
 	            console.log(request.responseText); //실패 상세내역
 	         }
 	         });
-		
 	}
 	else{
 	
@@ -71,16 +59,15 @@ function alarm(flag){
           data: params, //json 으로 보낼데이터
           success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행        
        			drawAlarm(res.cnt, res.list);
-                
           },
           error :function(request, status, error) { //실패했을 때 함수 실행 isfp
              console.log(request.responseText); //실패 상세내역
           }
           });
-		
 	}
       
 }
+
 function drawAlarm(cnt, list){
 	if(cnt != "0"){
 		$(".alarm_num").show();
@@ -94,14 +81,12 @@ function drawAlarm(cnt, list){
 	
 	for(let data of list){
 		html += "<div class = \"alarmMsg\">";
-		html += "<li style = \"font-size:13px; line-height:30px; margin-top:5px;\" postNo=\"" + data.POST_NO + "\">" +data.NM + "님이 동행을 신청하였습니다</li>";
-		html += "<li style = \"font-size:11px; line-height:20px; margin-bottom:5px;\" postNo=\"" + data.POST_NO + "\">" +data.REG_DT + "</li>";		
+		html += "<li id=\"nmAlarm\" postNo=\"" + data.POST_NO + "\">[" +data.NM + "]님이 동행을 신청하였습니다.</li>";
+		html += "<li id=\"regDtAlarm\" postNo=\"" + data.POST_NO + "\">" +data.REG_DT + "</li>";		
 		html += "</div>";
 	}
-	
 	$(".alarm_contents").html(html);
 }
-
 </script> 
 
 <!-- Header -->
@@ -137,20 +122,11 @@ function drawAlarm(cnt, list){
 				</li>
 				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num"></span>
 					<div class="alarm_contents">
-						<ul> 
-						
-								<li>님이 동행을 신청하였습니다.</li>
-								<li>${list.REG_DT}</li>
-						
-						</ul>
 					</div>
-				</li>
-					
+				</li>	
 				</c:otherwise>
 			</c:choose>
-			
 			</ul>
-			
 			
 		</div>
 		<!-- Nav -->
