@@ -35,17 +35,13 @@ $(document).ready(function(){
 	}); 
 	
 	
-	//게시글 버튼
-	$("#clistBtn").on("click",function(){
-		
-		$("#actionForm").submit();
-	});
-	
+
 	
 	//하얀 좋아요 버튼을 누르면
 	  $(".goodBtn").on("click", function(){
 		  if ($("#sMemNo").val() == "") {
-		       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+		       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	
+		    	   location.href="login"
 		       });
 		  }else{
 			  like("insert");
@@ -240,7 +236,8 @@ $(document).ready(function(){
  	//신고하기 버튼 누르면 
 	$("#reporBtn").on("click",function(){ 
 		 if ($("#sMemNo").val() == "") {
-	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {
+	    	   location.href="login"
 	       });
 	     } else{
 			action("report");
@@ -393,6 +390,8 @@ function reloadList(){
 		  $(".goodBtn").hide();
 		  $(".goodCancelBtn").show();
 	 }else{
+		 
+		 
 		  $(".goodCancelBtn").hide();
 		  $(".goodBtn").show();
 	 } 
@@ -507,7 +506,7 @@ function reloadList(){
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 			</c:if> 
-			<input type="button" class="btn" id="clistBtn" value="목록" onClick="history.go(-1)"/>
+			<input type="button" class="btn" id="clistBtn" value="목록" />
 		</div>
 					
 		<div class="emptyBox"></div>
