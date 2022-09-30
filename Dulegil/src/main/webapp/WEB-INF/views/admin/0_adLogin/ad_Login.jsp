@@ -64,18 +64,10 @@ body, input{
 	width: 400px;
 	height: 250px;
 	margin: 20px 0px 0px 200px; /*아니 왜 중간으로 안오는거*/
-	border: solid 1px #C0C0C0;
-	background-color: white;
-	font-family: "Gothic A1";
-	font-weight: 500;
-	background-color: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
 	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
-	border-radius: 12px;
-	-webkit-border-radius: 12px;
+	-webkit-border-radius: 4px;
 	color: rgba(255, 255, 255, 0.75);
 }
 
@@ -123,17 +115,12 @@ input {
 	display: inline-block;
 	width: 200px;
 	height: 50px;
-	border: none;
 	cursor: pointer;
 	font-size: 15px;
-	border-radius: 42px;
 	background-color: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
 	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
-	border-radius: 12px;
 	-webkit-border-radius: 12px;
 	color: #4a4a4a;
 }

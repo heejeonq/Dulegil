@@ -36,6 +36,7 @@ public class MainController {
 	@RequestMapping(value = "/header")
 	public ModelAndView header(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
+		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
 		int cnt = 0;
 		if (session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
@@ -47,40 +48,36 @@ public class MainController {
 
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/alarm/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String alramCheck(@PathVariable String gbn, @RequestParam HashMap<String, String> params) throws Throwable {
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		
 		try {
 			switch (gbn) {
 			case "alarmCheck":
 				dao.update("header.alarmCheck", params);
 				break;
-		
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msg", "error");
 		}
-	
 
 		int cnt = dao.getInt("header.alarmCnt", params);
 
 		List<HashMap<String, String>> list = dao.getList("header.alarmContents", params);
-		
+
 		model.put("cnt", cnt);
 		model.put("list", list);
-		
+
 		return mapper.writeValueAsString(model);
 	}
-	
-
 
 }

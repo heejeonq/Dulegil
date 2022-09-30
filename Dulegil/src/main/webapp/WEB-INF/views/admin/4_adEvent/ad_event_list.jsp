@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 달력 -->
 <link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
-<title>이벤트 목록</title>
+<title>이벤트 관리</title>
 <style type="text/css">
 #evtTit:hover{
 	text-decoration: underline;
@@ -244,7 +244,7 @@ function drawPaging(pd) {
 	<div class="container">
 		<div class="Cname">
 			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span>
-			이벤트 목록
+			이벤트 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="no" name="no" />

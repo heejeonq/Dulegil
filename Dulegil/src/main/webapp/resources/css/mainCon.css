@@ -4,7 +4,6 @@
 	box-sizing: border-box;
 	color: #000;
 }
-
 body {
 	margin: 0;
 	padding: 0;
@@ -12,20 +11,16 @@ body {
 	min-width: 1200px;
 	overflow-y: auto; 
 }
-
 html, body {
 	height: 100%;
 }
-
 html {
 	overflow: hidden;
 }
-
 a {
 	text-decoration: none;
 	font-weight: 600;
 }
-
 ul {
 	list-style: none;
 	margin: 0;
@@ -37,16 +32,13 @@ ul {
 	background-size: cover;
     background-color: #fffce1;
 }
-
 .util {
 	height: 40px;
 	padding-right: 10%;
 }
-
 .util ul {
 	text-align: right;
 }
-
 .util ul li{
 	display: inline-block;
 	padding: 0 10px;
@@ -55,47 +47,64 @@ ul {
 	font-size: 11pt;
 	cursor: pointer;
 }
-
 .util ul li a {
     color: #1b1b1b;
 }
-
+.alarm{
+	position: relative;
+}
+.alarm_img {
+	width: 25px;
+	position: relative;
+    top: 4px;
+}
+.alarm_num {
+	background-color: rgb(0 127 0);
+	color: #fff;
+	font-size: 10pt;
+    border-radius: 50%;
+    padding: 0 5px;
+}
 .alarm :active .alarm_contents{
 	display: block;
 }
-
 .alarm_contents {
-	width: 300px;
-    height: 300px;
+    width: 265px;
+    height: 243px;
 	position: absolute;
-	background-color: #d9f0ff;
+	background-color: #def1da;
 	padding: 0 10px;
-	border-radius: 3px;
-	right: 65px;
+	border-radius: 5px;
+	right: -10px;
+	margin-top: 10px;
 	z-index: 2;
 	display: none;
 	overflow: scroll;
     overflow-x: hidden;
     box-shadow: 1px 1px 3px #777;
 }
-
-.alarm_img {
-	width: 25px;
-	position: relative;
-    top: 4px;
+.alarmMsg{
+	border-bottom:1px solid black;
 }
-
-.alarm_num {
-	background-color: rgb(255, 0, 0);
-	color: #fff;
-	font-size: 10pt;
-    border-radius: 50%;
-    padding: 0 5px;
+li #nmAlarm{
+text-overflow:ellipsis; 
+overflow: hidden; 
+white-space:nowrap; 
+text-align: center;
+font-size:13px; 
+line-height:30px; 
+margin-top:5px; 
+width: 256px;
 }
-
+li #regDtAlarm{
+font-size:11px; 
+line-height:20px; 
+margin-bottom:5px;
+}
 span.material-symbols-outlined {
 	cursor: pointer;
 }
+
 
 /*Nav*/
 .nav {
@@ -103,17 +112,14 @@ span.material-symbols-outlined {
 	justify-content:center;
 	height: 124px;
 }
-
 .logo {
 	display: inline-flex;
 }
-
 .logo img {
 	display: inline-block;
     height: 80%;
 	float: left;
 }
-
 .logo span {
     font-size: 25pt;
     letter-spacing: -3pt;
@@ -122,35 +128,29 @@ span.material-symbols-outlined {
     position: relative;
     top: 25px;
 }
-
 .gnb {
 	display: inline-flex;
     position: relative;
     align-items: flex-end;
     margin-left: 22px;
 }
-
 .gnb > ul {
 	padding-bottom: 50px;
 }
-
 .gnb > ul > li {
 	position: relative;
 	display: inline-block;
 	margin: 0;
 }
-
 .gnb > ul  >li > a {
     font-family: 'Pretendard-Regular';
     font-size: 16pt;
     font-weight: 600;
     padding: 0 35px;
 }
-
 .gnb > ul  >li > a:hover{
 	color:#073;
 }
-	
 .gnb > ul  >li > a:hover:before{
 	position: absolute;
     width: 100%;
@@ -161,11 +161,9 @@ span.material-symbols-outlined {
     background: #000;
     opacity: 0.2;
 }
-
 .gnb > ul > li:hover .gnb_dropdown {
 	display: block;
 }
-
 .gnb_dropdown {
 	width:100%;
 	display: none;
@@ -177,11 +175,9 @@ span.material-symbols-outlined {
 	text-align: center;
 	border-radius: 0 0 13px 13px;
 }
-
 .gnb_dropdown li{
 	padding: 10px 10px;
 }
-
 .gnb_dropdown li a {
 	font-size: 11pt;
 }
@@ -211,9 +207,7 @@ span.material-symbols-outlined {
 /* Contents*/
 .mainWrap{
 	margin: 50px 0;
-
 }
-
 .tit{
 	display: inline-block;
 	text-align: left;
@@ -223,7 +217,6 @@ span.material-symbols-outlined {
     padding: 10px 5px;
     margin-bottom: 1%;
 }
-
 .col{
 	position: relative;
 	text-align: center;
@@ -237,22 +230,18 @@ span.material-symbols-outlined {
 	width: 100%;
 	padding:2%
 }
-
 .footer_container {
 	margin-left: 236px;
 }
-
 .footer_section {
 	width: 1200px;
 	position: relative;
 }
-
 .footer_section div a{
 	font-size: 16px;
 	font-weight: 500;
 	font-family: 'Pretendard-Regular';
 }
-
 .footer_logo {
 	display: inline-block;
 	padding: 10px 80px 50px 20px;
@@ -261,7 +250,6 @@ span.material-symbols-outlined {
 .footer_logo img {
 	width:180px;
 }
-
 .footer_address {
 	color: #000;
 	font-size: 14px;
@@ -269,26 +257,22 @@ span.material-symbols-outlined {
 	font-weight: 500;
 	font-family: 'Pretendard-Regular';
 }
-
 .footer_address dt {
 	display: inline-block;
 	color: #000;
 	font-size: 15px;
 	line-height: 1.5;
 }
-
 .footer_address dd {
 	display: inline-block;
 	color: #333;
 	font-size: 13px;
 	line-height: 1.5;
 }
-
 .footer_address dt {
 	font-weight: 500;
 	margin-right: 6px;
 }
-
 .footer_address dd {
 	margin: 0;
 }
