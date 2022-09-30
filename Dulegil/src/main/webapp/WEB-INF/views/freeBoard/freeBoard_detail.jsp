@@ -376,11 +376,11 @@ function reloadList(){
 				</span>
 				<span class="reporTit">신고하기</span>			
 			</div>
-			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
-				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
-				<input type="button" class="btn" id="updateBtn" value="수정"/>
-			</c:if>
 			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
+			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
+				<input type="button" class="btn" id="updateBtn" value="수정"/>
+				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
+			</c:if>
 		</div>
 		<div class="emptyBox"></div>
 		
