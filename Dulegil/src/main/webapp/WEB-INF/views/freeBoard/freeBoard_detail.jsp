@@ -37,6 +37,60 @@ $(document).ready(function(){
 	
 	}); 
 	
+	//게시글 신고하기 버튼 누르면 
+	$("#reporBtn").on("click",function(){ 
+		 if ($("#sMemNo").val() == "") {
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       });
+	     } else{
+	    	 reportText2(); // reportText2(); 로 넘어가
+	    	 
+			 
+		 }
+	 });
+	
+
+	//댓글 신고하기
+	$(".mainView4").on("click", ".singo img", function(){
+		
+		if($(this).parent().children(".singo_contents").css("display") == "none"){
+			$(".singo_contents").css("display", "none");
+			$(this).parent().children(".singo_contents").css("display", "flex");
+			//$(".singo_contents").show();		
+		}
+		else {
+			$(this).parent().children(".singo_contents").css("display", "none");
+		}
+	
+	});
+	
+	$(".mainView4").on("click", "#reportBtn", function(){
+		let commentNo = $(this).parent().parent().parent().attr("commentNo");
+		let reportNo = $('input[name="report"]:checked').val();
+
+		$("#commentNo").val(commentNo);
+		$("#reportTypeNo").val(reportNo);
+	
+		if (reportNo == null) {
+            makeAlert("알림", "신고내용을 선택하세요.", function() {
+            });
+		 }
+		else{
+			if(reportNo == "5"){
+				
+				reportText();
+			}
+			else{
+				action("commentReport");
+			
+			}
+			$(".singo_contents").css("display", "none");
+			
+		}
+		
+		
+	});
+	
 	
 	$("#deleteBtn").on("click",function(){
 
@@ -180,12 +234,127 @@ $(document).ready(function(){
 	});
 }); //document
 
+//댓글 신고 텍스트
+function reportText() {
+	html = "";
+	
+	html += "			<table class=\"board_detail_table\">  		";
+	html += "				<tbody>                                                                   			";
+	html += "				<tr>                                                                  			";
+	html += "					<th class=\"popup_th\">신고 내용을 입력하세요</th>                                                      			";
+	html += "				</tr>                                                                  			";
+	html += "				<tr>                                                                  			";
+	html += "					<td>";
+	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+	html += "					</td>    ";
+	html += "				</tr>                                                                  			";
+	html += "				</tbody>                                                                  			";
+	html += "			</table>";
+	
+		makePopup({
+			depth : 1,
+			width : 300,
+			height : 200,
+			bg : true,
+			bgClose : false,
+			title : "신고하기 기타사유",
+			contents : html,
+			draggable : false,
+			buttons : [{
+				name : "신고하기",
+				func:function() {
+					console.log($("#reportTypeNo").val());
+					$("#reportContents").val($("#descript").val());
 
+					
+					if ($.trim($("#descript").val()) == "") {
+			             makeAlert("알림", "내용을 입력하세요.", function() {
+			                $("#descript").focus();
+			             });
+					 }
+					 else{
+						action("postReport");
+						$("#reportContents").val("");
+						closePopup();
+						 
+					 }
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+}
+
+function reportText2() {
+	html = "";
+	
+	html += "			<table class=\"board_detail_table\">  		";
+	html += "				<tbody>                                                                   			";
+
+	html += "				<div class=\"singo_label\">";
+	html += "						<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+
+	html += "						<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+
+	html += "						<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+
+	html += "						<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+
+	html += "						<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
+	html += "				</div>";
+
+	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+
+	html += "				</tbody>                                                                  			";
+	html += "			</table>";
+	
+		makePopup({
+			depth : 1,
+			width : 300,
+			height : 300,
+			bg : true,
+			bgClose : false,
+			title : "글 신고하기",
+			contents : html,
+			draggable : false,
+			buttons : [{
+				name : "신고하기",
+				func:function() {
+					$("#reportTypeNo").val($('input[name="report"]:checked').val())
+					console.log($("#reportTypeNo").val());
+					$("#reportContents").val($("#descript").val());
+
+					if($("#reportTypeNo").val() == "5"){
+						if ($.trim($("#descript").val()) == "") {
+				             makeAlert("알림", "신고 사유를 입력하세요.", function() {
+				                $("#descript").focus();
+				             });
+						 }
+						else{
+							action("postReport");
+							$("#reportContents").val("");
+							closePopup();
+						}
+					}
+					 else{
+						action("postReport");
+						$("#reportContents").val("");
+						closePopup();
+						 
+					 }
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+}
 
 var msg = {
 		"insert" : "등록",
 		"update" : "수정",
 		"delete" : "삭제",
+		"commentReport" : "댓글신고",
+		"postReport" : "게시글신고",
 }
 
 function action(flag){
@@ -230,12 +399,27 @@ function action(flag){
 					$(".insert").show();
 					$(".update").hide();
             		break;
+					case "commentReport":
+            		
+            		break;
+					case "PostReport":
+            		
+            		break;
             }            
                         
             break;
          case "fail" :
-            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
-            break;
+        	 if(msg[flag] == "댓글신고"){
+    			 makeAlert("알림",  "이미 신고한 댓글입니다.");
+    		}
+        	 else if(msg[flag] == "게시글신고"){
+    			 makeAlert("알림",  "이미 신고한 글입니다.");
+    		}
+        	 else{
+	            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+	           
+        	 }
+	            break;
          case "error" :                     
             makeAlert("알림", msg[flag]+"중 문제가 발생하였습니다.")
             break;
@@ -282,10 +466,21 @@ function reloadList(){
 	var html = ""; //변수선언
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
-              
+        
 		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
-		html += " <div class=\"iconBox\">";
-		html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+		if("${sMemNo}" != data.CMEMBER_NO){//작성자이면
+			html += " <div class=\"singo\">";
+			
+			html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+			html += "			<div class=\"singo_contents\">                                                         ";
+			html += "				<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+			html += "				<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+			html += "				<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+			html += "				<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+			html += "				<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
+			html += "				<input type=\"button\" value=\"신고\" id=\"reportBtn\">                                               ";
+			html += "			</div>                                                                               ";
+		}
 		html += " </div>";
 		html += " <div class=\"idBox\">";
 		html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "";
@@ -319,7 +514,7 @@ function reloadList(){
 		<form action="#" id= "actionForm" method="post">
 	
 			<input type="hidden" name="no" value="${data.POST_NO}" />
-			<!-- <input type="hidden" name="gbn" value="d" /> -->
+			<!-- <input type="hidden" name="gbn" value="d" /> 이게뭐지-->
 			<input type="hidden" name="page" value= "${param.page}" />
 			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
 			
@@ -370,12 +565,14 @@ function reloadList(){
 		<!-- emptyBox완 ------------------------------------------>
 		
 		<div class="box2">		
-			<div class="reporBtn">
-				<span class="report">
-					<img src="resources/images/report1.png" />
-				</span>
-				<span class="reporTit">신고하기</span>			
-			</div>
+		<c:if test="${sMemNo != data.MEMBER_NO}" >
+				<div class="reporBtn" id="reporBtn">
+					<span class="report">
+						<img src="resources/images/report1.png" />
+					</span>
+					<span class="reporTit">신고하기</span>			
+				</div>
+			</c:if>
 			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
@@ -396,6 +593,9 @@ function reloadList(){
 				<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 				<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 				<input type="hidden" name="no" id="no" value="${param.no}">	
+				<input type="hidden" name="memberNo" value="${data.MEMBER_NO}">
+				<input type="hidden" name="reportTypeNo" id="reportTypeNo">
+				<input type="hidden" name="reportContents" id="reportContents">
 				<input type="hidden" name="cpage" id="cpage" value="1" />								
 				
 				<div class="box3">

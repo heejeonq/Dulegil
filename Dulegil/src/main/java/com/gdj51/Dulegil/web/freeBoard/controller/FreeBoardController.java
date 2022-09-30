@@ -108,6 +108,11 @@ public class FreeBoardController {
 			case "delete":
 				cnt = dao.update("free.delete", params);
 				break;
+			case "commentReport":
+				cnt = dao.insert("free.commentReport", params);
+				break;
+			case "postReport":
+				cnt = dao.insert("free.postReport", params);	
 			}
 			if (cnt > 0) {
 				model.put("msg", "success");
@@ -145,26 +150,21 @@ public class FreeBoardController {
 	public ModelAndView freeBoardDetail(		
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav)throws Throwable {
-			
-			//HashMap<String, String> referer = dao.getMap("Referer", params);
-		//	String referer = RequestMapping.getHeader("Referer");
 		
 			HashMap<String, String> data = dao.getMap("free.getF", params);
 			mav.addObject("data", data);		
-			//mav.addObject("referer", referer);
-			
-			
-		//	System.out.println(referer);
+
+
 			
 			if (params.get("no") != null && params.get("no") != "") { //만약 데이터가 넘어오면		
-					
+				
 				dao.update("free.updateTHit", params);	//조회수를 업뎃해라
-																	
-					mav.setViewName("freeBoard/freeBoard_detail"); //디테일 보여줘
+														
+				mav.setViewName("freeBoard/freeBoard_detail"); //디테일 보여줘
 					//그리고 
-					} else {										//그게아니면
-						mav.setViewName("redirect:freeBoard");  //리스트로가
-				}
+			} else {										//그게아니면
+				mav.setViewName("redirect:freeBoard");  //리스트로가
+			}
 			
 		return mav;
 	}
@@ -192,6 +192,12 @@ public class FreeBoardController {
 			case "delete":
 				cnt = dao.update("free.deleteC", params);
 				break;
+			case "commentReport":
+				cnt = dao.insert("free.commentReport", params);
+				break;
+			case "postReport":
+				cnt = dao.insert("free.postReport", params);
+				break;	
 			}
 			if (cnt > 0) {
 				model.put("msg", "success");

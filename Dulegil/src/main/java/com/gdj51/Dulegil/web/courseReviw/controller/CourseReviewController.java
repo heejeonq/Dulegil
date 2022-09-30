@@ -194,15 +194,21 @@ public class CourseReviewController {
 	
 		try {
 			switch(gbn) {
-			case "insert": cnt=dao.insert("courseR.insertC",params);
+			case "insert": 
+				cnt=dao.insert("courseR.insertC",params);
 				break;
-			case "update": cnt=dao.update("courseR.updateC",params);
+			case "update": 
+				cnt=dao.update("courseR.updateC",params);
 				break;
-			case "delete": cnt=dao.update("courseR.deleteC",params);
+			case "delete": 
+				cnt=dao.update("courseR.deleteC",params);
 				break;
-			case "report":
-				cnt = dao.insert("courseR.report", params);
-			break;	
+			case "commentReport":
+				cnt = dao.insert("courseR.commentReport", params);
+				break;
+			case "postReport":
+				cnt = dao.insert("courseR.postReport", params);
+				break;
 		}
 			if(cnt > 0) {
 				model.put("msg","success");
@@ -219,6 +225,7 @@ public class CourseReviewController {
 			
 		return mapper.writeValueAsString(model);	
 }
+	
 	@RequestMapping(value = "/commentCAjax", 
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")

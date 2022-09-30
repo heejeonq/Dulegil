@@ -54,6 +54,7 @@ public class AccompanyController {
 			Map<String,Object> model = new HashMap<String,Object>();
 			
 			int cnt = dao.getInt("accom.getCnt",params);
+			int ccnt = dao.getInt("accom.getCCnt", params);
 			
 			HashMap<String, Integer> pd
 			= ips.getPagingData(Integer.parseInt(params.get("page")),						

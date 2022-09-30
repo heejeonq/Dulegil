@@ -220,7 +220,25 @@ WHERE POST_NO = #{no}
 AND MEMBER_NO = #{sMemNo}     
 </select>
 
-<!-- 좋아요 누른 사람 다 데려와서 세션이랑 비교 -->
+<!-- 댓글 신고하기 -->
+<insert id="commentReport" parameterType="hashmap">
+MERGE INTO REPORT <!-- 리포트 테이블 -->
+USING DUAL         <!-- 가상어쩌구 -->
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND COMMENT_NO = #{commentNo}) <!-- 리포트 테이블에 ㅇon(~~)이 조건이 있으면 -->
+WHEN NOT MATCHED THEN <!-- 실행 안해~! -->
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, COMMENT_NO, OTHER)<!-- 이구문들을... -->
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{commentNo}, #{reportContents, jdbcType = VARCHAR})
+</insert>
+
+<!-- 게시글 신고하기 -->
+<insert id="postReport" parameterType="hashmap">
+MERGE INTO REPORT
+USING DUAL
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND POST_NO = #{no})
+WHEN NOT MATCHED THEN
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, POST_NO, OTHER)
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{no}, #{reportContents, jdbcType = VARCHAR})
+</insert>
 
 
 </mapper>
