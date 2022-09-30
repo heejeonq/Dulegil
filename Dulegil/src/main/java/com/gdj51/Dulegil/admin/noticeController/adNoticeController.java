@@ -67,7 +67,7 @@ public class adNoticeController {
 
       int cnt = dao.getInt("adNotice.cnt",params);
       
-      HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 7, 5);
+      HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 12, 5);
 
       params.put("start", Integer.toString(pd.get("start")));
       params.put("end", Integer.toString(pd.get("end")));

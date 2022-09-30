@@ -138,16 +138,18 @@ tr{
 
 .Ctable table {
 	margin-top: 10px;
+	table-layout: fixed;
+	width: 1035px;
 }
 
 .Ctable th{
 	font-size: 11pt;
-	padding: 15px 0;
+	padding: 10px 0;
 }
 
 .Ctable td{
 	font-size: 10pt;
-	padding: 15px 0;
+	padding: 8px 0;
 	text-align: center;
 }
 
@@ -235,7 +237,7 @@ input:focus {
     font-size: 10pt;
     padding: 7px 16px;
     font-weight: 600;
-    margin: 20px 0 20px 10px;
+    margin: 10px 0 0 10px;
 }
 .btn.src{
 	margin-top: 0;
@@ -255,21 +257,29 @@ input:focus {
 /* 페이징 */
 .Cpaging, #hd2_paging{
 	font-size: 11pt;
-    margin: 26px;
+    margin: 15px;
     display: flex;
     justify-content: center;
 }
 
 #pBtn {
-	width: 40px;
+	width: 30px;
+	border: 1px solid #fff;
     text-align: center;
+    margin: 0 10px;
 }
 
 #pBtn:hover{
-	text-decoration: underline;
 	cursor: pointer;
+	border: 1px solid #f0c41994;
+    border-radius: 50%;
+	background-color: #fffce1;
 }
 
+.page_btn_on{
+	color: #f0c41994;
+	text-shadow: 1px 1px 1px #999;
+}
 
 /*  */
 #pBtn_GD {

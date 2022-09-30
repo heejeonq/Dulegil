@@ -65,8 +65,9 @@ AND POST_NO=#{no}
 </select>
 
 <!-- 조회수 -->
-<update id="updateTHit" parameterType="hashmap">
+<update id="updateNTHit" parameterType="hashmap">
 UPDATE NOTICE SET HIT = HIT+1
-WHERE POST_NO={no}
+WHERE POST_NO=#{no}
 </update>
+
 </mapper>

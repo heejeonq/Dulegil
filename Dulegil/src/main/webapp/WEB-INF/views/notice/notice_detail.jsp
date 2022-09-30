@@ -16,7 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$("#listBtn").on("click",function(list){	
+	$("#NlistBtn").on("click",function(list){	
 		history.go(-1);
 		$("#actionForm").attr();
 		$("#actionForm").submit();
@@ -75,7 +75,7 @@ $(document).ready(function(){
 				<div class="col"></div>	
 				<div class="emptyBox"></div>
 				<div class="btnBox">		
-					<input type="button" class="btn" id="listBtn" value="목록"/>
+					<input type="button" class="btn" id="NlistBtn" value="목록"/>
 				</div>
 			
 		</div>

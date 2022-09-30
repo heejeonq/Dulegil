@@ -647,7 +647,7 @@ function reloadList(){
       
       <hr/>
       <div class="conBox">
-      <div class="emptyBox"></div>
+
       <div class= "imgg">
       <c:if test="${!empty data.B_IMG}">			
 		<img src="resources/upload/${data.B_FILE}" /><br/>
@@ -686,7 +686,7 @@ function reloadList(){
        	</c:if>    
       </div>
          
-   <div class="emptyBox"></div>      
+   
       <div class="box2">
       
          
@@ -705,8 +705,7 @@ function reloadList(){
       </div>
       
       
-      <div class="emptyBox"></div>
-      <div class="emptyBox"></div>
+
          
          
       <hr/>

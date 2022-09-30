@@ -63,7 +63,7 @@ public class adEventController {
 		
 		int cnt = dao.getInt("evt.getAdEvtCnt", params);
 		
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 3);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 15, 3);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
