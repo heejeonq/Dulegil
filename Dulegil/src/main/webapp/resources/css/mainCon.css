@@ -70,36 +70,34 @@ ul {
 }
 .alarm_contents {
     width: 265px;
-    height: 243px;
-	position: absolute;
-	background-color: #def1da;
-	padding: 0 10px;
-	border-radius: 5px;
-	right: -10px;
-	margin-top: 10px;
-	z-index: 2;
-	display: none;
-	overflow: scroll;
-    overflow-x: hidden;
+    height: 260px;
+    position: absolute;
+    background-color: #def1da;
+    padding: 0 10px;
+    border-radius: 5px;
+    right: -10px;
+    margin-top: 10px;
+    z-index: 2;
+    display: none;
+    overflow: scroll;
     box-shadow: 1px 1px 3px #777;
 }
 .alarmMsg{
-	border-bottom:1px solid black;
+	border-bottom: 1px solid black;
+    width: 285px;
+    text-align: left;
 }
 li #nmAlarm{
-text-overflow:ellipsis; 
-overflow: hidden; 
-white-space:nowrap; 
-text-align: center;
-font-size:13px; 
-line-height:30px; 
-margin-top:5px; 
-width: 256px;
+	font-size: 13px;
+    line-height: 30px;
+    margin-top: 5px;
+    width: 295px;
+    text-align: left;
 }
 li #regDtAlarm{
-font-size:11px; 
-line-height:20px; 
-margin-bottom:5px;
+    font-size: 11px;
+    line-height: 20px;
+    margin-bottom: 5px;
 }
 span.material-symbols-outlined {
 	cursor: pointer;
