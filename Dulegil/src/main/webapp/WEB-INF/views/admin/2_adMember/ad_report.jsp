@@ -490,7 +490,7 @@ $(document).ready(function(){
 		for(var data of list){
 			//"+ +"
 		html += "<tr cate=\""+ data.CATE +"\" no=\""+ data.REPORT_NO +"\">";
-		html += "<td colspan=\"1\"><div><span href=\#none\ id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
+		html += "<td colspan=\"1\"><div><span  id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
 		html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
 		html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
@@ -526,7 +526,6 @@ $(document).ready(function(){
 	
 	
 	
-	
 		
 		
 		
@@ -540,7 +539,7 @@ $(document).ready(function(){
 			dataType: "json",
 			data : params,
 			success : function(res){
-	
+				drawList3(res.post);
 				drawList2(res.comment);	
 				console.log(res);
 			},
@@ -555,55 +554,84 @@ $(document).ready(function(){
 	
 		
 	
+	// 더보기 아이콘 회원일 때는 아이콘 X
 	
 	
 	
 	
 	
 	
-	
-	// 더보기 클릭시
+	// 더보기 아이콘 클릭시
 	$("tbody").on("click","tr span#show", function(){
 		console.log(this);
 		
-		
-		// 1. 더보기 리스트에 클릭한 리스트위에서 취득한 no 값을 rptNo에 넣어주기
-		$("#rptNo").val($(this).parent().parent().parent().attr("no"));
-		console.log($("#rptNo").val());
 		
 		console.log("------");
 		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
 		console.log($("#cateNo").val());
 		
 		
-		// 2.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
-		if(this.attr("cate")=="글"){
+		// 1.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
+		if($("#cateNo").val() =="댓글"){
 			
-		//}else if(){
-			
+		// 2. 더보기 리스트에 클릭한 리스트위에서 취득한 no=report_no 값을 rptNo에 넣어주기
+			$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
+			console.log("------");
+			console.log($("#rptNoC").val());
 		
-		//}else{
+
+			reloadList2();
+
+		
+			if(hide.style.display=='none') {
+				hide.style.display='';
+				$(this).html("expand_less");
+
+				
+			} else {
+				hide.style.display='none';
+				$(this).html("expand_more");
+				$("#rptNoM").val("");
+				$("#rptNoP").val("");
+				$("#rptNoC").val("");
+				
+			}
+			
+		}else if($("#cateNo").val() =="글"){
+			$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
+			console.log("------");
+			console.log($("#rptNoP").val());
+			reloadList2();
+
+			
+			if(hide.style.display=='none') {
+				hide.style.display='';
+				$(this).html("expand_less");
+
+				
+			} else {
+				hide.style.display='none';
+				$(this).html("expand_more");
+				$("#rptNoM").val("");
+				$("#rptNoP").val("");
+				$("#rptNoC").val("");
+				
+			}
+		
+		}else{
+			hide.style.display='';
+			$(this).html("");
+			$("#rptNoM").val($(this).parent().parent().parent().attr("no"));
+			console.log("------");
+			console.log($("#rptNoM").val());
 			
 			
-		//}
+		}
 		
 		
 		
 		// 3. 리스트 불러오기
 		
-		reloadList2();
-
-	
-		if(hide.style.display=='none') {
-			hide.style.display='';
-			$(this).html("expand_less");
-
-			
-		} else {
-			hide.style.display='none';
-			$(this).html("expand_more");
-			
-		}
 	});
 	
 	
@@ -645,6 +673,26 @@ $(document).ready(function(){
 
 		$("#hide tbody").html(html);
 		$("#hide .cmtBoxWrap").html(a);
+	}
+		
+	//post가 있을때
+	function drawList3(post){
+		var html = "";
+	
+		for(var data of post){
+			//"+ data. +"
+
+			html += "<tr id=\"rptNo\" name=\"rptNo\"  rptNo=\""+ data.REPORT_NO+"\">";
+			html += "<td>"+ data.POST_NO+"</td>";
+			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
+			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
+			html += "<td>"+ data.PNM +"</td>";
+			html += "<td>"+ data.REG_DT +"</td>";
+			html += "</tr>";		
+		
+		}
+		
+		$("#hide .cPost tbody").html(html);
 	}
 		
 	
@@ -775,7 +823,9 @@ $(document).ready(function(){
 						<div id="hd2_search">
 							<form action="#" id="actionForm" method="post">
 								<input type="hidden" name="no" id="no" /> 
-								<input type="hidden" name="rptNo" id="rptNo" />  
+								<input type="hidden" name="rptNoM" id="rptNoM" />  
+								<input type="hidden" name="rptNoP" id="rptNoP" />  
+								<input type="hidden" name="rptNoC" id="rptNoC" />  
 								<input type="hidden" name="cateNo" id="cateNo" />  
 								<input type="hidden" name="page" id="page" value="${page}" />
 
