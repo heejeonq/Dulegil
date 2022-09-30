@@ -164,7 +164,23 @@ WHERE COMMENT_NO = #{commentNo}
 UPDATE COMMENTS SET DEL_DT = SYSDATE
 WHERE COMMENT_NO =#{commentNo}
 </delete>
-
+<insert id="commentReport" parameterType="hashmap">
+MERGE INTO REPORT
+USING DUAL
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND COMMENT_NO = #{commentNo})
+WHEN NOT MATCHED THEN
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, COMMENT_NO, OTHER)
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{commentNo}, #{reportContents, jdbcType = VARCHAR})
+</insert>
+<!-- 게시글 신고하기 -->
+<insert id="postReport" parameterType="hashmap">
+MERGE INTO REPORT
+USING DUAL
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND POST_NO = #{no})
+WHEN NOT MATCHED THEN
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, POST_NO, OTHER)
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{no}, #{reportContents, jdbcType = VARCHAR})
+</insert>
 
 
 

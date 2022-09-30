@@ -27,7 +27,8 @@ public class adCommentController {
 	@Autowired
 	public IDao dao;
 
-	@Autowired IPagingService ips;
+	@Autowired 
+	public IPagingService ips;
 
 	
 	// 리스트 취득

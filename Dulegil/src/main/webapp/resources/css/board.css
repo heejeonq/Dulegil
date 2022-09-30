@@ -95,15 +95,15 @@
     width: 100%;
 }
 .btn {
+
+	
+	float: left;
+
+}
+.btn {	
+	display: inline-block;
 	height: 35px;
 	width: 60px;
-	color: black;
-	display: inline-block;
-	padding: 7px 16px;
-	float: left;
-	margin-top: 20px;
-}
-.btn {
     background-color: #f0c41994;
     border-radius: 4px;
     border: none;
@@ -112,7 +112,12 @@
     padding: 7px 16px;
     font-weight: 600;
 }
-
+#wriBtn{
+	width:65px;
+	float: left;
+	padding: 7px 11px;
+	margin-top: 20px;
+}
 .btn:hover{
 	background-color:#b9992194;
 }
@@ -347,6 +352,22 @@
 	float: right;
 	cursor: pointer;
 }
+.singo {
+    cursor: pointer;
+    float: right;
+    position: relative;
+ }
+ .singo_contents{
+ 	position: absolute;
+    flex-direction: column;
+    display: none;
+    font-size: 13px;
+    right: 10px;
+    box-shadow: 1px 1px 3px #777;
+    padding: 7px;
+    background-color: #ffff;
+    width: 100px;
+ }
 
 .idBox {
 	width: 100%;
@@ -453,7 +474,9 @@
 	margin-left: 422px;
     margin-top: 3px;
 }
-
+#aclistBtn{
+	margin-left: 510px;
+}
 .reporBtn{
   	display: inline-block;
 	vertical-align: top;

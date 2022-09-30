@@ -28,7 +28,6 @@ public class adMemberController {
 	public IDao dao;
 
 	@Autowired IPagingService ips;
-
 	
 	// 리스트 취득
 	@RequestMapping(value="/adMemList")

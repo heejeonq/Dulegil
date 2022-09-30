@@ -56,7 +56,7 @@ $(document).ready(function(){
 	<!-- header -->
 	<div class="header">
 		<div class="headerIcon">
-			<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
+			<span class="material-symbols-outlined" id="logoutBtn"> Logout </span>로그아웃
 		</div>
 	</div>
 

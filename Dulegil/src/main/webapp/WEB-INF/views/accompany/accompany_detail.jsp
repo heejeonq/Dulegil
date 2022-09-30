@@ -46,39 +46,40 @@ $(document).ready(function(){
 	//댓글 신고하기
 	$(".mainView4").on("click", ".singo img", function(){
 		
-		if($(this).parent().children(".singo_contents").css("display") == "none"){
-			$(".singo_contents").css("display", "none");
-			$(this).parent().children(".singo_contents").css("display", "flex");
+		if($(this).parent().children(".singo_contents").css("display") == "none"){//클릭한 신고팝업이 안보이는 상태면
+			$(".singo_contents").css("display", "none");    //모든 신고팝업들은 모두 꺼진다     
+			$(this).parent().children(".singo_contents").css("display", "flex");//내가 클릭한 신고팝업을 켜준다
 			//$(".singo_contents").show();		
 		}
-		else {
-			$(this).parent().children(".singo_contents").css("display", "none");
+		else {  //그게 아니면
+			$(this).parent().children(".singo_contents").css("display", "none"); //보이는 상태면 클릭한걸 없애주겠다
 		}
 	
 	});
 	
 	$(".mainView4").on("click", "#reportBtn", function(){
-		let commentNo = $(this).parent().parent().parent().attr("commentNo");
-		let reportNo = $('input[name="report"]:checked').val();
-
-		$("#commentNo").val(commentNo);
-		$("#reportTypeNo").val(reportNo);
+		let commentNo = $(this).parent().parent().parent().attr("commentNo"); //내가 클릭한 댓글번호를 받아옴
+		let reportNo = $('input[name="report"]:checked').val(); //선택한 신고 번호를 불러오겠다.
+        //댓글번호와 신고번호를 보내줘야함 
+		
+		$("#commentNo").val(commentNo); // commentNo 값을 #commentNo 넣어줌
+		$("#reportTypeNo").val(reportNo); //
 	
 		if (reportNo == null) {
             makeAlert("알림", "신고내용을 선택하세요.", function() {
             });
 		 }
 		else{
-			if(reportNo == "5"){
-				
-				reportText();
+			if(reportNo == "5"){ //기타버툰울 선택하면
+				 
+				reportText();  //function reportText() 실행
 			}
 			else{
-				action("commentReport");
+				action("commentReport"); //그밖은 액션 실행
 			
 			}
 			$(".singo_contents").css("display", "none");
-			
+	//그리고 팝업창 없애주기		
 		}
 		
 		
@@ -86,7 +87,7 @@ $(document).ready(function(){
 	
 	
 	//게시글 버튼
-	$("#listBtn").on("click",function(){
+	$("#aclistBtn").on("click",function(){
 		$("#actionForm").attr("action","accompany")
 		$("#actionForm").submit();
 	});
@@ -303,7 +304,8 @@ function reportText() {
 			             });
 					 }
 					 else{
-						action("postReport");
+						action("commentsReport");
+						$("#reportContents").val("");
 						closePopup();
 						 
 					 }
@@ -361,11 +363,13 @@ function reportText2() {
 						 }
 						else{
 							action("postReport");
+							$("#reportContents").val("");
 							closePopup();
 						}
 					}
 					 else{
 						action("postReport");
+						$("#reportContents").val("");
 						closePopup();
 						 
 					 }
@@ -686,6 +690,16 @@ function reloadList(){
        	</c:if>    
       </div>
          
+<<<<<<< HEAD
+   <div class="emptyBox"></div>      
+      <div class="box2">                      
+    
+         <input type="button" class="btn" id="aclistBtn" value="목록"/>
+         <c:if test="${sMemNo eq data.MEMBER_NO}" >			
+				<input type="button" class="btn" id="updateBtn" value="수정"/>
+				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
+		 </c:if>
+=======
    
       <div class="box2">
       
@@ -696,6 +710,7 @@ function reloadList(){
 			<input type="button" class="btn" id="updateBtn" value="수정"/>
 		</c:if>    
          <input type="button" class="btn" id="listBtn" value="목록"/>
+>>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
       </div>
             
       </div>

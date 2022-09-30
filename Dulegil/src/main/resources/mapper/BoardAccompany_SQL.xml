@@ -37,7 +37,7 @@ INNER JOIN BOARD_COURSE B
 </select>
 <!-- 목록 -->
 <select id="getAccomList" parameterType="hashmap" resultType="hashmap">	
-SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS,F.IMG_FILE,F.COURSE_NO,F.COURSE_NM,NVL(F.CNT,0)AS GOOD,ROW_NUMBER() OVER(ORDER BY F.POST_NO DESC) AS RNUM  
+SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS,F.IMG_FILE,F.COURSE_NO,F.COURSE_NM,NVL(F.CNT,0)AS GOOD,ROW_NUMBER() OVER(ORDER BY F.POST_NO DESC) AS RNUM ,NVL(CNT,0)AS CNT
 FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,B.COURSE_NO,C.COURSE_NM,CNT
      FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.IMG_FILE,
                 CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
@@ -57,9 +57,11 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,B.COU
        ON B.COURSE_NO= C.COURSE_NO 
       LEFT OUTER JOIN 
       (SELECT COUNT(*)AS CNT,POST_NO
-      FROM GOOD
-      GROUP BY POST_NO)
-      GC ON B.POST_NO=GC.POST_NO
+                        FROM COMMENTS
+                        WHERE DEL_DT IS NULL
+                        GROUP BY POST_NO)
+                     CC ON G.POST_NO=CC.POST_NO
+                     WHERE 1=1
       )F
        WHERE F.RNUM BETWEEN #{start} AND #{end}
        <if test="searchTxt != null and searchTxt !=''">
@@ -226,15 +228,18 @@ DELETE FROM ACCOMPANY_APPLY
 WHERE POST_NO = #{no}
 AND MEMBER_NO = #{sMemNo}
 </delete>
+
+
 <!-- 댓글 신고하기 -->
 <insert id="commentReport" parameterType="hashmap">
-MERGE INTO REPORT
-USING DUAL
-    ON (REPORT_MEMBER_NO = #{sMemNo} AND COMMENT_NO = #{commentNo})
-WHEN NOT MATCHED THEN
-    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, COMMENT_NO, OTHER)
+MERGE INTO REPORT <!-- 리포트 테이블 -->
+USING DUAL         <!-- 가상어쩌구 -->
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND COMMENT_NO = #{commentNo}) <!-- 리포트 테이블에 ㅇon(~~)이 조건이 있으면 -->
+WHEN NOT MATCHED THEN <!-- 실행 안해~! -->
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, COMMENT_NO, OTHER)<!-- 이구문들을... -->
     VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{commentNo}, #{reportContents, jdbcType = VARCHAR})
 </insert>
+
 <!-- 게시글 신고하기 -->
 <insert id="postReport" parameterType="hashmap">
 MERGE INTO REPORT
@@ -244,4 +249,6 @@ WHEN NOT MATCHED THEN
     INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, POST_NO, OTHER)
     VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{no}, #{reportContents, jdbcType = VARCHAR})
 </insert>
+
+
 </mapper>
