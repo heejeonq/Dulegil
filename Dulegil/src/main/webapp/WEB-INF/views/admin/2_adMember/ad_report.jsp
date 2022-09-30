@@ -563,30 +563,20 @@ $(document).ready(function(){
 	
 	// 더보기 아이콘 클릭시
 	$("tbody").on("click","tr span#show", function(){
-		console.log(this);
-		
-		
-		console.log("------");
 		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
-		console.log($("#cateNo").val());
+
 		
-		
-		// 1.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
+		// 댓글
 		if($("#cateNo").val() =="댓글"){
 			
-		// 2. 더보기 리스트에 클릭한 리스트위에서 취득한 no=report_no 값을 rptNo에 넣어주기
 			$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
-			console.log("------");
-			console.log($("#rptNoC").val());
-		
-
+			
 			reloadList2();
 
 		
 			if(hide.style.display=='none') {
 				hide.style.display='';
 				$(this).html("expand_less");
-
 				
 			} else {
 				hide.style.display='none';
@@ -594,15 +584,17 @@ $(document).ready(function(){
 				$("#rptNoM").val("");
 				$("#rptNoP").val("");
 				$("#rptNoC").val("");
-				
+				$("#cateNo").val("");				
 			}
 			
+			
+			
+			
+		// 글
 		}else if($("#cateNo").val() =="글"){
-			$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
-			console.log("------");
-			console.log($("#rptNoP").val());
-			console.log($(this).val());
 			
+			$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
+
 			reloadList2();
 
 			
@@ -616,23 +608,21 @@ $(document).ready(function(){
 				$(this).html("expand_more");
 				$("#rptNoM").val("");
 				$("#rptNoP").val("");
-				$("#rptNoC").val("");
-				
+				$("#rptNoC").val("");		
 			}
-		
+			
+			
+		// 회원
 		}else{
 			hide.style.display='';
 			$(this).html("");
 			$("#rptNoM").val($(this).parent().parent().parent().attr("no"));
-			console.log("------");
-			console.log($("#rptNoM").val());
-			
-			
+		
 		}
 		
 		
 		
-		// 3. 리스트 불러오기
+	
 		
 	});
 	
@@ -677,24 +667,34 @@ $(document).ready(function(){
 		$("#hide .cmtBoxWrap").html(a);
 	}
 		
+	
+	
+	
+	
 	//post가 있을때
 	function drawList3(post){
 		var html = "";
-	
+		var a ="";
+
 		for(var data of post){
 			//"+ data. +"
 
-			html += "<tr id=\"rptNo\" name=\"rptNo\"  rptNo=\""+ data.REPORT_NO+"\">";
+			html += "<tr rptNoP=\""+ data.REPORT_NO+"\">";
 			html += "<td>"+ data.POST_NO+"</td>";
 			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
 			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
 			html += "<td>"+ data.PNM +"</td>";
 			html += "<td>"+ data.REG_DT +"</td>";
 			html += "</tr>";		
+			
+			a += "<div class=\"cmtBoxWrap\">";
+			a += "<div class=\"CB\">"+ data.POST +"</div>";
+			a += "</div>";
 		
 		}
 		
-		$("#hide tbody.cPost").html(html);
+		$("#hide tbody").html(html);
+		$("#hide .CB").html(a);
 	}
 		
 	

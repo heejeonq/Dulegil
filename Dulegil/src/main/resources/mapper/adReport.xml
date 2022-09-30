@@ -97,6 +97,8 @@
 	WHERE R.REPORT_NO = #{rptNoC}
 	</select>
 
+
+
 	<!-- 더보기 - 글 -->
 	<select id="post" resultType="hashmap">
 	  SELECT R.REPORT_NO,P.POST_NO, BT.BLTNBOARD_NM, P.TITLE, P.REG_DT, P.CONTENTS AS POST, M.NM AS PNM
