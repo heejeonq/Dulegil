@@ -490,7 +490,11 @@ $(document).ready(function(){
 		for(var data of list){
 			//"+ +"
 		html += "<tr cate=\""+ data.CATE +"\" no=\""+ data.REPORT_NO +"\">";
-		html += "<td colspan=\"1\"><div><span  id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
+		html += "<td colspan=\"1\">";
+		if(data.CATE != "회원") {
+			html += "<div><span  id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_less\ </span></div>";
+		}
+		html += "</td> ";
 		html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
 		html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
@@ -539,8 +543,17 @@ $(document).ready(function(){
 			dataType: "json",
 			data : params,
 			success : function(res){
-				drawList3(res.post);
-				drawList2(res.comment);	
+				$("#hide tbody").empty();
+				$("#hide .cmtBoxWrap").empty();
+				
+				// 댓글
+				if($("#cateNo").val() =="댓글"){
+					drawList2(res.comment);	
+				// 글
+				}else if($("#cateNo").val() =="글"){
+					drawList3(res.post);
+				}
+				
 				console.log(res);
 			},
 			error : function(request, status, error){
@@ -565,64 +578,26 @@ $(document).ready(function(){
 	$("tbody").on("click","tr span#show", function(){
 		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
 
-		
-		// 댓글
-		if($("#cateNo").val() =="댓글"){
-			
-			$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
-			
-			reloadList2();
-
-		
-			if(hide.style.display=='none') {
-				hide.style.display='';
-				$(this).html("expand_less");
-				
-			} else {
-				hide.style.display='none';
-				$(this).html("expand_more");
-				$("#rptNoM").val("");
-				$("#rptNoP").val("");
-				$("#rptNoC").val("");
-				$("#cateNo").val("");				
+		if($(this).html() == "expand_more") {
+			$("#hide").hide();
+			$(this).html("expand_less");
+		} else {
+			// 댓글
+			if($("#cateNo").val() =="댓글"){
+				$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
+			// 글
+			}else if($("#cateNo").val() =="글"){
+				$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
 			}
 			
-			
-			
-			
-		// 글
-		}else if($("#cateNo").val() =="글"){
-			
-			$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
-
 			reloadList2();
-
 			
-			if(hide.style.display=='none') {
-				hide.style.display='';
+			$("tbody tr span#show").each(function() {
 				$(this).html("expand_less");
-
-				
-			} else {
-				hide.style.display='none';
-				$(this).html("expand_more");
-				$("#rptNoM").val("");
-				$("#rptNoP").val("");
-				$("#rptNoC").val("");		
-			}
-			
-			
-		// 회원
-		}else{
-			hide.style.display='';
-			$(this).html("");
-			$("#rptNoM").val($(this).parent().parent().parent().attr("no"));
-		
+			});
+			$(this).html("expand_more");
+			$("#hide").show();
 		}
-		
-		
-		
-	
 		
 	});
 	
@@ -665,6 +640,11 @@ $(document).ready(function(){
 
 		$("#hide tbody").html(html);
 		$("#hide .cmtBoxWrap").html(a);
+		
+		$("#rptNoM").val("");
+		$("#rptNoP").val("");
+		$("#rptNoC").val("");
+		$("#cateNo").val("");
 	}
 		
 	
