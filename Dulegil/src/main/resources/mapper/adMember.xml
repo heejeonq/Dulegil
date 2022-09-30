@@ -105,4 +105,22 @@
 		      AND A.AUTHORITY_NO IN (2, 3) )AM
 		WHERE MEMBER_NO = #{no}
 	</select>
+	
+	<select id="adList"  resultType="hashmap">
+		SELECT MEMBER_NO, A.AUTHORITY_NM, NM, EMAIL, PWD, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS RED_DT
+		FROM MEMBER M INNER JOIN AUTHORITY A
+		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
+		WHERE M.AUTHORITY_NO = 1
+		AND DEL_DT IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+						AND NM LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND EMAIL LIKE '%' || #{searchTxt} || '%'		
+					</when>
+			</choose>
+		</if> 
+	</select>
 </mapper>

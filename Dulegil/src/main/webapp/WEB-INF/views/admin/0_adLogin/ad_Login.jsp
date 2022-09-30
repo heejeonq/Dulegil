@@ -103,11 +103,11 @@ input {
 	width: 300px;
 	border: none;
 	cursor: pointer;
-	font-size: 12pt;
+	font-size: 13pt;
 	padding: 15px 7px;
 }
 
-.input:focus {
+input:focus {
 	outline: none;
 }
 
@@ -194,11 +194,11 @@ function login(){
 			<div class="login_box">
 				<form action="#" id="actionForm" method="post">
 					<div class="id_box">
-						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;">info</span>
+						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> face </span>
 						<input type="text"   name="id" id="id" class="input" placeholder="ID" maxlength="20" />
 					</div>
 					<div class="pw_box">
-						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> lock </span> 
+						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> key </span> 
 						<input type="password" name="pwd" id="pwd" class="input" placeholder="PASSWORD" maxlength="20" />
 					</div>
 				</form>
