@@ -6,18 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항 목록</title>
+<title>공지사항 관리</title>
 <style type="text/css">
 #ntcTit:hover{
 	text-decoration: underline;
 	cursor: pointer;
 }
-
 #file_present{
 	margin-left: 10px;
 	font-size: 14pt;
 }
-
 #campaign {
     margin-right: 10px;
 }
@@ -267,7 +265,7 @@ function drawPaging(pd) {
 	<div class="container">
 		<div class="Cname">
 			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_document</span>
-			공지사항 목록
+			공지사항 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="no" name="no"/><!-- 상세보기 -->
@@ -301,7 +299,7 @@ function drawPaging(pd) {
 								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							</tr>
 						</thead>
-						<tbody id="Ctbody"></tbody>
+						<tbody></tbody>
 					</table>
 				</div>
 				<div class="Cbtnright">

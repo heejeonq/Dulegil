@@ -56,7 +56,7 @@ $(document).ready(function(){
 	<!-- header -->
 	<div class="header">
 		<div class="headerIcon">
-			<span class="material-symbols-outlined" id="logoutBtn"> exit_to_app </span>로그아웃
+			<span class="material-symbols-outlined" id="logoutBtn"> Logout </span>로그아웃
 		</div>
 	</div>
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
 	
 				<div class="btnAll" id="ntcBtn">
 					<span class="material-symbols-outlined" > edit_document </span>
-					<span>공지사항</span>
+					<span>공지사항 관리</span>
 				</div>
 	
 				<div class="btnAll" id="evtBtn">

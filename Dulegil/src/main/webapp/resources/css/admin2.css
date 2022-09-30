@@ -3,7 +3,6 @@
 select, th, td, div, span, input, a{
 	font-family: 'Pretendard-Regular';
 }
-
 html, body {
 	min-width: 1300px;
 	margin: 0;
@@ -11,22 +10,27 @@ html, body {
 	color: #5a5a5a;
 	width: 100%;
 }
-
 body{
 	width: 100%;
 	display: grid;
 	grid-template-rows: 65px calc(100% - 65px);
 	grid-template-columns: 236px calc(100% - 236px);
 }
-
 table {
 	border-collapse: collapse;
 }
-
+input:focus {
+	outline: none;
+}
 .material-symbols-outlined {
 	vertical-align: middle;	
 }
-
+.icon {
+	width: 200px;
+	height: 200px;
+	margin: 20px auto;
+	font-size: 100%
+}
 /* 헤더 상단바 */
 .header {
 	width: 100%;
@@ -34,10 +38,12 @@ table {
 	background-color: #fffce1;
 	grid-column:span 2;
 }
-
 .headerIcon {
 	float: right;
     padding: 20px;
+}
+#logoutBtn{
+	cursor: pointer;
 }
 
 /* 사이드바 */
@@ -51,7 +57,6 @@ table {
 	background: #fffce1;
 	grid-column: 1 / 2;
 }
-
 #logo {
 	width: 150px;
     height: 95px;
@@ -62,13 +67,11 @@ table {
 	background-position: center;
 	background-size: contain;
 }
-
 .adMenu {
     font-size: 13pt;
     text-align: left;
     padding: 0 20px 35px;
 }
-
 .btnAll {
 	cursor: pointer;
     font-size: 12pt;
@@ -85,19 +88,15 @@ table {
 	padding-right: 0;
 	grid-column: 2 / 2;
 	height: calc(100% - 65px);
-
 }
-
 .Cname {
 	font-size: 18pt;
     font-weight: 600;
 }
-
 .Ccon.left, .Ccon.right{
 	display: inline-block;
 	margin-top: 20px;
 }
-
 .Ccon.right{
 	margin-top: 0;
 	margin-left: 20px;
@@ -112,7 +111,6 @@ table {
 	text-align: center;
 	font-size: 20px;
 }
-
 .sel, .commentBoxT, #cateNo, #aut {
 	width: 300px;
 	height: 30px;
@@ -122,11 +120,9 @@ table {
 	border: 1px solid #ddd;
 	border-radius: 3px;
 }
-
 .sel {
 	width: 80px;
 }
-
 input:focus, .sel:focus, #cateNo:focus {
 	outline: none;
 }
@@ -135,26 +131,23 @@ input:focus, .sel:focus, #cateNo:focus {
 tr{
 	border-bottom: 1px solid #f4f5ee;
 }
-
 .Ctable table {
 	margin-top: 10px;
+	table-layout: fixed;
+	width: 1035px;
 }
-
 .Ctable th{
 	font-size: 11pt;
-	padding: 15px 0;
+	padding: 10px 0;
 }
-
 .Ctable td{
 	font-size: 10pt;
-	padding: 15px 0;
+	padding: 8px 0;
 	text-align: center;
 }
-
 .Ctable td:nth-child(2) {
     text-align: left;
 }
-
 .Ccon.right th, .Ccon.right td{
 	padding-left: 0;
 	padding-right: 0;
@@ -168,11 +161,9 @@ tr{
 	font-size: 11pt;
 	padding: 15px 0;
 }
-
 .Cdeailtable th:first-child {
     padding-left: 20px;
 }
-
 .Cdeailtable td{
 	font-size: 11pt;
 	text-align: center;
@@ -187,16 +178,13 @@ tr{
 	margin: 40px 10px 0;
     font-size: 10pt;
 }
-
 .Cinput tr{
 	border: none;
 }
-
 .Cinput th {
 	width: 60px;
     padding: 8px;
 }
-
 .Cinput input[type='text'], .Cinput input[type='date']{
 	width: 100%;
     height: 35px;
@@ -205,28 +193,21 @@ tr{
 	border-bottom: 1px solid #ddd;
 	font-size: 11pt;
 }
-
 .Cinput input[type='date']{
 	width: 30%;
 }
 
-input:focus {
-	outline: none;
-}
 /* 버튼 */
-.Cbtnright {
-	float: right;
-}
-
 .Cbtn{
 	height: 70px;	
 }
-
+.Cbtnright {
+	float: right;
+}
 .Cbtncenter {
 	text-align: center;
     margin-top: 10px;
 }
-
 .btn {
 	background-color: #f0c41994;
     border-radius: 4px;
@@ -235,7 +216,7 @@ input:focus {
     font-size: 10pt;
     padding: 7px 16px;
     font-weight: 600;
-    margin: 20px 0 20px 10px;
+    margin: 10px 0 0 10px;
 }
 .btn.src{
 	margin-top: 0;
@@ -247,7 +228,6 @@ input:focus {
 	font-size: 11pt;
 	display: inline-block;
 }
-
 .fc-event-title {
 	color: #5a5a5a;
 }
@@ -255,143 +235,61 @@ input:focus {
 /* 페이징 */
 .Cpaging, #hd2_paging{
 	font-size: 11pt;
-    margin: 26px;
+    margin: 15px;
     display: flex;
     justify-content: center;
 }
-
 #pBtn {
-	width: 40px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #fff;
     text-align: center;
+    margin: 0 10px;
 }
-
 #pBtn:hover{
-	text-decoration: underline;
 	cursor: pointer;
+	border: 1px solid #f0c41994;
+    border-radius: 50%;
+	background-color: #fffce1;
+}
+.page_btn_on{
+	color: #f0c41994;
+	text-shadow: 1px 1px 1px #999;
 }
 
-
-/*  */
-#pBtn_GD {
-	width: 15px;
-	height: 15px;
-	margin-right: 30px;
-
+/* 사용자 정보 */
+.adInform {
 	display: inline-block;
+	vertical-align: top;
+	margin: 0 20px;
+	font-size: 13pt;
 }
-
-.pBtn {
-	border: none;
-	border-radius: 100px;
-	font-size: 12px;
-	background-color: white;
-	display: inline-box;
-	font-family: "Gothic A1";
-	font-weight: 700;
-	color: #5a5a5a;
-	transform: rotate(0.04deg);
-	cursor: pointer;
-}
-.pBtn_GD {
-	border: none;
-	border-radius: 100px;
-	font-size: 12px;
-	display: inline-box;
-	font-family: "Gothic A1";
-	font-weight: 700;
-	color: #5a5a5a;
-	transform: rotate(0.04deg);
-	cursor: pointer;
-}
-
-.myButton {
-	background-color: #ededed;
-	border-radius: 4px;
-	border: none;
+.loginInform, .adIcon{
 	display: inline-block;
-	cursor: pointer;
-	color: #5e5e5e;
-	font-family: 'Gothic A1';
-	font-size: 13px;
-	padding: 7px 13px;
-	FONT-WEIGHT: 600;
-	text-decoration: none;
-	margin-top: 4px;
+	vertical-align: top;
 }
-
-.myButton:hover {
-	background-color: #dfdfdf;
+.adIcon{
+	margin: 20px 30px;
 }
-
-.myButton:active {
-	position: relative;
-	top: 1px;
+.loginInform{
+	margin-top: 22%;	
 }
-
-#Cname_box {
-	display: inline-block;
-	width: 50px;
+.adList {
+	font-size: 13pt;
 }
-
-
-/* 로그인 */
-.login_banner {
-	width: 200px;
-	height: 50px;
-	display: inline-block;
-	margin-top: 30px;
-	background-color: white;
-	font-size: 20pt;
+#adNmSpan{
+	display: flex;
+	justify-content: center;
+    font-size: 100pt;
+    color: #C0C0C0;
 }
-
-.login_box input{
-	border: none;
-	font-size: 12pt;
+#adNm{
+	display: flex;
+	justify-content: center;
+	font-size: 15pt;
+	margin: 0;
 }
-#bottom #login .login_box {
-	width: 400px;
-	height: 250px;
-	margin: 50px 0px 0px 200px; /*아니 왜 중간으로 안오는거*/
-	border: solid 1px #444;
-	/*background-color: white;*/
-	font-family: "Gothic A1";
-	font-weight: 500;
-}
-#bottom #login .login_box .id_box {
-	width: 350px;
-	height: 50px;
-	display: inline-block;
-	margin-top: 25px;
-	border: solid 1px #444;
-	background-color: white;
-	position: relative;
-}
-
-#bottom #login .login_box .pw_box {
-	width: 350px;
-	height: 50px;
-	display: inline-block;
-	margin-top: 10px;
-	border: solid 1px #444;
-	background-color: white;
-	position: relative;
-}
-
-.pw_box, .id_box {
-	font-size: 20px;
-}
-
-.icon {
-	width: 200px;
-	height: 200px;
-	margin: 20px auto;
-	font-size: 100%
-}
-
-#logoutBtn{
-	cursor: pointer;
-}
-
-input:focus {
-	outline: none;
+#key{
+	font-size: 20pt; 
+	color: #C0C0C0; 
 }

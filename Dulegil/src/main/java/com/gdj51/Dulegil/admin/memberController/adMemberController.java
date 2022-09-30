@@ -28,7 +28,6 @@ public class adMemberController {
 	public IDao dao;
 
 	@Autowired IPagingService ips;
-
 	
 	// 리스트 취득
 	@RequestMapping(value="/adMemList")
@@ -37,7 +36,7 @@ public class adMemberController {
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		int page = 1;
 
@@ -75,7 +74,7 @@ public class adMemberController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		int cnt = dao.getInt("adMember.cnt",params);
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,10,3);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,15,3);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
@@ -131,7 +130,7 @@ public class adMemberController {
 				@RequestParam HashMap<String, String> params,
 				ModelAndView mav) throws Throwable{
 
-			if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+			if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 			int page = 1;
 

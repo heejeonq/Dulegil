@@ -490,7 +490,11 @@ $(document).ready(function(){
 		for(var data of list){
 			//"+ +"
 		html += "<tr cate=\""+ data.CATE +"\" no=\""+ data.REPORT_NO +"\">";
-		html += "<td colspan=\"1\"><div><span href=\#none\ id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
+		html += "<td colspan=\"1\">";
+		if(data.CATE != "회원") {
+			html += "<div><span  id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_less\ </span></div>";
+		}
+		html += "</td> ";
 		html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
 		html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
@@ -526,7 +530,6 @@ $(document).ready(function(){
 	
 	
 	
-	
 		
 		
 		
@@ -540,8 +543,17 @@ $(document).ready(function(){
 			dataType: "json",
 			data : params,
 			success : function(res){
-	
-				drawList2(res.comment);	
+				$("#hide tbody").empty();
+				$("#hide .cmtBoxWrap").empty();
+				
+				// 댓글
+				if($("#cateNo").val() =="댓글"){
+					drawList2(res.comment);	
+				// 글
+				}else if($("#cateNo").val() =="글"){
+					drawList3(res.post);
+				}
+				
 				console.log(res);
 			},
 			error : function(request, status, error){
@@ -555,55 +567,38 @@ $(document).ready(function(){
 	
 		
 	
+	// 더보기 아이콘 회원일 때는 아이콘 X
 	
 	
 	
 	
 	
 	
-	
-	// 더보기 클릭시
+	// 더보기 아이콘 클릭시
 	$("tbody").on("click","tr span#show", function(){
-		console.log(this);
-		
-		
-		// 1. 더보기 리스트에 클릭한 리스트위에서 취득한 no 값을 rptNo에 넣어주기
-		$("#rptNo").val($(this).parent().parent().parent().attr("no"));
-		console.log($("#rptNo").val());
-		
-		console.log("------");
 		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
-		console.log($("#cateNo").val());
-		
-		
-		// 2.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
-		if(this.attr("cate")=="글"){
-			
-		//}else if(){
-			
-		
-		//}else{
-			
-			
-		//}
-		
-		
-		
-		// 3. 리스트 불러오기
-		
-		reloadList2();
 
-	
-		if(hide.style.display=='none') {
-			hide.style.display='';
+		if($(this).html() == "expand_more") {
+			$("#hide").hide();
 			$(this).html("expand_less");
-
-			
 		} else {
-			hide.style.display='none';
-			$(this).html("expand_more");
+			// 댓글
+			if($("#cateNo").val() =="댓글"){
+				$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
+			// 글
+			}else if($("#cateNo").val() =="글"){
+				$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
+			}
 			
+			reloadList2();
+			
+			$("tbody tr span#show").each(function() {
+				$(this).html("expand_less");
+			});
+			$(this).html("expand_more");
+			$("#hide").show();
 		}
+		
 	});
 	
 	
@@ -645,6 +640,41 @@ $(document).ready(function(){
 
 		$("#hide tbody").html(html);
 		$("#hide .cmtBoxWrap").html(a);
+		
+		$("#rptNoM").val("");
+		$("#rptNoP").val("");
+		$("#rptNoC").val("");
+		$("#cateNo").val("");
+	}
+		
+	
+	
+	
+	
+	//post가 있을때
+	function drawList3(post){
+		var html = "";
+		var a ="";
+
+		for(var data of post){
+			//"+ data. +"
+
+			html += "<tr rptNoP=\""+ data.REPORT_NO+"\">";
+			html += "<td>"+ data.POST_NO+"</td>";
+			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
+			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
+			html += "<td>"+ data.PNM +"</td>";
+			html += "<td>"+ data.REG_DT +"</td>";
+			html += "</tr>";		
+			
+			a += "<div class=\"cmtBoxWrap\">";
+			a += "<div class=\"CB\">"+ data.POST +"</div>";
+			a += "</div>";
+		
+		}
+		
+		$("#hide tbody").html(html);
+		$("#hide .CB").html(a);
 	}
 		
 	
@@ -775,7 +805,9 @@ $(document).ready(function(){
 						<div id="hd2_search">
 							<form action="#" id="actionForm" method="post">
 								<input type="hidden" name="no" id="no" /> 
-								<input type="hidden" name="rptNo" id="rptNo" />  
+								<input type="hidden" name="rptNoM" id="rptNoM" />  
+								<input type="hidden" name="rptNoP" id="rptNoP" />  
+								<input type="hidden" name="rptNoC" id="rptNoC" />  
 								<input type="hidden" name="cateNo" id="cateNo" />  
 								<input type="hidden" name="page" id="page" value="${page}" />
 

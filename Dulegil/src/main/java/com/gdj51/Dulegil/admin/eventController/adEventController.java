@@ -33,7 +33,7 @@ public class adEventController {
 			HttpSession session,
 			@RequestParam HashMap<String, String>params,
 			ModelAndView mav) throws Throwable {
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		int page = 1;
 		
@@ -63,7 +63,7 @@ public class adEventController {
 		
 		int cnt = dao.getInt("evt.getAdEvtCnt", params);
 		
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 3);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 15, 3);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
@@ -81,7 +81,7 @@ public class adEventController {
 			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		if(params.get("no") != null && params.get("no") != "") {
 			
@@ -107,7 +107,7 @@ public class adEventController {
 			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		if(params.get("no") != null && params.get("no") != "") {
 			
@@ -131,7 +131,7 @@ public class adEventController {
 			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		mav.setViewName("admin/4_adEvent/ad_event_write");
 		}else {

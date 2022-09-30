@@ -27,7 +27,8 @@ public class adCommentController {
 	@Autowired
 	public IDao dao;
 
-	@Autowired IPagingService ips;
+	@Autowired 
+	public IPagingService ips;
 
 	
 	// 리스트 취득
@@ -37,7 +38,7 @@ public class adCommentController {
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
 
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 		int page = 1;
 
@@ -45,14 +46,18 @@ public class adCommentController {
 			page = Integer.parseInt(params.get("page"));
 		}
 		
+		List<HashMap<String, String>> cate = dao.getList("adComment.category");
+		
 		mav.addObject("page", page);
+		
+		mav.addObject("cate", cate);
+		
 		mav.setViewName("admin/2_adMember/ad_comment");
 		}else
 			mav.setViewName("admin/0_adLogin/ad_Login");
-			return mav;
+			
+		return mav;
 	}
-
-
 
 
 	// 아작스
@@ -67,14 +72,17 @@ public class adCommentController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		int cnt = dao.getInt("adComment.cnt",params);
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,10,5);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,15,5);
 		
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 		
 		List<HashMap<String, String>> list = dao.getList("adComment.list", params);
+		
+		List<HashMap<String, String>> cate = dao.getList("adComment.category");
 
 		model.put("list", list);
+		model.put("cate", cate);
 		model.put("pd", pd);
 		return mapper.writeValueAsString(model);
 	}

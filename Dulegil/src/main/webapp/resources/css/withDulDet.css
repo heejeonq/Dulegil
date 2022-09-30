@@ -48,6 +48,7 @@
 
 .te{
    width:1000px;
+   min-height: 100px;
    padding:20px;
    font-size:14px;
    text-align:left;
@@ -96,6 +97,10 @@
     margin: 30px auto;
     font-size:12px;
     border: none;
+}
+.DulList img {
+	top: 4px;
+    position: relative;
 }
 .withM{
    border:1px solid #ddd;

@@ -651,7 +651,7 @@ function reloadList(){
       
       <hr/>
       <div class="conBox">
-      <div class="emptyBox"></div>
+
       <div class= "imgg">
       <c:if test="${!empty data.B_IMG}">			
 		<img src="resources/upload/${data.B_FILE}" /><br/>
@@ -690,6 +690,7 @@ function reloadList(){
        	</c:if>    
       </div>
          
+<<<<<<< HEAD
    <div class="emptyBox"></div>      
       <div class="box2">                      
     
@@ -698,6 +699,18 @@ function reloadList(){
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 		 </c:if>
+=======
+   
+      <div class="box2">
+      
+         
+         
+        <c:if test="${sMemNo eq data.MEMBER_NO}" >
+			<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
+			<input type="button" class="btn" id="updateBtn" value="수정"/>
+		</c:if>    
+         <input type="button" class="btn" id="listBtn" value="목록"/>
+>>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
       </div>
             
       </div>
@@ -707,8 +720,7 @@ function reloadList(){
       </div>
       
       
-      <div class="emptyBox"></div>
-      <div class="emptyBox"></div>
+
          
          
       <hr/>
