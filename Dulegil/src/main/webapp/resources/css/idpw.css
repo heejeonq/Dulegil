@@ -16,8 +16,11 @@ input:focus, select:focus {
 .inpCon {
 	width: 500px;
 	border: 1px solid #ddd;
-	background-color: white;
-	border-radius: 3px;
+	backdrop-filter: blur(6px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+	-webkit-border-radius: 6px;
+	color: rgba(255, 255, 255, 0.75);
 }
 
 .lgn span {
@@ -104,9 +107,11 @@ input:focus, select:focus {
     margin: 0 auto;
     margin-top: 10px;
     cursor: pointer;
-    border: 1px solid #ddd;
-    background-color: white;
-    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+	-webkit-border-radius: 4px;
 }
 
 #lgnBtn, #findPwdBtn{
