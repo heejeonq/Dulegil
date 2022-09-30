@@ -344,6 +344,7 @@ function reloadList(){
 			<span>&nbsp;&nbsp;</span>
 			<div class="tit_date">작성일 ${data.DT}</div>
 		</div>
+		
 		<!-- midBox완 ------------------------------------------>		
 		<hr/>		
 		<div class="conBox">
@@ -354,17 +355,17 @@ function reloadList(){
 				</c:if>
 				<div class="te"> ${data.CONTENTS}</div>
 			</div>
-		</div>
+		
 		<!-- conBox완 ------------------------------------------>
-		<div class="emptyBox">		
+	<div class="emptyBox">
 			<c:if test="${!empty data.B_IMG}">
 			<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
 			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
 			<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
 			<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
-			<span>첨부파일 : 
-			<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
-			</c:if>		
+			<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span> 
+			<a class="aL" href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>
+			</c:if>
 		</div>
 		<!-- emptyBox완 ------------------------------------------>
 		
@@ -381,10 +382,9 @@ function reloadList(){
 			</c:if>
 			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
 		</div>
-		
-		
 		<div class="emptyBox"></div>
-		<div class="emptyBox"></div>
+		
+	
 		
 		<!-- 댓글 -->	
 			
@@ -422,11 +422,14 @@ function reloadList(){
 				   	</c:choose>
 				</div>
 			</form><!-- commentsForm -->
+			</div>
 		</div>
 		<div class="coll"></div>
 		<div class="mainview4">					
 			<!-- 위로올림 -->
+		
 		</div>
+		
 		<div class="more">
 			<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
 		</div>

@@ -475,6 +475,7 @@ function reloadList(){
 								 </div>
 							</span>	
 						</div>
+					
 						
 						
 			    
@@ -489,10 +490,11 @@ function reloadList(){
 			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
 			<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
 			<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
-			<span>첨부파일 : 
-			<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
+			<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span> 
+			<a class="aL" href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>
 			</c:if>
 		</div>
+	
 		<!-- emptyBox완 ------------------------------------------>
 		
 		<div class="box2">		
@@ -546,7 +548,7 @@ function reloadList(){
 				  		</c:choose>	
 					</div>
 					</form><!-- commentsForm -->
-					
+					</div>	
 				</div>				   
 				<div class="coll"></div>
 				<div class="mainview4">
