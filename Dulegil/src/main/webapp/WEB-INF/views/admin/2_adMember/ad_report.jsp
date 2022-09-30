@@ -564,17 +564,20 @@ $(document).ready(function(){
 	
 	// 더보기 클릭시
 	$("tbody").on("click","tr span#show", function(){
+		console.log(this);
 		
 		
-		// 1. 두번째 리스트에 위에서 취득한 no 값 넣어주기
-		$("#cmtNo").val($(this).parent().parent().parent().attr("no"));
-		console.log($("#cmtNo").val());
+		// 1. 더보기 리스트에 클릭한 리스트위에서 취득한 no 값을 rptNo에 넣어주기
+		$("#rptNo").val($(this).parent().parent().parent().attr("no"));
+		console.log($("#rptNo").val());
 		
 		console.log("------");
-		console.log($(this).val());
-		console.log(this);
+		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
+		console.log($("#cateNo").val());
+		
+		
 		// 2.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
-		//if(this.attr("cate")=="글"){
+		if(this.attr("cate")=="글"){
 			
 		//}else if(){
 			
@@ -617,7 +620,7 @@ $(document).ready(function(){
 		for(var data of comment){
 			//"+ data. +"
 
-			html += "<tr id=\"cmtNo\" name=\"cmtNo\"  cmtNo=\""+ data.REPORT_NO+"\">";
+			html += "<tr id=\"rptNo\" name=\"rptNo\"  rptNo=\""+ data.REPORT_NO+"\">";
 			html += "<td>"+ data.POST_NO+"</td>";
 			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
 			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
@@ -772,7 +775,8 @@ $(document).ready(function(){
 						<div id="hd2_search">
 							<form action="#" id="actionForm" method="post">
 								<input type="hidden" name="no" id="no" /> 
-								<input type="hidden" name="cmtNo" id="cmtNo" />  
+								<input type="hidden" name="rptNo" id="rptNo" />  
+								<input type="hidden" name="cateNo" id="cateNo" />  
 								<input type="hidden" name="page" id="page" value="${page}" />
 
 
