@@ -227,9 +227,9 @@ function drawList(list1, list2, list3, list4, list5){
 	
 	//동행 신청자 리스트
 	for(var data of list1){                                                          
-		html1 += "<table class=\"standard\">                                            ";
+		html1 += "<table class=\"standard c\">                                            ";
 		html1 += "	<tr>                                                                ";
-		html1 += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
+		html1 += "		<th>" + data.COURSE_NO +"코스</th>                                      ";
 		html1 += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
 		html1 += "	</tr>                                                               ";
 		html1 += "	<tr amemNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">                                                              ";
@@ -311,14 +311,6 @@ function drawList(list1, list2, list3, list4, list5){
 	
 	for(var data of list4){  
 		html5 += "<table class=\"mem_rate\">";
-		html5 += "<colgroup>";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"15%\">";
-		html5 += "	<col width=\"15%\">";
-		html5 += "</colgroup>";
 		html5 += "<tbody class=\"postNo" + data.POST_NO + "\" postNo=\"" + data.POST_NO + "\">";
 		html5 += "	<tr>                                                                                     ";
 		html5 += "		<th class=join_title>" + data.POST_NO +"</th>                                      ";
@@ -344,7 +336,7 @@ function drawList2(memList){
 	
 	//동행 히스토리의 동행자들
 	for(var data of memList){  
-		html1 += data.NM + ", ";
+		html1 += data.NM + " ";
 	}
 	
 	//신뢰도평가멤버 리스트
@@ -448,15 +440,8 @@ function drawList2(memList){
 				</div>
 				<div class="mypage_area">
 					<div class="area_tit"><span>내가 신청한 동행</span></div>
-					<table class="standard">
-						<colgroup>
-							<col width="10%">
-							<col width="10%">
-							<col width="45%">
-							<col width="10%">
-							<col width="10%">
-							<col width="15%">
-						</colgroup>
+					<table class="standard a">
+				
 						<thead>
 							<tr>
 								<th>No</th>
@@ -473,14 +458,8 @@ function drawList2(memList){
 				</div>
 				<div class="mypage_area">
 					<div class="area_tit"><span>동행 history</span></div>
-					<table class="standard">
-						<colgroup>
-							<col width="10%">
-							<col width="10%">
-							<col width="45%">
-							<col width="20%">
-							<col width="15%">
-						</colgroup>
+					<table class="standard b">
+				
 						<thead>
 							<tr>
 								<th>No</th>

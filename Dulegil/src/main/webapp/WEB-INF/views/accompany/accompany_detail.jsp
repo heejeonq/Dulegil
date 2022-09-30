@@ -26,6 +26,9 @@
 $(document).ready(function(){
 	reloadList();
 
+	//별그리기
+	$(".star span").css("width", ${data.RELIABILITY} * 20 +"%");
+	
 	$(".cancelwithMBtn").hide();
 	
 	//게시글 신고하기 버튼 누르면 
@@ -627,12 +630,11 @@ function reloadList(){
             		</c:choose>
             	</c:otherwise>
             </c:choose>
-            <div class="trust">
-               <img src="resources/images/Mstar.png"  />
-               <img src="resources/images/Mstar.png" />
-               <img src="resources/images/Mstar.png" />
-               <img src="resources/images/Mstar.png" />
-               <img src="resources/images/Mstar2.png" />
+            <div class="trust">                                                        
+				<span class="star">★★★★★															
+					<span>★★★★★</span>
+				</span>
+               
             </div>
          </div>
          
@@ -645,7 +647,7 @@ function reloadList(){
       
       <hr/>
       <div class="conBox">
-      <div class="emptyBox"></div>
+
       <div class= "imgg">
       <c:if test="${!empty data.B_IMG}">			
 		<img src="resources/upload/${data.B_FILE}" /><br/>
@@ -671,7 +673,7 @@ function reloadList(){
 	         <img src="resources/images/manico.png" />
 	         </span>
 	         <div class="withMTitW">
-	         <span class="withMTit">동행신청중</span>   
+	         <span class="withMTit">동행취소</span>   
 	         </div>               
          </div>
          
@@ -684,7 +686,7 @@ function reloadList(){
        	</c:if>    
       </div>
          
-   <div class="emptyBox"></div>      
+   
       <div class="box2">
       
          
@@ -703,8 +705,7 @@ function reloadList(){
       </div>
       
       
-      <div class="emptyBox"></div>
-      <div class="emptyBox"></div>
+
          
          
       <hr/>

@@ -102,7 +102,8 @@ AND POST_NO= #{no}
 
 <!-- 상세보기 -->
 <select id="getF" parameterType="hashmap" resultType="hashmap">
-(SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.IMG_FILE AS B_IMG,M.IMG_FILE AS M_IMG
+SELECT F.POST_NO,F.BLTNBOARD_NO,F.MEMBER_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS, B_IMG, M_IMG
+FROM (SELECT G.POST_NO,G.BLTNBOARD_NO,G.MEMBER_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.IMG_FILE AS B_IMG,M.IMG_FILE AS M_IMG
      FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.BLTNBOARD_NO,B.IMG_FILE,REG_DT,DEL_DT,
                 CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
                THEN TO_CHAR(B.REG_DT, 'HH24:MI')
@@ -115,7 +116,8 @@ AND POST_NO= #{no}
                  AND T.BLTNBOARD_NO =3 )G  
         INNER JOIN MEMBER M 
         ON G.MEMBER_NO = M.MEMBER_NO
-      WHERE G.POST_NO=#{no})
+     )F
+      WHERE F.POST_NO=#{no}
 </select>
 <!-- 댓글 카운트 -->
 <select id="getCCnt" resultType="integer" parameterType="hashmap">

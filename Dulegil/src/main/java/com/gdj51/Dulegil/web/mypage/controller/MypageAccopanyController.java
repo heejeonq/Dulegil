@@ -65,7 +65,8 @@ public class MypageAccopanyController {
 			case "applyMemUpdate": cnt = dao.update("accompany.applyMemUpdate", params);
 			
 				break;
-			case "rateUpdate": cnt = dao.insert("accompany.rateUpdate", params);
+			case "rateUpdate": cnt = dao.insert("accompany.rateInsert", params);
+									 dao.update("accompany.rateUpdate", params);
 				break;
 			
 			case "report": cnt = dao.insert("accompany.report", params);

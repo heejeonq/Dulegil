@@ -165,37 +165,25 @@ td:nth-child(9) {
 	font-weight: 700px !important;
 }
 
+
+tr{
+position:relative;
+}
 /* 펼치기 */
 #header2 #hd2_CC #CCbox #hide {
 	padding: 56px 80px;
-	margin: auto;
-	width: 50%;
-	height: 38%;
-	font-size: 11px;
-	position: absolute;
-	background-color: rgb(254, 250, 239);
-	background-color: rgb(231 231 231/ 26%);
-	backdrop-filter: blur(30px);
-	-webkit-backdrop-filter: blur(30px);
-	border: 0px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	border-radius: 12px;
-	-webkit-border-radius: 12px;
-	color: #f5f5f1;
-	width: 50%;
-	height: 38%;
-	font-size: 11px;
-	position: absolute;
-	background-color: rgb(254, 250, 239);
-	background-color: rgb(231 231 231/ 26%);
-	backdrop-filter: blur(30px);
-	-webkit-backdrop-filter: blur(30px);
-	border: 0px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-box-shadow: rgb(142 142 142/ 19%) 0px 6px 15px 0px;
-	-webkit-border-radius: 12px;
-	z-index: 10;
+    margin: auto;
+    color: #f5f5f1;
+    width: 50%;
+    height: 38%;
+    font-size: 11px;
+    position: absolute;
+    background-color: rgb(231 231 231/ 26%);
+    backdrop-filter: blur(30px);
+    border: 0px solid rgba(255, 255, 255, 0.18);
+    -webkit-box-shadow: rgb(142 142 142 / 19%) 0px 6px 15px 0px;
+    -webkit-border-radius: 12px;
+    z-index: 10;
 }
 
 #hidebox {
@@ -401,13 +389,13 @@ $(document).ready(function(){
 	
 	// 페이징 버튼
 	$("#hd2_paging").on("click", ".pBtn", function(){
-			// 기존 검색상태 유지
-			$("#searchGbn").val($("#oldGbn").val());
-			$("#searchTxt").val($("#oldTxt").val());
-			
-			$("#page").val($(this).attr("page"));
-			reloadList();		
-		});
+		// 기존 검색상태 유지
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		$("#page").val($(this).attr("page"));
+		reloadList();		
+	});
 
 	
 	function reloadList(){
@@ -430,7 +418,7 @@ $(document).ready(function(){
 			
 		});
 		
-	}; // reloadList end
+	} // reloadList end
 	
 	function drawPaging(pd){
 		var html = "";
@@ -485,7 +473,7 @@ $(document).ready(function(){
 		html += "</div>";
 		
 		$("#hd2_paging").html(html);
-	};
+	}
 	
 	
 	
@@ -497,31 +485,31 @@ $(document).ready(function(){
 	
 	// 게시글 목록 함수
 	function drawList(list){
-	var html = "";
-
-	for(var data of list){
-		//"+ +"
-	html += "<tr no=\""+ data.REPORT_NO +"\">";
-	html += "<td colspan=\"1\"><div><span id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \arrow_drop_down\ </span></div></td> ";
-	html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
-	html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
-	html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
-	html += "<td colspan=\"1\">"+ data.ACCUSED +"</td>";
-	html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
-	html += "<td colspan=\"1\">"+ data.CATE +"</td>";
-	html += "<td colspan=\"2\">";
-	html += "<select class=\"sel\" id=\"process\" name=\"process\">";
-	html += "<option value=\"0\">처리중</option>";
-	html += "<option value=\"1\">활동 중지</option>";
-	html += "<option value=\"2\">반려</option>";
-	html += "<option value=\"3\">강제 탈퇴</option>";
-	html += "</select></td>";
-	html += "</tr>";
-
+		var html = "";
+	
+		for(var data of list){
+			//"+ +"
+		html += "<tr cate=\""+ data.CATE +"\" no=\""+ data.REPORT_NO +"\">";
+		html += "<td colspan=\"1\"><div><span href=\#none\ id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
+		html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
+		html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
+		html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
+		html += "<td colspan=\"1\">"+ data.ACCUSED +"</td>";
+		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
+		html += "<td colspan=\"1\">"+ data.CATE +"</td>";
+		html += "<td colspan=\"2\">";
+		html += "<select class=\"sel\" id=\"process\" name=\"process\">";
+		html += "<option value=\"0\">처리중</option>";
+		html += "<option value=\"1\">활동 중지</option>";
+		html += "<option value=\"2\">반려</option>";
+		html += "<option value=\"3\">강제 탈퇴</option>";
+		html += "</select></td>";
+		html += "</tr>";
+	
+		}
+	
+		$(".list tbody").html(html);
 	}
-
-	$(".list tbody").html(html);
-	};
 	
 	
 	
@@ -553,8 +541,7 @@ $(document).ready(function(){
 			data : params,
 			success : function(res){
 	
-				drawList2(res.comment);
-	
+				drawList2(res.comment);	
 				console.log(res);
 			},
 			error : function(request, status, error){
@@ -564,7 +551,7 @@ $(document).ready(function(){
 			
 		});
 		
-	}; // reloadList end
+	} // reloadList end
 	
 		
 	
@@ -576,12 +563,30 @@ $(document).ready(function(){
 	
 	
 	// 더보기 클릭시
-	$("tbody").on("click","tr", "#show", function(){
+	$("tbody").on("click","tr span#show", function(){
+		console.log(this);
 		
 		
-		// 2. 두번째 리스트에 위에서 취득한 no 값 넣어주기
-		$("#cmtNo").val($(this).attr("no"));
-		console.log($("#cmtNo").val());
+		// 1. 더보기 리스트에 클릭한 리스트위에서 취득한 no 값을 rptNo에 넣어주기
+		$("#rptNo").val($(this).parent().parent().parent().attr("no"));
+		console.log($("#rptNo").val());
+		
+		console.log("------");
+		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
+		console.log($("#cateNo").val());
+		
+		
+		// 2.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
+		if(this.attr("cate")=="글"){
+			
+		//}else if(){
+			
+		
+		//}else{
+			
+			
+		//}
+		
 		
 		
 		// 3. 리스트 불러오기
@@ -591,28 +596,31 @@ $(document).ready(function(){
 	
 		if(hide.style.display=='none') {
 			hide.style.display='';
-			// this 로 위치 따와서 innerHTML 로 span 넣어둔
-			show.innerText='▲'
+			$(this).html("expand_less");
+
 			
+		} else {
+			hide.style.display='none';
+			$(this).html("expand_more");
 			
-			
-			} else {
-				hide.style.display='none';
-				show.innerText='▼'
-				
-			}
+		}
 	});
+	
+	
+	
+	
+	
 	
 	//comment가 있을때
 	function drawList2(comment){
 		var html = "";
 		
-		
+		var a ="";
 
 		for(var data of comment){
 			//"+ data. +"
 
-			html += "<tr id=\"cmtNo\" name=\"cmtNo\"  cmtNo=\""+ data.REPORT_NO+"\">";
+			html += "<tr id=\"rptNo\" name=\"rptNo\"  rptNo=\""+ data.REPORT_NO+"\">";
 			html += "<td>"+ data.POST_NO+"</td>";
 			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
 			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
@@ -620,10 +628,24 @@ $(document).ready(function(){
 			html += "<td>"+ data.REG_DT +"</td>";
 			html += "</tr>";
 		
+
+			a += "<div class=\"cmtBoxWrap\">";
+			a += "<div class=\"CB\">"+ data.POST +"</div>";
+			a += "<div class=\"CBC\">";
+			a += "<div id=\"wrap\">";
+			a += "<div class=\"comment_icon\"></div>";
+			a += "<div class=\"comment_nm\">"+ data.CNM +"</div>";
+			a += "</div>";
+			a += "<div class=\"comment_box\">"+ data.CMT +"</div>";
+			a += "</div>";
+			a += "</div>";
+		
 		}
+		
 
 		$("#hide tbody").html(html);
-		}
+		$("#hide .cmtBoxWrap").html(a);
+	}
 		
 	
 });
@@ -753,7 +775,8 @@ $(document).ready(function(){
 						<div id="hd2_search">
 							<form action="#" id="actionForm" method="post">
 								<input type="hidden" name="no" id="no" /> 
-								<input type="hidden" name="cmtNo" id="cmtNo" />  
+								<input type="hidden" name="rptNo" id="rptNo" />  
+								<input type="hidden" name="cateNo" id="cateNo" />  
 								<input type="hidden" name="page" id="page" value="${page}" />
 
 
@@ -828,15 +851,14 @@ $(document).ready(function(){
 											
 											<!-- 테이블2 포스트 내용 -->
 											<div class="cmtBoxWrap">
-												<div class="CB">${data.POST}</div>
-
+												<div class="CB"></div>
 												<!-- 댓글박스 -->
 												<div class="CBC">
 													<div id="wrap">
 														<div class="comment_icon"></div>
-														<div class="comment_nm">${data.CNM}코멘트멤버NM</div>
+														<div class="comment_nm"></div>
 													</div>
-													<div class="comment_box">${data.CMT}코멘트CONTENTS</div>
+													<div class="comment_box"></div>
 												</div>
 											</div>
 											
@@ -884,4 +906,3 @@ $(document).ready(function(){
 
 		</div>
 </body>
-</html>

@@ -48,6 +48,7 @@
 
 .te{
    width:1000px;
+   min-height: 100px;
    padding:20px;
    font-size:14px;
    text-align:left;
@@ -96,6 +97,10 @@
     margin: 30px auto;
     font-size:12px;
     border: none;
+}
+.DulList img {
+	top: 4px;
+    position: relative;
 }
 .withM{
    border:1px solid #ddd;
@@ -188,4 +193,19 @@ td{
   .singo_contents > label {
 	padding: 3px 0;
   }
+
+/*별그리기*/
+.star {
+    position: relative;
+    font-size: 20px;
+    color: #ddd;
+}
+.star span {
+    width: 0;
+    position: absolute;
+    left: 0;
+    color: #f0c41994;
+    overflow: hidden;
+    pointer-events: none;
+}
 

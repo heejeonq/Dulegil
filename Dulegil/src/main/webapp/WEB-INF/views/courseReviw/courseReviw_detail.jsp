@@ -27,18 +27,21 @@ $(document).ready(function(){
 
 	reloadList();
 	
-	
-	//게시글 버튼
-	$("#clistBtn").on("click",function(){
-		
+	$("#clistBtn").on("click",function(list){	
+		history.go(-1);
+		$("#actionForm").attr();
 		$("#actionForm").submit();
-	});
+		
+	}); 
 	
+	
+
 	
 	//하얀 좋아요 버튼을 누르면
 	  $(".goodBtn").on("click", function(){
 		  if ($("#sMemNo").val() == "") {
-		       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+		       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	
+		    	   location.href="login"
 		       });
 		  }else{
 			  like("insert");
@@ -233,7 +236,8 @@ $(document).ready(function(){
  	//신고하기 버튼 누르면 
 	$("#reporBtn").on("click",function(){ 
 		 if ($("#sMemNo").val() == "") {
-	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {
+	    	   location.href="login"
 	       });
 	     } else{
 			action("report");
@@ -386,6 +390,8 @@ function reloadList(){
 		  $(".goodBtn").hide();
 		  $(".goodCancelBtn").show();
 	 }else{
+		 
+		 
 		  $(".goodCancelBtn").hide();
 		  $(".goodBtn").show();
 	 } 
@@ -469,6 +475,7 @@ function reloadList(){
 								 </div>
 							</span>	
 						</div>
+					
 						
 						
 			    
@@ -483,10 +490,11 @@ function reloadList(){
 			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
 			<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
 			<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
-			<span>첨부파일 : 
-			<a href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a></span>
+			<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span> 
+			<a class="aL" href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>
 			</c:if>
 		</div>
+	
 		<!-- emptyBox완 ------------------------------------------>
 		
 		<div class="box2">		
@@ -496,11 +504,11 @@ function reloadList(){
 				</span>
 				<span class="reporTit">신고하기</span>			
 			</div>
+			<input type="button" class="btn" id="clistBtn" value="목록" />
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
-				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
+				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 			</c:if> 
-			<input type="button" class="btn" id="clistBtn" value="목록" onClick="history.go(-1)"/>
 		</div>
 					
 		<div class="emptyBox"></div>
@@ -540,7 +548,7 @@ function reloadList(){
 				  		</c:choose>	
 					</div>
 					</form><!-- commentsForm -->
-					
+					</div>	
 				</div>				   
 				<div class="coll"></div>
 				<div class="mainview4">

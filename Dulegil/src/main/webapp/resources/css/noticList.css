@@ -47,14 +47,19 @@
     height: 26px;
     font-size: 14px;
     line-height: 24px;
-    color: #77bdeb;
-    border: 1px solid #77bdeb;
+    color: #739d75;
+    border: 1px solid #739d75;
     border-radius: 30px;
     text-align: center;
     position: relative;
     display: inline-block;
     margin-right: 10px;
     float: left;
+    margin-top: 8px;
+}
+.p{
+	line-height: 42px;
+    margin-left: 15px;
 }
 .num{
 	 font-size: 14px;
@@ -64,19 +69,21 @@
 	color:#77bdeb;
 }
 
-.date{
+.date1{
 	width: 100px;
     font-size: 14px;
     color: #666;
     letter-spacing: 0px;
     text-align: right;
     float: right;
+    margin-top:7px;
 }
 .file,.hit{
 	float: right;
-    margin: 0px 1px;
+    margin: 7px 1px;
     padding: 0px 5px;
 }
+
 
 .emptyBox{
 	width:100%;
@@ -85,15 +92,27 @@
 .fileF{
 	float: right;
 	margin-right:40px;
+	margin-top: 13px;
 }
 
 .fileF img{
 	    vertical-align: middle;
 }
+.pTitTh{
+	margin-left: 500px;
+}
 
+.hitTh{
+	 margin-left: 15px;
+}
+.fileTh{
+	margin-left: 462px;
+}
 
+.dateTh{
+	    margin-left: 32px;
 
-
+	}
 
 
 

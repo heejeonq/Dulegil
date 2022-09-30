@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
@@ -58,7 +59,7 @@ function sample6_execDaumPostcode() {
 </script>
 <script type="text/javascript">
 $(document).ready(function(){ 
-	//성별 값 넣기
+	//성별 값 넣기(값을 불러와서 값이{data.GENDER == 0}이면 남자고 아니면 여자를 체크)
 	var gender = "${data.GENDER}";
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
@@ -127,6 +128,15 @@ $(document).ready(function(){
 	    	  form.submit();
 	      }
 	   });	
+    // 파일 삭제 버튼
+    // 누르면 전에 이미지 파일 지워지고, 새로운 이미지가 보이고, 파일명은 없어지고, 
+    // 보여지는 이미지의 속성이 기본 프로필 url로 바뀌어서 기본 프로필이 보인다.
+	$("#fileDelBtn").on("click",function(){
+	      $(".imgOld").remove();
+	      $(".img").show();
+	      $("#imgFile").val("");
+	      $("#preview").attr("src", "resources/upload/profile_img.png")
+	   });
 	
 	$("#backBtn").on("click", function(){
    	 	makePopup({
@@ -145,8 +155,9 @@ $(document).ready(function(){
 	});
 });
 
-<!--이미지파일 넣기-->
+<!--이미지 파일 넣기-->
 function readURL(input) {
+	 // 파일 선택했을 때 새로운 이미지 파일로 이미지가 변경
 	 if (input.files && input.files[0]) {
 	   var reader = new FileReader();
 	   reader.onload = function(e) {
@@ -154,7 +165,8 @@ function readURL(input) {
 	   };
 	   reader.readAsDataURL(input.files[0]);
 	 } else {
-	   document.getElementById('preview').src = "";
+	   // 파일 선택 누르고 취소 누르면 전에 저장 되어있는 이미지 파일이 보여짐.
+	   document.getElementById('preview').src = "resources/upload/${data.IMG_FILE}";
 	 }
   }
   
@@ -174,16 +186,36 @@ function readURL(input) {
 				<span>개인 정보 수정</span>
 			</div>
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
-			    <!-- 내가 어떤 데이터를 수정할지 그 폼에 인풋을 담아서 수정할 정보를 쿼리에 주기 위해서 -->
-			    <!-- 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 실현 시키기 위해서...--> 
+			    <!-- 내가 어떤 데이터를 수정할지 그 폼에 인풋을 담아서 수정할 정보를 쿼리에 주기 위한 부분 -->
+			    <!-- value="${sMemNo}"를 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 값을 가져오기 위해 -->
+			    <!-- 수정할 정보를 쿼리에 주기 위해서(컨트롤러에서 /mypageAjax/{gbn}부분 업데이트문에 영향) --> 
 				<input type="hidden" name="memNo" value="${sMemNo}">
-				<input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}"> <!-- 실 저장된 파일명 보관용 -->
+	 
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-					<input type="file" onchange="readURL(this);" name="img" >
+				
+                        <td class="filBox">
+                           <!-- 기존파일 --> 
+                           <span class="imgOld">
+                              <div id="fileDelBtn">파일 삭제</div>
+                              <%-- 파일명 가져오는거 --%>
+                              <c:set var="fileLength" value="${fn:length(data.IMG_FILE)}"></c:set>
+                              <%-- 파일명 잘라주기 --%>
+                              <c:set var="fileName" value="${fn:substring(data.IMG_FILE, 20, fileLength)}"></c:set>
+                              <span id="fileName">${fileName}</span>
+                           </span>
+                           
+                           <!-- 기존파일 삭제후 새파일 용도 --> 
+                           <span class="img"> 
+                              <input type="file" name="img" onchange="readURL(this);"/> 
+                              <!-- value="${data.IMG_FILE}"이게 없으면 사진 수정 없이 수정완료를 했을때 사진이 빔. -->
+                              <input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
+                           </span>
+                        </td>
+					
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +10,23 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/noticDetail.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
+
 <title>공지사항상세</title>
 <!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#NlistBtn").on("click",function(list){	
+		history.go(-1);
+		$("#actionForm").attr();
+		$("#actionForm").submit();
+		
+	}); 
+	
+	
+	
+});
+
 
 </script>
 </head>
@@ -23,65 +37,50 @@
 
 	<!-- Container -->
 
-	<div class="container-main">
-		
-		<div class="mainWrap">
-		<div class="tit">동행구하기</div>
-		<div class="col"></div>
-		
+<div class="container-main">		
+	<div class="mainWrap">
+		<div class="tit">공지사항</div>
+		<div class="col"></div>		
 		<div class="midBox">
-		<div class="emptyBox"></div>
-		<div class="tit_tt">서울둘레길 통행금지구간 안내</div>
-		<div class="ti_ttt">
-			<div class="tit_writer">
-			서울둘레길 </div>
-			<div class="tit_date">
-			
-			작성일 2022-08-08</div>
-			<div class="file">첨부파일</div>
-			
-		</div>
-		<hr/>
-		<div class="contentBox">
-		<div class="emptyBox"></div>
-		<div class= "content">
-		<div class="te"> 서울둘레길안내센터에서 알림니다
-
-현재 서울둘레길 통행금지구간입니다
-
-1. 4-2코스 우면산구간( 산사태로 인하여 전면 통행 금지)
-
-2. 6-2코스 양화교 아래 ~ 한강합수부 ~ 염강나들목 (침수로 인한 통행금지)
-
-
-서울둘레길 탐방객은 통행금지구간을 확인하시고
-
-그 외 서울둘레길 구간은 노면상태가 정상적인 트레킹이 어렵습니다
-
-안전사고가 발생할 수 있으므로 안전사고에 각별히 주의하시길 바랍니다</div>
-		</div>
-	<div class="emptyBox"></div>
-		
-		<hr/>
-	<div class="emptyBox"></div>
-		<div class="btnBox">
-
-			<input type="button" class="btn" id="listBtn" value="목록"/>
-			<input type="button" class="btn" id="delBtn" value="삭제"/>		
-			<input type="button" class="btn" id="upBtn"  value="수정"/>
-		</div>
-				
-		
-
-		</div>
-	
-		
+			<form action="#" id= "actionForm" method="post">
+			<input type="hidden" name="no" value="${data.POST_NO}" />
+			<!-- <input type="hidden" name="gbn" value="d" /> 이게뭐지-->
+			<input type="hidden" name="page" value= "${param.page}" />
+			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
+			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
+			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
+			</form>
+			<div class="emptyBox"></div>
+			<div class="tit_tt">${data.TITLE}</div>
+			<div class="ti_ttt">
+				<div class="tit_writer">서울둘레길 </div>
+				<div class="tit_date">작성일 ${data.DT}</div>
+				<div class="file">첨부파일</div>			
 			</div>
+			<hr/>
+			<div class="contentBox">
+				<div class="emptyBox"></div>
+				<div class= "content">
+					<div class="te"> ${data.CONTENTS}</div>
+				</div>
+			</div>
+				<div class="emptyBox">
+						<c:if test="${!empty data.ATT_FILE}">
+							<c:set var="fileLength" value="${fn:length(data.ATT_FILE)}"></c:set>
+							<c:set var="fileName" value="${fn:substring(data.ATT_FILE, 20, fileLength)}"></c:set>
+							<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span>
+							<a class="aL" href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>							
+						</c:if>
+				</div>
+				<div class="col"></div>	
+				<div class="emptyBox"></div>
+				<div class="btnBox">		
+					<input type="button" class="btn" id="NlistBtn" value="목록"/>
+				</div>
 			
-
-
-	
 		</div>
+	</div>
+</div>
 		
 		
 

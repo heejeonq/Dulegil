@@ -57,7 +57,7 @@ public class NoticeController {
 	
 	
 
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 5);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 7, 5);
 
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
@@ -83,7 +83,7 @@ public class NoticeController {
 		
 		if (params.get("no") != null && params.get("no") != "") { //만약 데이터가 넘어오면		
 			
-			dao.update("free.updateTHit", params);	//조회수를 업뎃해라
+			dao.update("notice.updateNTHit", params);	//조회수를 업뎃해라
 																
 			mav.setViewName("notice/notice_detail");//디테일 보여줘
 				//그리고 
