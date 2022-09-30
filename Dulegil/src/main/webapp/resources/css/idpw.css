@@ -15,7 +15,6 @@ input:focus, select:focus {
 
 .inpCon {
 	width: 500px;
-	border: 1px solid #ddd;
 	backdrop-filter: blur(6px);
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
@@ -122,24 +121,24 @@ input:focus, select:focus {
     font-weight: 600;
     letter-spacing: 2px;	
     cursor: pointer;
-    border: 1px solid #ddd;
-    background-color: white;
     margin: 0;
-    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+	-webkit-border-radius: 4px;
 }
 
 #lgnBtn{
-	margin-right: 5px;
-	margin-left: 48px;
+	margin-right: 20px;
+	margin-left: 41px;
 }
 
 .btn {
 	width: 430px;
     height: 15px;
-    margin: 15px auto 30px;
+    margin: 30px auto 25px;
     font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 2px;
 }
 
 .btn p{
@@ -150,7 +149,7 @@ input:focus, select:focus {
 
 .btn a{
 	float: right;
-	margin-left: 22px;
+	margin-left: 30px;
     line-height: 1;
     border: 0;
     background-color: white;
@@ -162,7 +161,7 @@ input:focus, select:focus {
     content: '';
     position: absolute;
     top: 1px;
-    left: 52px;
+    left: 50px;
     width: 1px;
     height: 12px;
     border-radius: 0.5px;
@@ -180,7 +179,6 @@ input:focus, select:focus {
     content: '';
     position: absolute;
     top: 2px;
-    left: -8px;
     width: 1px;
     height: 12px;
     border-radius: 0.5px;

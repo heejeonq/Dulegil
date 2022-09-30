@@ -63,6 +63,7 @@ th, .container-main dt{
 
 .crsBtn li:hover{
 	color: #f0c41994;
+	text-shadow: 1px 1px 1px #999;
 }
 
 .crsTit{
@@ -187,6 +188,7 @@ ul.infoBtn li.on:hover{
 
 ul.infoBtn li:hover{
 	color: #f0c41994;
+	text-shadow: 1px 1px 1px #999;
 }
 
 .infoBtn li:last-child{
