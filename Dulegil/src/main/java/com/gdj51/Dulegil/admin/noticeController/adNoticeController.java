@@ -34,7 +34,7 @@ public class adNoticeController {
          @RequestParam HashMap<String, String> params,
          ModelAndView mav) throws Throwable {
 
-      if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+      if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
          int page = 1;
 
@@ -88,7 +88,7 @@ public class adNoticeController {
          @RequestParam HashMap<String, String> params,
          ModelAndView mav) throws Throwable {
 	   
-      if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+      if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
          mav.setViewName("admin/3_adNotice/ad_notice_write");
       }else {
          mav.setViewName("admin/0_adLogin/ad_Login");
@@ -139,7 +139,7 @@ public class adNoticeController {
          HttpSession session,
          @RequestParam HashMap<String, String> params,
          ModelAndView mav) throws Throwable {
-      if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+      if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
          if(params.get("no") != null && params.get("no") != "") {
             HashMap<String, String> data = dao.getMap("adNotice.detail", params);
@@ -161,7 +161,7 @@ public class adNoticeController {
          HttpSession session,
          @RequestParam HashMap<String, String> params,
          ModelAndView mav) throws Throwable {
-      if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+      if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 	      if(params.get("no") != null && params.get("no") != "") {
 	         HashMap<String, String> data = dao.getMap("adNotice.detail", params);
