@@ -16,7 +16,7 @@ WHERE MEMBER_NO = #{memNo}
 
 
 <select id="alarmContents" parameterType="hashmap" resultType="hashmap">
-SELECT N.POST_NO, N.REG_DT, N.MEMBER_NO, M.NM
+SELECT N.POST_NO, TO_CHAR(N.REG_DT, 'YYYY.MM.DD')|| ' ' || TO_CHAR(N.REG_DT, 'HH:MI:SS PM') AS REG_DT , N.MEMBER_NO, M.NM
 FROM NOTIFICATION N INNER JOIN MEMBER M
                             ON N.APPLICANT_NO = M.MEMBER_NO
 WHERE N.MEMBER_NO = #{memNo}

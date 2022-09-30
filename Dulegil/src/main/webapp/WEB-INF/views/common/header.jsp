@@ -91,8 +91,12 @@ function drawAlarm(cnt, list){
 	$(".alarm_num").html(cnt);
 	
 	let html = "";
+	
 	for(let data of list){
-		html += "<li postNo=\"" + data.POST_NO + "\">" +data.NM + "님이 동행을 신청하였습니다</li>";		
+		html += "<div class = \"alarmMsg\">";
+		html += "<li style = \"font-size:13px; line-height:30px; margin-top:5px;\" postNo=\"" + data.POST_NO + "\">" +data.NM + "님이 동행을 신청하였습니다</li>";
+		html += "<li style = \"font-size:11px; line-height:20px; margin-bottom:5px;\" postNo=\"" + data.POST_NO + "\">" +data.REG_DT + "</li>";		
+		html += "</div>";
 	}
 	
 	$(".alarm_contents").html(html);
@@ -135,7 +139,8 @@ function drawAlarm(cnt, list){
 					<div class="alarm_contents">
 						<ul> 
 						
-								<li>님이 동행을 신청하였습니다</li>
+								<li>님이 동행을 신청하였습니다.</li>
+								<li>${list.REG_DT}</li>
 						
 						</ul>
 					</div>
