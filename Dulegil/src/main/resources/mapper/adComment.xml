@@ -4,8 +4,8 @@
 
 	<!-- 목록 -->
 	<select id="list" resultType="hashmap">
-		SELECT  A.MEMBER_NO, A.BLTNBOARD_NM, A.NM, A.EMAIL, A.CONTENTS, TO_CHAR(A.REG_DT, 'YYYY-MM-DD') AS REG_DT, A.RNK, A.COMMENT_NO
-		FROM(SELECT M.MEMBER_NO, BT.BLTNBOARD_NM, M.NM, M.EMAIL, C.CONTENTS, C.COMMENT_NO, C.REG_DT,
+		SELECT A.COMMENT_NO, A.TITLE, A.CONTENTS, A.NM, A.BLTNBOARD_NM, TO_CHAR(A.REG_DT, 'YYYY.MM.DD') AS REG_DT, RNK
+		FROM(SELECT C.COMMENT_NO, B.TITLE, C.CONTENTS, BT.BLTNBOARD_NM, M.NM, C.REG_DT,
 					ROW_NUMBER()OVER( ORDER BY C.REG_DT DESC) AS RNK
 			FROM MEMBER M INNER JOIN COMMENTS C
 		                		  ON M.MEMBER_NO = C.MEMBER_NO
@@ -13,18 +13,26 @@
 		                		  ON C.POST_NO = B.POST_NO
 		               	  INNER JOIN BOARD_TYPE BT
 		                		  ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
-			WHERE C.DEL_DT IS NULL)A
-		WHERE A.RNK BETWEEN #{start} AND #{end}
-		<if test="searchTxt != null and searchTxt !='' ">
+			WHERE C.DEL_DT IS NULL
 			<choose>
-				<when test="searchGbn == 0">
-					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+				<when test="cate != 0" >
+					AND BT.BLTNBOARD_NO = #{cate}	
 				</when>
-				<when test="searchGbn == 1">
-					AND NM LIKE '%' || #{searchTxt} || '%'		
-				</when>
+				<otherwise>
+				</otherwise>
 			</choose>
-		</if>
+			<if test="searchTxt != null and searchTxt !='' ">
+				<choose>
+					<when test="searchGbn == 0">
+						AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND NM LIKE '%' || #{searchTxt} || '%'		
+					</when>
+				</choose>
+			</if>
+			)A
+		WHERE A.RNK BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 페이징 -->
@@ -37,6 +45,14 @@
                		  INNER JOIN BOARD_TYPE BT
                 			  ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
 		WHERE C.DEL_DT IS NULL	
+		<choose>
+			<when test="cate != 0" >
+				AND BT.BLTNBOARD_NO = #{cate}	
+			</when>
+			<otherwise>
+				AND BT.BLTNBOARD_NO IN (1,2,3)
+			</otherwise>
+		</choose>
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
@@ -60,5 +76,10 @@
 		UPDATE COMMENTS SET DEL_DT = SYSDATE
 		WHERE COMMENT_NO = #{no}
 	</update>
+	
+	<select id="category" resultType="hashmap">
+		SELECT BLTNBOARD_NO, BLTNBOARD_NM
+		FROM BOARD_TYPE
+	</select>
 	
 </mapper>

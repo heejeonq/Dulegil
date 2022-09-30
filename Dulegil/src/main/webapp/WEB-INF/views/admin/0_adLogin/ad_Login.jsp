@@ -20,7 +20,7 @@ body, input {
 #header {
 	height: 93px;
 	text-align: center;
-	background-color: #f2f3ef;
+	background-color: #fffce1;
 	padding: 42px;
 	width: auto;
     min-width: 1500px;

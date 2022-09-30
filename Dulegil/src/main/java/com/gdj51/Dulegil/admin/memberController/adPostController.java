@@ -39,22 +39,22 @@ public class adPostController {
 
 		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
 
-
 			int page = 1;
 
 			if(params.get("page") != null && params.get("page") != "") {
 				page = Integer.parseInt(params.get("page"));
 			}
+			List<HashMap<String, String>> cate = dao.getList("adComment.category");
 
 			mav.addObject("page", page);
+			
+			mav.addObject("cate", cate);
+			
 			mav.setViewName("admin/2_adMember/ad_post");
 		}else
 			mav.setViewName("admin/0_adLogin/ad_Login");
 		return mav;
 	}
-
-
-
 
 	// 아작스
 	@RequestMapping(value="/adPostAjax",
@@ -68,18 +68,19 @@ public class adPostController {
 		Map<String, Object> model = new HashMap<String, Object>();
 
 		int cnt = dao.getInt("adPost.cnt",params);
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,10);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,15,5);
 
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 
 		List<HashMap<String, String>> list = dao.getList("adPost.list", params);
+		List<HashMap<String, String>> cate = dao.getList("adComment.category");
 
 		model.put("list", list);
+		model.put("cate", cate);
 		model.put("pd", pd);
 		return mapper.writeValueAsString(model);
 	}
-
 
 	// 게시글 ajax
 	@RequestMapping(value="/adPostAction/{gbn}",
