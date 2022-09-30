@@ -14,6 +14,13 @@
 <!-- 제이쿼리 -->
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0"); //검색어 유지
+	}
+	
 	reloadList();
 	
 	$('#searchTxt').keypress(function(event){
@@ -22,13 +29,7 @@ $(document).ready(function(){
 	         return false;
 	     }
 	});
-	
-	if("${param.searchGbn}" !=""){
-		$("#searchGbn").val("${param.searchGbn}");
-	}else{
-		$("#oldGbn").val("0");
-	}
-	
+
 
 	$("#searchBtn").on("click",function(){
 		$("#page").val("1");
@@ -163,7 +164,11 @@ function drawPaging(pd){
 	<div class="container-main">
 		<div class="mainWrap">
 			<div class="tit">공지사항</div>
-			<div class="col"></div>			
+			<div class="col"></div>	
+			
+			<input type="hidden" id="oldGbn"  value="${param.searchGbn}"/>
+			<input type="hidden" id="oldTxt"  value="${param.searchTxt}"/>
+					
 			<form action="#" id="actionForm" method="post">
 			<div class="midBox">
 				<!-- <div class=box1>글쓰기</div> -->
@@ -181,7 +186,7 @@ function drawPaging(pd){
 				<div class="searchBox">
 					<input type="text" class="serchTxt" name="searchTxt" id="searchTxt" value="${param.searchTxt}" placeholder="검색하기" />					
 					<div class="search_ico">
-						<img src="resources/images/search_icon.png" id="searIcon" />
+						<img src="resources/images/search_icon.png" id="searchBtn" />
 					</div>
 					
 				</div>
