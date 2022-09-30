@@ -59,7 +59,7 @@ function sample6_execDaumPostcode() {
 </script>
 <script type="text/javascript">
 $(document).ready(function(){ 
-	//성별 값 넣기
+	//성별 값 넣기(값을 불러와서 값이{data.GENDER == 0}이면 남자고 아니면 여자를 체크)
 	var gender = "${data.GENDER}";
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
@@ -129,6 +129,8 @@ $(document).ready(function(){
 	      }
 	   });	
     // 파일 삭제 버튼
+    // 누르면 전에 이미지 파일 지워지고, 새로운 이미지가 보이고, 파일명은 없어지고, 
+    // 보여지는 이미지의 속성이 기본 프로필 url로 바뀌어서 기본 프로필이 보인다.
 	$("#fileDelBtn").on("click",function(){
 	      $(".imgOld").remove();
 	      $(".img").show();
@@ -153,8 +155,9 @@ $(document).ready(function(){
 	});
 });
 
-<!--이미지파일 넣기-->
+<!--이미지 파일 넣기-->
 function readURL(input) {
+	 // 파일 선택했을 때 새로운 이미지 파일로 이미지가 변경
 	 if (input.files && input.files[0]) {
 	   var reader = new FileReader();
 	   reader.onload = function(e) {
@@ -162,6 +165,7 @@ function readURL(input) {
 	   };
 	   reader.readAsDataURL(input.files[0]);
 	 } else {
+	   // 파일 선택 누르고 취소 누르면 전에 저장 되어있는 이미지 파일이 보여짐.
 	   document.getElementById('preview').src = "resources/upload/${data.IMG_FILE}";
 	 }
   }
@@ -192,10 +196,7 @@ function readURL(input) {
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-					
 				
-					  
-					  
                         <td class="filBox">
                            <!-- 기존파일 --> 
                            <span class="imgOld">
@@ -207,16 +208,14 @@ function readURL(input) {
                               <span id="fileName">${fileName}</span>
                            </span>
                            
-                           
-                           <span class="img"> <!-- 기존파일 삭제후 새파일 용도 --> 
+                           <!-- 기존파일 삭제후 새파일 용도 --> 
+                           <span class="img"> 
                               <input type="file" name="img" onchange="readURL(this);"/> 
                               <!-- value="${data.IMG_FILE}"이게 없으면 사진 수정 없이 수정완료를 했을때 사진이 빔. -->
                               <input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
                            </span>
                         </td>
-                 
 					
-			
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">
