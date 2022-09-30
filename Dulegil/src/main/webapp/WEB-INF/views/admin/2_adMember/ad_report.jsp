@@ -490,7 +490,11 @@ $(document).ready(function(){
 		for(var data of list){
 			//"+ +"
 		html += "<tr cate=\""+ data.CATE +"\" no=\""+ data.REPORT_NO +"\">";
-		html += "<td colspan=\"1\"><div><span  id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_more\ </span></div></td> ";
+		html += "<td colspan=\"1\">";
+		if(data.CATE != "회원") {
+			html += "<div><span  id=\"show\" name=\"show\" class=\"material-symbols-outlined\"> \expand_less\ </span></div>";
+		}
+		html += "</td> ";
 		html += "<td colspan=\"1\">"+ data.REPORT_NO +"</td>";
 		html += "<td colspan=\"1\">"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td colspan=\"1\">"+ data.ACCUSER +"</td>";
@@ -539,8 +543,17 @@ $(document).ready(function(){
 			dataType: "json",
 			data : params,
 			success : function(res){
-				drawList3(res.post);
-				drawList2(res.comment);	
+				$("#hide tbody").empty();
+				$("#hide .cmtBoxWrap").empty();
+				
+				// 댓글
+				if($("#cateNo").val() =="댓글"){
+					drawList2(res.comment);	
+				// 글
+				}else if($("#cateNo").val() =="글"){
+					drawList3(res.post);
+				}
+				
 				console.log(res);
 			},
 			error : function(request, status, error){
@@ -563,76 +576,28 @@ $(document).ready(function(){
 	
 	// 더보기 아이콘 클릭시
 	$("tbody").on("click","tr span#show", function(){
-		console.log(this);
-		
-		
-		console.log("------");
 		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
-		console.log($("#cateNo").val());
-		
-		
-		// 1.  if로 위에 no에 target_member_no가 담겨있는지, comment_no가 담겨있는지, post_no가 담겨있는지 체크하기
-		if($("#cateNo").val() =="댓글"){
-			
-		// 2. 더보기 리스트에 클릭한 리스트위에서 취득한 no=report_no 값을 rptNo에 넣어주기
-			$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
-			console.log("------");
-			console.log($("#rptNoC").val());
-		
 
-			reloadList2();
-
-		
-			if(hide.style.display=='none') {
-				hide.style.display='';
-				$(this).html("expand_less");
-
-				
-			} else {
-				hide.style.display='none';
-				$(this).html("expand_more");
-				$("#rptNoM").val("");
-				$("#rptNoP").val("");
-				$("#rptNoC").val("");
-				
+		if($(this).html() == "expand_more") {
+			$("#hide").hide();
+			$(this).html("expand_less");
+		} else {
+			// 댓글
+			if($("#cateNo").val() =="댓글"){
+				$("#rptNoC").val($(this).parent().parent().parent().attr("no"));
+			// 글
+			}else if($("#cateNo").val() =="글"){
+				$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
 			}
 			
-		}else if($("#cateNo").val() =="글"){
-			$("#rptNoP").val($(this).parent().parent().parent().attr("no"));
-			console.log("------");
-			console.log($("#rptNoP").val());
-			console.log($(this).val());
-			
 			reloadList2();
-
 			
-			if(hide.style.display=='none') {
-				hide.style.display='';
+			$("tbody tr span#show").each(function() {
 				$(this).html("expand_less");
-
-				
-			} else {
-				hide.style.display='none';
-				$(this).html("expand_more");
-				$("#rptNoM").val("");
-				$("#rptNoP").val("");
-				$("#rptNoC").val("");
-				
-			}
-		
-		}else{
-			hide.style.display='';
-			$(this).html("");
-			$("#rptNoM").val($(this).parent().parent().parent().attr("no"));
-			console.log("------");
-			console.log($("#rptNoM").val());
-			
-			
+			});
+			$(this).html("expand_more");
+			$("#hide").show();
 		}
-		
-		
-		
-		// 3. 리스트 불러오기
 		
 	});
 	
@@ -675,26 +640,41 @@ $(document).ready(function(){
 
 		$("#hide tbody").html(html);
 		$("#hide .cmtBoxWrap").html(a);
+		
+		$("#rptNoM").val("");
+		$("#rptNoP").val("");
+		$("#rptNoC").val("");
+		$("#cateNo").val("");
 	}
 		
+	
+	
+	
+	
 	//post가 있을때
 	function drawList3(post){
 		var html = "";
-	
+		var a ="";
+
 		for(var data of post){
 			//"+ data. +"
 
-			html += "<tr id=\"rptNo\" name=\"rptNo\"  rptNo=\""+ data.REPORT_NO+"\">";
+			html += "<tr rptNoP=\""+ data.REPORT_NO+"\">";
 			html += "<td>"+ data.POST_NO+"</td>";
 			html += "<td>"+ data.BLTNBOARD_NM+"</td>";
 			html += "<td colspan=\"2\">"+  data.TITLE +"</td>";
 			html += "<td>"+ data.PNM +"</td>";
 			html += "<td>"+ data.REG_DT +"</td>";
 			html += "</tr>";		
+			
+			a += "<div class=\"cmtBoxWrap\">";
+			a += "<div class=\"CB\">"+ data.POST +"</div>";
+			a += "</div>";
 		
 		}
 		
-		$("#hide tbody.cPost").html(html);
+		$("#hide tbody").html(html);
+		$("#hide .CB").html(a);
 	}
 		
 	
