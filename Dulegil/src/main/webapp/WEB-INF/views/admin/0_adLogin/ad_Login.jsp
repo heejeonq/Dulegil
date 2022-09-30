@@ -9,14 +9,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/cmn.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>관리자 로그인</title>
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900');
-body, input {
-	font-family: "Gothic A1";
-	font-weight: 600;
+body, input{
+	font-family: 'Pretendard-Regular';
 }
-
 #header {
 	height: 93px;
 	text-align: center;
@@ -109,16 +107,12 @@ body, input {
 	background-color: white;
 }
 
-.input {
-	display: inline-block;
+input {
 	width: 300px;
-	height: 47px;
 	border: none;
 	cursor: pointer;
-	font-size: 15px;
-	height: 47px;
-	width: 300px;
-	height: 47px;
+	font-size: 12pt;
+	padding: 15px 7px;
 }
 
 .input:focus {
@@ -207,29 +201,20 @@ function login(){
 	<div id="bottom">
 		<div id="login">
 			<div class="login_banner">
-				<span class="material-symbols-outlined"
-					style="font-size: 34px; color: #4a4a4a; vertical-align: bottom;">
-					badge </span><span
-					style="font-size: 20px; color: #4a4a4a; vertical-align: middle; padding-left: 6px;">Admin
-					Login</span>
+				<span class="material-symbols-outlined" style="font-size: 34px; color: #4a4a4a; vertical-align: bottom;">badge</span>
+				<span style="font-size: 23px; color: #4a4a4a; padding-left: 6px;">관리자 로그인</span>
 			</div>
 			<div class="login_box">
 				<form action="#" id="actionForm" method="post">
 					<div class="id_box">
-						<span class="material-symbols-outlined"
-							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">info </span>
-							
-						<input type="text"   name="id" id="id" class="input"
-							placeholder="ID" maxlength="20" />
+						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;">info</span>
+						<input type="text"   name="id" id="id" class="input" placeholder="ID" maxlength="20" />
 					</div>
 					<div class="pw_box">
-						<span class="material-symbols-outlined"
-								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;"> lock </span> 
-						<input type="password" name="pwd" id="pwd" class="input"
-								placeholder="PASSWORD" maxlength="20" />
+						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> lock </span> 
+						<input type="password" name="pwd" id="pwd" class="input" placeholder="PASSWORD" maxlength="20" />
 					</div>
 				</form>
-
 				<div class="login_btn">
 					<input type="button" id="loginBtn" class="loginBtn" value="login" />
 				</div>

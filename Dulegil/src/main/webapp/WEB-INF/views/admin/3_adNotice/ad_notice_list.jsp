@@ -264,7 +264,7 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span>
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_document</span>
 			공지사항
 		</div>
 		<form action="#" id="actionForm" method="post">

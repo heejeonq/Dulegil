@@ -10,7 +10,7 @@
 <link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
 <title>이벤트 목록</title>
 <style type="text/css">
-#evtTit:hover, #pBtn:hover{
+#evtTit:hover{
 	text-decoration: underline;
 	cursor: pointer;
 }

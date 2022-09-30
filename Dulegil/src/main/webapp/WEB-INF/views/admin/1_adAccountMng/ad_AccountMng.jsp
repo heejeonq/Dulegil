@@ -14,20 +14,15 @@
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 	
 	<div class="container">
-		<div class="adTit">
-			<div class="login_banner">
-				<p>관리자 정보</p>
-			</div>
-			<div class="icon">
-				<span class="material-symbols-outlined"
-					style="font-size: 200px; color: #C0C0C0;"> badge </span>
-			</div>
+		<div class="Cname">
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> badge </span>
+			관리자 계정 관리
+		</div>
+		<div class="Ccon">
 			<div class="login_box">
 				<div class="id_box">
-					<span class="material-symbols-outlined"
-						style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">
-						info </span>  <input type="text" class="input" placeholder="아이디"
-						maxlength="20" value="${sMemNm}"/>
+					<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; vertical-align: middle;"> info </span>  
+					<input type="text" class="input" value="${sMemNm}"/>
 				</div>
 				<div class="pw_box">
 					<span class="material-symbols-outlined"
@@ -36,7 +31,7 @@
 						maxlength="20" value="${sMemPw}" />
 				</div>
 			</div> 
-		</div> 
-	</div>  
+		</div>
+	</div> 
 </body>
 </html>

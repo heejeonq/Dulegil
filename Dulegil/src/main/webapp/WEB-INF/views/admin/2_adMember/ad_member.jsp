@@ -14,16 +14,17 @@
 .Ctable td:nth-child(2) {
     text-align: center;
 }
-.Ccon.left{
-	margin: 20px 0 0 15px;
-}
+
 .Ccon.right{
-    margin-left: 3%;
+    margin-left: 50px;
     /* border: 1px solid #ddd; */
     padding-top: 5%;
 }
 .Ccon.right tr{
 	border: none;
+}
+#cateNo{
+	margin-left: 0;
 }
 img {
 	width: 150px;

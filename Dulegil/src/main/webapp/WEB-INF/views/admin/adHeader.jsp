@@ -73,7 +73,7 @@ $(document).ready(function(){
 	
 				<div class="btnAll" id="ntcBtn">
 					<span class="material-symbols-outlined" > edit_document </span>
-					<span>공지사항</span>
+					<span>공지사항 관리</span>
 				</div>
 	
 				<div class="btnAll" id="evtBtn">

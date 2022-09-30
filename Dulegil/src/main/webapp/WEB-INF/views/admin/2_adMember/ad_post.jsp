@@ -14,6 +14,7 @@
 #cateNo{
 	width: 120px;
 	outline: none;
+	margin-left: 0;
 }
 .Ctable td:nth-child(2) {
     text-align: center;
