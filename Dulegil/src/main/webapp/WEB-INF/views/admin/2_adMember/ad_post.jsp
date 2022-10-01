@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>게시물 관리</title>
+<title>게시글 관리</title>
 <style type="text/css">
 #searchGbn{
 	width: 100px;
@@ -286,7 +286,7 @@ function drawPaging(pd) {
 		
 		<div class="Cname">
 			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_note</span>
-			게시물 관리
+			게시글 관리
 		</div>
 		
 		<form action="#" id="actionForm" method="post">

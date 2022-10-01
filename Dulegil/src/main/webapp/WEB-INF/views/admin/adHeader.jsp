@@ -39,7 +39,7 @@ $(document).ready(function(){
 		location.href = "adReportList";
 	});
 	
-	// 메뉴 - 게시물 관리
+	// 메뉴 - 게시글 관리
 	$("#memPostBtn").on("click", function() {
 		location.href = "adPostList";
 	});
@@ -100,7 +100,7 @@ $(document).ready(function(){
 	
 				<div class="btnAll" id="memPostBtn">
 					<span class="material-symbols-outlined"> edit_note </span>
-					<span>게시물 관리</span>
+					<span>게시글 관리</span>
 				</div>
 	
 				<div class="btnAll" id="memCmtBtn">
