@@ -162,6 +162,10 @@ $(document).ready(function() {
 			makeAlert("알림", "비밀번호를 입력하세요.", function(){
 				$("#pwd").focus();
 			});
+		}else if($.trim($("#cnfmPwd").val()) == ""){
+			makeAlert("알림", "비밀번호를 입력하세요.", function(){
+				$("#cnfmPwd").focus();
+			});
 		}else if($("#pwd").val() != $("#cnfmPwd").val()){
 			makeAlert("알림", "비밀번호가 일치하지 않습니다.", function(){
 				$("#cnfmPwd").focus();

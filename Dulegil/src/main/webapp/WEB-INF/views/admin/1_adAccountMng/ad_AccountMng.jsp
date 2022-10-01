@@ -9,16 +9,163 @@
 <title>관리자 계정 관리</title>
 <style type="text/css">
 .Ccon.right{
-	margin-top: 20px;
-	margin-left: 63px;
+	margin-top: 40px;
+    margin-left: 45px;
+}
+.Cdeailtable th:first-child{
+	padding-left: 0;
+}
+.Cdeailtable td{
+	font-size: 10pt;
+	padding: 8px 0;
+	text-align: center;
+}
+.Mtable tr{
+	border: none;
+}
+Mtable input {
+    width: 200px;
+    height: 25px;
+    text-align: left;
+    margin-left: 15px;
+    padding-left: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
 </style>
 <script type="text/javascript">
+$(document).ready(function(){
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${param.searchGbn}");
+	}else{
+		$("#oldGbn").val("0");
+	}
+	reloadList();
+	
+	$("#searchBtn").on("click", function(){
+		$("#page").val("1");
+		
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		reloadList();
+	});
+	
+	$(".Cpaging").on("click", "#pBtn", function(){
+		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldTxt").val($("#searchTxt").val());
+		
+		$("#page").val($(this).attr("page"));
+		
+		reloadList();
+	});
+	
+	$("tbody").on("click", "#delBtn", function() {
+		var commentNo= $(this).parent().parent().attr("no");
+		$("#no").val(commentNo);	
+		
+		makePopup({
+			title : "알림",
+			contents : "삭제하시겠습니까?",
+			buttons : [{
+				name : "삭제",
+				func : function() {
+					var params = $("#actionForm").serialize();
+					$.ajax({
+						url : "adminAction/delete",
+						type : "POST", 
+						dataType : "json",
+						data : params, 
+						success : function(res) { 
+							console.log(res);
+							switch (res.msg) {
+							case "success":
+								makeAlert("알림", "삭제되었습니다.", function(){
+									reloadList();
+								});
+								break;
+							case "fail":
+								makeAlert("알림", "삭제에 실패하였습니다.")
+								break;
+							case "error":
+								makeAlert("알림", "삭제중 문제가 발생하였습니다.")
+								break;
+							}
+						},
+						error : function(request, status, error) { 
+							console.log(request. responseText); 
+						}
+					});
+					closePopup();
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+	});
+	
+	$("#insertBtn").on("click", function() { 
+		if($.trim($("#nm").val()) == "") {
+			makeAlert("알림", "관리자명을 입력하세요.", function() {
+				$("#nm").focus();
+			});
+		}else if ($("#email").val() == "") {
+			makeAlert("알림", "아이디를 입력하세요.", function() {
+				$("#email").focus();
+			});
+		}else if($.trim($("#pwd").val()) == ""){
+			makeAlert("알림", "비밀번호를 입력하세요.", function(){
+				$("#pwd").focus();
+			});
+		}else if($.trim($("#cnfmPwd").val()) == ""){
+			makeAlert("알림", "비밀번호를 입력하세요.", function(){
+				$("#cnfmPwd").focus();
+			});
+		}else if($("#pwd").val() != $("#cnfmPwd").val()){
+			makeAlert("알림", "비밀번호가 일치하지 않습니다.", function(){
+				$("#cnfmPwd").focus();
+			});
+		}else {
+			var params = $("#actionForm").serialize();  
+			
+			$.ajax({
+				url:"adminAction/insert", 
+				type: "POST", 
+      			dataType: "json",
+				data: params,
+				success : function(res){ 
+				console.log(res);
+					switch(res.msg){
+					case "success" :
+						$("#page").val("1");
+   	                    $("#searchgbn").val("0");
+   	                    $("#searchTxt").val("");
+						makeAlert("알림", "관리자 계정이 등록되었습니다.", function() {
+							location.href="adEvt";
+						}) ;
+					break;
+					case "fail" :
+  						makeAlert("알림", "관리자 계정 등록에 실패하였습니다.")
+					break;
+  					case "error" :                     
+   	                     makeAlert("알림", "관리자 계정 등록 중 문제가 발생하였습니다.")
+					break;
+					}
+				},
+   	            error : function(request, status, error) { 
+   	                     console.log(request,responseText); 
+   	            }
+			});
+		}
+	});
+	
+});
+
 function reloadList(){
 	var params = $("#actionForm").serialize();
 	
 	$.ajax({
-		url:"adminAjax",
+		url:"adminAjax", 
 		type: "POST",
 		dataType: "json",
 		data : params,
@@ -37,19 +184,19 @@ function drawList(list){
 	var html ="";
 	
 	for(var data of list){
-		
 		html += "<tr no=\"" +data.MEMBER_NO +"\">";
-		html += "<td><span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
 		html += "<td>"+ data.MEMBER_NO +"</td>";
 		html += "<td>"+ data.AUTHORITY_NM +"</td>";
 		html += "<td>"+ data.NM +"</td>";
 		html += "<td>"+ data.EMAIL +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
-		html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\"/></td>";
-		html += "</tr>                                                                                                           ";
+		html += "<td>";
+		html += "<span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
+		html += "</td>";
+		html += "</tr>";
 	}
 	
-	$("tbody").html(html);
+	$(".Cdeailtable tbody").html(html);
 };
 
 function drawPaging(pd) {
@@ -80,7 +227,7 @@ function drawPaging(pd) {
 	html += "<span class=\"page_btn page_last\" id=\"pBtn\" page=\"" + pd.maxP + "\">>></span>";
 	
 	$(".Cpaging").html(html); 
-}
+}	
 </script>
 </head>
 <body>
@@ -91,7 +238,7 @@ function drawPaging(pd) {
 	
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> account_circle </span>
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> supervisor_account </span>
 			관리자 계정 관리
 		</div>
 		<div class="Ccon">
@@ -99,71 +246,68 @@ function drawPaging(pd) {
 				<input type="hidden" name="no" id="no" value="${data.MEMBER_NO}" /> 
 				<input type="hidden" name="delNo" id="delNo" />
 				<input type="hidden" name="page" id="page" value="${page}" />
+				<div class="Csearch">
+					<select class="sel" name="searchGbn" id="searchGbn">
+						<option value="0">관리자명</option>
+						<option value="1">아이디</option>
+					</select>
+					<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
+					<input type="button" class="btn src" id="searchBtn" value="검색" />
+				</div>
 			</form>
-			<div class="Csearch">
-				<select class="sel" name="searchGbn" id="searchGbn">
-					<option value="0">관리자명</option>
-					<option value="1">아이디</option>
-				</select>
-				<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
-				<input type="button" class="btn src" id="searchBtn" value="검색" />
-			</div>
 			<div class="Ccon left">
-				<div class="adInform">
-					<div>
-						<span class="material-symbols-outlined"> supervisor_account </span> 
-						로그인 관리자 정보
-					</div>
-					<div class="adIcon">
-						<span class="material-symbols-outlined" id="adNmSpan"> person_4 </span>  
-						<p id="adNm">이름</p>
-					</div>
-					<div class="loginInform">
-						<span class="material-symbols-outlined" id="key"> face </span> 
-						<span style="padding: 5px;">${adMemNm}</span> 
-						<br/>
-						<span class="material-symbols-outlined" id="key"> key </span> 
-						<span style="padding: 5px;">${adMemPw}</span>
-					</div>
+				<div class="Cdeailtable">
+					<table style="table-layout: fixed;">
+						<colgroup>
+							<col width="80px">
+							<col width="90px">
+							<col width="170px">
+							<col width="170px">
+							<col width="110px">
+							<col width="40px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>등급</th>
+								<th>관리자명</th>
+								<th>아이디</th>
+								<th>등록일</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
 				</div> 
+				<div class="Cpaging"></div>
 			</div>
 			<div class="Ccon right">
-				<div class="adList">
-					<div>
-						<span class="material-symbols-outlined" > manage_accounts </span>
-						관리자 목록
+				<form action="#" id="updateForm" method="post">
+					<input type="hidden" name="updNo" id="updNo" value="${data.MEMBER_NO}" /> 
+					<table class="Mtable">
+						<tr>
+							<th>관리자명</th>
+							<td><input type="text" name="nm" id="nm"></td>
+						</tr>
+						<tr>
+							<th>아이디</th>
+							<td><input type="text" name="email" id="email"></td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td><input type="password" name="pwd" id="pwd"></td>
+						</tr>
+						<tr>
+							<th>비밀번호 확인</th>
+							<td><input type="password" name="cnfmPwd" id="cnfmPwd" maxlength="20" /></td>
+						</tr>
+					</table>
+					<div class="Cbtnright">
+						<input type="button" id="updateBtn" value="수정" class="btn" /> 
+						<input type="button" id="insertBtn" value="등록" class="btn" />
 					</div>
-					<div class="Cdeailtable">
-						<table style="table-layout: fixed;">
-							<colgroup>
-								<col width="50px">
-								<col width="70px">
-								<col width="100px">
-								<col width="140px">
-								<col width="140px">
-								<col width="110px">
-								<col width="50px">
-							</colgroup>
-							<thead>
-								<tr>
-									<th></th>
-									<th>번호</th>
-									<th>등급</th>
-									<th>관리자명</th>
-									<th>아이디</th>
-									<th>등록일</th>
-									<th><input type="checkbox" id="allChck" name="allChck" /></th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</div> 
-				</div>
-				<div class="Cbtnright">
-					<input type="button" id="deleteBtn" name="deleteBtn" value="삭제" class="btn" /> 
-				</div>
-				<div class="Cpaging"></div>
-			</div>	
+				</form>
+			</div>
 		</div>
 	</div> 
 </body>

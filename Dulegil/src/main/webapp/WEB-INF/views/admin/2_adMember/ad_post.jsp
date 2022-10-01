@@ -285,7 +285,7 @@ function drawPaging(pd) {
 		<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 		
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_note</span>
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> library_books </span>
 			게시글 관리
 		</div>
 		

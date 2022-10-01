@@ -166,7 +166,7 @@ $(document).ready(function(){
 	
 	
 	// 페이징 버튼
-	$("#hd2_paging").on("click", ".pBtn", function(){
+	$(".Cpaging").on("click", "#pBtn", function(){
 		// 기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
@@ -198,60 +198,35 @@ $(document).ready(function(){
 		
 	} // reloadList end
 	
-	function drawPaging(pd){
-		var html = "";
-		// " + + " 복사
-		
-		// 처음
-		html += "<div id=\"pBtn\">";
-		html += "<input type=\"button\" page=\"1\" value=\"<<\" class=\"pBtn\" />";
-		html += "</div>";
-		
-		//이전
-		if($("#page").val()=="1"){		
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"1\" value=\"<\" class=\"pBtn\" />";
-			html += "</div>";
-			
-		} else{
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 - 1 ) + "\" value=\"<\" class=\"pBtn\" />";
-			html += "</div>";
-		}
-		
-		// 현재 페이지
-		for(var i = pd.startP; i<=pd.endP; i++){
-			if($("#page").val() * 1 == i){
-				html += "<div id=\"pBtn_GD\">";
-				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn_GD\" />";
-				html += "</div>";		
-			}else{
-				html += "<div id=\"pBtn\">";
-				html += "<input type=\"button\" page=\"" + i + "\" value=\"" + i + "\" class=\"pBtn\" />";
-				html += "</div>";	
-				
-			}
-		}
-		
-		
-		// 다음
-		if($("#page").val() * 1 == pd.maxP){
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">\" class=\"pBtn\" />";
-			html += "</div>";	
-		}else{
-			html += "<div id=\"pBtn\">";
-			html += "<input type=\"button\" page=\"" + ($("#page").val() * 1 + 1) + "\" value=\">\" class=\"pBtn\" />";
-			html += "</div>";	
-		}
-		
-		// 끝
-		html += "<div id=\"pBtn\">";
-		html += "<input type=\"button\" page=\"" + pd.maxP + "\" value=\">>\" class=\"pBtn\" />";
-		html += "</div>";
-		
-		$("#hd2_paging").html(html);
+function drawPaging(pd) {
+	var html = "";
+	
+	html += "<span class=\"page_btn page_first\" id=\"pBtn\" page=\"1\"><<</span>";
+	
+	if($("#page").val() == "1" ) {
+		html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"1\"><</span>";
+	}else {		
+	html += "<span class=\"page_btn page_prev\" id=\"pBtn\" page=\"" + ($("#page").val() *1 -1 )+ "\"><</span>";
 	}
+	
+	for(var i = pd.startP; i<=pd.endP; i++){
+		if($("#page").val() * 1 == i){
+	html += "<span class=\"page_btn_on\" id=\"pBtn\" page=\"" + i + "\">" + i + "</span>";			
+		}else{
+	html += "<span class=\"page_btn\" id=\"pBtn\" page=\"" + i + "\">" + i + "</span>";			
+		}
+	}
+	if($("#page").val() * 1 == pd.maxP){ 
+		
+	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + pd.maxP + "\">></span>";
+	}else{		
+	html += "<span class=\"page_btn page_next\" id=\"pBtn\" page=\"" + ($("#page").val() * 1 + 1) + "\">></span>";
+	}
+	
+	html += "<span class=\"page_btn page_last\" id=\"pBtn\" page=\"" + pd.maxP + "\">>></span>";
+	
+	$(".Cpaging").html(html); 
+}
 	
 	
 	

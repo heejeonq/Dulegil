@@ -81,7 +81,7 @@ $(document).ready(function(){
 		</form>
 			
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span> 
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> calendar_today </span> 
 			이벤트 상세보기
 		</div>
 		<div class="Cbtn">

@@ -16,7 +16,7 @@
 	</update>
 	
 	<select id="getEvtList"  parameterType="hashmap" resultType="hashmap">
-		SELECT POST_NO, TITLE, TO_CHAR(EVENT_START_DT, 'YYYY-MM-DD') AS "START", TO_CHAR(EVENT_END_DT, 'YYYY-MM-DD') AS "END"
+		SELECT POST_NO, TITLE, TO_CHAR(EVENT_START_DT, 'YYYY.MM.DD') AS "START", TO_CHAR(EVENT_END_DT, 'YYYY-MM-DD') AS "END"
 		FROM EVENT
 		WHERE DEL_DT IS NULL
 	</select> 

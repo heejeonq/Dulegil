@@ -87,7 +87,7 @@ $(document).ready(function(){
 				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 			</form>
 			<div class="Cname">
-				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note </span>
+				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> assignment_turned_in </span>
 				공지사항 상세보기
 			</div>
 			<div class="Cbtn">

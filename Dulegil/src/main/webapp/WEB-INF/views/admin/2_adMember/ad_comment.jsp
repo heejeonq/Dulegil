@@ -277,7 +277,8 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-icons" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">comment</span> 
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; vertical-align: bottom;">comment</span> 
+			
 			댓글 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
