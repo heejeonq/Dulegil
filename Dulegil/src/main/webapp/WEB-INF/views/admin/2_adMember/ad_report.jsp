@@ -249,8 +249,8 @@ function drawPaging(pd) {
 		}
 		html += "</td>";
 		html += "<td>"+ data.REPORT_NO +"</td>";
-		html += "<td>"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td>"+ data.CATE +"</td>";
+		html += "<td>"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td>"+ data.ACCUSER +"</td>";
 		html += "<td>"+ data.ACCUSED +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";

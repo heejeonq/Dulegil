@@ -88,7 +88,7 @@ public class adManageController {
 	
 	try {
 		switch(gbn) {
-		case "insert" : cnt = dao.insert("adMember.insertAdmin",params);
+		case "insert" : cnt = dao.insert("adMember.adIns",params);
 		break;
 		case "update" : cnt = dao.update("adMember.update",params);
 		break;
@@ -108,4 +108,20 @@ public class adManageController {
 	
 	return mapper.writeValueAsString(model);
 	}
+	
+	@RequestMapping(value = "/adminDetailAjax",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	
+	@ResponseBody
+	public String adminDetailAjax(
+			@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		HashMap<String, String> data = dao.getMap("adMember.adInfo", params);
+		model.put("data", data);
+		
+		return mapper.writeValueAsString(model);
+	}	
 }

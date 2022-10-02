@@ -23,7 +23,11 @@
 .Mtable tr{
 	border: none;
 }
-Mtable input {
+.Mtable th {
+    font-size: 11pt;
+    padding: 12px 0;
+}
+.Mtable input {
     width: 200px;
     height: 25px;
     text-align: left;
@@ -31,6 +35,10 @@ Mtable input {
     padding-left: 5px;
     border: 1px solid #ddd;
     border-radius: 3px;
+}
+#adTit:hover{
+	cursor: pointer;
+	text-decoration: underline;
 }
 </style>
 <script type="text/javascript">
@@ -58,6 +66,29 @@ $(document).ready(function(){
 		$("#page").val($(this).attr("page"));
 		
 		reloadList();
+	});
+	
+	$("tbody").on("click", "#adTit", function(){
+		$("#no").val($(this).parent().attr("no"));
+		
+		$("#updateBtn").show();
+		$("#insertBtn").hide();
+		
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url:"adminDetailAjax", 
+			type: "POST",
+			dataType: "json",
+			data : params,
+			success : function(res){
+				drawDetail(res.data);
+				console.log(res);
+			},
+			error : function(request, status, error){
+				console.log(request.responseText);
+			}
+		});
 	});
 	
 	$("tbody").on("click", "#delBtn", function() {
@@ -145,10 +176,10 @@ $(document).ready(function(){
 						}) ;
 					break;
 					case "fail" :
-  						makeAlert("알림", "관리자 계정 등록에 실패하였습니다.")
+  						makeAlert("알림", "등록에 실패하였습니다.")
 					break;
   					case "error" :                     
-   	                     makeAlert("알림", "관리자 계정 등록 중 문제가 발생하였습니다.")
+   	                     makeAlert("알림", "등록 중 문제가 발생하였습니다.")
 					break;
 					}
 				},
@@ -178,17 +209,19 @@ function reloadList(){
 			console.log(request.responseText);
 		}
 	});
-	
 };
+
 function drawList(list){
+	$("#updateBtn").hide();
+	
 	var html ="";
 	
 	for(var data of list){
 		html += "<tr no=\"" +data.MEMBER_NO +"\">";
 		html += "<td>"+ data.MEMBER_NO +"</td>";
 		html += "<td>"+ data.AUTHORITY_NM +"</td>";
-		html += "<td>"+ data.NM +"</td>";
-		html += "<td>"+ data.EMAIL +"</td>";
+		html += "<td id=\"adTit\">"+ data.NM +"</td>";
+		html += "<td id=\"adTit\">"+ data.EMAIL +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
 		html += "<td>";
 		html += "<span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
@@ -198,6 +231,32 @@ function drawList(list){
 	
 	$(".Cdeailtable tbody").html(html);
 };
+
+function drawDetail(list){
+	$("#nm").val(list.NM);
+	$("#email").val(list.EMAIL);
+	$("#pwd").val(list.PWD);
+}
+
+function reloadDetail(){
+	var params = $("#actionForm").serialize();
+	
+	$.ajax({
+		url:"adminDetailAjax",
+		type: "POST",
+		dataType: "json",
+		data : params,
+		success : function(res){
+			$("#nm").val("");
+			$("#email").val("");
+			$("#pwd").val("");
+			$("#cnfmPwd").val("");
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	});
+}; 
 
 function drawPaging(pd) {
 	var html = "";
@@ -243,8 +302,7 @@ function drawPaging(pd) {
 		</div>
 		<div class="Ccon">
 			<form action="#" id="actionForm" method="post">
-				<input type="hidden" name="no" id="no" value="${data.MEMBER_NO}" /> 
-				<input type="hidden" name="delNo" id="delNo" />
+				<input type="hidden" name="no" id="no" /> 
 				<input type="hidden" name="page" id="page" value="${page}" />
 				<div class="Csearch">
 					<select class="sel" name="searchGbn" id="searchGbn">
@@ -283,7 +341,6 @@ function drawPaging(pd) {
 			</div>
 			<div class="Ccon right">
 				<form action="#" id="updateForm" method="post">
-					<input type="hidden" name="updNo" id="updNo" value="${data.MEMBER_NO}" /> 
 					<table class="Mtable">
 						<tr>
 							<th>관리자명</th>
@@ -295,11 +352,11 @@ function drawPaging(pd) {
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input type="password" name="pwd" id="pwd"></td>
+							<td><input type="text" name="pwd" id="pwd"></td>
 						</tr>
 						<tr>
 							<th>비밀번호 확인</th>
-							<td><input type="password" name="cnfmPwd" id="cnfmPwd" maxlength="20" /></td>
+							<td><input type="text" name="cnfmPwd" id="cnfmPwd" maxlength="20" /></td>
 						</tr>
 					</table>
 					<div class="Cbtnright">

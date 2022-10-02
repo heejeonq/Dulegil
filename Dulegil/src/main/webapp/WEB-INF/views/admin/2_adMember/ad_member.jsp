@@ -183,6 +183,7 @@ $(document).ready(function(){
 	   	                    $("#searchTxt").val("");
 							makeAlert("알림", "회원정보가 수정되었습니다.", function() {
 								reloadList();
+								reloadDetail();
 							});
 						break;
 						case "fail" :

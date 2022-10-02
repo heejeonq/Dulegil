@@ -114,7 +114,7 @@
 		SELECT MEMBER_NO, A.AUTHORITY_NM, NM, EMAIL, PWD, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT
 		FROM MEMBER M INNER JOIN AUTHORITY A
 		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
-		WHERE A.AUTHORITY_NO = 1
+		WHERE M.AUTHORITY_NO = 1
 		AND DEL_DT IS NULL
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
@@ -133,7 +133,7 @@
 		SELECT COUNT(*) AS CNT
 		FROM MEMBER M INNER JOIN AUTHORITY A
 		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
-		WHERE A.AUTHORITY_NO = 1
+		WHERE M.AUTHORITY_NO = 1
 		AND DEL_DT IS NULL
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
@@ -148,8 +148,18 @@
 	</select>
 	
 	<!-- 관리자 계정 추가 -->
-	<insert id="insertAdmin" parameterType="hashmap">
+	<insert id="adIns" parameterType="hashmap">
 		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO)
 		VALUES(210, #{email}, 1, #{pwd}, #{nm}, 00)
 	</insert>
+	
+	<select id="adInfo" resultType="hashmap">
+		SELECT MEMBER_NO, AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT, 
+		FROM (SELECT M.MEMBER_NO, A.AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, REG_DT
+		      FROM MEMBER M INNER JOIN AUTHORITY A 
+		                            ON M.AUTHORITY_NO = A.AUTHORITY_NO
+		      WHERE M.DEL_DT IS NULL 
+		      AND M.AUTHORITY_NO = 1 )AM
+		WHERE MEMBER_NO = #{no}
+	</select>
 </mapper>
