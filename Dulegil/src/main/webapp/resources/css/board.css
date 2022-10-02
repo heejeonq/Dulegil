@@ -2,7 +2,7 @@
 /*list*/
 .mainWrap{
 	margin: 50px 0;
-    overflow: hidden;
+
 }
 
 .tit{
@@ -95,20 +95,29 @@
     width: 100%;
 }
 .btn {
-	font-size: 11px;
-	cursor: pointer;
+
+	
+	float: left;
+
+}
+.btn {	
+	display: inline-block;
 	height: 35px;
 	width: 60px;
-	color: black;
-	display: inline-block;
-	border: 1px solid #eff3f6;
-	border-radius: 4px;	
-	background-color: #f0c41994;;
+    background-color: #f0c41994;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 10pt;
+    padding: 7px 16px;
+    font-weight: 600;
+}
+#wriBtn{
+	width:65px;
 	float: left;
+	padding: 7px 11px;
 	margin-top: 20px;
 }
-
-
 .btn:hover{
 	background-color:#b9992194;
 }
@@ -169,10 +178,7 @@
 	font-size:26px;
 	font-weight: bold;		
 }
-.ti_ttt{
-	margin-bottom:20px;
-	
-}
+
 
 .tit_cos, .tit_writer, .tit_date{
 	display: inline-block;
@@ -202,6 +208,7 @@
     height: 50px;
     margin: 0 auto;
     text-align: left;
+    
 
 }
 .tit_writer img{
@@ -264,7 +271,7 @@
     margin: 10px auto;
     background: white;
 }
-.goodBtn {
+.goodBtn,.goodCancelBtn {
     vertical-align: top;
     font-size: 11px;
     width: 60px;
@@ -276,9 +283,10 @@
     padding: 9px;
     background-color: #f5f3f3;
     margin: 0 auto;
-    text-align:center;
+    text-align:center;    
 }
-.goodCnt{
+
+.goodCnt,.goodDCnt{
 	font-size: 12px;
 }
 
@@ -344,6 +352,22 @@
 	float: right;
 	cursor: pointer;
 }
+.singo {
+    cursor: pointer;
+    float: right;
+    position: relative;
+ }
+ .singo_contents{
+ 	position: absolute;
+    flex-direction: column;
+    display: none;
+    font-size: 13px;
+    right: 10px;
+    box-shadow: 1px 1px 3px #777;
+    padding: 7px;
+    background-color: #ffff;
+    width: 100px;
+ }
 
 .idBox {
 	width: 100%;
@@ -415,12 +439,13 @@
 #updateBtn  {	
 	margin-top:4px;
 	margin-left:10px;
+	float:right;
 }
 
 
 #deleteBtn{
 	margin-top:4px;
-	margin-left:334px;
+	float:right;
 }
 #cancelBtn{
 	margin-top: 4px;
@@ -440,12 +465,18 @@
 	margin-left:50px;
 	margin-top:4px;
 }
-#clistBtn{
+#NlistBtn{
 	float: right;
-	margin-left:50px;
 	margin-top:4px;
 }
 
+#clistBtn{
+	margin-left: 422px;
+    margin-top: 3px;
+}
+#aclistBtn{
+	margin-left: 510px;
+}
 .reporBtn{
   	display: inline-block;
 	vertical-align: top;
@@ -460,7 +491,9 @@
 }
 .report img, .like img {
 	transition: all ease 0.25s;
+	
 }
+
 .report img:hover,.like img:hover{
 	transform: rotate(45deg);
 }
@@ -660,4 +693,35 @@ titCon:focus,.cosSell:focus {
 .emptyBox span{
 	font-size:12px;
 	
+}
+.singo_label label {
+	display: block;
+    padding: 3px 0;
+}
+/*첨부파일*/
+
+span.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    vertical-align: middle;
+}
+.aL{
+   color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 11px;
+    vertical-align: -webkit-baseline-middle;
+    font-size: 13px;
+    margin-left: -4px;
 }

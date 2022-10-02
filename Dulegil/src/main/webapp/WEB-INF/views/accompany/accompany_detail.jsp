@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/withDulDet.css" />
 <title>동행상세</title>
@@ -27,10 +26,68 @@
 $(document).ready(function(){
 	reloadList();
 
-	console.log(${data.MEMBER_NO});
-	console.log("dfs");
+	//별그리기
+	$(".star span").css("width", ${data.RELIABILITY} * 20 +"%");
+	
+	$(".cancelwithMBtn").hide();
+	
+	//게시글 신고하기 버튼 누르면 
+	$("#reporBtn").on("click",function(){ 
+		 if ($("#sMemNo").val() == "") {
+	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
+	       });
+	     } else{
+	    	 reportText2();
+			 
+		 }
+	 });
+
+	
+	//댓글 신고하기
+	$(".mainView4").on("click", ".singo img", function(){
+		
+		if($(this).parent().children(".singo_contents").css("display") == "none"){//클릭한 신고팝업이 안보이는 상태면
+			$(".singo_contents").css("display", "none");    //모든 신고팝업들은 모두 꺼진다     
+			$(this).parent().children(".singo_contents").css("display", "flex");//내가 클릭한 신고팝업을 켜준다
+			//$(".singo_contents").show();		
+		}
+		else {  //그게 아니면
+			$(this).parent().children(".singo_contents").css("display", "none"); //보이는 상태면 클릭한걸 없애주겠다
+		}
+	
+	});
+	
+	$(".mainView4").on("click", "#reportBtn", function(){
+		let commentNo = $(this).parent().parent().parent().attr("commentNo"); //내가 클릭한 댓글번호를 받아옴
+		let reportNo = $('input[name="report"]:checked').val(); //선택한 신고 번호를 불러오겠다.
+        //댓글번호와 신고번호를 보내줘야함 
+		
+		$("#commentNo").val(commentNo); // commentNo 값을 #commentNo 넣어줌
+		$("#reportTypeNo").val(reportNo); //
+	
+		if (reportNo == null) {
+            makeAlert("알림", "신고내용을 선택하세요.", function() {
+            });
+		 }
+		else{
+			if(reportNo == "5"){ //기타버툰울 선택하면
+				 
+				reportText();  //function reportText() 실행
+			}
+			else{
+				action("commentReport"); //그밖은 액션 실행
+			
+			}
+			$(".singo_contents").css("display", "none");
+	//그리고 팝업창 없애주기		
+		}
+		
+		
+	});
+	
+	
 	//게시글 버튼
-	$("#listBtn").on("click",function(){
+	$("#aclistBtn").on("click",function(){
 		$("#actionForm").attr("action","accompany")
 		$("#actionForm").submit();
 	});
@@ -183,16 +240,153 @@ $(document).ready(function(){
 			 
 		 }
 	 });
+	
+	//동행신청중 버튼 누르면 동행신청 취소하기 띄우기 
+	$("#cancelwithMBtn").on("click",function(){ 
+		makePopup({
+			title:"알림",
+			contents : "동행신청 취소하시겠습니까?",
+			buttons : [{
+				name:"확인",
+				func:function() {
+					action("applyCancel");
+					closePopup()//제일위의 팝업닫기
+
+				}			
+			
+			},{
+				name : "취소"
+			}]
+		});
+	 });
+	
 
 			
 
 
 });
+//댓글 신고 텍스트
+function reportText() {
+	html = "";
+	
+	html += "			<table class=\"board_detail_table\">  		";
+	html += "				<tbody>                                                                   			";
+	html += "				<tr>                                                                  			";
+	html += "					<th class=\"popup_th\">신고 내용을 입력하세요</th>                                                      			";
+	html += "				</tr>                                                                  			";
+	html += "				<tr>                                                                  			";
+	html += "					<td>";
+	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+	html += "					</td>    ";
+	html += "				</tr>                                                                  			";
+	html += "				</tbody>                                                                  			";
+	html += "			</table>";
+	
+		makePopup({
+			depth : 1,
+			width : 300,
+			height : 200,
+			bg : true,
+			bgClose : false,
+			title : "신고하기 기타사유",
+			contents : html,
+			draggable : false,
+			buttons : [{
+				name : "신고하기",
+				func:function() {
+					console.log($("#reportTypeNo").val());
+					$("#reportContents").val($("#descript").val());
+
+					
+					if ($.trim($("#descript").val()) == "") {
+			             makeAlert("알림", "내용을 입력하세요.", function() {
+			                $("#descript").focus();
+			             });
+					 }
+					 else{
+						action("commentsReport");
+						$("#reportContents").val("");
+						closePopup();
+						 
+					 }
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+}
+
+function reportText2() {
+	html = "";
+	
+	html += "			<table class=\"board_detail_table\">  		";
+	html += "				<tbody>                                                                   			";
+
+	html += "				<div class=\"singo_label\">";
+	html += "						<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+
+	html += "						<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+
+	html += "						<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+
+	html += "						<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+
+	html += "						<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
+	html += "				</div>";
+
+	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+
+	html += "				</tbody>                                                                  			";
+	html += "			</table>";
+	
+		makePopup({
+			depth : 1,
+			width : 300,
+			height : 300,
+			bg : true,
+			bgClose : false,
+			title : "글 신고하기",
+			contents : html,
+			draggable : false,
+			buttons : [{
+				name : "신고하기",
+				func:function() {
+					$("#reportTypeNo").val($('input[name="report"]:checked').val())
+					console.log($("#reportTypeNo").val());
+					$("#reportContents").val($("#descript").val());
+
+					if($("#reportTypeNo").val() == "5"){
+						if ($.trim($("#descript").val()) == "") {
+				             makeAlert("알림", "신고 사유를 입력하세요.", function() {
+				                $("#descript").focus();
+				             });
+						 }
+						else{
+							action("postReport");
+							$("#reportContents").val("");
+							closePopup();
+						}
+					}
+					 else{
+						action("postReport");
+						$("#reportContents").val("");
+						closePopup();
+						 
+					 }
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+}
+
 var msg = {
 		"insert" : "등록",
 		"update" : "수정",
 		"delete" : "삭제",
 		"apply" : "동행신청",
+		"commentReport" : "댓글신고",
+		"postReport" : "게시글신고",
 }
 
 function action(flag){
@@ -243,12 +437,32 @@ function action(flag){
             	case "apply":
             		
             		break;
+				case "applyCancel":
+					
+            		
+            		break;
+				case "commentReport":
+            		
+            		break;
+				case "PostReport":
+            		
+            		break;
             }            
             reloadList();
             
             break;
          case "fail" :
-            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+        	 if(msg[flag] == "댓글신고"){
+    			 makeAlert("알림",  "이미 신고한 댓글입니다.");
+    		}
+        	 else if(msg[flag] == "게시글신고"){
+    			 makeAlert("알림",  "이미 신고한 글입니다.");
+    		}
+        	 else{
+	            makeAlert("알림", msg[flag]+"에 실패하였습니다.")
+        		 
+        	 }
+        	
             break;
          case "error" :                     
             makeAlert("알림", msg[flag]+"중 문제가 발생하였습니다.")
@@ -273,7 +487,7 @@ function reloadList(){
 		dataType : "json",
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행			
-			drawList(res.list, res.list2, res.applyCnt);		
+			drawList(res.list, res.list2, res.applyCnt, res.applyCheck);		
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
@@ -282,9 +496,20 @@ function reloadList(){
 	});
 };
 
- function drawList(list, list2, applyCnt) {
-//만약 다섯개 미만이면 버튼을 삭제하고	
-	console.log(list.length);
+ function drawList(list, list2, applyCnt, applyCheck) {
+
+	
+	//이미 동행신청을 했으면 동행신청중 버튼 보이게
+	if(applyCheck == "0"){
+		$(".withMBtn").hide();
+		$(".cancelwithMBtn").show();
+	}
+	else{
+		$(".cancelwithMBtn").hide();
+		$(".withMBtn").show();
+	}
+	
+	//만약 다섯개 미만이면 버튼을 삭제하고	
 	if(list.length < 5){
 		$("#moreBtn").hide();		
 	}
@@ -294,15 +519,26 @@ function reloadList(){
 	}
 	console.log(list);
 	
-	var html = ""; //변수선언
+	var html = ""; //변수선언 댓글 목록
 	var html2 = ""; //동행 신청자 목록
 	var html3 ="";
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
               
 		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
-		html += " <div class=\"iconBox\">";
-		html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+		if("${sMemNo}" != data.CMEMBER_NO){//작성자이면
+			html += " <div class=\"singo\">";
+			
+			html += " 	<img src=\"resources/images/detailViewIcon.png\" />";
+			html += "			<div class=\"singo_contents\">                                                         ";
+			html += "				<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+			html += "				<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+			html += "				<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+			html += "				<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+			html += "				<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
+			html += "				<input type=\"button\" value=\"신고\" id=\"reportBtn\">                                               ";
+			html += "			</div>                                                                               ";
+		}
 		html += " </div>";
 		html += " <div class=\"idBox\">";
 		html += " 	 <img src=\"resources/upload/" + data.P_IMG + "\" class=\"pimg\"/>  " + data.CNM + "";
@@ -398,12 +634,11 @@ function reloadList(){
             		</c:choose>
             	</c:otherwise>
             </c:choose>
-            <div class="trust">
-               <img src="resources/images/Mstar.png"  />
-               <img src="resources/images/Mstar.png" />
-               <img src="resources/images/Mstar.png" />
-               <img src="resources/images/Mstar.png" />
-               <img src="resources/images/Mstar2.png" />
+            <div class="trust">                                                        
+				<span class="star">★★★★★															
+					<span>★★★★★</span>
+				</span>
+               
             </div>
          </div>
          
@@ -416,7 +651,7 @@ function reloadList(){
       
       <hr/>
       <div class="conBox">
-      <div class="emptyBox"></div>
+
       <div class= "imgg">
       <c:if test="${!empty data.B_IMG}">			
 		<img src="resources/upload/${data.B_FILE}" /><br/>
@@ -427,6 +662,7 @@ function reloadList(){
       
       <div class="btnBox">
       
+       <c:if test="${sMemNo != data.MEMBER_NO}" >
          <div class="withMBtn" id="withMBtn">
 	         <span class="withMB">
 	         <img src="resources/images/manico.png" />
@@ -436,16 +672,35 @@ function reloadList(){
 	         </div>               
          </div>
          
-         <div class="reporBtn">
+         <div class="cancelwithMBtn" id="cancelwithMBtn">
+	         <span class="withMB">
+	         <img src="resources/images/manico.png" />
+	         </span>
+	         <div class="withMTitW">
+	         <span class="withMTit">동행취소</span>   
+	         </div>               
+         </div>
+         
+         <div class="reporBtn" id="reporBtn">
          <span class="report">
          <img src="resources/images/report1.png" />
          </span>
          <span class="reporTit">신고하기</span>         
          </div>
-         
+       	</c:if>    
       </div>
          
+<<<<<<< HEAD
    <div class="emptyBox"></div>      
+      <div class="box2">                      
+    
+         <input type="button" class="btn" id="aclistBtn" value="목록"/>
+         <c:if test="${sMemNo eq data.MEMBER_NO}" >			
+				<input type="button" class="btn" id="updateBtn" value="수정"/>
+				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
+		 </c:if>
+=======
+   
       <div class="box2">
       
          
@@ -455,6 +710,7 @@ function reloadList(){
 			<input type="button" class="btn" id="updateBtn" value="수정"/>
 		</c:if>    
          <input type="button" class="btn" id="listBtn" value="목록"/>
+>>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
       </div>
             
       </div>
@@ -464,8 +720,7 @@ function reloadList(){
       </div>
       
       
-      <div class="emptyBox"></div>
-      <div class="emptyBox"></div>
+
          
          
       <hr/>
@@ -508,6 +763,8 @@ function reloadList(){
 			<input type="hidden" name="commentNo" id="commentNo" value="${data.COMMENT_NO}">
 			<input type="hidden" name="cmemberNo" id="cmemberNo" value="${sMemNo}">
 			<input type="hidden" name="memberNo" value="${data.MEMBER_NO}">
+			<input type="hidden" name="reportTypeNo" id="reportTypeNo">
+			<input type="hidden" name="reportContents" id="reportContents">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
 			<input type="hidden" name="cpage" id="cpage" value="5" />
 			

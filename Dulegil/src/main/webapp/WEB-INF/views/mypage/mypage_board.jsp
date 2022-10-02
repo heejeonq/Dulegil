@@ -13,6 +13,7 @@
 <title>게시글 관리</title>
 <script type="text/javascript">
 $(document).ready(function(){
+	
 	$("#cateNo").on("change", function() {
 		$("#page").val("1");
 		
@@ -23,6 +24,7 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 		$("#oldTxt").val("");
 		
+		// reloadList() DB에서 가져오는 값을 그려줌.
 		reloadList();
 	});
 	
@@ -32,6 +34,7 @@ $(document).ready(function(){
 		//기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
+		
 		console.log($(this).parent().children().eq(1).attr("cate"));
 		if($(this).parent().children().eq(1).attr("cate")=="1"){
 	         $("#actionForm").attr("action","courseReviewDetail");
@@ -40,8 +43,7 @@ $(document).ready(function(){
 	      }else{
 	    	 $("#actionForm").attr("action","freeBoardDetail");  
 	      }
-		$("#actionForm").submit();
-		
+		$("#actionForm").submit();	
 	});
 	
 	$("thead").on("click", "#allCheck", function(){
@@ -93,7 +95,8 @@ $(document).ready(function(){
             contents : "삭제 하시겠습니까?",
             buttons   : [{
             	name : "확인",
-              	func : function(){
+              	func : function (){
+              		   deleteList();
               		   reloadList();
               		   makeAlert("알림", "삭제가 완료되었습니다.");
                  	   closePopup();
@@ -119,6 +122,9 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
+	//param은 전 페이지에서 불러오는 데이터
+	//페이지가 바뀔때 검색 유지 되게
+	//목록을 조회하려면 필요한 페이지 검색 검색어, 동기화가 섞인 상태에서는 이렇게 써야한다.
 	if("${param.searchGbn}" !=""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
@@ -132,10 +138,36 @@ $(document).ready(function(){
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 	
-		reloadList();
-		
+		reloadList();	
 	});
 });
+
+function deleteList(){
+	
+	$("#cate").val($("#cateNo").val());
+	
+	   var params = $("#actionForm").serialize();
+	                                                            
+	   $.ajax({                                                 
+	      url:"mypageBoardAjax/delete",                                     
+	      type:"POST",                                          
+	      dataType:"json",                                      
+	      data : params,                                        
+	      success: function(res) {     
+	    	  switch (res.msg) {
+				case "success":
+					reloadList();
+					break;
+				case "fail":
+					alert("실패 했습니다.");
+					break;
+				}
+	      },                                                    
+	      error: function(request, status, error) {             
+	         console.log(request.responseText);                 
+	      }                                                     
+	   });                                                      
+	} 
 
 function reloadList(){
 	
@@ -144,7 +176,7 @@ function reloadList(){
 	   var params = $("#actionForm").serialize();
 	                                                            
 	   $.ajax({                                                 
-	      url:"mypageBoardAjax",                                     
+	      url:"mypageBoardAjax/select",                                     
 	      type:"POST",                                          
 	      dataType:"json",                                      
 	      data : params,                                        
@@ -159,10 +191,17 @@ function reloadList(){
 	}  
 
 function drawList(list){
-	   
+/*     김슬아:estp 박현철 :intp
+	   김슬아:27 박현철:29 
+	   list.김슬아 => 누굴 부르는지 몰라서오류
+	   list[0].김슬아 => estp 
+	   list[1].김슬아 => 27 */
 	var html = "";
 	   
+	   //list에서 0번째 인덱스(배열)부터 차례대로 data에 넣어줌. 그래서 data.키를 쓰는 것임.
+	   
 	   for(var data of list) { 
+		  // data.김슬아 = > estp // 그 다음 돌때는 27
 	      html += "<tr no=\""+ data.POST_NO +"\">";
 	      html += "<td>" + data.POST_NO + "</td>";
 	      html += "<td cate=\""+ data.BLTNBOARD_NO +"\">" + data.BLTNBOARD_NM + "</td>";

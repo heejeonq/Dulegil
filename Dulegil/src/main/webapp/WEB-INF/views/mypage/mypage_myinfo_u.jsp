@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,8 @@
 <link rel="stylesheet" href="resources/css/mypage.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>개인 정보 수정</title>
-<!-- 주소검색 -->
+
+<!-- 주소 검색 (다음 우편번호 서비스 api 사용) -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function sample6_execDaumPostcode() {
@@ -27,7 +29,7 @@ function sample6_execDaumPostcode() {
                 addr = data.jibunAddress;
             }
 
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            // 사용자가 선택한 주소가 도로명 타입일 때 참고항목을 조합한다.
             if(data.userSelectedType === 'R'){
                 // 법정동명이 있을 경우 추가한다. (법정리는 제외)
                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
@@ -48,16 +50,50 @@ function sample6_execDaumPostcode() {
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('zcd').value = data.zonecode;
             document.getElementById("adr").value = addr;
+            // 위에 두개를 넣으면 상세주소가 다시 비워지게끔.
             $("#adrDtl").val('');
            	document.getElementById("adrDtl").focus();     
         }
     }).open();
 }
 
+//특수문자 입력 방지
+function check(obj){
+// 허용할 특수문자는 여기서 삭제하면 된다.
+var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+
+//배열에서 하나씩 값을 비교
+if( regExp.test(obj.value) ){
+	alert("특수문자는 입력하실수 없습니다.");
+	
+	//값이 일치하면 문자를 삭제
+	obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움.
+	}
+} 
+
+/* function check(t){
+	  var regexp = /[^ㄱ-ㅎ가-힣a-z]/gi;
+	  t.onkeyup = function(e){
+	    var v = this.value;
+	    this.value = v.replace(regexp,'');
+	  }
+	} */
+	
+/* $(function(){
+	     $(".nm").keyup(function (event) {
+	          regexp = /[0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+	          v = $(this).val();
+	          if (regexp.test(v)) {
+	              alert("한글과 영문만 입력가능 합니다.");
+	              $(this).val(v.replace(regexp, ''));
+	          }
+	      });
+}); */
+
 </script>
 <script type="text/javascript">
 $(document).ready(function(){ 
-	//성별 값 넣기
+	//성별 값 넣기(값을 불러와서 값이{data.GENDER == 0}이면 남자고 아니면 여자를 체크)
 	var gender = "${data.GENDER}";
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
@@ -126,6 +162,15 @@ $(document).ready(function(){
 	    	  form.submit();
 	      }
 	   });	
+    // 파일 삭제 버튼
+    // 누르면 전에 이미지 파일 지워지고, 새로운 이미지가 보이고, 파일명은 없어지고, 
+    // 보여지는 이미지의 속성이 기본 프로필 url로 바뀌어서 기본 프로필이 보인다.
+	$("#fileDelBtn").on("click",function(){
+	      $(".imgOld").remove();
+	      $(".img").show();
+	      $("#imgFile").val("");
+	      $("#preview").attr("src", "resources/upload/profile_img.png")
+	   });
 	
 	$("#backBtn").on("click", function(){
    	 	makePopup({
@@ -144,8 +189,9 @@ $(document).ready(function(){
 	});
 });
 
-<!--이미지파일 넣기-->
+<!--이미지 파일 넣기-->
 function readURL(input) {
+	 // 파일 선택했을 때 새로운 이미지 파일로 이미지가 변경
 	 if (input.files && input.files[0]) {
 	   var reader = new FileReader();
 	   reader.onload = function(e) {
@@ -153,7 +199,8 @@ function readURL(input) {
 	   };
 	   reader.readAsDataURL(input.files[0]);
 	 } else {
-	   document.getElementById('preview').src = "";
+	   // 파일 선택 누르고 취소 누르면 전에 저장 되어있는 이미지 파일이 보여짐.
+	   document.getElementById('preview').src = "resources/upload/${data.IMG_FILE}";
 	 }
   }
   
@@ -173,14 +220,36 @@ function readURL(input) {
 				<span>개인 정보 수정</span>
 			</div>
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
+			    <!-- 내가 어떤 데이터를 수정할지 그 폼에 인풋을 담아서 수정할 정보를 쿼리에 주기 위한 부분 -->
+			    <!-- value="${sMemNo}"를 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 값을 가져오기 위해 -->
+			    <!-- 수정할 정보를 쿼리에 주기 위해서(컨트롤러에서 /mypageAjax/{gbn}부분 업데이트문에 영향) --> 
 				<input type="hidden" name="memNo" value="${sMemNo}">
-				<input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}"> <!-- 실 저장된 파일명 보관용 -->
+	 
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-					<input type="file" onchange="readURL(this);" name="img">
+				
+                        <td class="filBox">
+                           <!-- 기존파일 --> 
+                           <span class="imgOld">
+                              <div id="fileDelBtn">파일 삭제</div>
+                              <%-- 파일명 가져오는거 --%>
+                              <c:set var="fileLength" value="${fn:length(data.IMG_FILE)}"></c:set>
+                              <%-- 파일명 잘라주기 --%>
+                              <c:set var="fileName" value="${fn:substring(data.IMG_FILE, 20, fileLength)}"></c:set>
+                              <span id="fileName">${fileName}</span>
+                           </span>
+                           
+                           <!-- 기존파일 삭제후 새파일 용도 --> 
+                           <span class="img"> 
+                              <input type="file" name="img" onchange="readURL(this);"/> 
+                              <!-- value="${data.IMG_FILE}"이게 없으면 사진 수정 없이 수정완료를 했을때 사진이 빔. -->
+                              <input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
+                           </span>
+                        </td>
+					
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">
@@ -202,7 +271,11 @@ function readURL(input) {
 						</div>
 						<div class="name01">
 							<label for="name"></label>
-							<input type="text" name="nm" id="nm" value="${data.NM}">
+							                   <!--xml에 있는 #이 name이야!..
+							                   name은 그냥 이름일뿐 값은 따로 있어. 그 값이 input은 벨류가 입력 값이야.
+							                   이게무슨말이냐. 입력값이 없으면 원래 받아온 정보를 보여주고,
+							                   있으면 그값으로 바뀜.-->
+							<input type="text" name="nm" id="nm" maxlength="10" onkeyup="check(this)" onkeydown="check(this)" value="${data.NM}">
 						</div>	
 						<div class="input">*선택 입력 사항</div>
 						<div class="dtBrt01">

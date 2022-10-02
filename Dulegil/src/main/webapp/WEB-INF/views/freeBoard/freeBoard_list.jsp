@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<jsp:include page="../common/jscss.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,23 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/board.css" />
 <link rel="stylesheet" href="resources/css/list.css" />
-<link rel="stylesheet" href="resources/css/fonts.css" />
+
 <title>자유게시판목록</title>
 <!-- 제이쿼리 -->
-<script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+<
 <script type="text/javascript">
 $(document).ready(function(){
-	reloadList();
+	
+	
+//현재페이지 값을 reloadList 하기전에 세팅
+//디테일에서 목록 버튼 누르면 
+	
+	//var link = document.location.href("?");
+	//consol.log(link);
+	
+	//$("#page").val($("#page").val());
+	
+	
 	$('#searchTxt').keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $('#searchBtn').click();
@@ -27,9 +38,12 @@ $(document).ready(function(){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
 		$("#oldGbn").val("0");
+
 	}
 	
-
+	reloadList();
+	
+	
 	$("#searchBtn").on("click",function(){
 		$("#page").val("1");
 		

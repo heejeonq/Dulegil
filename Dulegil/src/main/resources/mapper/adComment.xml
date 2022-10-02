@@ -2,44 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adComment">
 
-<!-- 목록 -->
-<select id="list" resultType="hashmap">
-SELECT  A.MEMBER_NO, A.BLTNBOARD_NM, A.NM, A.EMAIL, A.CONTENTS, TO_CHAR(A.REG_DT, 'YYYY-MM-DD') AS REG_DT, A.RNK, A.COMMENT_NO
-FROM(	SELECT M.MEMBER_NO, BT.BLTNBOARD_NM, M.NM, M.EMAIL, C.CONTENTS, C.COMMENT_NO, C.REG_DT,
-			ROW_NUMBER()OVER( ORDER BY C.REG_DT DESC) AS RNK
-		FROM MEMBER M INNER JOIN COMMENTS C
-                			ON M.MEMBER_NO = C.MEMBER_NO
-               			INNER JOIN BULLETIN_BOARD B
-                			ON C.POST_NO = B.POST_NO
-               			INNER JOIN BOARD_TYPE BT
-                			ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
-		WHERE C.DEL_DT IS NULL)A
-WHERE A.RNK BETWEEN #{start} AND #{end}
-<if test="searchTxt != null and searchTxt !='' ">
+	<!-- 목록 -->
+	<select id="list" resultType="hashmap">
+		SELECT A.COMMENT_NO, A.TITLE, A.CONTENTS, A.NM, A.BLTNBOARD_NM, TO_CHAR(A.REG_DT, 'YYYY.MM.DD') AS REG_DT, RNK
+		FROM(SELECT C.COMMENT_NO, B.TITLE, C.CONTENTS, BT.BLTNBOARD_NM, M.NM, C.REG_DT,
+					ROW_NUMBER()OVER( ORDER BY C.REG_DT DESC) AS RNK
+			FROM MEMBER M INNER JOIN COMMENTS C
+		                		  ON M.MEMBER_NO = C.MEMBER_NO
+		               	  INNER JOIN BULLETIN_BOARD B
+		                		  ON C.POST_NO = B.POST_NO
+		               	  INNER JOIN BOARD_TYPE BT
+		                		  ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
+			WHERE C.DEL_DT IS NULL
 			<choose>
-				<when test="searchGbn == 0">
-					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+				<when test="cate != 0" >
+					AND BT.BLTNBOARD_NO = #{cate}	
 				</when>
-				<when test="searchGbn == 1">
-					AND NM LIKE '%' || #{searchTxt} || '%'		
-				</when>
+				<otherwise>
+				</otherwise>
 			</choose>
-		</if>
-</select>
+			<if test="searchTxt != null and searchTxt !='' ">
+				<choose>
+					<when test="searchGbn == 0">
+						AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND NM LIKE '%' || #{searchTxt} || '%'		
+					</when>
+				</choose>
+			</if>
+			)A
+		WHERE A.RNK BETWEEN #{start} AND #{end}
+	</select>
 
-
-
-
-<!-- 페이징 -->
+	<!-- 페이징 -->
 	<select id="cnt" parameterType="hashmap" resultType="integer">	
 		SELECT COUNT(*) AS CNT
 		FROM MEMBER M INNER JOIN COMMENTS C
-                			ON M.MEMBER_NO = C.MEMBER_NO
-               			INNER JOIN BULLETIN_BOARD B
-                			ON C.POST_NO = B.POST_NO
-               			INNER JOIN BOARD_TYPE BT
-                			ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
+                			  ON M.MEMBER_NO = C.MEMBER_NO
+               		  INNER JOIN BULLETIN_BOARD B
+                			  ON C.POST_NO = B.POST_NO
+               		  INNER JOIN BOARD_TYPE BT
+                			  ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
 		WHERE C.DEL_DT IS NULL	
+		<choose>
+			<when test="cate != 0" >
+				AND BT.BLTNBOARD_NO = #{cate}	
+			</when>
+			<otherwise>
+				AND BT.BLTNBOARD_NO IN (1,2,3)
+			</otherwise>
+		</choose>
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
@@ -52,16 +65,21 @@ WHERE A.RNK BETWEEN #{start} AND #{end}
 		</if>
 	</select>
 
-
 	<!-- 체크박스 삭제 -->
 	<update id ="checkDel" parameterType="hashmap">
-	UPDATE COMMENTS SET DEL_DT = SYSDATE
-	WHERE COMMENT_NO IN (${no})
+		UPDATE COMMENTS SET DEL_DT = SYSDATE
+		WHERE COMMENT_NO IN (${no})
 	</update>
 	
 	<!-- 개별 삭제 -->
 	<update id ="del" parameterType="hashmap">
-	UPDATE COMMENTS SET DEL_DT = SYSDATE
-	WHERE COMMENT_NO = #{no}
+		UPDATE COMMENTS SET DEL_DT = SYSDATE
+		WHERE COMMENT_NO = #{no}
 	</update>
+	
+	<select id="category" resultType="hashmap">
+		SELECT BLTNBOARD_NO, BLTNBOARD_NM
+		FROM BOARD_TYPE
+	</select>
+	
 </mapper>

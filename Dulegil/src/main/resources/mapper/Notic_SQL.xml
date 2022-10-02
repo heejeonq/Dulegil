@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+<!-- 페이지카운트 -->
+
+<select id="getCnt" resultType="integer" parameterType="hashmap">
+		SELECT COUNT(*) AS CNT
+		FROM NOTICE
+		WHERE DEL_DT IS NULL
+		<if test="searchTxt != null and searchTxt !='' ">
+			<choose>
+				<when test="searchGbn == 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 1">
+					AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+		AND MUST_READ_YN = 1
+</select>
+
+<!-- 리스트 -->
+<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY-MM-DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK,HIT
+		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, N.REG_DT, ATT_FILE, MUST_READ_YN,N.HIT,
+		            ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
+		     FROM NOTICE N INNER JOIN MEMBER M
+		                           ON N.MEMBER_NO = M.MEMBER_NO 
+		     WHERE N.DEL_DT IS NULL
+		     AND MUST_READ_YN = 0 ) N
+		<![CDATA[WHERE RNK <= 3]]>
+		UNION ALL         
+		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY-MM-DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK,HIT
+		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, N.REG_DT, ATT_FILE, MUST_READ_YN,N.HIT,
+					ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
+			 FROM NOTICE N INNER JOIN MEMBER M
+					               ON N.MEMBER_NO = M.MEMBER_NO
+			 WHERE N.DEL_DT IS NULL
+			 AND MUST_READ_YN = 1 
+			 <if test="searchTxt != null and searchTxt !='' ">
+				<choose>
+					<when test="searchGbn == 0">
+						AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+					</when>
+				</choose>
+			</if>
+			 ) N
+		WHERE RNK BETWEEN #{start} AND #{end}  
+</select>
+
+<!-- 상세보기 -->
+<select id="getN" parameterType="hashmap" resultType="hashmap">
+SELECT POST_NO,MEMBER_NO,TITLE,ATT_FILE,HIT,MUST_READ_YN,DEL_DT,CONTENTS,
+     CASE WHEN TO_CHAR(REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+            	THEN TO_CHAR(REG_DT, 'HH24:MI')
+            	ELSE TO_CHAR(REG_DT,'YY.MM.DD')
+       			END AS DT
+FROM NOTICE
+WHERE DEL_DT IS NULL
+AND POST_NO=#{no}
+</select>
+
+<!-- 조회수 -->
+<update id="updateNTHit" parameterType="hashmap">
+UPDATE NOTICE SET HIT = HIT+1
+WHERE POST_NO=#{no}
+</update>
+
+</mapper>

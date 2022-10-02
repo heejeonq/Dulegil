@@ -6,20 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항 목록</title>
+<title>공지사항 관리</title>
 <style type="text/css">
 #ntcTit:hover{
 	text-decoration: underline;
 	cursor: pointer;
 }
-
 #file_present{
 	margin-left: 10px;
 	font-size: 14pt;
 }
-
 #campaign {
     margin-right: 10px;
+}
+.Ctable table {
+    margin-top: 20px;
 }
 </style>
 <script type="text/javascript">
@@ -31,6 +32,13 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 	}
 	reloadList();
+	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
 	
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
@@ -259,8 +267,8 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_document</span>
-			공지사항 목록
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> assignment </span>
+			공지사항 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="no" name="no"/><!-- 상세보기 -->
@@ -279,11 +287,11 @@ function drawPaging(pd) {
 				<div class="Ctable">
 					<table>
 						<colgroup>
-							<col width="100px">
-							<col width="800px">
-							<col width="150px">
-							<col width="200px">
-							<col width="100px">
+							<col width="90px">
+							<col width="640px">
+							<col width="130px">
+							<col width="130px">
+							<col width="40px">
 						</colgroup>
 						<thead>
 							<tr>
@@ -294,15 +302,13 @@ function drawPaging(pd) {
 								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							</tr>
 						</thead>
-						<tbody id="Ctbody"></tbody>
+						<tbody></tbody>
 					</table>
 				</div>
-				
 				<div class="Cbtnright">
 					<input type="button" value="등록" class="btn" id="insertBtn" />	
 					<input type="button" value="삭제" class="btn" id="deleteBtn" />
 				</div>
-				
 				<div class="Cpaging" ></div>
 			</div>
 		</form>

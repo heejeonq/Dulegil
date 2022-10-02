@@ -9,18 +9,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/cmn.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/popup.css" />
+<link rel="stylesheet" href="resources/css/fonts.css" />
 <title>관리자 로그인</title>
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700,800,900');
-body, input {
-	font-family: "Gothic A1";
-	font-weight: 600;
+body, input{
+	font-family: 'Pretendard-Regular';
 }
-
 #header {
 	height: 93px;
 	text-align: center;
-	background-color: #f2f3ef;
+	background-color: #fffce1;
 	padding: 42px;
 	width: auto;
     min-width: 1500px;
@@ -66,18 +64,10 @@ body, input {
 	width: 400px;
 	height: 250px;
 	margin: 20px 0px 0px 200px; /*아니 왜 중간으로 안오는거*/
-	border: solid 1px #C0C0C0;
-	background-color: white;
-	font-family: "Gothic A1";
-	font-weight: 500;
-	background-color: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
 	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
-	border-radius: 12px;
-	-webkit-border-radius: 12px;
+	-webkit-border-radius: 4px;
 	color: rgba(255, 255, 255, 0.75);
 }
 
@@ -109,19 +99,15 @@ body, input {
 	background-color: white;
 }
 
-.input {
-	display: inline-block;
+input {
 	width: 300px;
-	height: 47px;
 	border: none;
 	cursor: pointer;
-	font-size: 15px;
-	height: 47px;
-	width: 300px;
-	height: 47px;
+	font-size: 13pt;
+	padding: 15px 7px;
 }
 
-.input:focus {
+input:focus {
 	outline: none;
 }
 
@@ -129,17 +115,12 @@ body, input {
 	display: inline-block;
 	width: 200px;
 	height: 50px;
-	border: none;
 	cursor: pointer;
 	font-size: 15px;
-	border-radius: 42px;
 	background-color: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
 	-webkit-box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
-	border-radius: 12px;
 	-webkit-border-radius: 12px;
 	color: #4a4a4a;
 }
@@ -186,7 +167,7 @@ function login(){
 		      	success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행
 		      		console.log(res);
 		     		 if(res.msg == "success"){	
-		    		  location.href = "adAccountMng";
+		    		  location.href = "adminList"; 
 		    		  
 		     		 }else{
 		    		  makeAlert("알림", "아이디나 비밀번호가 틀립니다.")
@@ -207,29 +188,20 @@ function login(){
 	<div id="bottom">
 		<div id="login">
 			<div class="login_banner">
-				<span class="material-symbols-outlined"
-					style="font-size: 34px; color: #4a4a4a; vertical-align: bottom;">
-					badge </span><span
-					style="font-size: 20px; color: #4a4a4a; vertical-align: middle; padding-left: 6px;">Admin
-					Login</span>
+				<span class="material-symbols-outlined" style="font-size: 34px; color: #4a4a4a; vertical-align: bottom;">badge</span>
+				<span style="font-size: 23px; color: #4a4a4a; padding-left: 6px;">관리자 로그인</span>
 			</div>
 			<div class="login_box">
 				<form action="#" id="actionForm" method="post">
 					<div class="id_box">
-						<span class="material-symbols-outlined"
-							style="font-size: 20px; color: #C0C0C0; vertical-align: middle;">info </span>
-							
-						<input type="text"   name="id" id="id" class="input"
-							placeholder="ID" maxlength="20" />
+						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> face </span>
+						<input type="text"   name="id" id="id" class="input" placeholder="ID" maxlength="20" />
 					</div>
 					<div class="pw_box">
-						<span class="material-symbols-outlined"
-								style="font-size: 20px; color: #C0C0C0; vertical-align: middle;"> lock </span> 
-						<input type="password" name="pwd" id="pwd" class="input"
-								placeholder="PASSWORD" maxlength="20" />
+						<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> key </span> 
+						<input type="password" name="pwd" id="pwd" class="input" placeholder="PASSWORD" maxlength="20" />
 					</div>
 				</form>
-
 				<div class="login_btn">
 					<input type="button" id="loginBtn" class="loginBtn" value="login" />
 				</div>

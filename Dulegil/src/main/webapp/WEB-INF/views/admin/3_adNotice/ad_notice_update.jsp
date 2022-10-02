@@ -124,7 +124,7 @@ $(document).ready(function(){
 	
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined " style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;">edit_square</span>
+			<span class="material-symbols-outlined " style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>
 			공지사항 수정
 		</div>
 		<div class="Ccon">

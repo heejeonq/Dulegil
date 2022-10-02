@@ -12,7 +12,7 @@ public class adAggregationController {
 	@RequestMapping(value="/adAggregation")
 	public ModelAndView adLogin(HttpSession session,
 			ModelAndView mav) {
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
 
 			mav.setViewName("admin/5_adAggregation/ad_websiteTotal");
 		}else

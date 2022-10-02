@@ -31,14 +31,38 @@ $(document).ready(function(){
 	});
 	//신고하기
 	$("#memRate").on("click", ".singo img", function(){
-	
+		
 		if($(this).parent().children(".singo_contents").css("display") == "none"){
+			$(".singo_contents").css("display", "none");
 			$(this).parent().children(".singo_contents").css("display", "flex");
 			//$(".singo_contents").show();		
 		}
 		else {
-			$(this).parent().children(".singo_contents").hide();
+			$(this).parent().children(".singo_contents").css("display", "none");
 		}
+		
+	});
+	$("#memRate").on("click", "#reportBtn", function(){
+		let amemNo = $(this).parent().parent().parent().parent().children().eq(2).attr("amemNo");
+		let reportNo = $('input[name="report"]:checked').val();
+
+		$("#applyMemNo").val(amemNo);
+		$("#reportTypeNo").val(reportNo);
+		if (reportNo == null) {
+            makeAlert("알림", "신고내용을 선택하세요.", function() {
+            });
+		 }
+		else{
+			if($("#reportTypeNo").val() == "5"){
+				reportText();
+			}
+			else{
+				action("report");			
+			}
+			$(".singo_contents").css("display", "none");
+			
+		}
+
 		
 	});
 	
@@ -54,7 +78,7 @@ $(document).ready(function(){
 
 		action("applyMemUpdate");
 	});
-	
+	//거절 버튼 클릭시
 	$(".join_mem_list").on("click", "#rejectBtn" , function(){
 		var amemNo = $(this).parent().parent().attr("amemNo");
 		var postNo = $(this).parent().parent().attr("postNo");
@@ -64,7 +88,58 @@ $(document).ready(function(){
 		$("#stateNo").val(0);
 		action("applyMemUpdate");
 	});
+	
+	
+	
 });
+function reportText() {
+	html = "";
+	
+	html += "			<table class=\"board_detail_table\">  		";
+	html += "				<tbody>                                                                   			";
+	html += "				<tr>                                                                  			";
+	html += "					<th class=\"popup_th\">신고 내용을 입력하세요</th>                                                      			";
+	html += "				</tr>                                                                  			";
+	html += "				<tr>                                                                  			";
+	html += "					<td>";
+	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+	html += "					</td>    ";
+	html += "				</tr>                                                                  			";
+	html += "				</tbody>                                                                  			";
+	html += "			</table>";
+	
+		makePopup({
+			depth : 1,
+			width : 300,
+			height : 200,
+			bg : true,
+			bgClose : false,
+			title : "신고하기 기타사유",
+			contents : html,
+			draggable : false,
+			buttons : [{
+				name : "신고하기",
+				func:function() {
+					console.log("기타사유 쓰기");
+					$("#reportContents").val($("#descript").val());
+					console.log($("#reportContents").val());
+					
+					if ($.trim($("#descript").val()) == "") {
+			             makeAlert("알림", "내용을 입력하세요.", function() {
+			                $("#descript").focus();
+			             });
+					 }
+					 else{
+						action("report");
+						closePopup();
+						 
+					 }
+				}
+			}, {
+				name : "취소"
+			}]
+		});
+}
 function action(flag){
 
 		 var params = $("#actionForm").serialize();
@@ -81,8 +156,13 @@ function action(flag){
 					
 	        		reloadList();
 	        		break;
-	        	
-	        	case "fail" :  makeAlert("알림",  "에 실패하였습니다.");
+	        	case "fail" :
+	        		if(flag == "report"){
+	        			 makeAlert("알림",  "이미 신고한 회원입니다.");
+	        		}
+	        		else {
+	        			  makeAlert("알림",  "에 실패하였습니다.");
+	        		}
 	    			break;
 	    		
 	     		case "error" : makeAlert("알림", " 중 문제가 발생하였습니다.");
@@ -147,9 +227,9 @@ function drawList(list1, list2, list3, list4, list5){
 	
 	//동행 신청자 리스트
 	for(var data of list1){                                                          
-		html1 += "<table class=\"standard\">                                            ";
+		html1 += "<table class=\"standard c\">                                            ";
 		html1 += "	<tr>                                                                ";
-		html1 += "		<th colspan=\"2\">" + data.COURSE_NO +"코스</th>                                      ";
+		html1 += "		<th>" + data.COURSE_NO +"코스</th>                                      ";
 		html1 += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
 		html1 += "	</tr>                                                               ";
 		html1 += "	<tr amemNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">                                                              ";
@@ -231,14 +311,6 @@ function drawList(list1, list2, list3, list4, list5){
 	
 	for(var data of list4){  
 		html5 += "<table class=\"mem_rate\">";
-		html5 += "<colgroup>";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"10%\">";
-		html5 += "	<col width=\"15%\">";
-		html5 += "	<col width=\"15%\">";
-		html5 += "</colgroup>";
 		html5 += "<tbody class=\"postNo" + data.POST_NO + "\" postNo=\"" + data.POST_NO + "\">";
 		html5 += "	<tr>                                                                                     ";
 		html5 += "		<th class=join_title>" + data.POST_NO +"</th>                                      ";
@@ -264,7 +336,7 @@ function drawList2(memList){
 	
 	//동행 히스토리의 동행자들
 	for(var data of memList){  
-		html1 += data.NM + ", ";
+		html1 += data.NM + " ";
 	}
 	
 	//신뢰도평가멤버 리스트
@@ -277,12 +349,12 @@ function drawList2(memList){
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td class=\"singo\"><img src=\"resources/images/detailViewIcon.png\" />                                                       ";
 		html2 += "			<div class=\"singo_contents\">                                                         ";
-		html2 += "				<label><input type=\"radio\" value=\"성희롱\">성희롱</label>                         ";
-		html2 += "				<label><input type=\"radio\" value=\"욕설\">욕설</label>                             ";
-		html2 += "				<label><input type=\"radio\" value=\"악의적 비방\">악의적</label>                    ";
-		html2 += "				<label><input type=\"radio\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
-		html2 += "				<label><input type=\"radio\" value=\"기타\">기타</label>                             ";
-		html2 += "				<input type=\"button\" value=\"신고\">                                               ";
+		html2 += "				<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
+		html2 += "				<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
+		html2 += "				<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
+		html2 += "				<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
+		html2 += "				<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
+		html2 += "				<input type=\"button\" value=\"신고\" id=\"reportBtn\">                                               ";
 		html2 += "			</div>                                                                               ";
 		html2 += "		</td>                                                                                    ";
 		html2 += "	</tr>                                                                                        ";
@@ -346,6 +418,8 @@ function drawList2(memList){
 				<input type="hidden" name="postNo" id="applyPostNo">
 				<input type="hidden" name="stateNo" id="stateNo">
 				<input type="hidden" name="rate" id="rateValue">
+				<input type="hidden" name ="reportTypeNo" id="reportTypeNo">
+				<input type="hidden" name ="reportContents" id="reportContents">
 			</form>
 
 			<div class="mypage_contents">
@@ -366,15 +440,8 @@ function drawList2(memList){
 				</div>
 				<div class="mypage_area">
 					<div class="area_tit"><span>내가 신청한 동행</span></div>
-					<table class="standard">
-						<colgroup>
-							<col width="10%">
-							<col width="10%">
-							<col width="45%">
-							<col width="10%">
-							<col width="10%">
-							<col width="15%">
-						</colgroup>
+					<table class="standard a">
+				
 						<thead>
 							<tr>
 								<th>No</th>
@@ -391,14 +458,8 @@ function drawList2(memList){
 				</div>
 				<div class="mypage_area">
 					<div class="area_tit"><span>동행 history</span></div>
-					<table class="standard">
-						<colgroup>
-							<col width="10%">
-							<col width="10%">
-							<col width="45%">
-							<col width="20%">
-							<col width="15%">
-						</colgroup>
+					<table class="standard b">
+				
 						<thead>
 							<tr>
 								<th>No</th>

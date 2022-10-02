@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="accompany">
+<!-- 동행 신청자 리스트 -->
 <select id="applyMemList" resultType="hashmap" parameterType="hashmap">
 	SELECT BLT.MEMBER_NO, M.MEMBER_NO AS MEM_NO, M.IMG_FILE, M.NM, M.RELIABILITY, BA.ACCOMPANY_DT, BLT.TITLE,
       	   BC.COURSE_NO,BLT.POST_NO,M.GENDER, TRUNC(MONTHS_BETWEEN(SYSDATE, M.DATE_BIRTH)/12) AS AGE,
@@ -20,7 +21,7 @@
 	WHERE BLT.MEMBER_NO = #{memNo}  
 	AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD')                      
 </select>
-
+<!-- 채팅방 리스트 -->
 <select id="chatList" resultType="hashmap" parameterType="hashmap">
 	SELECT BB.TITLE 
 	FROM BULLETIN_BOARD BB INNER JOIN BOARD_ACCOMPANY BA
@@ -30,7 +31,7 @@
 	AND BB.BLTNBOARD_NO = 2     
 	AND BB.DEL_DT IS NULL                           
 </select>
-
+<!-- 내가 신청한 동행 리스트 -->
 <select id="myApply" resultType="hashmap" parameterType="hashmap">
 	SELECT AA.STATE_NO, TO_CHAR(AA.REG_DT,'YYYY.MM.DD') AS REG_DT, BB.TITLE, MEM.NM, BC.COURSE_NO, BB.POST_NO
 	FROM ACCOMPANY_APPLY AA INNER JOIN MEMBER M
@@ -42,18 +43,18 @@
 	                                ON BB.POST_NO = BC.POST_NO
 	                        INNER JOIN BOARD_ACCOMPANY BA
 	                                ON BA.POST_NO = BC.POST_NO
-	                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD') 
+	                               
 	                        INNER JOIN MEMBER MEM
 	                                ON MEM.MEMBER_NO = BB.MEMBER_NO 
 	 WHERE M.MEMBER_NO = #{memNo}                                                                                           
 </select>
-
+<!-- 동행 신청자 리스트 수락/거절 업데이트 -->
 <update id="applyMemUpdate" parameterType="hashmap">
 	UPDATE ACCOMPANY_APPLY SET STATE_NO = #{stateNo}
     WHERE MEMBER_NO = #{amemNo}
     AND POST_NO = #{postNo}
 </update>
-
+<!-- 동행 히스토리 리스트 -->
 <select id="accompanyHistory" resultType="hashmap" parameterType="hashmap">
 	
 	SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY.MM.DD') AS ACCOMPANY_DT 
@@ -73,7 +74,7 @@
     ORDER BY ACCOMPANY_DT DESC                                                                                          
 	
 </select>	
-
+<!-- 동행 히스토리 멤버 리스트 -->
 <select id="accompanyMemList" resultType="hashmap" parameterType="hashmap">
 	
  <!--내가 동행글 작성자일 때  -->
@@ -138,7 +139,7 @@
     AND A.POST_NO = #{postNo}                                                                             
 	
 </select>	
-
+<!-- 동행 평가대상 리스트 -->
 <select id="accompanyRate" resultType="hashmap" parameterType="hashmap">
 	
 	SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY.MM.DD') AS ACCOMPANY_DT 
@@ -158,11 +159,23 @@
     ORDER BY ACCOMPANY_DT DESC                                                                                          
 	
 </select>	
-<insert id="rateUpdate" parameterType="hashmap">
+<!-- 동행 상대평가 신뢰도 주기 -->
+<insert id="rateInsert" parameterType="hashmap">
 	INSERT INTO RELIABILITY(POST_NO, TARGET_RATING_MEMBER_NO, RATING_MEMBER_NO, SCOURE)
  	VALUES(#{postNo}, #{amemNo}, #{memNo}, #{rate})
 </insert>
-
+<!-- 동행 상대평가 신뢰도 반영 업데이트 -->
+<update id="rateUpdate" parameterType="hashmap">
+	 UPDATE MEMBER SET RELIABILITY = (SELECT ROUND(SUM/CNT, 1)
+	                                 FROM(SELECT COUNT(*) +1 AS CNT
+	                                      FROM RELIABILITY
+	                                      WHERE TARGET_RATING_MEMBER_NO = #{amemNo}),
+	                                     (SELECT  SUM(SCOURE)+3 AS SUM
+	                                      FROM RELIABILITY
+	                                      WHERE TARGET_RATING_MEMBER_NO = #{amemNo}))
+	WHERE MEMBER_NO = #{amemNo}
+</update>
+<!-- 동행 상대평가 신뢰도값 -->
 <select id="accompanyScoure" resultType="hashmap" parameterType="hashmap">
 	SELECT SCOURE
 	FROM RELIABILITY
@@ -170,4 +183,14 @@
 	AND TARGET_RATING_MEMBER_NO = #{amemNo}
 	AND RATING_MEMBER_NO = #{amemNo}                       
 </select>
+<!-- 회원 신고하기 -->
+<insert id="report" parameterType="hashmap">
+MERGE INTO REPORT
+USING DUAL
+    ON (REPORT_MEMBER_NO = #{memNo} AND TARGET_REPORT_MEMBER_NO = #{amemNo})
+WHEN NOT MATCHED THEN
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, TARGET_REPORT_MEMBER_NO, OTHER)
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{memNo}, #{amemNo}, #{reportContents, jdbcType = VARCHAR})
+</insert>
+
 </mapper>

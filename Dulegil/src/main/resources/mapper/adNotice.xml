@@ -32,7 +32,7 @@
 	<!-- 작성 -->
 	<insert id="insert" parameterType="hashmap">
 		INSERT INTO NOTICE(POST_NO, TITLE, MEMBER_NO, CONTENTS, ATT_FILE, MUST_READ_YN)
-		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, 109, #{contents}, #{attFile}, 
+		VALUES(NOTICE_SEQ.NEXTVAL, #{title}, #{memberNo}, #{contents}, #{attFile}, 
 			<choose>
 				<when test="mainCheck != null and mainCheck != ''">
 					0
@@ -46,7 +46,16 @@
 
 	<!-- 수정 -->
 	<update id="update" parameterType="hashmap">
-		UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}, ATT_FILE=#{att}, MUST_READ_YN=#{mainCheck}	
+		UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}, ATT_FILE=#{att}, 
+			   MUST_READ_YN =
+			   <choose>
+					<when test="mainCheck != null and mainCheck != ''">
+						0
+					</when>
+					<otherwise>
+						1
+					</otherwise>
+				</choose>	
 		WHERE POST_NO = #{no}
 	</update>
 
@@ -63,7 +72,7 @@
 	</update>
 	
 	<select id="list" parameterType="hashmap" resultType="hashmap" >
-		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK
+		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY-MM-DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK
 		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, N.REG_DT, ATT_FILE, MUST_READ_YN,
 		            ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
 		     FROM NOTICE N INNER JOIN MEMBER M
@@ -72,13 +81,24 @@
 		     AND MUST_READ_YN = 0 ) N
 		<![CDATA[WHERE RNK <= 3]]>
 		UNION ALL         
-		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY.MM.DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK
+		SELECT POST_NO, TITLE, CONTENTS, NM, TO_CHAR(N.REG_DT, 'YYYY-MM-DD') AS REG_DT, ATT_FILE, MUST_READ_YN, RNK
 		FROM(SELECT POST_NO, TITLE, CONTENTS, NM, N.REG_DT, ATT_FILE, MUST_READ_YN,
 					ROW_NUMBER()OVER(ORDER BY N.REG_DT DESC) AS RNK 
 			 FROM NOTICE N INNER JOIN MEMBER M
 					               ON N.MEMBER_NO = M.MEMBER_NO
 			 WHERE N.DEL_DT IS NULL
-			 AND MUST_READ_YN = 1 ) N
+			 AND MUST_READ_YN = 1 
+			 <if test="searchTxt != null and searchTxt !='' ">
+				<choose>
+					<when test="searchGbn == 0">
+						AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND CONTENTS LIKE '%' || #{searchTxt} || '%'
+					</when>
+				</choose>
+			</if>
+			 ) N
 		WHERE RNK BETWEEN #{start} AND #{end}  
 	</select>
 

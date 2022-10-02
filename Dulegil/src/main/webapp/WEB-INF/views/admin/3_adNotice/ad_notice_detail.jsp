@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항 상세</title>
+<title>공지사항 상세보기</title>
 <style type="text/css">
 .btn.list{
 	float: right;
@@ -76,19 +76,19 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<form id="detailForm" action="#" method="post">
-		<input type="hidden" id="no" name="no" value="${data.POST_NO}" />
-		<input type="hidden" name="page" id="page" value= "${param.page}" />
-		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
-		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
-	</form>
 	
 	<jsp:include page="../adHeader.jsp" flush="true"/>
 
 		<div class="container">
+			<form id="detailForm" action="#" method="post">
+				<input type="hidden" id="no" name="no" value="${data.POST_NO}" />
+				<input type="hidden" name="page" id="page" value= "${param.page}" />
+				<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" />
+				<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+			</form>
 			<div class="Cname">
-				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note </span>
-				공지사항
+				<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> assignment_turned_in </span>
+				공지사항 상세보기
 			</div>
 			<div class="Cbtn">
 				<input type="button" id="backListBtn" class="btn list" value="목록" />
@@ -97,7 +97,7 @@ $(document).ready(function(){
 				<div class="Cdeailtable">
 					<table>
 						<colgroup>
-							<col width="530">
+							<col width="590">
 							<col width="80">
 							<col width="70">
 							<col width="80">

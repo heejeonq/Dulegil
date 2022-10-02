@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evt">
 	<select id="getEvtDtl" resultType="hashmap" parameterType="hashmap">
-		SELECT POST_NO, NM, TITLE, CONTENTS, HIT, TO_CHAR(E.REG_DT, 'YYYY.MM.DD') AS REG_DT,
+		SELECT POST_NO, NM, TITLE, CONTENTS, HIT, TO_CHAR(E.REG_DT, 'YYYY-MM-DD') AS REG_DT,
 			   TO_CHAR(EVENT_START_DT, 'YYYY-MM-DD') AS EVENT_START_DT, TO_CHAR(EVENT_END_DT, 'YYYY-MM-DD') AS EVENT_END_DT
 		FROM EVENT E INNER JOIN MEMBER M
 		                     ON E.MEMBER_NO = M.MEMBER_NO
@@ -16,7 +16,7 @@
 	</update>
 	
 	<select id="getEvtList"  parameterType="hashmap" resultType="hashmap">
-		SELECT POST_NO, TITLE, TO_CHAR(EVENT_START_DT, 'YYYY-MM-DD') AS "START", TO_CHAR(EVENT_END_DT, 'YYYY-MM-DD') AS "END"
+		SELECT POST_NO, TITLE, TO_CHAR(EVENT_START_DT, 'YYYY.MM.DD') AS "START", TO_CHAR(EVENT_END_DT, 'YYYY-MM-DD') AS "END"
 		FROM EVENT
 		WHERE DEL_DT IS NULL
 	</select> 
@@ -40,7 +40,7 @@
 	
 	<select id="getAdEvtList" resultType="hashmap" parameterType="hashmap">
 		SELECT E.POST_NO, E.TITLE, E.CONTENTS, E.REG_DT
-		FROM(SELECT POST_NO, TITLE, CONTENTS, TO_CHAR(E.REG_DT, 'YYYY.MM.DD') AS REG_DT,
+		FROM(SELECT POST_NO, TITLE, CONTENTS, TO_CHAR(E.REG_DT, 'YYYY-MM-DD') AS REG_DT,
 			        ROW_NUMBER() OVER(ORDER BY POST_NO DESC) AS RNUM 
 			 FROM EVENT E INNER JOIN MEMBER M
 			                      ON E.MEMBER_NO = M.MEMBER_NO
@@ -61,7 +61,7 @@
 	
 	<insert id="reg" parameterType="hashmap">
 		INSERT INTO EVENT(POST_NO, MEMBER_NO, TITLE, CONTENTS, EVENT_START_DT, EVENT_END_DT)
-		VALUES(EVENT_SEQ.NEXTVAL, 109, #{title}, #{contents}, #{startDt}, #{endDt})
+		VALUES(EVENT_SEQ.NEXTVAL, #{memberNo}, #{title}, #{contents}, #{startDt}, #{endDt})
 	</insert>
 	
 	<update id="delList" parameterType="hashmap">

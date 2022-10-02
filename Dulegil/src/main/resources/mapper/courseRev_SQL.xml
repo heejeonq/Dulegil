@@ -14,6 +14,7 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               GROUP BY POST_NO) G
               ON BB.POST_NO= G.POST_NO            
 WHERE BLTNBOARD_NO=1
+AND BB.DEL_DT IS NULL
 	<if test="searchTxt != null and searchTxt !=''">
 			<choose>
 				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
@@ -114,8 +115,8 @@ AND MEMBER_NO != #{sMemNo}
 
 <!-- 상세보기 -->
 <select id="getCR" parameterType="hashmap" resultType="hashmap">
-SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GCNT,F.MEMBER_NO,F.DEL_DT
-FROM (SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
+SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.NM,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.GCNT,F.MEMBER_NO,F.DEL_DT,F.M_IMG
+FROM (SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,M.IMG_FILE AS M_IMG,
  CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')                 
@@ -193,14 +194,51 @@ VALUES(#{no},#{sMemNo},SYSDATE)
 <delete id="deleteG" parameterType="hashmap">
 DELETE GOOD
 WHERE POST_NO=#{no}
+AND MEMBER_NO=#{sMemNo}
 </delete>
 
 <!-- 좋아요 카운트 -->
-<select id="gcnt" resultType="integer" parameterType="hashmap">
-SELECT COUNT(*) AS GCNT
+<select id="gcnt" resultType="hashmap" parameterType="hashmap">
+	SELECT BB.POST_NO, G.MEMBER_NO, NVL(GC.GCNT,0)AS GCNT
+	FROM BULLETIN_BOARD BB LEFT OUTER JOIN GOOD G
+	                                    ON BB.POST_NO = G.POST_NO
+	                                    AND G.MEMBER_NO= #{sMemNo}    
+	                       LEFT OUTER JOIN (SELECT COUNT(*) AS GCNT, POST_NO
+	                                        FROM GOOD 
+	                                        WHERE POST_NO= #{no}
+	                                        GROUP BY POST_NO) GC
+	                                    ON BB.POST_NO = GC.POST_NO
+	WHERE BB.POST_NO = #{no}
+	
+</select>
+
+
+<select id="goodCheck" resultType="hashmap" parameterType="hashmap">
+SELECT *
 FROM GOOD
-WHERE POST_NO=#{no}
-</select><!-- 좋아요 누른 사람 다 데려와서 세션이랑 비교 -->
+WHERE POST_NO = #{no}
+AND MEMBER_NO = #{sMemNo}     
+</select>
+
+<!-- 댓글 신고하기 -->
+<insert id="commentReport" parameterType="hashmap">
+MERGE INTO REPORT <!-- 리포트 테이블 -->
+USING DUAL         <!-- 가상어쩌구 -->
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND COMMENT_NO = #{commentNo}) <!-- 리포트 테이블에 ㅇon(~~)이 조건이 있으면 -->
+WHEN NOT MATCHED THEN <!-- 실행 안해~! -->
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, COMMENT_NO, OTHER)<!-- 이구문들을... -->
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{commentNo}, #{reportContents, jdbcType = VARCHAR})
+</insert>
+
+<!-- 게시글 신고하기 -->
+<insert id="postReport" parameterType="hashmap">
+MERGE INTO REPORT
+USING DUAL
+    ON (REPORT_MEMBER_NO = #{sMemNo} AND POST_NO = #{no})
+WHEN NOT MATCHED THEN
+    INSERT (REPORT_NO, REPORT_TYPE_NO, REPORT_MEMBER_NO, POST_NO, OTHER)
+    VALUES(REPORT_SEQ.NEXTVAL, #{reportTypeNo}, #{sMemNo}, #{no}, #{reportContents, jdbcType = VARCHAR})
+</insert>
 
 
 </mapper>
