@@ -102,7 +102,7 @@ $(document).ready(function() {
 		</div>
 		<div class="Ccon">
 			<form action="#" id="actionForm" method="post">
-				<input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<input type="hidden" name="memberNo" id="memberNo" value="${adMemNo}" />
 				<table class="Cinput">
 					<tr>
 						<th>제목</th>

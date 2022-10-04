@@ -25,6 +25,13 @@ $(document).ready(function(){
 	}
 	reloadList();
 	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+	
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
 		

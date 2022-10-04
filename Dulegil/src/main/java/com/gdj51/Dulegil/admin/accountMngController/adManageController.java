@@ -60,7 +60,6 @@ public class adManageController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		
 		int cnt = dao.getInt("adMember.adCnt",params);
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,3);
 		 
@@ -79,34 +78,37 @@ public class adManageController {
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String adminAction(
-		@PathVariable String gbn,
-		@RequestParam HashMap<String, String> params) throws Throwable{
-	ObjectMapper mapper = new ObjectMapper();
-	Map<String, Object> model = new HashMap<String, Object>();
+			@PathVariable String gbn,
+			@RequestParam HashMap<String, String> params) throws Throwable{
 	
-	int cnt = 0;
-	
-	try {
-		switch(gbn) {
-		case "insert" : cnt = dao.insert("adMember.adIns",params);
-		break;
-		case "update" : cnt = dao.update("adMember.update",params);
-		break;
-		case "delete" : cnt = dao.update("adMember.update",params);
-		break;
-		}
-		if(cnt>0) {
-			model.put("msg", "success");
-		}else {
-			model.put("msg", "fail");
-		}
+		ObjectMapper mapper = new ObjectMapper();
 		
-	} catch (Exception e) {
-		e.printStackTrace();
-		model.put("msg", "error");
-	}
+		Map<String, Object> model = new HashMap<String, Object>();
 	
-	return mapper.writeValueAsString(model);
+		int cnt = 0;
+		
+		try {
+			switch(gbn) {
+			case "insert" : 
+				cnt = dao.insert("adMember.adIns",params);
+			break;
+			case "update" : 
+				cnt = dao.update("adMember.adUpd",params);
+			break;
+			case "delete" : 
+				cnt = dao.update("adMember.adDel",params);
+			break;
+		}
+			if(cnt>0) {
+				model.put("msg", "success");
+			}else {
+				model.put("msg", "fail");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+		return mapper.writeValueAsString(model);
 	}
 	
 	@RequestMapping(value = "/adminDetailAjax",
