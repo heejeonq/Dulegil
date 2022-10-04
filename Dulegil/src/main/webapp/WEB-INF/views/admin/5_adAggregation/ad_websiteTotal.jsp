@@ -74,7 +74,7 @@ td {
 	
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">bar_chart</span> 
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">leaderboard</span> 
 			웹사이트활동 집계
 		</div>
 					

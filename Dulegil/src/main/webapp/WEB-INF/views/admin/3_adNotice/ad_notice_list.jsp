@@ -19,6 +19,9 @@
 #campaign {
     margin-right: 10px;
 }
+.Ctable table {
+    margin-top: 20px;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -264,7 +267,7 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_document</span>
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> assignment </span>
 			공지사항 관리
 		</div>
 		<form action="#" id="actionForm" method="post">

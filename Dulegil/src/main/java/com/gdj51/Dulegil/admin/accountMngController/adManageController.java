@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;//
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ public class adManageController {
 	public IPagingService ips;
 	
 	@RequestMapping(value="/adminList")
-	public ModelAndView adMemList(
+	public ModelAndView adminList(
 			HttpSession session,
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable{
@@ -40,7 +41,6 @@ public class adManageController {
 		if(params.get("page") != null && params.get("page") != "") {
 			page = Integer.parseInt(params.get("page"));
 		}
-		
 		mav.addObject("page", page);
 		
 		mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
@@ -62,7 +62,7 @@ public class adManageController {
 		
 		int cnt = dao.getInt("adMember.adCnt",params);
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,5,3);
-		
+		 
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));
 		
@@ -72,4 +72,58 @@ public class adManageController {
 		model.put("pd", pd);
 		return mapper.writeValueAsString(model);
 	}
+	
+	@RequestMapping(value="/adminAction/{gbn}",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String adminAction(
+			@PathVariable String gbn,
+			@RequestParam HashMap<String, String> params) throws Throwable{
+	
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+	
+		int cnt = 0;
+		
+		try {
+			switch(gbn) {
+			case "insert" : 
+				cnt = dao.insert("adMember.adIns",params);
+			break;
+			case "update" : 
+				cnt = dao.update("adMember.adUpd",params);
+			break;
+			case "delete" : 
+				cnt = dao.update("adMember.adDel",params);
+			break;
+		}
+			if(cnt>0) {
+				model.put("msg", "success");
+			}else {
+				model.put("msg", "fail");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msg", "error");
+		}
+		return mapper.writeValueAsString(model);
+	}
+	
+	@RequestMapping(value = "/adminDetailAjax",
+			method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	
+	@ResponseBody
+	public String adminDetailAjax(
+			@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		HashMap<String, String> data = dao.getMap("adMember.adInfo", params);
+		model.put("data", data);
+		
+		return mapper.writeValueAsString(model);
+	}	
 }

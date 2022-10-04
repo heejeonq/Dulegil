@@ -99,14 +99,14 @@ $(document).ready(function(){
 	
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined " style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;">edit_square </span>
+			<span class="material-symbols-outlined " style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> assignment_add </span>
 			공지사항 등록
 		</div>
 		<div class="Ccon">
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				<!-- 실 저장된 파일명 보관용 -->
 				<input type="hidden" name="attFile" id="attFile" />
-				<input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<input type="hidden" name="memberNo" id="memberNo" value="${adMemNo}" />
 				
 				<table class="Cinput">
 					<tr>

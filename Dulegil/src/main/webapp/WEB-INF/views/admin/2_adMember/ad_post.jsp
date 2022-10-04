@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>게시물 관리</title>
+<title>게시글 관리</title>
 <style type="text/css">
 #searchGbn{
 	width: 100px;
@@ -28,6 +28,13 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 	}
 	reloadList();
+	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
 	
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
@@ -285,8 +292,8 @@ function drawPaging(pd) {
 		<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 		
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_note</span>
-			게시물 관리
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> library_books </span>
+			게시글 관리
 		</div>
 		
 		<form action="#" id="actionForm" method="post">

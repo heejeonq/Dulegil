@@ -167,7 +167,7 @@ function login(){
 		      	success : function(res){ // 성공했을 때 결과를 res에 받고 함수 실행
 		      		console.log(res);
 		     		 if(res.msg == "success"){	
-		    		  location.href = "adAccountMng";
+		    		  location.href = "adminList"; 
 		    		  
 		     		 }else{
 		    		  makeAlert("알림", "아이디나 비밀번호가 틀립니다.")

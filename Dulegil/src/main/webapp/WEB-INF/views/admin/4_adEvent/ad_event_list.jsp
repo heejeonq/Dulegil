@@ -20,6 +20,9 @@
 #calendar table{
 	table-layout: fixed;
 }
+.Ccon.right{
+	margin-top: 10px;
+}
 </style>
 <!-- 달력 -->
 <script src='resources/css/fullcalendar/main.js'></script>
@@ -31,6 +34,13 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 	}
 	reloadList();
+	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
 	
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
@@ -195,7 +205,7 @@ function drawList(list) {
 	for(var data of list){ 
 		html += "<tr no=\"" + data.POST_NO + "\">";
 		html += "<td>" + data.POST_NO + "</td>";
-		html += "<td id=\"evtTit\" style=\"width:50%;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">" + data.TITLE + "</td>";
+		html += "<td id=\"evtTit\" style=\"width:50%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">" + data.TITLE + "</td>";
 		html += "<td>" + data.REG_DT + "</td>";
 		html += "<td><input type=\"checkbox\" id=\"delChck\" value=\"" + data.POST_NO + "\" /></td>";
 		html += "</tr>";
@@ -243,7 +253,7 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span>
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">calendar_month</span>
 			이벤트 관리
 		</div>
 		<form action="#" id="actionForm" method="post">

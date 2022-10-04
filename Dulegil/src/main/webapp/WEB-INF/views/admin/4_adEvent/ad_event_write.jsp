@@ -97,12 +97,12 @@ $(document).ready(function() {
 		</form>
 	
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> edit_square </span>
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: sub;"> event </span>
 			이벤트 등록
 		</div>
 		<div class="Ccon">
 			<form action="#" id="actionForm" method="post">
-				<input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<input type="hidden" name="memberNo" id="memberNo" value="${adMemNo}" />
 				<table class="Cinput">
 					<tr>
 						<th>제목</th>

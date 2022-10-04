@@ -43,10 +43,12 @@ $(document).ready(function(){
 		
 	});
 	$("#memRate").on("click", "#reportBtn", function(){
-		let amemNo = $(this).parent().parent().parent().parent().children().eq(2).attr("amemNo");
+		let amemNo = $(this).parent().parent().parent().children().eq(1).attr("amemNo");
+		let amemNm = $(this).parent().parent().parent().children().eq(1).attr("amemNm");
 		let reportNo = $('input[name="report"]:checked').val();
-
+		console.log()
 		$("#applyMemNo").val(amemNo);
+		$("#applyMemNm").val(amemNm);
 		$("#reportTypeNo").val(reportNo);
 		if (reportNo == null) {
             makeAlert("알림", "신고내용을 선택하세요.", function() {
@@ -343,7 +345,7 @@ function drawList2(memList){
 	for(var data of memList){  
 		html2 += "	<tr>                                                                                         ";
 		html2 += "		<td rowspan=\"2\" class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>                  ";
-		html2 += "		<td id=\"mem_id\" class=\"item\">" + data.NM +"</td>                                               ";
+		html2 += "		<td id=\"mem_id\" class=\"item\" amemNo=\"" + data.MEMBER_NO+ "\" amemNm=\"" + data.NM+ "\">" + data.NM +"</td>                                               ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td></td>                                                                                ";
 		html2 += "		<td></td>                                                                                ";
@@ -358,7 +360,7 @@ function drawList2(memList){
 		html2 += "			</div>                                                                               ";
 		html2 += "		</td>                                                                                    ";
 		html2 += "	</tr>                                                                                        ";
-		html2 += "	<tr amemNo=\"" + data.MEMBER_NO+ "\">                                                                                         ";
+		html2 += "	<tr>                                                                                         ";
 		html2 += "		<td colspan=\"2\">                                                                         ";
 		html2 += "			<div class=\"startRadio\">                                                             ";
 		html2 += "				<span class=\"star\">★★★★★															";
@@ -415,6 +417,7 @@ function drawList2(memList){
 			<form action="#" id="actionForm">
 				<input type="hidden" name="memNo">
 				<input type="hidden" name="amemNo" id="applyMemNo">
+				<input type="hidden" name="amemNm" id="applyMemNm">
 				<input type="hidden" name="postNo" id="applyPostNo">
 				<input type="hidden" name="stateNo" id="stateNo">
 				<input type="hidden" name="rate" id="rateValue">
