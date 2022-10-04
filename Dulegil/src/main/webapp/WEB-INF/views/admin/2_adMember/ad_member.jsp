@@ -73,9 +73,13 @@ img {
 .Cbtncenter{
 	margin: 0;
 }
-#nmTit:hover{
+.list:hover{
 	cursor: pointer;
-	text-decoration: underline;
+}
+.list.on{
+	background: #fffce1;
+	border: none;
+	border-bottom: 1px solid #f4f5ee;
 }
 #email, #rel, #rptCnt{
 	border: none;
@@ -86,6 +90,7 @@ img {
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	$("#updateBtn").hide();
 	
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
@@ -94,6 +99,13 @@ $(document).ready(function(){
 	}
 	reloadList();
 	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+	
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
 		
@@ -101,7 +113,6 @@ $(document).ready(function(){
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
-		
 		reloadDetail();
 	});
 	
@@ -112,7 +123,6 @@ $(document).ready(function(){
 		$("#page").val($(this).attr("page"));
 		
 		reloadList();
-		
 		reloadDetail();
 	});
 	
@@ -130,13 +140,15 @@ $(document).ready(function(){
 		$("#oldTxt").val("");
 		
 		reloadList();
-		
 		reloadDetail();
 	});
 	
-	$("tbody").on("click", "#nmTit", function(){
-		$("#no").val($(this).parent().attr("no"));
-		$("#updNo").val($(this).parent().attr("no"));
+	$("tbody").on("click", ".list", function(){
+		$("#updateBtn").show();
+		$(".list").removeClass("on");
+		$(this).addClass("on");
+		$("#no").val($(this).attr("no"));
+		$("#updNo").val($(this).attr("no"));
 
 		var params = $("#actionForm").serialize();
 		
@@ -239,6 +251,7 @@ function sample6_execDaumPostcode() {
 
 function reloadList(){
 	$("#cate").val($("#cateNo").val());
+	$("#updateBtn").hide();
 	
 	var params = $("#actionForm").serialize();
 	
@@ -291,11 +304,12 @@ function drawList(list){
 	
 	for(var data of list){
 
-		html += "<tr no=\""+ data.MEMBER_NO +"\">";
+		html += "<tr class=\"list\" no=\""+ data.MEMBER_NO +"\">";
 		html += "<td>"+ data.MEMBER_NO +"</td>";
 		html += "<td cate=\""+ data.AUTHORITY_NO +"\">"+ data.AUTHORITY_NM + "</td>";
 		html += "<td id=\"nmTit\">" + data.NM + "</td>";
 		html += "<td>"+ data.EMAIL +"</td>";
+		html += "<td>"+ data.REG_DT +"</td>";
 		html += "</tr>";
 	}
 	$(".Ctable tbody").html(html);
@@ -385,10 +399,11 @@ function drawPaging(pd) {
 			<div class="Ccon left">
 				<table class="Ctable">
 					<colgroup>
+						<col width="40px">
 						<col width="70px">
-						<col width="100px">
-						<col width="170px">
+						<col width="110px">
 						<col width="190px">
+						<col width="110px">
 					</colgroup>
 					<thead>
 						<tr>
@@ -396,6 +411,7 @@ function drawPaging(pd) {
 							<th>등급</th>
 							<th>이름</th>
 							<th>이메일</th>
+							<th>등록일</th>
 						</tr>
 					</thead>
 					<tbody></tbody>

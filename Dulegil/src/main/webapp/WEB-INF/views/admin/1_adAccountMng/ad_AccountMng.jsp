@@ -8,9 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자 계정 관리</title>
 <style type="text/css">
+.Ccon.left{
+    margin-top: 50px;
+}    
 .Ccon.right{
-	margin-top: 40px;
-    margin-left: 45px;
+	margin-top: 75px;
+    margin-left: 60px;
 }
 .Cdeailtable th:first-child{
 	padding-left: 0;
@@ -36,19 +39,32 @@
     border: 1px solid #ddd;
     border-radius: 3px;
 }
-#adTit:hover{
+.list:hover{
 	cursor: pointer;
-	text-decoration: underline;
+}
+.list.on{
+	background: #fffce1;
+	border: none;
+	border-bottom: 1px solid #f4f5ee;
 }
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
+	$("#updateBtn").hide();
+	
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
 		$("#oldGbn").val("0");
 	}
 	reloadList();
+	
+	$('#searchTxt').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
 	
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
@@ -57,20 +73,24 @@ $(document).ready(function(){
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
+		reloadDetail();
 	});
 	
 	$(".Cpaging").on("click", "#pBtn", function(){
+		$("#page").val($(this).attr("page"));
+		
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
-		$("#page").val($(this).attr("page"));
-		
 		reloadList();
+		reloadDetail();
 	});
 	
-	$("tbody").on("click", "#adTit", function(){
-		$("#no").val($(this).parent().attr("no"));
-		
+	$("tbody").on("click", ".list", function(){
+		$(".list").removeClass("on");
+		$(this).addClass("on");
+		$("#no").val($(this).attr("no"));
+		$("#updNo").val($(this).attr("no"));
 		$("#updateBtn").show();
 		$("#insertBtn").hide();
 		
@@ -91,10 +111,63 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("#updateBtn").on("click", function(){
+		if($.trim($("#nm").val()) == "") {
+			makeAlert("알림", "관리자명을 입력하세요.", function() {
+				$("#nm").focus();
+			});
+		}else if ($("#email").val() == "") {
+			makeAlert("알림", "아이디를 입력하세요.", function() {
+				$("#email").focus(); 
+			});
+		}else if($.trim($("#pwd").val()) == ""){
+			makeAlert("알림", "비밀번호를 입력하세요.", function(){
+				$("#pwd").focus();
+			});
+		}else if($.trim($("#cnfmPwd").val()) == ""){
+			makeAlert("알림", "비밀번호를 입력하세요.", function(){
+				$("#cnfmPwd").focus();
+			});
+		}else if($("#pwd").val() != $("#cnfmPwd").val()){
+			makeAlert("알림", "비밀번호가 일치하지 않습니다.", function(){
+				$("#cnfmPwd").focus();
+			});
+		}else {
+			var params = $("#updateForm").serialize();  
+			
+			$.ajax({
+				url:"adminAction/update", 
+				type: "POST", 
+      			dataType: "json",
+				data: params,
+				success : function(res){ 
+				console.log(res);
+					switch(res.msg){
+					case "success" :
+						$("#page").val("1");
+   	                    $("#searchgbn").val("0");
+   	                    $("#searchTxt").val("");
+						makeAlert("알림", "수정이 완료되었습니다.", function() {
+							reloadList();
+							reloadDetail();
+						}) ;
+					break;
+					case "fail" :
+  						makeAlert("알림", "수정에 실패하였습니다.")
+					break;
+  					case "error" :                     
+   	                     makeAlert("알림", "수정 중 문제가 발생하였습니다.")
+					break;
+					}
+				},
+   	            error : function(request, status, error) { 
+   	                     console.log(request,responseText); 
+   	            }
+			});
+		}
+	});
+	
 	$("tbody").on("click", "#delBtn", function() {
-		var commentNo= $(this).parent().parent().attr("no");
-		$("#no").val(commentNo);	
-		
 		makePopup({
 			title : "알림",
 			contents : "삭제하시겠습니까?",
@@ -113,6 +186,7 @@ $(document).ready(function(){
 							case "success":
 								makeAlert("알림", "삭제되었습니다.", function(){
 									reloadList();
+									reloadDetail();
 								});
 								break;
 							case "fail":
@@ -142,7 +216,7 @@ $(document).ready(function(){
 			});
 		}else if ($("#email").val() == "") {
 			makeAlert("알림", "아이디를 입력하세요.", function() {
-				$("#email").focus();
+				$("#email").focus(); 
 			});
 		}else if($.trim($("#pwd").val()) == ""){
 			makeAlert("알림", "비밀번호를 입력하세요.", function(){
@@ -157,7 +231,7 @@ $(document).ready(function(){
 				$("#cnfmPwd").focus();
 			});
 		}else {
-			var params = $("#actionForm").serialize();  
+			var params = $("#updateForm").serialize();  
 			
 			$.ajax({
 				url:"adminAction/insert", 
@@ -172,8 +246,9 @@ $(document).ready(function(){
    	                    $("#searchgbn").val("0");
    	                    $("#searchTxt").val("");
 						makeAlert("알림", "관리자 계정이 등록되었습니다.", function() {
-							location.href="adEvt";
-						}) ;
+							reloadList();
+							reloadDetail();
+						});
 					break;
 					case "fail" :
   						makeAlert("알림", "등록에 실패하였습니다.")
@@ -204,6 +279,9 @@ function reloadList(){
 			drawList(res.list);
 			drawPaging(res.pd);
 			console.log(res);
+			
+			$("#updateBtn").hide();
+			$("#insertBtn").show();
 		},
 		error : function(request, status, error){
 			console.log(request.responseText);
@@ -211,31 +289,28 @@ function reloadList(){
 	});
 };
 
-function drawList(list){
-	$("#updateBtn").hide();
-	
+function drawList(list){	
 	var html ="";
 	
 	for(var data of list){
-		html += "<tr no=\"" +data.MEMBER_NO +"\">";
+		html += "<tr class=\"list\" no=\"" +data.MEMBER_NO +"\">";
 		html += "<td>"+ data.MEMBER_NO +"</td>";
 		html += "<td>"+ data.AUTHORITY_NM +"</td>";
 		html += "<td id=\"adTit\">"+ data.NM +"</td>";
 		html += "<td id=\"adTit\">"+ data.EMAIL +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
-		html += "<td>";
+		html += "<td id=\"addBtn\">";
 		html += "<span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span>";
 		html += "</td>";
 		html += "</tr>";
 	}
-	
 	$(".Cdeailtable tbody").html(html);
 };
 
-function drawDetail(list){
-	$("#nm").val(list.NM);
-	$("#email").val(list.EMAIL);
-	$("#pwd").val(list.PWD);
+function drawDetail(data){
+	$("#nm").val(data.NM);
+	$("#email").val(data.EMAIL);
+	$("#pwd").val(data.PWD);
 }
 
 function reloadDetail(){
@@ -341,6 +416,7 @@ function drawPaging(pd) {
 			</div>
 			<div class="Ccon right">
 				<form action="#" id="updateForm" method="post">
+					<input type="hidden" name="updNo" id="updNo" /> 
 					<table class="Mtable">
 						<tr>
 							<th>관리자명</th>
@@ -360,7 +436,7 @@ function drawPaging(pd) {
 						</tr>
 					</table>
 					<div class="Cbtnright">
-						<input type="button" id="updateBtn" value="수정" class="btn" /> 
+						<input type="button" id="updateBtn" value="수정" class="btn" />
 						<input type="button" id="insertBtn" value="등록" class="btn" />
 					</div>
 				</form>

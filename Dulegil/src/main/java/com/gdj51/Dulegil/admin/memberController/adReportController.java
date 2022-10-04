@@ -102,10 +102,9 @@ public class adReportController {
 
 		try {
 			switch(gbn) {
-			case "delete" : cnt=dao.update("adReport.delete",params);
+			case "processUp" : cnt=dao.update("adReport.processUp",params);
 			break;
-			case "del" : cnt=dao.update("adReport.del",params);
-			break;
+			
 			}
 			if(cnt>0) {
 				model.put("msg", "success");
