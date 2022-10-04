@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 달력 -->
 <link href='resources/css/fullcalendar/main.css' rel='stylesheet' />
-<title>이벤트 목록</title>
+<title>이벤트 관리</title>
 <style type="text/css">
-#evtTit:hover, #pBtn:hover{
+#evtTit:hover{
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -19,6 +19,9 @@
 }
 #calendar table{
 	table-layout: fixed;
+}
+.Ccon.right{
+	margin-top: 10px;
 }
 </style>
 <!-- 달력 -->
@@ -143,7 +146,7 @@ $(document).ready(function(){
 	
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
-		contentHeight:"500px",
+		contentHeight:"550px",
 		events : {
 		    url: 'evtListAjax',
 		    method: 'POST',
@@ -195,7 +198,7 @@ function drawList(list) {
 	for(var data of list){ 
 		html += "<tr no=\"" + data.POST_NO + "\">";
 		html += "<td>" + data.POST_NO + "</td>";
-		html += "<td id=\"evtTit\" style=\"width:50%;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">" + data.TITLE + "</td>";
+		html += "<td id=\"evtTit\" style=\"width:50%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">" + data.TITLE + "</td>";
 		html += "<td>" + data.REG_DT + "</td>";
 		html += "<td><input type=\"checkbox\" id=\"delChck\" value=\"" + data.POST_NO + "\" /></td>";
 		html += "</tr>";
@@ -243,8 +246,8 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">event_note</span>
-			이벤트 목록
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">calendar_month</span>
+			이벤트 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
 			<input type="hidden" id="no" name="no" />

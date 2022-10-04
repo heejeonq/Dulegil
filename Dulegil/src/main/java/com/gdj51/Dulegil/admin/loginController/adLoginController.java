@@ -28,8 +28,8 @@ public class adLoginController {
 			HttpSession session,
 			ModelAndView mav) {
 
-		if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
-			mav.setViewName("redirect:adAccountMng");
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
+			mav.setViewName("redirect:adminList");
 		}else {
 			mav.setViewName("admin/0_adLogin/ad_Login");
 		}
@@ -52,30 +52,16 @@ public class adLoginController {
 		HashMap<String, String> data = dao.getMap("adLogin.checkAd", params);
 		
 		if(data != null) {
-			session.setAttribute("sMemNo", data.get("MEMBER_NO"));
-			session.setAttribute("sMemNm", data.get("EMAIL"));
-			session.setAttribute("sMemPw", data.get("PWD"));
+			session.setAttribute("adMemNo", data.get("MEMBER_NO"));
+			session.setAttribute("adMemNm", data.get("EMAIL"));
+			session.setAttribute("adNm", data.get("NM"));
+			session.setAttribute("adMemPw", data.get("PWD"));
 			model.put("msg", "success");
 		}else {
 			model.put("msg", "failed");
 		}
 		return mapper.writeValueAsString(model);
 	}
-	
-	//로그인 후 관리자 페이지로 이동 화면
-		@RequestMapping(value="/adAccountMng")
-		public ModelAndView adAccountMng(HttpSession session,
-				ModelAndView mav) {
-			
-			if(session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
-
-			mav.setViewName("admin/1_adAccountMng/ad_AccountMng");
-			}else {
-				mav.setViewName("admin/0_adLogin/ad_Login");
-
-			}
-		return mav;
-		}
 		
 
 	// 로그아웃

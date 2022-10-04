@@ -64,7 +64,7 @@ $(document).ready(function(){
 		<form action="#" id="actionForm">
 			<div class="lgn">
 				<span>회원 로그인</span>
-				<div class="lgnInfo">
+				<div class="lgnInfo">	
 					<input type="text" id="lgnId" name="lgnId" placeholder="아이디" /><br />
 					<input type="password" id="lgnPwd" name="lgnPwd" placeholder="비밀번호" />
 				</div>

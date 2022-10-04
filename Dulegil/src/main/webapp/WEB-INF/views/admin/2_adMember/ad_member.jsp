@@ -14,18 +14,26 @@
 .Ctable td:nth-child(2) {
     text-align: center;
 }
+
 .Ccon.right{
-	padding: 20px;
-    margin-left: 40px;
-    width: 485px;
-	height: 500px;
-	border: 1px solid #ddd;
+    margin-left: 50px;
+    /* border: 1px solid #ddd; */
+    padding-top: 5%;
+}
+.Ccon.right tr{
+	border: none;
+}
+#cateNo{
+	margin-left: 0;
 }
 img {
 	width: 150px;
 	height: 150px;
 	border-radius: 3px;
-	margin: 22px;
+	margin-right: 40px;
+}
+.Mtable{
+	margin: 0;
 }
 .Mtable th{
 	font-size: 11pt;
@@ -33,9 +41,6 @@ img {
 }
 .Mtable td{
 	font-size: 10pt;
-}
-tr{
-	border: none;
 }
 .Mtable #aut, .Mtable input, .Mtable #gen {
     width: 200px;
@@ -54,7 +59,6 @@ tr{
 .Mtable #aut:hover, .Mtable #gen:hover{
 	outline: none;
 }
-
 #adrBtn{
 	width: 73px;
     background-color: #f0c41994;
@@ -178,6 +182,7 @@ $(document).ready(function(){
 	   	                    $("#searchgbn").val("0");
 	   	                    $("#searchTxt").val("");
 							makeAlert("알림", "회원정보가 수정되었습니다.", function() {
+								reloadList();
 								reloadDetail();
 							});
 						break;
@@ -295,6 +300,7 @@ function drawList(list){
 	}
 	$(".Ctable tbody").html(html);
 };
+
 function drawDetail(list){
 	$("#aut").val(list.AUTHORITY_NO);
 	$("#nm").val(list.NM);
@@ -350,7 +356,7 @@ function drawPaging(pd) {
 
 	<div class="container">
 		<div class="Cname">
-			<span class="material-icons" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">manage_accounts </span> 
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">manage_accounts </span> 
 			회원 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
@@ -359,7 +365,7 @@ function drawPaging(pd) {
 				<input type="hidden" name="cate" id="cate" value="${param.cateNo}"/>
 				<input type="hidden" name="page" id="page" value="${page}" />
 				<select class="sel" name="searchGbn" id="searchGbn">
-					<option value="0">회원번호</option>
+					<option value="0">번호</option>
 					<option value="1">이름</option>
 					<option value="2">이메일</option>
 				</select>
@@ -369,20 +375,20 @@ function drawPaging(pd) {
 		</form>	
 		<div class="Ccon">
 			<div class="Ccate">
-			<select name="cateNo" id="cateNo">
-				<option value="0">전체</option>
-				<c:forEach var="data" items="${cate}">
-					<option value="${data.AUTHORITY_NO}">${data.AUTHORITY_NM}</option>
-				</c:forEach>
-			</select>
+				<select name="cateNo" id="cateNo">
+					<option value="0">전체</option>
+					<c:forEach var="data" items="${cate}">
+						<option value="${data.AUTHORITY_NO}">${data.AUTHORITY_NM}</option>
+					</c:forEach>
+				</select>
 			</div>
 			<div class="Ccon left">
 				<table class="Ctable">
 					<colgroup>
-						<col width="50px">
 						<col width="70px">
-						<col width="150px">
-						<col width="200px">
+						<col width="100px">
+						<col width="170px">
+						<col width="190px">
 					</colgroup>
 					<thead>
 						<tr>
@@ -401,7 +407,9 @@ function drawPaging(pd) {
 					<input type="hidden" name="updNo" id="updNo" value="${data.MEMBER_NO}" /> 
 					<table class="Mtable">
 						<tr>
-							<th rowspan="12" style="margin-right: 10px;"><img alt="" src="resources/upload/${data.IMG_FILE}"></th>
+							<th rowspan="12" style="margin-right: 10px; vertical-align: top;">
+								<img alt="" src="resources/upload/${data.IMG_FILE}">
+							</th>
 							<th>등급</th>
 							<td>
 								<select name="aut" id="aut">
@@ -464,7 +472,7 @@ function drawPaging(pd) {
 						</tr>
 					</table>
 				</form>	
-				<div class="Cbtncenter">
+				<div class="Cbtnright">
 					<input type="button" id="updateBtn" name="updateBtn" value="수정" class="btn" /> 
 				</div>
 			</div>	

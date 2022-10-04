@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="resources/css/mypage.css" />
 <link rel="stylesheet" href="resources/css/common.css" />
 <title>개인 정보 수정</title>
+
 <!-- 주소 검색 (다음 우편번호 서비스 api 사용) -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -55,6 +56,39 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+
+//특수문자 입력 방지
+function check(obj){
+// 허용할 특수문자는 여기서 삭제하면 된다.
+var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+
+//배열에서 하나씩 값을 비교
+if( regExp.test(obj.value) ){
+	alert("특수문자는 입력하실수 없습니다.");
+	
+	//값이 일치하면 문자를 삭제
+	obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움.
+	}
+} 
+
+/* function check(t){
+	  var regexp = /[^ㄱ-ㅎ가-힣a-z]/gi;
+	  t.onkeyup = function(e){
+	    var v = this.value;
+	    this.value = v.replace(regexp,'');
+	  }
+	} */
+	
+/* $(function(){
+	     $(".nm").keyup(function (event) {
+	          regexp = /[0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+	          v = $(this).val();
+	          if (regexp.test(v)) {
+	              alert("한글과 영문만 입력가능 합니다.");
+	              $(this).val(v.replace(regexp, ''));
+	          }
+	      });
+}); */
 
 </script>
 <script type="text/javascript">
@@ -241,7 +275,7 @@ function readURL(input) {
 							                   name은 그냥 이름일뿐 값은 따로 있어. 그 값이 input은 벨류가 입력 값이야.
 							                   이게무슨말이냐. 입력값이 없으면 원래 받아온 정보를 보여주고,
 							                   있으면 그값으로 바뀜.-->
-							<input type="text" name="nm" id="nm" value="${data.NM}">
+							<input type="text" name="nm" id="nm" maxlength="10" onkeyup="check(this)" onkeydown="check(this)" value="${data.NM}">
 						</div>	
 						<div class="input">*선택 입력 사항</div>
 						<div class="dtBrt01">

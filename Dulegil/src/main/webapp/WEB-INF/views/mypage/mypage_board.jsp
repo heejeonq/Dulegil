@@ -34,6 +34,7 @@ $(document).ready(function(){
 		//기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
+		
 		console.log($(this).parent().children().eq(1).attr("cate"));
 		if($(this).parent().children().eq(1).attr("cate")=="1"){
 	         $("#actionForm").attr("action","courseReviewDetail");

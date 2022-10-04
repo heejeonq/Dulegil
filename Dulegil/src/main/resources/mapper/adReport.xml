@@ -94,10 +94,22 @@
                 ON P.BLTNBOARD_NO = BT.BLTNBOARD_NO
                 INNER JOIN MEMBER M
                 ON M.MEMBER_NO= C.MEMBER_NO
-	WHERE R.REPORT_NO = #{rptNo}
+	WHERE R.REPORT_NO = #{rptNoC}
 	</select>
 
 
+
+	<!-- 더보기 - 글 -->
+	<select id="post" resultType="hashmap">
+	  SELECT R.REPORT_NO,P.POST_NO, BT.BLTNBOARD_NM, P.TITLE, P.REG_DT, P.CONTENTS AS POST, M.NM AS PNM
+	FROM BULLETIN_BOARD P INNER JOIN REPORT R
+                ON P.POST_NO = R.POST_NO
+                INNER JOIN BOARD_TYPE BT
+                ON P.BLTNBOARD_NO = BT.BLTNBOARD_NO
+                INNER JOIN MEMBER M
+                ON M.MEMBER_NO= P.MEMBER_NO
+	WHERE R.REPORT_NO = #{rptNoP}
+	</select>
 
 
 	<!-- 처리상태 업데이트 -->

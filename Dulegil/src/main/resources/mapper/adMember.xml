@@ -74,25 +74,27 @@
 		WHERE MEMBER_NO = #{updNo}
 	</update>
 	
+	<!-- 게시판 카테고리 -->
 	<select id="category" resultType="hashmap">
 		SELECT AUTHORITY_NO, AUTHORITY_NM	
 		FROM AUTHORITY
 		WHERE AUTHORITY_NO IN (2, 3)
 	</select>
 	
+	<!-- 성별 카테고리 -->
 	<select id="commonCategory" resultType="hashmap">
 		SELECT SMALL_CATEGORY, CODE_NM
 		FROM COMMON_CODE
 		WHERE LARGE_CATEGORY = 2
 	</select>
 	
+	<!-- 회원 정보 불러오기 -->
 	<select id="info" resultType="hashmap">
 		SELECT MEMBER_NO, AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, PHONE_NO, TO_CHAR(DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, 
 		       SMALL_CATEGORY, CODE_NM, ADDRESS, ZIP_CODE, DETAIL_ADDRESS,
-		       RELIABILITY, NVL(CNT, '0') AS CNT, RNK, IMG_FILE
+		       RELIABILITY, NVL(CNT, '0') AS CNT, IMG_FILE
 		FROM (SELECT M.MEMBER_NO, A.AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, PHONE_NO, DATE_BIRTH, 
-					 SMALL_CATEGORY, CODE_NM, IMG_FILE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, RELIABILITY, CNT,
-		             ROW_NUMBER()OVER(ORDER BY M.MEMBER_NO ASC) AS RNK
+					 SMALL_CATEGORY, CODE_NM, IMG_FILE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, RELIABILITY, CNT
 		      FROM MEMBER M INNER JOIN AUTHORITY A 
 		                            ON M.AUTHORITY_NO = A.AUTHORITY_NO
 		               LEFT OUTER JOIN COMMON_CODE C
@@ -104,7 +106,60 @@
 		                            ON R.TARGET_REPORT_MEMBER_NO = M.MEMBER_NO
 		      WHERE M.DEL_DT IS NULL 
 		      AND A.AUTHORITY_NO IN (2, 3) )AM
-		WHERE RNK BETWEEN 1 AND 10
-        AND MEMBER_NO = #{no}
+		WHERE MEMBER_NO = #{no}
+	</select>
+	
+	<!-- 관리자 계정 목록 -->
+	<select id="adList" parameterType="hashmap" resultType="hashmap">
+		SELECT MEMBER_NO, A.AUTHORITY_NM, NM, EMAIL, PWD, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT
+		FROM MEMBER M INNER JOIN AUTHORITY A
+		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
+		WHERE M.AUTHORITY_NO = 1
+		AND DEL_DT IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+						AND NM LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND EMAIL LIKE '%' || #{searchTxt} || '%'		
+					</when>
+			</choose>
+		</if> 
+	</select>
+	
+	<!-- 관리자 계정 페이징 -->
+	<select id="adCnt" parameterType="hashmap" resultType="integer">
+		SELECT COUNT(*) AS CNT
+		FROM MEMBER M INNER JOIN AUTHORITY A
+		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
+		WHERE M.AUTHORITY_NO = 1
+		AND DEL_DT IS NULL
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+						AND NM LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn == 1">
+						AND EMAIL LIKE '%' || #{searchTxt} || '%'		
+					</when>
+			</choose>
+		</if> 
+	</select>
+	
+	<!-- 관리자 계정 추가 -->
+	<insert id="adIns" parameterType="hashmap">
+		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO)
+		VALUES(210, #{email}, 1, #{pwd}, #{nm}, 00)
+	</insert>
+	
+	<select id="adInfo" resultType="hashmap">
+		SELECT MEMBER_NO, AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT, 
+		FROM (SELECT M.MEMBER_NO, A.AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, REG_DT
+		      FROM MEMBER M INNER JOIN AUTHORITY A 
+		                            ON M.AUTHORITY_NO = A.AUTHORITY_NO
+		      WHERE M.DEL_DT IS NULL 
+		      AND M.AUTHORITY_NO = 1 )AM
+		WHERE MEMBER_NO = #{no}
 	</select>
 </mapper>

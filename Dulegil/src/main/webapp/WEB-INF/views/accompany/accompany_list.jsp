@@ -101,7 +101,7 @@ function drawList(list) {
 	html +=	"<tr no =\"" + data.POST_NO + "\">";
 	html +=	"<td> " + data.POST_NO + "</td>";
 	html +=	"<td> " + data.COURSE_NO + "코스 " + data.COURSE_NM +"</td>";
-	html +=	"<td>" + data.TITLE + " </td>";
+	html +=	"<td>" + data.TITLE + " ("+ data.CNT +")"+  " </td>";
 	html +=	"<td>" + data.NM + " </td>";
 	html +=	"<td>" + data.HIT + "</td>";
 	html +=	"<td>" + data.DT + "</td>";

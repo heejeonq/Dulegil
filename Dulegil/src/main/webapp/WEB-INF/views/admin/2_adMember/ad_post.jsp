@@ -6,52 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>member manage</title>
+<title>게시글 관리</title>
 <style type="text/css">
-/* 테이블 */
-/* table  {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 30px;
-	color: #404040;
-	box-shadow: 3px 3px 3px 0px #ebebeb;
-	border-radius: 4px;
-}
-
-th, td {
-	border-collapse: collapse;
-	text-align: center;
-	padding: 4px;
-	color: #404040;
-	font-weight: 500;
-}
-
-th {
-	width: 131px;
-	padding: 6px;
-	background: #f4f5ee;
-	font-size: small;
-}
-
-th:nth-child(5) {
-	width: 45%;
-}
-
-td {
-	font-size: small;
-	border-bottom: solid 0.5px #ebebeb;
-	padding: 8px;
-	line-height: 0;
-}
- */
- 
 #searchGbn{
 	width: 100px;
+}
+#cateNo{
+	width: 120px;
+	outline: none;
+	margin-left: 0;
+}
+.Ctable td:nth-child(2) {
+    text-align: center;
 }
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
@@ -63,6 +33,7 @@ $(document).ready(function(){
 		$("#page").val("1");
 		
 		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldGbn2").val($("#searchGbn2").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
@@ -70,9 +41,27 @@ $(document).ready(function(){
 	
 	$(".Cpaging").on("click", "#pBtn", function(){
 		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldGbn2").val($("#searchGbn2").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		$("#page").val($(this).attr("page"));
+		
+		reloadList();
+	});
+	
+	if("${param.cateNo}" != ""){
+		$("#cateNo").val("${param.cateNo}");
+	}
+	
+	$("#cateNo").on("change", function(){
+		$("#page").val("1");
+		
+		$("#searchGbn").val("0");
+		$("#searchGbn2").val("0");
+		$("#searchTxt").val("");
+		
+		$("#oldGbn").val("0");
+		$("#oldTxt").val("");
 		
 		reloadList();
 	});
@@ -93,7 +82,6 @@ $(document).ready(function(){
 		$("#no").val(arr);
 	});	
 	
-	
 	// tbody 체크박스
 	$("tbody").on("click", "#Check", function(){
 		var arr = [];
@@ -103,7 +91,7 @@ $(document).ready(function(){
 		});
 		
 		if(arr.length == $("tbody #Check").length){
-			$("thead #allChecked", true)
+			$("thead #allCheck").prop("checked", true);
 		}else{
 			$("thead #allCheck").prop("checked", false);
 		}
@@ -111,12 +99,9 @@ $(document).ready(function(){
 			$("#no").val(arr);		
 	});
 	
-	
-	
 	// 체크박스 삭제
 	$("#deleteBtn").on("click", function(){
 		var arr = [];
-		
 		
 		// 내가 체크박스에 값 1 넣어놔서 tr의 no 취득하기
 		$("tbody #Check:checked").each(function(){
@@ -134,7 +119,6 @@ $(document).ready(function(){
 				buttons	: [{
 					name : "삭제",
 					func : function(){
-						// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
 						var params = $("#actionForm").serialize();
 						console.log(params);
 						$.ajax({
@@ -143,11 +127,11 @@ $(document).ready(function(){
 							dataType :"json",
 							data : params,
 							success : function(res){
-								// 성공했을 때 결과를 res에 받고 함수 실행
-								
 								switch(res.msg){
 								case "success" :
-									reloadList();
+									makeAlert("알림", "삭제되었습니다.", function(){
+										reloadList();
+									});
 									break;
 								case "fail" :
 									makeAlert("알림", "삭제에 실패했습니다.")
@@ -159,7 +143,6 @@ $(document).ready(function(){
 							},
 							error : function(request, status, error){
 								console.log(request.responseText);
-								
 							}
 						});
 						
@@ -172,9 +155,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	
-	
-	// 개별 삭제
 	$("tbody").on("click","#delBtn", function(){
 		var del = $(this).parent().parent().attr("no");
 		$("#no").val(del);
@@ -186,7 +166,6 @@ $(document).ready(function(){
 			buttons	: [{
 				name : "삭제",
 				func : function(){
-					// serialize() : 해당 내용물들 중 값 전달이 가능한 것들을 전송 가능한 문자 형태로 전환.
 					var params = $("#actionForm").serialize();
 					console.log(params);
 					$.ajax({
@@ -195,11 +174,11 @@ $(document).ready(function(){
 						dataType :"json",
 						data : params,
 						success : function(res){
-							// 성공했을 때 결과를 res에 받고 함수 실행
-							
 							switch(res.msg){
 							case "success" :
-								reloadList();
+								makeAlert("알림", "삭제되었습니다.", function(){
+									reloadList();
+								});
 								break;
 							case "fail" :
 								makeAlert("알림", "삭제에 실패했습니다.")
@@ -211,7 +190,6 @@ $(document).ready(function(){
 						},
 						error : function(request, status, error){
 							console.log(request.responseText);
-							
 						}
 					});
 					
@@ -221,15 +199,12 @@ $(document).ready(function(){
 				name : "취소"
 			}]	
 		})
-		
 	});
-	
-	
-}); // document ready end
-
-
+}); 
 
 function reloadList(){
+	$("#cate").val($("#cateNo").val());
+	
 	var params = $("#actionForm").serialize();
 	
 	$.ajax({
@@ -244,15 +219,10 @@ function reloadList(){
 		},
 		error : function(request, status, error){
 			console.log(request.responseText);
-			
 		}
-		
-		
 	});
 	
 }; // reloadList end
-
-
 
 // 게시글 그리기
 function drawList(list){
@@ -260,17 +230,14 @@ function drawList(list){
 	
 	for(var data of list){
 		
-		// "+ +"
 		html += "<tr no=\"" +data.POST_NO +"\">";
-		html += "<td colspan=\"1\"><input type=\"checkbox\" id=\"Check\" name=\"Check\"/></td>";
-		html += "<td colspan=\"1\">"+ data.MEMBER_NO +"</td>";
-		
-		// 게시판 벨류 0,1,2 일때 이름 도출하는거 하기 
-		html += "<td colspan=\"1\">"+ data.BLTNBOARD_NO +"</td>";
-		html += "<td colspan=\"5\">"+ data.NM +"</td>";
-		html += "<td colspan=\"1\">"+ data.TITLE +"</td>";
-		html += "<td colspan=\"1\">"+ data.REG_DT +"</td>";
-		html += "<td colspan=\"2\"><span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
+		html += "<td><span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
+		html += "<td>"+ data.POST_NO +"</td>";
+		html += "<td cate=\""+ data.BLTNBOARD_NO +"\">"+ data.BLTNBOARD_NM +"</td>";
+		html += "<td style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.TITLE +"</td>";
+		html += "<td>"+ data.NM +"</td>";
+		html += "<td>"+ data.REG_DT +"</td>";
+		html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\"/></td>";
 		html += "</tr>                                                                                                           ";
 	}
 	
@@ -314,51 +281,70 @@ function drawPaging(pd) {
 	<div class="container">
 		<!-- 기존 검색 내용 유지용 -->
 		<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+		<input type="hidden" id="oldGbn2" value="${param.searchGbn2}" /> 
 		<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 		
 		<div class="Cname">
-			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;">edit_note</span>
-			게시물관리
+			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> library_books </span>
+			게시글 관리
 		</div>
 		
 		<form action="#" id="actionForm" method="post">
 			<div class="Csearch">
-				<input type="hidden" name="no" id="no" /> 
+				<input type="hidden" name="no" id="no" value="${data.CONTENT_NO}" /> 
+				<input type="hidden" name="delNo" id="delNo" />
+				<input type="hidden" name="cate" id="cate" value="${param.cateNo}" /> 
 				<input type="hidden" name="page" id="page" value="${page}" />
 				<select class="sel" name="searchGbn" id="searchGbn">
-					<option value="0">코스별 평가</option>
+					<option value="0">코스 별 후기</option>
 					<option value="1">동행 구하기</option>
-					<option value="2">자유게시판</option>
+					<option value="2">둘레길 이야기</option>
 				</select>
 				<select class="sel" name="searchGbn2" id="searchGbn2">
-					<option value="0">회원번호</option>
-					<option value="1">글번호</option>
-					<option value="2">아이디</option>
-					<option value="3">제목</option>
+					<option value="0">번호</option>
+					<option value="1">제목</option>
+					<option value="2">작성자</option>
 				</select>
 				<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
 				<input type="button" class="btn src" id="searchBtn" value="검색" />
 			</div>
 		</form>
 		<div class="Ccon">
+			<div class="Ccate">
+				<select name="cateNo" id="cateNo">
+					<option value="0">전체</option>
+					<c:forEach var="data" items="${cate}">
+						<option value="${data.BLTNBOARD_NO}">${data.BLTNBOARD_NM}</option>
+					</c:forEach>
+				</select>
+			</div>
 			<div class="Ctable">
-					<table>
-						<thead>
-							<tr>
-								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
-								<th>회원번호</th>
-								<th>카테고리</th>
-								<th>아이디</th>
-								<th>제목</th>
-								<th>날짜</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-					<div class="Cbtnright">
-						<input type="button" value="삭제" class="btn" id="deleteBtn" />
-					</div>
+				<table>
+					<colgroup>
+						<col width="40px">
+						<col width="60px">
+						<col width="130px">
+						<col width="525px">
+						<col width="130px"> 
+						<col width="110px">
+						<col width="40px">
+					</colgroup>
+					<thead>
+						<tr>
+							<th></th>
+							<th>번호</th>
+							<th>게시판</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>등록일</th>
+							<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<div class="Cbtnright">
+					<input type="button" value="삭제" class="btn" id="deleteBtn" />
+				</div>
 				<div class="Cpaging"></div>
 			</div>	
 		</div>
