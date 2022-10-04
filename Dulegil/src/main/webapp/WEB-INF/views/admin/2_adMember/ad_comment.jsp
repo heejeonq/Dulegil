@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>댓글 관리</title>
 <style type="text/css">
+#searchGbn{
+	width: 100px;
+}
 #cateNo{
 	width: 120px;
 	outline: none;
@@ -36,6 +39,7 @@ $(document).ready(function(){
 		$("#page").val("1");
 		
 		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldGbn2").val($("#searchGbn2").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		reloadList();
@@ -43,6 +47,7 @@ $(document).ready(function(){
 	
 	$(".Cpaging").on("click", "#pBtn", function(){
 		$("#oldGbn").val($("#searchGbn").val());
+		$("#oldGbn2").val($("#searchGbn2").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
 		$("#page").val($(this).attr("page"));
@@ -58,6 +63,7 @@ $(document).ready(function(){
 		$("#page").val("1");
 		
 		$("#searchGbn").val("0");
+		$("#searchGbn2").val("0");
 		$("#searchTxt").val("");
 		
 		$("#oldGbn").val("0");
@@ -277,7 +283,8 @@ function drawPaging(pd) {
 </script>
 </head>
 <body>
-	<input type="hidden" id="oldGbn" value="${param.searchGbn}" /> 
+	<input type="hidden" id="oldGbn" value="${param.searchGbn}" />
+	<input type="hidden" id="oldGbn2" value="${param.searchGbn2}" /> 
 	<input type="hidden" id="oldTxt" value="${param.searchTxt}" />
 	
 	<jsp:include page="../adHeader.jsp" flush="true"/>
@@ -285,7 +292,6 @@ function drawPaging(pd) {
 	<div class="container">
 		<div class="Cname">
 			<span class="material-symbols-outlined" style="font-size: 30px; font-weight: 600; vertical-align: bottom;">comment</span> 
-			
 			댓글 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
@@ -295,8 +301,14 @@ function drawPaging(pd) {
 				<input type="hidden" name="cate" id="cate" value="${param.cateNo}" /> 
 				<input type="hidden" name="page" id="page" value="${page}" />
 				<select class="sel" name="searchGbn" id="searchGbn">
-					<option value="0">댓글 내용</option>
-					<option value="1">작성자</option>
+					<option value="0">코스 별 후기</option>
+					<option value="1">동행 구하기</option>
+					<option value="2">둘레길 이야기</option>
+				</select>
+				<select class="sel" name="searchGbn2" id="searchGbn2">
+					<option value="0">번호</option>
+					<option value="1">댓글 내용</option>
+					<option value="2">작성자</option>
 				</select>
 				<input type="text" class="commentBoxT" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
 				<input type="button" class="btn src" id="searchBtn" value="검색" />
