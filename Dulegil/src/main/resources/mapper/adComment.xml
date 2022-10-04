@@ -6,7 +6,7 @@
 	<select id="list" resultType="hashmap">
 		SELECT A.COMMENT_NO, A.TITLE, A.CONTENTS, A.NM, A.BLTNBOARD_NM, TO_CHAR(A.REG_DT, 'YYYY-MM-DD') AS REG_DT, RNK
 		FROM(SELECT C.COMMENT_NO, B.TITLE, C.CONTENTS, BT.BLTNBOARD_NM, M.NM, C.REG_DT,
-					ROW_NUMBER()OVER( ORDER BY C.REG_DT DESC) AS RNK
+					ROW_NUMBER()OVER(ORDER BY C.REG_DT DESC) AS RNK
 			FROM MEMBER M INNER JOIN COMMENTS C
 		                		  ON M.MEMBER_NO = C.MEMBER_NO
 		               	  INNER JOIN BULLETIN_BOARD B
@@ -24,10 +24,46 @@
 			<if test="searchTxt != null and searchTxt !='' ">
 				<choose>
 					<when test="searchGbn == 0">
-						AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
-					</when>
+						AND BT.BLTNBOARD_NO = 1
+						<choose>
+							<when test="searchGbn2 == 0">
+								AND C.COMMENT_NO LIKE '%' || #{searchTxt} || '%'
+							</when>
+							<when test="searchGbn2 == 1">
+								AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+							</when>
+							<when test="searchGbn2 == 2">
+								AND NM LIKE '%' || #{searchTxt} || '%'		
+							</when>
+						</choose>
+					</when>	
 					<when test="searchGbn == 1">
-						AND NM LIKE '%' || #{searchTxt} || '%'		
+						AND BT.BLTNBOARD_NO = 2
+						<choose>
+							<when test="searchGbn2 == 0">
+								AND C.COMMENT_NO LIKE '%' || #{searchTxt} || '%'
+							</when>
+							<when test="searchGbn2 == 1">
+								AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+							</when>
+							<when test="searchGbn2 == 2">
+								AND NM LIKE '%' || #{searchTxt} || '%'		
+							</when>
+						</choose>
+					</when>
+					<when test="searchGbn == 2">
+						AND BT.BLTNBOARD_NO = 3
+						<choose>
+							<when test="searchGbn2 == 0">
+								AND C.COMMENT_NO LIKE '%' || #{searchTxt} || '%'
+							</when>
+							<when test="searchGbn2 == 1">
+								AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+							</when>
+							<when test="searchGbn2 == 2">
+								AND NM LIKE '%' || #{searchTxt} || '%'		
+							</when>
+						</choose>
 					</when>
 				</choose>
 			</if>
@@ -56,10 +92,46 @@
 		<if test="searchTxt != null and searchTxt !='' ">
 			<choose>
 				<when test="searchGbn == 0">
-					AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
-				</when>
+					AND BT.BLTNBOARD_NO = 1
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND C.COMMENT_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 2">
+							AND NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+					</choose>
+				</when>	
 				<when test="searchGbn == 1">
-					AND M.NM LIKE '%' || #{searchTxt} || '%'		
+					AND BT.BLTNBOARD_NO = 2
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND C.COMMENT_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 2">
+							AND NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+					</choose>
+				</when>
+				<when test="searchGbn == 2">
+					AND BT.BLTNBOARD_NO = 3
+					<choose>
+						<when test="searchGbn2 == 0">
+							AND C.COMMENT_NO LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 1">
+							AND C.CONTENTS LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn2 == 2">
+							AND NM LIKE '%' || #{searchTxt} || '%'		
+						</when>
+					</choose>
 				</when>
 			</choose>
 		</if>
