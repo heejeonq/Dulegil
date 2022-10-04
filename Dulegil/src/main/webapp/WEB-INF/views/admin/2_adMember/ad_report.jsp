@@ -11,6 +11,12 @@
 .sel{
 	width: 130px;
 }
+
+#process.sel{
+ width:70px;
+}
+
+
 #cateNo{
 	width: 120px;
 	outline: none;
@@ -74,9 +80,10 @@ position:relative;
 }
 
 .CB {
-	height: 40%;
+	height: 23%;
 	margin-top: 2%;
 	color: #444;
+	text-align: center;
 }
 
 .CBC {
@@ -85,23 +92,7 @@ position:relative;
 	border-top: solid 1px #dcdcdc;
 }
 
-.delBtn {
-	background-color: #ededed;
-	border-radius: 4px;
-	border: 1px solid #f4f5ee;
-	display: inline-block;
-	cursor: pointer;
-	color: #5e5e5e;
-	font-weight: 600;
-	font-size: 13px;
-	padding: 7px 13px;
-	text-decoration: none;
-	margin-top: 4px;
-}
 
-.delBtn:hover {
-	background-color: #ECECEC;
-}
 
 #wrap .comment_icon {
 	display: inline-block;
@@ -143,6 +134,15 @@ position:relative;
 	background: none;
 	border-bottom: 1px solid #ccb;
 }
+
+
+#upBtn{
+	font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding-left: 5px;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -151,6 +151,15 @@ $(document).ready(function(){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
 		$("#oldGbn").val("0");
+	}	
+	reloadList();
+	
+	
+	// 목록 구분 설정
+	if("${param.process}" != ""){
+		$("#process").val("${param.process}");
+	}else{
+		$("#process").val("0");
 	}	
 	reloadList();
 	
@@ -254,12 +263,26 @@ function drawPaging(pd) {
 		html += "<td>"+ data.ACCUSER +"</td>";
 		html += "<td>"+ data.ACCUSED +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
-		html += "<td>";
+		html += "<td>";                                                                  
 		html += "<select class=\"sel\" id=\"process\" name=\"process\">";
-		html += "<option value=\"0\">처리 중</option>";
-		html += "<option value=\"1\">승인</option>";
-		html += "<option value=\"2\">반려</option>";
+		html += "<option value=\"0\" ";
+		if(data.PROCESS_NO == 0){
+			html += "selected=\"selected\"";
+		}
+		html += ">처리중</option>";
+		html += "<option value=\"1\" ";
+		if(data.PROCESS_NO == 1){
+			html += "selected=\"selected\"";
+		}
+		html += ">승인</option>";
+		html += "<option value=\"2\" ";
+		if(data.PROCESS_NO == 2){
+			html += "selected=\"selected\"";
+		}
+		html += ">반려</option>";
+		
 		html += "</select>";
+		html += "<span  id=\"upBtn\" name=\"upBtn\" class=\"material-icons\" > \done\ </span>";
 		html += "</td>";
 		html += "</tr>";
 	
@@ -267,7 +290,6 @@ function drawPaging(pd) {
 	
 		$(".list tbody").html(html);
 	}
-	
 	
 	
 	
@@ -320,9 +342,50 @@ function drawPaging(pd) {
 	
 		
 	
-	// 더보기 아이콘 회원일 때는 아이콘 X
+	// 처리중 상태 업데이트
+	$("tbody").on("change","tr #process", function(){
+		console.log($(this).parent().parent().attr("no"));
+		$("#no").val($(this).parent().parent().attr("no"));
+		
+		console.log($(this).val());
+		$("#process").val($(this).val());
+		reloadList3();	
+	});
 	
-	
+	function reloadList3(){
+		var params = $("#actionForm").serialize();
+		
+		$.ajax({
+			url:"adReportAction/processUp",
+			type: "POST",
+			dataType: "json",
+			data : params,
+			success : function(res){
+				switch(res.msg){
+				case "success" :
+					makeAlert("알림", "수정이 완료되었습니다.", function(){
+						reloadList()
+					});
+					break;
+				case "fail" :
+					makeAlert("알림", "수정에 실패했습니다.")
+					break;
+				case "exception" :
+					makeAlert("알림", "수정 중 문제가 발생했습니다.")
+					break;
+				}
+				
+				
+				console.log(res);
+			},
+			error : function(request, status, error){
+				console.log(request.responseText);
+				
+			}
+			
+		});
+		
+	} // reloadList end
 	
 	
 	
@@ -427,8 +490,14 @@ function drawPaging(pd) {
 		}
 		
 		$("#hide tbody").html(html);
-		$("#hide .CB").html(a);
+		$("#hide .cmtBoxWrap").html(a);
 	}
+	
+	
+	
+	
+	
+	
 		
 	
 });
@@ -449,13 +518,13 @@ function drawPaging(pd) {
 	<div class="container">
 		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }" /> 
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" /> 
-		<input type="hidden" id="process" name="process" value="${param.process}" />
 		<div class="Cname">
 			<span class="material-symbols-outlined"	style="font-size: 30px; font-weight: 600; color: #444; vertical-align: bottom;"> person_off </span>
 			신고 내역 관리
 		</div>
 		<form action="#" id="actionForm" method="post">
 			<div class="Csearch">
+				<input type="hidden" id="process" name="process"  />
 				<input type="hidden" name="no" id="no" /> 
 				<input type="hidden" name="rptNoM" id="rptNoM" />  
 				<input type="hidden" name="rptNoP" id="rptNoP" />  

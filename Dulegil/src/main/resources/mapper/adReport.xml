@@ -113,34 +113,26 @@
 
 
 	<!-- 처리상태 업데이트 -->
-	<update id="update" parameterType="hashmap">
+	<update id="processUp" parameterType="hashmap">
 		UPDATE REPORT SET
 		<choose>
-			<when test="process == 0">
-				PROCESS_NO = 0
+			<when test="process eq 0">
+				PROCESS_NO  = 0
 			</when>
-			<when test="process == 1">
+			<when test="process eq 1">
 				PROCESS_NO = 1
 			</when>
-			<when test="process == 2">
+			<when test="process eq 2">
 				PROCESS_NO = 2
 			</when>
-			<when test="process == 3">
-				PROCESS_NO = 3
-			</when>
 		</choose>		
-		WHERE REPORT_NO = #{rptNo}
+		WHERE REPORT_NO = #{no}
 	</update>
 
 
 
 
-	<!-- 개별 삭제 -->
-	<update id="del" parameterType="hashmap">
-		UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
-		WHERE POST_NO = #{no}
-	</update>
-
+	
 
 
 </mapper>
