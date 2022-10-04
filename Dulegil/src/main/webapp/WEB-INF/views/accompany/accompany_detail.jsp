@@ -58,13 +58,13 @@ $(document).ready(function(){
 	});
 	
 	$(".mainView4").on("click", "#reportBtn", function(){
-		let commentNo = $(this).parent().parent().parent().attr("commentNo"); //내가 클릭한 댓글번호를 받아옴
-		let reportNo = $('input[name="report"]:checked').val(); //선택한 신고 번호를 불러오겠다.
-        //댓글번호와 신고번호를 보내줘야함 
+		let commentNo = $(this).parent().parent().parent().attr("commentNo");
+		let reportNm = $(this).parent().parent().parent().attr("reportNm");
+		let reportNo = $('input[name="report"]:checked').val();
 		
 		$("#commentNo").val(commentNo); // commentNo 값을 #commentNo 넣어줌
 		$("#reportTypeNo").val(reportNo); //
-	
+		$("#reportNm").val(reportNm);
 		if (reportNo == null) {
             makeAlert("알림", "신고내용을 선택하세요.", function() {
             });
@@ -352,6 +352,8 @@ function reportText2() {
 				name : "신고하기",
 				func:function() {
 					$("#reportTypeNo").val($('input[name="report"]:checked').val())
+					$("#reportNm").val("${data.NM}");
+					
 					console.log($("#reportTypeNo").val());
 					$("#reportContents").val($("#descript").val());
 
@@ -525,7 +527,7 @@ function reloadList(){
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
               
-		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
+		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\" reportNm= \"" + data.CNM + "\"> ";
 		if("${sMemNo}" != data.CMEMBER_NO){//작성자이면
 			html += " <div class=\"singo\">";
 			
@@ -690,7 +692,6 @@ function reloadList(){
        	</c:if>    
       </div>
          
-<<<<<<< HEAD
    <div class="emptyBox"></div>      
       <div class="box2">                      
     
@@ -699,18 +700,6 @@ function reloadList(){
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 		 </c:if>
-=======
-   
-      <div class="box2">
-      
-         
-         
-        <c:if test="${sMemNo eq data.MEMBER_NO}" >
-			<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
-			<input type="button" class="btn" id="updateBtn" value="수정"/>
-		</c:if>    
-         <input type="button" class="btn" id="listBtn" value="목록"/>
->>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
       </div>
             
       </div>
@@ -765,6 +754,7 @@ function reloadList(){
 			<input type="hidden" name="memberNo" value="${data.MEMBER_NO}">
 			<input type="hidden" name="reportTypeNo" id="reportTypeNo">
 			<input type="hidden" name="reportContents" id="reportContents">
+			<input type="hidden" name="reportNm" id="reportNm">
 			<input type="hidden" name="no" id="no" value="${param.no}">	
 			<input type="hidden" name="cpage" id="cpage" value="5" />
 			
