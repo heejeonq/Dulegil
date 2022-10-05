@@ -152,6 +152,12 @@ img#preview {
 #fileDelBtn:hover{
    background: #e9e9e8;
 }
+#fileName{
+	display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .img_area input[type="file"] {
     width: 150px;
     margin-top: 10px;

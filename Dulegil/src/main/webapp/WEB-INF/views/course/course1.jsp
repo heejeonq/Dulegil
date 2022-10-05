@@ -5,9 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>코스 안내</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/course.css" />
+<title>코스 안내</title>
+<style type="text/css">
+</style>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("ul.infoBtn li").click(function(){
@@ -19,11 +21,177 @@ $(document).ready(function(){
 		$(this).addClass("on");
 		$("#"+tab_id).addClass("on");
 	});
+	
+	/* 행사 정보 */
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/43656e7541676d6c3932706769794f/json/NowonNewsEventList/1/10/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			drawNWEvtList(res.NowonNewsEventList.row);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	});
+	
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/52576a4b61676d6c3839725076485a/json/DobongNewsEventList/1/10/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			drawDBEvtList(res.DobongNewsEventList.row);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	});
+	
+	/* 숙박 정보*/
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/665761455a676d6c38306f6b4b4966/json/LOCALDATA_031103_NW/1/50/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			drawNWStayList(res.LOCALDATA_031103_NW.row);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	}); 
+	
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/5744645344676d6c3538486c437558/json/LOCALDATA_031103_DB/1/50/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			drawDBStayList(res.LOCALDATA_031103_DB.row);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	});
+	
+	/* 음식점 정보 */
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/46456e5752676d6c38357965685976/json/LOCALDATA_072404_NW/1/50/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			drawNWRstrList(res.LOCALDATA_072404_NW.row);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	});
+	
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/6247544441676d6c36347a6362647a/json/LOCALDATA_072404_DB/1/50/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			drawDBRstrList(res.LOCALDATA_072404_DB.row);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	}); 
 });
+
+function drawNWEvtList(list){
+	var html = "";
+	
+	for (var i=0; i<list.length; i++){
+		html += "<tr>";
+		html += "<td rowspan=2>노원구</td>";
+		html += "<td rowspan=2>" + list[i].TITLE + "</td>";
+		html += "<td></td>";
+		html += "</tr>";
+		html += "<tr>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].LINK + "</td>";
+		html += "</tr>";
+	}
+	$(".infoTable2 tbody").append(html);
+}
+
+function drawDBEvtList(list){
+	var html = "";
+	
+	for (var i=0; i<list.length; i++){
+		html += "<tr>";
+		html += "<td rowspan=2>도봉구</td>";
+		html += "<td rowspan=2>" + list[i].TITLE + "</td>";
+		html += "<td>" + list[i].DESCRIPTION + "</td>";
+		html += "</tr>";
+		html += "<tr>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].LINK + "</td>";
+		html += "</tr>";
+	}
+	$(".infoTable2 tbody").append(html);
+} 
+
+function drawNWStayList(list){
+	var html = "";
+	
+	for (var i=0; i<list.length; i++){
+		if(list[i].DTLSTATENM == "영업"){
+		html += "<tr>";
+		html += "<td>노원구</td>";
+		html += "<td>" + list[i].BPLCNM + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "</tr>";
+		}
+	}
+	$(".infoTable3 tbody").append(html);
+}
+
+function drawDBStayList(list){
+	var html = "";
+	
+	for (var i=0; i<list.length; i++){
+		if(list[i].DTLSTATENM == "영업"){
+		html += "<tr>";
+		html += "<td>도봉구</td>";
+		html += "<td>" + list[i].BPLCNM + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "</tr>";
+		}
+	}
+	$(".infoTable3 tbody").append(html);
+}
+
+function drawNWRstrList(list){
+	var html = "";
+	
+	for (var i=0; i<list.length; i++){
+		if(list[i].DTLSTATENM != "폐업"){
+		html += "<tr>";
+		html += "<td>노원구</td>";
+		html += "<td>" + list[i].BPLCNM + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "</tr>";
+		}
+	}
+	$(".infoTable4 tbody").append(html);
+}
+
+function drawDBRstrList(list){
+	var html = "";
+	
+	for (var i=0; i<list.length; i++){
+		if(list[i].DTLSTATENM != "폐업"){
+		html += "<tr>";
+		html += "<td>도봉구</td>";
+		html += "<td>" + list[i].BPLCNM + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "</tr>";
+		}
+	}
+	$(".infoTable4 tbody").append(html);
+}
 </script>
 </head>
 <body>
-
 	<!-- Header -->
 	<c:import url="/header"></c:import>
 	
@@ -255,20 +423,62 @@ $(document).ready(function(){
 						</div>
 						
 						<div class="infoArd" id="tab_2">
-						  	<div class="infoDtl">
-								<p>탭 메뉴 2 내용입니다.</p>
+						  	<div>
+								<table class="infoTable2">
+									<colgroup style="table-layout: fixed;">
+										<col width="100px">
+										<col width="400px">
+										<col width="auto">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>구분</th>
+											<th>제목</th>
+											<th>관련 내용 / 링크</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 						  	</div>
 						</div>
 							
 						<div class="infoArd" id="tab_3" >
-							<div class="infoDtl">
-								<p> 탭 메뉴 3 내용입니다.</p>
+							<div>
+								<table class="infoTable3">
+									<colgroup style="table-layout: fixed;">
+										<col width="100px">
+										<col width="400px">
+										<col width="auto">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>구분</th>
+											<th>사업장명</th>
+											<th>주소</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 							</div>
 						</div>
 							
 						<div class="infoArd" id="tab_4">
-							<div class="infoDtl">
-							<p>  탭 메뉴 4 내용입니다.</p>
+							<div>
+								<table class="infoTable4">
+									<colgroup style="table-layout: fixed;">
+										<col width="100px">
+										<col width="400px">
+										<col width="auto">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>구분</th>
+											<th>사업장명</th>
+											<th>주소</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 							</div>
 						</div>						
 					</div>
