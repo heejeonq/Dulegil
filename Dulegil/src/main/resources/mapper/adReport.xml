@@ -31,8 +31,7 @@
 					WHERE R.DEL_DT IS NULL
 					AND C.LARGE_CATEGORY = 3
 					<if test="pCateNo != null and pCateNo != '' and pCateNo != '전체'">
-						AND R.PROCESS_NO = #{pCateNo}
-						
+						AND R.PROCESS_NO = #{pCateNo}						
 					</if>
 
 		<if test="searchTxt != null and searchTxt != ''">

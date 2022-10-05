@@ -146,6 +146,7 @@ position:relative;
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
+	
 
 		
 		// 카테고리가 변경됐을때
