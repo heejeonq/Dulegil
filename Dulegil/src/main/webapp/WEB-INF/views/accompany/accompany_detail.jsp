@@ -304,7 +304,7 @@ function reportText() {
 			             });
 					 }
 					 else{
-						action("commentsReport");
+						action("commentReport");
 						$("#reportContents").val("");
 						closePopup();
 						 

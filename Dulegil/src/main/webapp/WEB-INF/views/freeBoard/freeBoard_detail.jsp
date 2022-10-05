@@ -67,10 +67,11 @@ $(document).ready(function(){
 	$(".mainView4").on("click", "#reportBtn", function(){
 		let commentNo = $(this).parent().parent().parent().attr("commentNo");
 		let reportNo = $('input[name="report"]:checked').val();
+		let reportNm = $(this).parent().parent().parent().attr("reportNm");
 
 		$("#commentNo").val(commentNo);
 		$("#reportTypeNo").val(reportNo);
-	
+		$("#reportNm").val(reportNm);
 		if (reportNo == null) {
             makeAlert("알림", "신고내용을 선택하세요.", function() {
             });
@@ -273,7 +274,7 @@ function reportText() {
 			             });
 					 }
 					 else{
-						action("postReport");
+						action("commentReport");
 						$("#reportContents").val("");
 						closePopup();
 						 
@@ -321,6 +322,7 @@ function reportText2() {
 				name : "신고하기",
 				func:function() {
 					$("#reportTypeNo").val($('input[name="report"]:checked').val())
+					$("#reportNm").val("${data.NM}");
 					console.log($("#reportTypeNo").val());
 					$("#reportContents").val($("#descript").val());
 
@@ -467,7 +469,7 @@ function reloadList(){
 	
 	for(var data of list){ // " +  + " 1(내용) 대신 넣자
         
-		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\"> ";
+		html += " <div class=\"comBox\" commentNo= \"" + data.COMMENT_NO + "\" reportNm= \"" + data.CNM + "\"> ";
 		if("${sMemNo}" != data.CMEMBER_NO){//작성자이면
 			html += " <div class=\"singo\">";
 			
@@ -596,6 +598,7 @@ function reloadList(){
 				<input type="hidden" name="memberNo" value="${data.MEMBER_NO}">
 				<input type="hidden" name="reportTypeNo" id="reportTypeNo">
 				<input type="hidden" name="reportContents" id="reportContents">
+				<input type="hidden" name="reportNm" id="reportNm">
 				<input type="hidden" name="cpage" id="cpage" value="1" />								
 				
 				<div class="box3">
