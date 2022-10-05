@@ -15,7 +15,9 @@
 
 $(document).ready(function(){
 	reloadList();
-    
+	calendarInit();
+   
+	 
 	$('#searchTxt').keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $('#searchBtn').click();
@@ -56,28 +58,82 @@ $(document).ready(function(){
 	});
 	
 	//이전달로 이동
+	//이전달을 누르면 현재월-1의 값이 월의 값에 담겨야함
 	$('.go-prev').on('click', function() {
-		$(this).parent().children().eq(1).val;
-		console.log($(this).parent().children().eq(1).attr(""));
-		console.log($('#bstGal.year-month').val());
+		
+		console.log(bstGal);
+		console.log($("#bstGal"));
+		console.log($("#bstGal").val());
+		
+		//여기서 2022.10의 값만 뽑아야함
+		
+
+		/* $("#bstGal").val($("#month").val());
+		console.log($('#bstGal.year-month').val()); */
+		
+		 $(this).parent().children().eq(1).val;
+		//console.log($(this).parent().children().eq(1).attr(""));
+		//console.log($('#bstGal.year-month').val()); 
 	
 	});
 
 	// 다음달로 이동
 	$('.go-next').on('click', function() {
 		
-		      console.log(this);
-		      
-		  
+		   //   console.log(this);
+		      		  
 	 
 	});
-
-
-
-
-
 	
 });//documen
+
+function calendarInit() {
+
+    // 날짜 정보 가져오기
+    var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+    var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+    var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+    var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+  
+    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    // 달력에서 표기하는 날짜 객체
+  
+    
+    var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
+    var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
+    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
+
+    // kst 기준 현재시간
+    // console.log(thisMonth);
+
+    // 캘린더 렌더링
+    renderCalender(thisMonth);
+
+
+function renderCalender(thisMonth) {
+	 
+    // 렌더링을 위한 데이터 정리
+    currentYear = thisMonth.getFullYear();
+    currentMonth = thisMonth.getMonth();
+    currentDate = thisMonth.getDate();
+
+    // 이전 달의 마지막 날 날짜와 요일 구하기
+    var startDay = new Date(currentYear, currentMonth, 0);
+    var prevDate = startDay.getDate();
+    var prevDay = startDay.getDay();
+
+    // 이번 달의 마지막날 날짜와 요일 구하기
+    var endDay = new Date(currentYear, currentMonth + 1, 0);
+    var nextDate = endDay.getDate();
+    var nextDay = endDay.getDay();
+
+    // console.log(prevDate, prevDay, nextDate, nextDay);
+		
+    // 현재 월 표기
+    $('.year-month').html(currentYear + '.' + (currentMonth + 1));
+}
+
+}
 
 
  //그리기
@@ -96,7 +152,6 @@ function reloadList(){
 		data : params,
 		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
 			drawList(res.list);
-			renderCalender(res.thisMonth)
 		},
 		error : function(request, status, error) { //실패했을 때 함수 실행
 			console.log(request.responseText); //실패 상세내용
@@ -139,39 +194,7 @@ function drawList(list) {
 	$(".content_bst").html(html); //내가 받은 html로 갈아 엎어라
 } 
 
-function renderCalender(thisMonth) {
- 	  var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
- 	    var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
- 	    var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
- 	    var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘) 
- 	    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
- 	    // 달력에서 표기하는 날짜 객체
- 	  
- 	    
- 	    var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
- 	    var currentMonth = thisMonth.getMonth();
 
-      // 렌더링을 위한 데이터 정리
-      currentYear = thisMonth.getFullYear();
-      currentMonth = thisMonth.getMonth();
-      currentDate = thisMonth.getDate();
-
-      // 이전 달의 마지막 날 날짜와 요일 구하기
-      var startDay = new Date(currentYear, currentMonth, 0);
-      var prevDate = startDay.getDate();
-      var prevDay = startDay.getDay();
-
-      // 이번 달의 마지막날 날짜와 요일 구하기
-      var endDay = new Date(currentYear, currentMonth + 1, 0);
-      var nextDate = endDay.getDate();
-      var nextDay = endDay.getDay();
-
-      // console.log(prevDate, prevDay, nextDate, nextDay);
-		
-      // 현재 월 표기
-      $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-      
-  }
 
 
 </script>
@@ -192,6 +215,8 @@ function renderCalender(thisMonth) {
 			<div class="midBox">
 			<form action="#" id="actionForm" method="post">
 				<input type="hidden" name="no" id="no"/>
+				<input type="hidden" name="month" id="month"  value="${param.bstGal}"/>
+				
 	
 			    <!-- <input type="hidden" name="page" id="page" value="${page}" /> -->								
 				
@@ -214,12 +239,12 @@ function renderCalender(thisMonth) {
 				</div>
 
 		          
-		            
+		         <!--------------------------- 날짜선택 ----------------------------->   
 		         	<div class="sec_cal">
 					  <div class="cal_nav">
-					    <span class="go-prev">&lt;</span>
-					    <div class="year-month" name="bstGal" id="bstGal" bstGal=""></div>
-					    <span class="go-next">&gt;</span>
+					    <span class="go-prev" id="goPrev">&lt;</span>
+					    <div class="year-month" name="bstGal" id="bstGal" value=></div>
+					    <span class="go-next" id="goNext">&gt;</span>
 					  </div>					  					  
 		            </div>
 		           <!--  <div class="midT">의 베스트</div> -->

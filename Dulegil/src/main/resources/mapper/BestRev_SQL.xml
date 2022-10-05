@@ -51,7 +51,7 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC
 					  ON C.COURSE_NO=BC.COURSE_NO
               INNER JOIN BULLETIN_BOARD BB
               		  ON BC.POST_NO=BB.POST_NO
-              		 AND TO_CHAR(BB.REG_DT, 'YYYY.MM') = #{bstGal}
+              		 AND TO_CHAR(BB.REG_DT, 'YYYY.MM') = '2022.08'
               INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
               LEFT OUTER JOIN (
               SELECT COUNT(*)AS CNT,POST_NO
