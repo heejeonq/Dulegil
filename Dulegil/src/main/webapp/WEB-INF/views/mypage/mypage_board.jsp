@@ -13,7 +13,6 @@
 <title>게시글 관리</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	// 카테고리가 바뀌면 페이지가 1페이지가 됨.
 	$("#cateNo").on("change", function() {
 		$("#page").val("1");
@@ -84,8 +83,8 @@ $(document).ready(function(){
 			$("thead #allCheck").prop("checked", true);
 		}else{//같지않으면 allCheck에 체크가 안되게
 			$("thead #allCheck").prop("checked", false);
-		}
-		$("#delete").val(arr);		
+		}// arr에 체크된 곳에 no 값을 넣어줌
+			$("#delete").val(arr);		
 	});
 	
 	reloadList();
@@ -212,7 +211,6 @@ function drawList(list){
 	var html = "";
 	   
 	   //list에서 0번째 인덱스(배열)부터 차례대로 data에 넣어줌. 그래서 data.키를 쓰는 것임.
-	   
 	   for(var data of list) { 
 		  // data.김슬아 = > estp // 그 다음 돌때는 27
 	      html += "<tr no=\""+ data.POST_NO +"\">";
@@ -271,6 +269,7 @@ function drawPaging(pd){
 					<span>게시글 관리</span>	
 					<select class="sel sel_right" id="cateNo">
 						<option value="0">전체</option>
+						<!--c:forEach 반복문 items에 담겨있는 cate객체를 data라는 변수를 통해 화면에 보여줌-->
    					  	<c:forEach var="data" items="${cate}">
    	  					<option value="${data.BLTNBOARD_NO}">${data.BLTNBOARD_NM}</option>
    	  				</c:forEach>
