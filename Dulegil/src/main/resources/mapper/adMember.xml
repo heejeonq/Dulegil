@@ -3,9 +3,9 @@
 <mapper namespace="adMember">
 	<!-- 목록 -->
 	<select id="list" resultType="hashmap">
-		SELECT MEMBER_NO, AUTHORITY_NM, NM, EMAIL
-		FROM (SELECT M.MEMBER_NO, A.AUTHORITY_NO, AUTHORITY_NM, NM, EMAIL, 
-		             ROW_NUMBER()OVER(ORDER BY M.MEMBER_NO ASC) AS RNK
+		SELECT MEMBER_NO, AUTHORITY_NM, NM, EMAIL, TO_CHAR(REG_DT, 'YYYY-MM-DD') AS REG_DT
+		FROM (SELECT M.MEMBER_NO, A.AUTHORITY_NO, AUTHORITY_NM, NM, EMAIL, REG_DT, 
+		             ROW_NUMBER()OVER(ORDER BY M.MEMBER_NO DESC) AS RNK
 		      FROM MEMBER M INNER JOIN AUTHORITY A 
 		                            ON M.AUTHORITY_NO = A.AUTHORITY_NO
 		      WHERE M.DEL_DT IS NULL 
@@ -111,21 +111,25 @@
 	
 	<!-- 관리자 계정 목록 -->
 	<select id="adList" parameterType="hashmap" resultType="hashmap">
-		SELECT MEMBER_NO, A.AUTHORITY_NM, NM, EMAIL, PWD, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT
-		FROM MEMBER M INNER JOIN AUTHORITY A
-		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
-		WHERE A.AUTHORITY_NO = 1
-		AND DEL_DT IS NULL
-		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="searchGbn == 0">
-						AND NM LIKE '%' || #{searchTxt} || '%'
-					</when>
-					<when test="searchGbn == 1">
-						AND EMAIL LIKE '%' || #{searchTxt} || '%'		
-					</when>
-			</choose>
-		</if> 
+		SELECT MEMBER_NO, AUTHORITY_NM, NM, EMAIL, PWD, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT
+		FROM(SELECT MEMBER_NO, A.AUTHORITY_NM, NM, EMAIL, PWD, REG_DT,
+				    ROW_NUMBER()OVER(ORDER BY REG_DT DESC) AS RNK
+			 FROM MEMBER M INNER JOIN AUTHORITY A
+			                       ON M.AUTHORITY_NO = A.AUTHORITY_NO
+			 WHERE M.AUTHORITY_NO = 1
+			 AND DEL_DT IS NULL
+			 <if test="searchTxt != null and searchTxt != ''">
+				 <choose>
+					 <when test="searchGbn == 0">
+							 AND NM LIKE '%' || #{searchTxt} || '%'
+						 </when>
+						 <when test="searchGbn == 1">
+						 	 AND EMAIL LIKE '%' || #{searchTxt} || '%'		
+						 </when>
+				 </choose>
+			 </if>
+			) AD
+		WHERE RNK BETWEEN #{start} AND #{end}  
 	</select>
 	
 	<!-- 관리자 계정 페이징 -->
@@ -133,7 +137,7 @@
 		SELECT COUNT(*) AS CNT
 		FROM MEMBER M INNER JOIN AUTHORITY A
 		                      ON M.AUTHORITY_NO = A.AUTHORITY_NO
-		WHERE A.AUTHORITY_NO = 1
+		WHERE M.AUTHORITY_NO = 1
 		AND DEL_DT IS NULL
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
@@ -148,8 +152,29 @@
 	</select>
 	
 	<!-- 관리자 계정 추가 -->
-	<insert id="insertAdmin" parameterType="hashmap">
+	<insert id="adIns" parameterType="hashmap">
 		INSERT INTO MEMBER(MEMBER_NO, EMAIL, AUTHORITY_NO, PWD, NM, PHONE_NO)
-		VALUES(210, #{email}, 1, #{pwd}, #{nm}, 00)
+		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 1, #{pwd}, #{nm}, 000)
 	</insert>
+	
+	<!-- 관리자 상세 정보 가져오기 -->
+	<select id="adInfo" resultType="hashmap">
+		SELECT MEMBER_NO, AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, TO_CHAR(REG_DT, 'YYYY.MM.DD') AS REG_DT 
+		FROM (SELECT M.MEMBER_NO, A.AUTHORITY_NO, AUTHORITY_NM, NM, PWD, EMAIL, REG_DT
+		      FROM MEMBER M INNER JOIN AUTHORITY A 
+		                            ON M.AUTHORITY_NO = A.AUTHORITY_NO
+		      WHERE M.DEL_DT IS NULL 
+		      AND M.AUTHORITY_NO = 1 )AM
+		WHERE MEMBER_NO = #{no}
+	</select>
+	
+	<update id="adDel" parameterType="hashmap">
+		UPDATE MEMBER SET DEL_DT = SYSDATE
+		WHERE MEMBER_NO = #{no}
+	</update>
+	
+	<update id="adUpd" parameterType="hashmap">
+		UPDATE MEMBER SET EMAIL = #{email}, NM = #{nm}, PWD = #{pwd}
+		WHERE MEMBER_NO = #{updNo}
+	</update>
 </mapper>

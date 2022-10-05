@@ -30,7 +30,9 @@ public class FreeBoardController {
 
 	// 리스트
 	@RequestMapping(value = "/freeBoard")
-	public ModelAndView freeBoardList(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
+	public ModelAndView freeBoardList(
+			@RequestParam HashMap<String, String> params, 
+			ModelAndView mav) throws Throwable {
 
 		int page = 1;
 

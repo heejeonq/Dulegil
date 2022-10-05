@@ -65,9 +65,7 @@ $(document).ready(function(){
 			<div class="lgn">
 				<span>회원 로그인</span>
 				<div class="lgnInfo">	
-					<span class="material-symbols-outlined" style="dispaly:inline-block; font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> face </span>
 					<input type="text" id="lgnId" name="lgnId" placeholder="아이디" /><br />
-					<span class="material-symbols-outlined" style="font-size: 20px; color: #C0C0C0; position: relative; top: 4px;"> key </span> 
 					<input type="password" id="lgnPwd" name="lgnPwd" placeholder="비밀번호" />
 				</div>
 				<input type="button" id="memLgnBtn" value="로그인">

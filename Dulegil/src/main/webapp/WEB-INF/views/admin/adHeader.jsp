@@ -58,7 +58,6 @@ $(document).ready(function(){
 		<div class="headerIcon">
 			<span class="material-symbols-outlined"> assignment_ind </span>
 			<span id="adNm">${adMemNm} ( ${adNm} )</span>
-			<span id="adCon">님 로그인 완</span>
 			<span class="material-symbols-outlined" id="logoutBtn"> Logout </span>로그아웃
 		</div>
 	</div>

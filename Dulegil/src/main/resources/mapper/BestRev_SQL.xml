@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bstRev">
+
+<select id="getCnt" resultType="integer" parameterType="hashmap">
+SELECT COUNT (*) AS CNT
+FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
+              INNER JOIN BULLETIN_BOARD BB ON BC.POST_NO=BB.POST_NO  
+              INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
+              LEFT OUTER JOIN (
+              SELECT COUNT(*)AS CNT,POST_NO
+              FROM GOOD
+              GROUP BY POST_NO) G
+              ON BB.POST_NO= G.POST_NO            
+WHERE BLTNBOARD_NO=1
+AND BB.DEL_DT IS NULL
+	<if test="searchTxt != null and searchTxt !=''">
+			<choose>
+				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+				<when test="searchGbn eq 0">
+				AND TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+				AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+				</when>
+				<when test="searchGbn eq 2">
+				AND NM LIKE '%'|| #{searchTxt} ||'%'
+				</when>
+				<when test="searchGbn eq 3">
+				AND BC.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
+				
+				</when>
+			</choose>		
+		</if>
+</select>
+
+
+<!-- 목록 -->
+<select id="bstRList" parameterType="hashmap" resultType="hashmap">
+SELECT POST_NO,COURSE_NO,COURSE_NM,BLTNBOARD_NO,MEMBER_NO,TITLE,CONTENTS,B_IMG,HIT,DT,RNUM,GOOD,NM,CNT,DEL_DT,GRNK
+FROM (SELECT F.POST_NO,F.COURSE_NO,F.COURSE_NM,F.BLTNBOARD_NO,F.MEMBER_NO,F.TITLE,F.CONTENTS,F.B_IMG,F.HIT,F.DT,F.RNUM,F.GOOD,F.NM,F.CNT,F.DEL_DT
+, ROW_NUMBER() OVER(PARTITION BY MM ORDER BY GOOD DESC)AS GRNK ,MM
+FROM(SELECT BC.POST_NO,BC.COURSE_NO,C.COURSE_NM,BB.BLTNBOARD_NO,M.MEMBER_NO,BB.TITLE,BB.CONTENTS,BB.IMG_FILE AS B_IMG,BB.HIT,M.NM,
+ CASE WHEN TO_CHAR(BB.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
+            	THEN TO_CHAR(BB.REG_DT, 'HH24:MI')
+            	ELSE TO_CHAR(BB.REG_DT,'YY.MM.DD')                 
+       			END AS DT, TO_CHAR(BB.REG_DT,'YY.MM')AS MM,
+                ROW_NUMBER() OVER(ORDER BY BB.POST_NO DESC) AS RNUM,
+               NVL(CNT,0)AS GOOD,NVL(CCNT,0)AS CNT,BB.DEL_DT
+FROM COURSE C INNER JOIN BOARD_COURSE BC 
+					  ON C.COURSE_NO=BC.COURSE_NO
+              INNER JOIN BULLETIN_BOARD BB
+              		  ON BC.POST_NO=BB.POST_NO
+              		 AND TO_CHAR(BB.REG_DT, 'YYYY.MM') = #{month}
+              INNER JOIN MEMBER M ON BB.MEMBER_NO=M.MEMBER_NO
+              LEFT OUTER JOIN (
+              SELECT COUNT(*)AS CNT,POST_NO
+              FROM GOOD
+              GROUP BY POST_NO) G
+              ON BB.POST_NO= G.POST_NO  
+              LEFT OUTER JOIN 
+              (SELECT COUNT(*)AS CCNT,POST_NO
+               FROM COMMENTS
+               WHERE DEL_DT IS NULL
+             GROUP BY POST_NO) CC ON BB.POST_NO=CC.POST_NO
+WHERE BLTNBOARD_NO=1
+AND BB.DEL_DT IS NULL
+<if test="searchTxt != null and searchTxt !=''">
+			<choose>
+				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+				<when test="searchGbn eq 0">
+				AND TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+				AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+				</when>
+				<when test="searchGbn eq 2">
+				AND NM LIKE '%'|| #{searchTxt} ||'%'
+				</when>
+				<when test="searchGbn eq 3">
+				AND BC.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
+				
+				</when>
+			</choose>		
+		</if>
+)F)
+WHERE GRNK BETWEEN 1 AND 8
+</select> 
+
+</mapper>

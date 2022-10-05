@@ -106,7 +106,7 @@ $(document).ready(function(){
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				<!-- 실 저장된 파일명 보관용 -->
 				<input type="hidden" name="attFile" id="attFile" />
-				<input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
+				<input type="hidden" name="memberNo" id="memberNo" value="${adMemNo}" />
 				
 				<table class="Cinput">
 					<tr>
