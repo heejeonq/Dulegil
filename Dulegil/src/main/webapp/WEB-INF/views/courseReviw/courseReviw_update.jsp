@@ -184,13 +184,13 @@ $("#updateBtn").on("click", function() {
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				 <input type="hidden" name="courseNo" id="courseNo" />
+				<!-- <input type="hidden" name="courseNo" id="courseNo" />실 저장된 파일명 보관용 -->
 				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
 				 <input type="hidden" name="no" value="${data.POST_NO}" />
 				
 				<div class="titNm">제목</div>
 				<div class="titBox">
-				<input type="text" class="titCon" name="title" id="title" value="${data.TITLE}">
+				<input type="text" class="titCon" name="title" id="title">
 				</div>
 			</div>
 
@@ -200,7 +200,7 @@ $("#updateBtn").on("click", function() {
 
 				<div class="cosNm">코스선택</div>
 				<div class="cosBox">
-					<select class="cosSell" name="courseNo" >
+					<select class="cosSell" name="courseNo">
 						<option value="0">코스를 선택해 주세요.</option>
 						<option value="1">1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분</option>
 						<option value="2">2코스-용마·아차산코스	광진구,중랑구	12.3km	5시간 10분</option>

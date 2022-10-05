@@ -166,7 +166,7 @@ $("#insertBtn").on("click", function() {
 
 				<div class="cosNm">코스선택</div>
 				<div class="cosBox">
-					<select class="cosSell" name="courseNo"id="courseNo" >
+					<select class="cosSell" >
 						<option value="0">코스를 선택해 주세요.</option>
 						<option value="1">1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분</option>
 						<option value="2">2코스-용마·아차산코스	광진구,중랑구	12.3km	5시간 10분</option>
