@@ -45,7 +45,11 @@ public class adReportController {
 			if(params.get("page") != null && params.get("page") != "") {
 				page = Integer.parseInt(params.get("page"));
 			}
+			
+			// process category 취득
+			List<HashMap<String, String>> processCate = dao.getList("adReport.getProcessCate");
 
+			mav.addObject("processCate", processCate);
 			mav.addObject("page", page);
 			mav.setViewName("admin/2_adMember/ad_report");
 		}else
