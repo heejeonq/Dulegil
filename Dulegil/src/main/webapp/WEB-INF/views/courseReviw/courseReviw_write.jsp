@@ -28,7 +28,14 @@ $("select[name=courseNo]").change(function(){
 	  console.log($(this).val()); //value값 가져오기
 	  console.log($("select[name=courseNo] option:selected").text()); //text값 가져오기
 }); 
-	
+
+$(".cosSell").change(function(){
+	$("#courseNo").val($(this).val());
+
+});
+
+
+
 //목록버튼
 $("#listBtn").on("click", function() {
    history.back();
@@ -87,6 +94,7 @@ $("#insertBtn").on("click", function() {
     	   	                    $("#page").val("1");
     	   	                    $("#searchgbn").val("0");
     	   	                    $("#searchTxt").val("");
+    	   	                    $("#courseGbn").val($("#courseNo").val());
     	   	                    
     	   	                    $("#backForm").submit();
     	   	                     break;
@@ -152,7 +160,8 @@ $("#insertBtn").on("click", function() {
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
 				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" />
-				 <input type="hidden" name="courseNo" id="courseNo" value= />
+				 <input type="hidden" name="courseNo" id="courseNo" />
+				 
 				
 				<div class="titNm">제목</div>
 				<div class="titBox">
@@ -166,7 +175,7 @@ $("#insertBtn").on("click", function() {
 
 				<div class="cosNm">코스선택</div>
 				<div class="cosBox">
-					<select class="cosSell" name="courseNo"id="courseNo" >
+					<select class="cosSell"	 name="courseGbn" id="courseGbn" >
 						<option value="0">코스를 선택해 주세요.</option>
 						<option value="1">1코스-수락·불암산코스	노원구,도봉구	18.6km	8시간 10분</option>
 						<option value="2">2코스-용마·아차산코스	광진구,중랑구	12.3km	5시간 10분</option>

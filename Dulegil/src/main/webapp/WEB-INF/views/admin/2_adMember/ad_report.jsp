@@ -17,7 +17,7 @@
 }
 
 
-#cateNo{
+#pCateNo{
 	width: 120px;
 	outline: none;
 	margin-left: 0;
@@ -146,6 +146,29 @@ position:relative;
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+
+		
+		// 카테고리가 변경됐을때
+		$(".Ccate").on("change","#pCateNo", function(){
+			console.log(this);
+			console.log($(this).val());
+			var no = $(this).val();
+			$("#pCateNo").val(no);
+			
+			$("#page").val("1");
+			$("#searchGbn").val("0");
+			$("#searchTxt").val("");
+			$("#oldGbn").val("0");
+			$("#oldTxt").val("");
+			
+			//목록 재조회
+			reloadList();
+		});
+	
+		
+		
+		
 	// 목록 구분 설정
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
@@ -155,6 +178,8 @@ $(document).ready(function(){
 	reloadList();
 	
 	
+	
+	
 	// 목록 구분 설정
 	if("${param.process}" != ""){
 		$("#process").val("${param.process}");
@@ -162,6 +187,9 @@ $(document).ready(function(){
 		$("#process").val("0");
 	}	
 	reloadList();
+	
+	
+	
 	
 	// 검색 버튼 클릭시
 	$("#searchBtn").on("click", function(){
@@ -184,6 +212,11 @@ $(document).ready(function(){
 		reloadList();		
 	});
 
+	
+	
+
+	
+	
 	
 	function reloadList(){
 		var params = $("#actionForm").serialize();
@@ -282,7 +315,6 @@ function drawPaging(pd) {
 		html += ">반려</option>";
 		
 		html += "</select>";
-		html += "<span  id=\"upBtn\" name=\"upBtn\" class=\"material-icons\" > \done\ </span>";
 		html += "</td>";
 		html += "</tr>";
 	
@@ -497,6 +529,7 @@ function drawPaging(pd) {
 	
 	
 	
+
 	
 		
 	
@@ -530,6 +563,8 @@ function drawPaging(pd) {
 				<input type="hidden" name="rptNoP" id="rptNoP" />  
 				<input type="hidden" name="rptNoC" id="rptNoC" />  
 				<input type="hidden" name="cateNo" id="cateNo" />  
+				<input type="hidden" name="pCateNo" id="pCateNo" />  
+				
 				<input type="hidden" name="page" id="page" value="${page}" />
 				<select class="sel" name="searchGbn" id="searchGbn">
 					<option value="0">신고자 아이디</option>
@@ -541,10 +576,10 @@ function drawPaging(pd) {
 		</form>
 		<div class="Ccon">
 			<div class="Ccate">
-				<select name="cateNo" id="cateNo">
-					<option value="0">전체</option>
-					<c:forEach var="data" items="${cate}">
-						<option value="${data.BLTNBOARD_NO}">${data.BLTNBOARD_NM}</option>
+				<select name="pCateNo" id="pCateNo">
+					<option>전체</option>					
+					<c:forEach var="data" items="${processCate}">
+						<option value="${data.SMALL_CATEGORY}">${data.CODE_NM}</option>
 					</c:forEach>
 				</select>
 			</div>

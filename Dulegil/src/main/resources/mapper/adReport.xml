@@ -26,7 +26,13 @@
 										ON R.TARGET_REPORT_MEMBER_NO = P.MEMBER_NO
 									LEFT JOIN MEMBER C
 										ON R.REPORT_MEMBER_NO = C.MEMBER_NO
+									INNER JOIN COMMON_CODE C
+        								ON R.PROCESS_NO = C.SMALL_CATEGORY
 					WHERE R.DEL_DT IS NULL
+					AND C.LARGE_CATEGORY = 3
+					<if test="pCateNo != null and pCateNo != '' and pCateNo != '전체'">
+						AND R.PROCESS_NO = #{pCateNo}						
+					</if>
 
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
@@ -55,12 +61,19 @@
 	<select id="cnt" parameterType="hashmap" resultType="integer">
 	SELECT COUNT(*) AS CNT
 	FROM REPORT R INNER JOIN REPORT_TYPE RT
-		ON R.REPORT_TYPE_NO = RT.REPORT_TYPE_NO
+			ON R.REPORT_TYPE_NO = RT.REPORT_TYPE_NO
 		LEFT JOIN MEMBER P
-		ON R.TARGET_REPORT_MEMBER_NO = P.MEMBER_NO
+			ON R.TARGET_REPORT_MEMBER_NO = P.MEMBER_NO
 		LEFT JOIN MEMBER C
-		ON R.REPORT_MEMBER_NO = C.MEMBER_NO
+			ON R.REPORT_MEMBER_NO = C.MEMBER_NO
+		INNER JOIN COMMON_CODE C
+        	ON R.PROCESS_NO = C.SMALL_CATEGORY
 		WHERE R.DEL_DT IS NULL
+		AND C.LARGE_CATEGORY = 3
+		
+		<if test="pCateNo != null and pCateNo != '' and pCateNo != '전체'">
+			AND R.PROCESS_NO = #{pCateNo}			
+		</if>
 
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
@@ -128,6 +141,14 @@
 		</choose>		
 		WHERE REPORT_NO = #{no}
 	</update>
+	
+	
+	<select id="getProcessCate" resultType = "hashmap">
+	SELECT SMALL_CATEGORY, CODE_NM
+	FROM COMMON_CODE            
+	WHERE LARGE_CATEGORY = 3
+	AND DEL_YN = 1
+	</select>
 
 
 
