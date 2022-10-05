@@ -19,7 +19,33 @@ $(document).ready(function(){
 		$(this).addClass("on");
 		$("#"+tab_id).addClass("on");
 	});
+	
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/43656e7541676d6c3932706769794f/json/NowonNewsEventList/1/5/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			console.log(res);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	})
+	
+	$.ajax({
+		url: "http://openapi.seoul.go.kr:8088/52576a4b61676d6c3839725076485a/xml/DobongNewsEventList/1/5/",
+		type: "GET",
+		dataType: "json",
+		success : function(res){
+			console.log(res);
+		},
+		error : function(request, status, error){
+			console.log(request.responseText);
+		}
+	})
 });
+
+
 </script>
 </head>
 <body>
@@ -256,7 +282,17 @@ $(document).ready(function(){
 						
 						<div class="infoArd" id="tab_2">
 						  	<div class="infoDtl">
-								<p>탭 메뉴 2 내용입니다.</p>
+								<table>
+									<thead>
+										<tr>
+											<th>제목</th>
+										</tr>
+										<tr>
+											<th>내용</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 						  	</div>
 						</div>
 							
