@@ -129,7 +129,7 @@ function drawDBEvtList(list){
 	}
 	$(".infoTable2 tbody").append(html);
 } 
-
+SITETEL
 /* 숙박 정보*/
 function drawNWStayList(list){
 	var html = "";
@@ -140,6 +140,7 @@ function drawNWStayList(list){
 		html += "<td>노원구</td>";
 		html += "<td>" + list[i].BPLCNM + "</td>";
 		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
 		html += "</tr>";
 		}
 	}
@@ -155,6 +156,7 @@ function drawDBStayList(list){
 		html += "<td>도봉구</td>";
 		html += "<td>" + list[i].BPLCNM + "</td>";
 		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
 		html += "</tr>";
 		}
 	}
@@ -171,6 +173,7 @@ function drawNWRstrList(list){
 		html += "<td>노원구</td>";
 		html += "<td>" + list[i].BPLCNM + "</td>";
 		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
 		html += "</tr>";
 		}
 	}
@@ -186,6 +189,7 @@ function drawDBRstrList(list){
 		html += "<td>도봉구</td>";
 		html += "<td>" + list[i].BPLCNM + "</td>";
 		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+		html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
 		html += "</tr>";
 		}
 	}
@@ -449,14 +453,16 @@ function drawDBRstrList(list){
 								<table class="infoTable3">
 									<colgroup style="table-layout: fixed;">
 										<col width="100px">
-										<col width="400px">
-										<col width="auto">
+										<col width="300px">
+										<col width="450px">
+										<col width="150px">
 									</colgroup>
 									<thead>
 										<tr>
 											<th>구분</th>
 											<th>사업장명</th>
 											<th>주소</th>
+											<th>전화번호</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -469,14 +475,16 @@ function drawDBRstrList(list){
 								<table class="infoTable4">
 									<colgroup style="table-layout: fixed;">
 										<col width="100px">
-										<col width="400px">
-										<col width="auto">
+										<col width="300px">
+										<col width="450px">
+										<col width="150px">
 									</colgroup>
 									<thead>
 										<tr>
 											<th>구분</th>
 											<th>사업장명</th>
 											<th>주소</th>
+											<th>전화번호</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -498,6 +506,22 @@ function drawDBRstrList(list){
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8d38ddde2d7bb1d66146f9d2cdccedf3"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	/* 1. 둘레길 선형정보를 다운 받는다.
+	2. gpx파일을 convert해서 엑셀로 변환한다.
+	3. db에 코스용 임시 테이블을 만든다.
+	4. 데이터 테이블 명에 맞춰 데이터를 넣는다.
+	NO	COURSE_NO	LAT	LNG 
+	4-1. 구글 스프레드 시트에서 엑셀파일로 다운로드.
+	5. 데이터 임포트
+	6. 데이터가 들어가면 jsp양식에 맞게 select를 해준다. (코스별 조건도 걸 수 있음)
+	SELECT 'new kakao.maps.LatLng(' || LAT || ',' || LNG || '),'
+	FROM COURSE1
+	WHERE COURSE_NO = 1
+	ORDER BY NO ASC
+	;
+	7. select항목을 코스jsp var linePath = [];에 붙여넣기 한다. 마지막 열은 ,를 제외해줘야 함. 
+	8. 지도에 중심 좌표를 중앙으로 수정 */
 	
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
