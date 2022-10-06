@@ -22,26 +22,23 @@ import com.gdj51.Dulegil.web.dao.IDao;
 public class MypageAccopanyController {
 	@Autowired
 	public IDao dao;
-	
-	
-	@RequestMapping(value="/mypageAccompany")
-	public ModelAndView mypageAccopany(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav) {
-		
+
+	@RequestMapping(value = "/mypageAccompany")
+	public ModelAndView mypageAccopany(HttpSession session, @RequestParam HashMap<String, String> params,
+			ModelAndView mav) {
+
 		// 로그인 안했을때 마이페이지 이동시 로그인 페이지로
 		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
 
 			mav.setViewName("login/login");
-		} 
-		else {
-			
+		} else {
+
 			mav.setViewName("mypage/mypage_accompany");
 		}
-		
+
 		return mav;
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/accompanyAjax/{gbn}", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String accompanyAjax(@PathVariable String gbn, HttpSession session,
@@ -58,29 +55,31 @@ public class MypageAccopanyController {
 //		
 		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 		HashMap<String, String> data = new HashMap<String, String>();
-		
+
 		int cnt = 0;
 		try {
 			switch (gbn) {
-			case "applyMemUpdate": cnt = dao.update("accompany.applyMemUpdate", params);
-			
+			case "applyMemUpdate":
+				cnt = dao.update("accompany.applyMemUpdate", params);
+
 				break;
-			case "rateUpdate": cnt = dao.insert("accompany.rateInsert", params);
-									 dao.update("accompany.rateUpdate", params);
+			case "rateUpdate":
+				cnt = dao.insert("accompany.rateInsert", params);
+				dao.update("accompany.rateUpdate", params);
 				break;
-			
-			case "report": cnt = dao.insert("accompany.report", params);
+
+			case "report":
+				cnt = dao.insert("accompany.report", params);
 				System.out.println(cnt);
 				break;
-			
+
 			default:
 				break;
 			}
-	
-			if(cnt > 0) {
+
+			if (cnt > 0) {
 				model.put("msg", "success");
-			}
-			else {
+			} else {
 				model.put("msg", "fail");
 			}
 
@@ -90,50 +89,48 @@ public class MypageAccopanyController {
 		}
 		return mapper.writeValueAsString(model);
 	}
-	
-	
-	@RequestMapping(value="accompanyList", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
+
+	@RequestMapping(value = "accompanyList", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
 	@ResponseBody
-	public String accompanyList (HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
-		
+	public String accompanyList(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		Map<String, Object> model = new HashMap<String, Object>();
-		
+
 		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
-		
+
 		List<HashMap<String, String>> list1 = dao.getList("accompany.applyMemList", params);
 		List<HashMap<String, String>> list2 = dao.getList("accompany.chatList", params);
 		List<HashMap<String, String>> list3 = dao.getList("accompany.myApply", params);
 		List<HashMap<String, String>> list4 = dao.getList("accompany.accompanyHistory", params);
 		List<HashMap<String, String>> list5 = dao.getList("accompany.accompanyRate", params);
-		
+
 		model.put("list1", list1);
 		model.put("list2", list2);
 		model.put("list3", list3);
 		model.put("list4", list4);
 		model.put("list5", list5);
 
-		
-		
 		return mapper.writeValueAsString(model);
 	}
-	
-	@RequestMapping(value="accompanyMemList", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
+
+	@RequestMapping(value = "accompanyMemList", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
 	@ResponseBody
-	public String accompanyMemList (HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
-		
+	public String accompanyMemList(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		Map<String, Object> model = new HashMap<String, Object>();
 		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
 		List<HashMap<String, String>> memList = dao.getList("accompany.accompanyMemList", params);
-		//HashMap<String, String> scoure = dao.getMap("accompany.accompanyScoure", params);
+		// HashMap<String, String> scoure = dao.getMap("accompany.accompanyScoure",
+		// params);
 
 		model.put("memList", memList);
-		//model.put("scoure", scoure);
-		
+		// model.put("scoure", scoure);
+
 		return mapper.writeValueAsString(model);
 	}
 }

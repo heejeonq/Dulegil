@@ -6,13 +6,14 @@
 		VALUES(MEMBER_SEQ.NEXTVAL, #{email}, 2, #{pwd}, #{nm}, #{phn}, #{dtBrt, jdbcType = DATE}, #{gen, jdbcType = VARCHAR}, #{zcd, jdbcType = VARCHAR}, #{adr, jdbcType = VARCHAR}, #{adrDtl, jdbcType = VARCHAR}, 'profile_img.png')
 	</insert>
 
+    <!-- 내 정보 -->
 	<select id="getMyinfo" resultType="hashmap" parameterType="hashmap">
 		SELECT MEMBER_NO, EMAIL, PWD, NM, PHONE_NO, TO_CHAR(DATE_BIRTH, 'YYYY-MM-DD') AS DATE_BIRTH, GENDER, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, IMG_FILE, RELIABILITY
 		FROM MEMBER
 		WHERE MEMBER_NO = #{memNo}
 	</select>
 
-                            <!-- 받는 타입이야          결과 보내주는 타입이야-->
+    <!-- 비밀번호 확인 -->                   <!-- 받는 타입, 결과 보내주는 타입-->
 	<select id="checkPwd" parameterType="hashmap" resultType="hashmap">
 		SELECT MEMBER_NO, NM
 		FROM MEMBER
@@ -22,9 +23,9 @@
 		AND MEMBER_NO = #{memNo}
 	</select>
 	
-	
 	<!-- 업데이트/델리트/인서트 할때는 resultType="hashmap"필요 없음. 
 	무조건 해쉬맵으로 받아줌. 카운트 일때만 resultType="integer"-->
+	<!-- 개인 정보 수정  -->
 	<update id="updateMyinfo" parameterType="hashmap">
 		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt, jdbcType = DATE}, GENDER = #{gen, jdbcType = VARCHAR}, ZIP_CODE = #{zcd, jdbcType = VARCHAR}, 
 		ADDRESS =  #{adr, jdbcType = VARCHAR}, DETAIL_ADDRESS = #{adrDtl, jdbcType = VARCHAR}, IMG_FILE = #{imgFile, jdbcType = VARCHAR}

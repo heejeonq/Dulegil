@@ -154,4 +154,18 @@
 		FROM BOARD_TYPE
 	</select>
 	
+	<select id="cmtDt" resultType="hashmap">	
+            SELECT C.MEMBER_NO, C.COMMENT_NO, C.POST_NO, BT.BLTNBOARD_NO
+			FROM MEMBER M INNER JOIN COMMENTS C
+		                		  ON M.MEMBER_NO = C.MEMBER_NO
+		               	  INNER JOIN BULLETIN_BOARD B
+		                		  ON C.POST_NO = B.POST_NO
+		               	  INNER JOIN BOARD_TYPE BT
+		                		  ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
+			WHERE C.DEL_DT IS NULL
+	</select>
+	
+	
+	
+	
 </mapper>

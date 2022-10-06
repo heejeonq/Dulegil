@@ -294,7 +294,7 @@ function drawPaging(pd) {
 		html += "<td>"+ data.CATE +"</td>";
 		html += "<td>"+ data.REPORT_TYPE_NM +"</td>";
 		html += "<td>"+ data.ACCUSER +"</td>";
-		html += "<td>"+ data.ACCUSED +"</td>";
+		html += "<td>"+ data.TARGET_MN +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
 		html += "<td>";                                                                  
 		html += "<select class=\"sel\" id=\"process\" name=\"process\">";
@@ -601,8 +601,8 @@ function drawPaging(pd) {
 							<th>번호</th>
 							<th>신고유형</th>
 							<th>신고항목</th>
-							<th>신고대상자 아이디</th>
 							<th>신고자 아이디</th>
+							<th>신고대상자 아이디</th>
 							<th>신고날짜</th>
 							<th>처리여부</th>
 						</tr>
