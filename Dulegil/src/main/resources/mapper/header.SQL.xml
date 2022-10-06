@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="header">
 
+<!-- 알림 개수 -->
 <select id="alarmCnt" parameterType="hashmap" resultType="Integer">
 SELECT COUNT(*)
 FROM NOTIFICATION 
@@ -9,12 +10,13 @@ WHERE MEMBER_NO = #{memNo}
 AND CHECK_YN = 1
 </select>
 
+<!-- 알림 확인 -->
 <update id="alarmCheck" parameterType="hashmap">
 UPDATE NOTIFICATION SET CHECK_YN = 0
 WHERE MEMBER_NO = #{memNo}
 </update>
 
-
+<!-- 알림창 내용 -->
 <select id="alarmContents" parameterType="hashmap" resultType="hashmap">
 SELECT N.POST_NO, TO_CHAR(N.REG_DT, 'YYYY.MM.DD')|| ' ' || TO_CHAR(N.REG_DT, 'HH24:MI:SS PM') AS REG_DT , N.MEMBER_NO, M.NM
 FROM NOTIFICATION N INNER JOIN MEMBER M
