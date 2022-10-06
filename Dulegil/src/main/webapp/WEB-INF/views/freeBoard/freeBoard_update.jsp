@@ -56,6 +56,7 @@ $(document).ready(function(){
 	
 //취소버튼
 $("#cancelBtn").on("click", function() {
+	$("#backForm").attr("action","freeBoardDetail")
 	$("#backForm").submit();
  });
  
@@ -120,7 +121,8 @@ $("#updateBtn").on("click", function() {
    	                 
    	                  switch(res.msg){
    	                  
-   	                  case "success" :   	                    
+   	                  case "success" :  
+   	                	 $("#backForm").attr("action","freeBoard")
    	                    $("#backForm").submit();
    	                     break;
    	                  case "fail" :
@@ -170,7 +172,7 @@ $("#updateBtn").on("click", function() {
 			<div class="tit">둘레길이야기</div>
 			<div class="col"></div>
 			
-			<form action="freeBoard" id="backForm" method="post">
+			<form action="#" id="backForm" method="post">
 		  		<!-- 전화면에서 넘어온 페이지정보 -->
 		   		<input type="hidden" id="page" name="page" value="${param.page}"/>
 		   		<input type="hidden" name="no" value="${data.POST_NO}" />

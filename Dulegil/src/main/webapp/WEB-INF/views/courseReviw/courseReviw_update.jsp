@@ -93,7 +93,7 @@ $("#updateBtn").on("click", function() {
        });     
     } else if ($(".cosSell").val()=='0') {
        makeAlert("알림", "코스를 선택해 주세요.", function() {
-    	   $("#contents").focus();
+    	   $("#courseNo").focus();
        });
     } else if ($("#attFile").val()=='') {
     	makeAlert("알림", "사진을 등록해 주세요.");  
@@ -176,17 +176,18 @@ $("#updateBtn").on("click", function() {
 			
 			<form action="#" id="backForm" method="post">
 		  		<!-- 전화면에서 넘어온 페이지정보 -->
-		   		<input type="hidden" id="page" name="page" value="${param.page}"/>
-		   		<input type="hidden" name="no" value="${data.POST_NO}" />
-		   		<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+		   		<input type="hidden" id="page" name="page" value="${param.page}"/> 
 		      	<!-- 전화면에서 넘어온 검색 정보 -->
 		      	<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
 		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
 		        <input type="hidden" id="courseGbn" value="${param.courseNo}" />
+		   		<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+		     <!-- <input type="hidden" name="no" value="${data.POST_NO}" /> -->   
 		        		       
 		   </form>
 			
-			<div class="midBox">			
+			<div class="midBox">
+						
 			<div class="titWrap">
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">

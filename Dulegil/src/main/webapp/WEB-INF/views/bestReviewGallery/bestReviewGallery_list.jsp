@@ -171,9 +171,30 @@ function drawList(list) {
 		
 	html += "	<div class=\"c_box\" no=\""+ data.POST_NO + "\">";
 	//만약 1등이면 금메달,2등이면 은메달,3등이면 동메달
-	html += "	<div class=\"c_b_photo\">";
-	html += " 	 <img src=\"resources/upload/" + data.B_IMG + "\" id=\"c_photo\" /> ";
-	html += "	</div>";
+
+   if(data.GRNK==1){
+		html += "    <img src=\"resources/images/firstMedal.png\" id=\"Medal\" />";
+	      html += "   <div class=\"c_b_photo\">";
+	      html += "     <img src=\"resources/upload/" + data.B_IMG + "\" id=\"c_photo\" /> ";
+	      html += "   </div>";
+	         
+	   }else if(data.GRNK==2){
+		 html += "    <img src=\"resources/images/secondMedal.png\" id=\"Medal\" />";
+	      html += "   <div class=\"c_b_photo\">";
+	      html += "     <img src=\"resources/upload/" + data.B_IMG + "\" id=\"c_photo\" /> ";
+	      html += "   </div>";   
+	      
+	   }else if(data.GRNK==3){
+		 html += "    <img src=\"resources/images/thirdMedal.png\" id=\"Medal\" />";
+	      html += "   <div class=\"c_b_photo\">";
+	      html += "     <img src=\"resources/upload/" + data.B_IMG + "\" id=\"c_photo\" /> ";
+	      html += "   </div>";      
+	      
+	   }else{
+	      html += "   <div class=\"c_b_photo\">";
+	      html += "     <img src=\"resources/upload/" + data.B_IMG + "\" id=\"c_photo\" /> ";
+	      html += "   </div>";
+	   }
 	html += "		<div class=\"c_b_lv\">";
 	html += "		<div class=\"c_b_like\">";
 	html += "			<img src=\"resources/images/좋아요.png\" id=\"good\"/>";

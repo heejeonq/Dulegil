@@ -116,10 +116,4 @@ public class adPostController {
 		return mapper.writeValueAsString(model);
 	}
 
-
-
-
-
-
-
 }

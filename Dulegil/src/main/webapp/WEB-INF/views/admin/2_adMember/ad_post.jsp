@@ -19,6 +19,10 @@
 .Ctable td:nth-child(2) {
     text-align: center;
 }
+#bTit:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -199,7 +203,6 @@ $(document).ready(function(){
 							console.log(request.responseText);
 						}
 					});
-					
 					closePopup();
 				}
 			},{
@@ -207,6 +210,23 @@ $(document).ready(function(){
 			}]	
 		})
 	});
+	
+	$("tbody").on("click","#bTit", function(){
+		$("#cate").val($("#cateNo").val());
+		/*var memNo = $(this).parent().children().eq(4).attr("nm");
+		$("#memNo").val(memNo); */
+		$("#no").val($(this).parent().attr("no"));
+		
+   		if($(this).parent().children().eq(2).attr("cate") == "1"){
+			$("#actionForm").attr("action","courseReviewDetail");
+		}else if($(this).parent().children().eq(2).attr("cate") == "2"){
+			$("#actionForm").attr("action","accompanyDetail");
+		}else{
+			$("#actionForm").attr("action","freeBoardDetail");  
+		}
+		$("#actionForm").submit();
+	});
+	
 }); 
 
 function reloadList(){
@@ -241,8 +261,8 @@ function drawList(list){
 		html += "<td><span id=\"delBtn\" name=\"delBtn\" class=\"material-icons\" style=\"font-size: 14px; cursor: pointer;\"> \close\ </span></td>";
 		html += "<td>"+ data.POST_NO +"</td>";
 		html += "<td cate=\""+ data.BLTNBOARD_NO +"\">"+ data.BLTNBOARD_NM +"</td>";
-		html += "<td style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.TITLE +"</td>";
-		html += "<td>"+ data.NM +"</td>";
+		html += "<td id=\"bTit\"style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.TITLE +"</td>";
+		html += "<td nm=\"" +data.MEMBER_NO +"\">"+ data.NM +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
 		html += "<td><input type=\"checkbox\" id=\"Check\" name=\"Check\"/></td>";
 		html += "</tr>                                                                                                           ";
@@ -298,7 +318,8 @@ function drawPaging(pd) {
 		
 		<form action="#" id="actionForm" method="post">
 			<div class="Csearch">
-				<input type="hidden" name="no" id="no" value="${data.CONTENT_NO}" /> 
+				<input type="hidden" name="no" id="no" value="${data.POST_NO}" /> 
+				<input type="hidden" name="memNo" id="memNo" /> 
 				<input type="hidden" name="delNo" id="delNo" />
 				<input type="hidden" name="cate" id="cate" value="${param.cateNo}" /> 
 				<input type="hidden" name="page" id="page" value="${page}" />

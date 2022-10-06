@@ -62,6 +62,11 @@ public class Dao implements IDao {
 	public List<HashMap<String, String>> getList(String sql) throws Throwable {
 		return sqlSession.selectList(sql);
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getList2(String sql) throws Throwable {
+		return sqlSession.selectList(sql);
+	}
 
 	@Override
 	public List<HashMap<String, String>> getList(String sql, HashMap<String, String> params) throws Throwable {
