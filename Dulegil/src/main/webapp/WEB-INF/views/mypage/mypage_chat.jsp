@@ -18,11 +18,12 @@
 			padding:0;
 		}
 		.container{
-			width: 500px;
+			    width: 70%;
 			margin: 0 auto;
 			padding: 25px
 		}
 		.container h1{
+			font-size: 20px;
 			text-align: left;
 			padding: 5px 5px 5px 15px;
 			color: #FFBB00;
@@ -31,17 +32,16 @@
 		}
 		.chatting{
 			font-size: 20px;
-			background-color: #000;
-			width: 500px;
+			border: 1px solid #7d7d7d7d;
 			height: 500px;
 			overflow: auto;
 		}
 		.chatting .me{
-			color: #F6F6F6;
+			color: #000000;
 			text-align: right;
 		}
 		.chatting .others{
-			color: #FFE400;
+			color: #000000;
 			text-align: left;
 		}
 		.chatting p{
@@ -87,7 +87,7 @@ function wsEvt() {
 				}
 			}else if(d.type == "message"){
 				if(d.sessionId == $("#sessionId").val()){
-					$("#chatting").append("<p class='me'>나 :" + d.msg + "</p>");	
+					$("#chatting").append("<p class='me'> ${sMemNm}  :" + d.msg + "</p>");	
 				}else{
 					$("#chatting").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
 				}
@@ -142,7 +142,7 @@ function drawList(list){
 	
 	for(var data of list){
 		if(data.MEMBER_NO == ${sMemNo}){
-			html += "<p class='me'>나 :" + data.CONTENTS + "</p>";			
+			html += "<p class='me'>"+ data.NM +" :" + data.CONTENTS + "</p>";			
 		}
 		else{
 			html += "<p class='others'>" + data.NM + " :" + data.CONTENTS + "</p>";		
@@ -166,12 +166,12 @@ function drawList(list){
 			
 			<div class="mypage_contents">
 				<div class="area_tit">
-					<span>둘레길</span>
+					<span>채팅방</span>
 				</div>
 				<div class="mypage_contents">
 	
   <div id="container" class="container">
-		<h1>채팅</h1>
+		<h1>${title}</h1>
 		<form action="#" id="chatForm">
 			<input type="hidden" id="sessionId" value="">
 			<input type="hidden" name="postNo" id="postNo" value="${postNo}">
