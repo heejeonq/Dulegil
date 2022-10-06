@@ -53,15 +53,15 @@
 			height: 25px;
 		}
 		#yourMsg{
-			display: none;
+			
 		}
 	</style>
 <script type="text/javascript">
 $(document).ready(function(){
+	var ws;
+	wsOpen();
 	
 });
-var ws;
-wsOpen();
 function wsOpen(){
 	ws = new WebSocket("ws://" + location.host + "/Dulegil/chatting/"+$("#postNo").val());
 	wsEvt();
@@ -103,20 +103,7 @@ function wsEvt() {
 		}
 	});
 }
-/*
-function chatName(){
-	var userName = $("#userName").val();
-	console.log(userName);
-	if(userName == null || userName.trim() == ""){
-		alert("사용자 이름을 입력해주세요.");
-		$("#userName").focus();
-	}else{
-		wsOpen();
-		$("#yourName").hide();
-		$("#yourMsg").show();
-	}
-}
-*/
+
 function send() {
 	var option ={
 			type: "message",
@@ -154,19 +141,10 @@ function send() {
 		<input type="hidden" id="sessionId" value="">
 		<input type="hidden" id="postNo" value="${postNo}">
 		<input type="hidden" id="memNo" value="${sMemNo}">
+		<input type="hidden" name="userName" id="userName" value="${sMemNm}">
 		<div id="chatting" class="chatting">
 		</div>
-		<!-- 
-		<div id="yourName">
-			<table class="inputTable">
-				<tr>
-					<th>사용자명</th>
-					<th><input type="text" name="userName" id="userName" value="${sMemNm}"></th>
-					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
-				</tr>
-			</table>
-		</div>
-		 -->
+	
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
