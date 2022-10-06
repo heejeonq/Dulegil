@@ -203,6 +203,10 @@ ul.infoBtn li:hover{
 	width: 100%;
 }
 
+.infoDtl3 span{
+	font-size: 11pt;
+}
+
 .infoArd {
 	display: none;
 }

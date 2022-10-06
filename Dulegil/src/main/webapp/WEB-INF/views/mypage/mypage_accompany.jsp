@@ -105,9 +105,9 @@ $(document).ready(function(){
 	
 });
 //채팅들어가기
-function goRoom(number){
+function goRoom(number, postMemNo){
 	$("#chattingPostNo").val(number);
-	
+	$("#postMemNo").val(postMemNo);
 	$("#chattingForm").submit();
 }
 
@@ -289,7 +289,7 @@ function drawList(list1, list2, list3, list4, list5){
 	//채팅 목록
 	for(var data of list2){        
 		html2 += "<li>" + data.TITLE +"</li>";
-		html2 += "<input type=\"button\" value=\"x\" onclick=\"goRoom("+data.POST_NO+ ")\">"; 
+		html2 += "<input type=\"button\" value=\"x\" onclick=\"goRoom("+data.POST_NO+ ","+data.MEMBER_NO+")\">"; 
 	}
 	//나의 동행 신청목록
 	for(var data of list3){  
@@ -430,6 +430,7 @@ function drawList2(memList){
 			<form action="moveChating" id="chattingForm" method="post">
 				<input type="hidden" name="memNo" id="memNo" value="${sMemNo}">
 				<input type="hidden" name="postNo" id="chattingPostNo">
+				<input type="hidden" name="postMemNo" id="postMemNo"><!-- 글 작성자 memNo -->
 			</form>
 			<form action="#" id="searchForm">
 				<input type="hidden" name="memNo" id="memNo">
