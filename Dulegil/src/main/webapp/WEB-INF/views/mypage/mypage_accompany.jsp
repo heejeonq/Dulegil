@@ -13,6 +13,16 @@
 $(document).ready(function(){
 	reloadList();
 	
+	
+	
+	//채팅 들어가기
+	$(".chat_list").on("click","li" , function(){
+		location.href = "chat";
+		
+	});
+	
+	
+	
 	//별점 그리기
 	$("#memRate").on("change", ".star input", function(){
 		$(this).parent().children().eq(0).css("width", $(this).val()*20 + "%");
@@ -75,7 +85,7 @@ $(document).ready(function(){
 		var postNo = $(this).parent().parent().attr("postNo");
 		$("#applyMemNo").val(amemNo);
 		$("#applyPostNo").val(postNo);
-		$("#stateNo").val(2);
+		$("#stateNo").val(1);
 
 
 		action("applyMemUpdate");
@@ -87,13 +97,21 @@ $(document).ready(function(){
 		$("#applyMemNo").val(amemNo);
 		$("#applyPostNo").val(postNo);
 		
-		$("#stateNo").val(0);
+		$("#stateNo").val(2);
 		action("applyMemUpdate");
 	});
 	
 	
 	
 });
+//채팅들어가기
+function goRoom(number, postMemNo, title){
+	$("#chattingPostNo").val(number);
+	$("#postMemNo").val(postMemNo);
+	$("#title").val(title);
+	$("#chattingForm").submit();
+}
+
 function reportText() {
 	html = "";
 	
@@ -250,12 +268,12 @@ function drawList(list1, list2, list3, list4, list5){
 		else {
 			html1 += "		<td class=\"mem_age\">성별 비공개</td>                                        ";			
 		}
-		//stateno가 2일때 수락버튼 비활성화 0일때 거절 버튼 비활성화
-		if(data.STATE_NO == 2){
+		//stateno가 1일때 수락버튼 비활성화 0일때 거절 버튼 비활성화
+		if(data.STATE_NO == 1){
 			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\" disabled=\"disabled\">        ";
 			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>   ";
 		}	
-		else if(data.STATE_NO == 0) {
+		else if(data.STATE_NO == 2) {
 			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">        ";
 			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\" disabled=\"disabled\"></td>   ";
 			
@@ -272,7 +290,7 @@ function drawList(list1, list2, list3, list4, list5){
 	//채팅 목록
 	for(var data of list2){        
 		html2 += "<li>" + data.TITLE +"</li>";
-		html2 += "<input type=\"button\" value=\"x\">"; 
+		html2 += "<input type=\"button\" value=\"x\" onclick=\"goRoom("+data.POST_NO+ ","+data.MEMBER_NO+ ",'" +data.TITLE+ "')\">"; 
 	}
 	//나의 동행 신청목록
 	for(var data of list3){  
@@ -410,8 +428,14 @@ function drawList2(memList){
 					
 		<!-- Contents -->
 		<div class="contents">
+			<form action="moveChating" id="chattingForm" method="post">
+				<input type="hidden" name="memNo" id="memNo" value="${sMemNo}">
+				<input type="hidden" name="postNo" id="chattingPostNo">
+				<input type="hidden" name="title" id="title">
+				<input type="hidden" name="postMemNo" id="postMemNo"><!-- 글 작성자 memNo -->
+			</form>
 			<form action="#" id="searchForm">
-				<input type="hidden" name="memNo">
+				<input type="hidden" name="memNo" id="memNo">
 				<input type="hidden" name="postNo" id="postNo">
 			</form>
 			<form action="#" id="actionForm">

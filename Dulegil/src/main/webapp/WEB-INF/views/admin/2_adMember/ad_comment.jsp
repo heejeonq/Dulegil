@@ -18,6 +18,10 @@
 .Ctable td:nth-child(2) {
     text-align: center;
 }
+#conTit:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -207,6 +211,30 @@ $(document).ready(function(){
 			}); // makePop
 		}
 	});
+	
+	// 댓글 클릭시 원본 게시판 상세보기로 이동
+	$("tbody").on("click", "td:nth-child(5)", function(){
+		$("#no").val($(this).attr("pNo"));
+		console.log(this)
+		
+		//기존 검색상태 유지(검색한 값에 전에 검색했던 값으로)
+		$("#searchGbn").val($("#oldGbn").val());
+		$("#searchTxt").val($("#oldTxt").val());
+		
+		//만약 누른것의 부모의 자식의 2번째의 카테가 몇이면? 액션폼을 했을때 액션으로 여기로 가라~
+		if($(this).parent().children().eq(2).attr("cate")=="1"){
+	         $("#actionForm").attr("action","courseReviewDetail");
+	      }else if($(this).parent().children().eq(2).attr("cate")=="2"){
+	         $("#actionForm").attr("action","accompanyDetail");
+	      }else{
+	    	 $("#actionForm").attr("action","freeBoardDetail");  
+	      }
+		$("#actionForm").submit();
+		
+	})
+
+	
+	
 }); // document ready end
 
 function reloadList(){
@@ -241,7 +269,7 @@ function drawList(list){
 		html += "<td>"+ data.COMMENT_NO +"</td>";
 		html += "<td cate=\""+ data.BLTNBOARD_NO +"\">"+ data.BLTNBOARD_NM +"</td>";
 		html += "<td style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.TITLE +"</td>";
-		html += "<td style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.CONTENTS +"</td>";
+		html += "<td id=\"conTit\"pNo=\"" +data.POST_NO +"\" style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.CONTENTS +"</td>";
 		html += "<td>"+ data.NM +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
 		html += "<td><input type=\"checkbox\"id=\"Check\" name=\"Check\" value=\""+data.COMMENT_NO+"\" /></td>";
@@ -250,6 +278,9 @@ function drawList(list){
 		}
 		$("tbody").html(html);
 };
+
+
+
 
 function drawPaging(pd) {
 	var html = "";

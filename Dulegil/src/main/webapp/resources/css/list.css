@@ -117,17 +117,6 @@ tbody tr:hover {
 	width: 1200px;
 	text-align: left;
 }
-.content_bst{
-	display: inline-block;
-	height: auto;
-	font-size: 30px;
-	margin: 0 auto;
-	text-align: center;
-	margin-bottom: 100px;
-	width: 1200px;
-	text-align: left;
-	
-}
 
 .numbox{
     width: 1200px;
@@ -214,15 +203,15 @@ tbody tr:hover {
 .sec_cal {
     width: 360px;
     margin: 0 auto;
-    font-family: "NotoSansR";
 }
 .sec_cal .cal_nav {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 700;
-    font-size: 48px;
+    font-size: 30px;
     line-height: 78px;
+    margin-bottom: 30px;
 }
 
 .sec_cal .cal_nav .year-month {
@@ -258,22 +247,22 @@ tbody tr:hover {
 	display: inline-block;
 }
 
-#Medal {
-	position: absolute;
+#Medal {	
 	vertical-align: top;
 	float: left;
-	margin-left: -147px;
 	margin-top: -1px;
+	position:absolute;
 	width: 64px;
 }
 .content_bst{
-	  	display: inline-block;
-	height: 800px;
+	display: inline-block;
+	height: auto;
 	font-size: 30px;
 	margin: 0 auto;
 	text-align: center;
 	margin-bottom: 100px;
-	
+	width: 1200px;
+	text-align: left;
 }
 /*동행구하기*/
 .content_Acc{
