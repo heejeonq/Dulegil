@@ -24,23 +24,23 @@
 <!-- 채팅방 리스트 -->
 <select id="chatList" resultType="hashmap" parameterType="hashmap">
 	<!--내가 글쓴이 일때  -->
-SELECT BB.TITLE ,BB.POST_NO
+SELECT BB.TITLE ,BB.POST_NO, BB.MEMBER_NO
 	FROM BULLETIN_BOARD BB INNER JOIN BOARD_ACCOMPANY BA
                                    ON BB.POST_NO = BA.POST_NO
                                   AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD')  
-	WHERE BB.MEMBER_NO = 107
+	WHERE BB.MEMBER_NO = #{memNo}
 	AND BB.BLTNBOARD_NO = 2     
 	AND BB.DEL_DT IS NULL  
     
     UNION ALL
 <!--내가 신청자일때  -->
-SELECT BB.TITLE, AA.POST_NO
+SELECT BB.TITLE, AA.POST_NO, BB.MEMBER_NO
 	FROM BULLETIN_BOARD BB INNER JOIN BOARD_ACCOMPANY BA
                                    ON BB.POST_NO = BA.POST_NO
                                   AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') >= TO_CHAR(SYSDATE, 'YY.MM.DD') 
                            INNER JOIN ACCOMPANY_APPLY AA
                                    ON AA.POST_NO = BB.POST_NO
-                                   AND AA.MEMBER_NO = 107
+                                   AND AA.MEMBER_NO = #{memNo}
                                    AND AA.STATE_NO = 1
 	AND BB.BLTNBOARD_NO = 2     
 	AND BB.DEL_DT IS NULL                           
@@ -220,4 +220,31 @@ WHEN NOT MATCHED THEN
 INSERT INTO CHAT(CHAT_NO, POST_NO, MEMBER_NO, CONTENTS)
 VALUES(CHAT_SEQ.NEXTVAL, #{postNo}, #{memNo}, #{msg})
 </insert>
+<!-- 채팅메시지 리스트 -->
+<select id="chatMsgList" resultType="hashmap" parameterType="hashmap">
+<choose>
+<when test="memNo == postMemNo">
+	SELECT C.CHAT_NO, C.POST_NO, C.MEMBER_NO, C.CONTENTS,  TO_CHAR(C.REG_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT, M.NM
+	FROM CHAT C INNER JOIN MEMBER M
+	                    ON C.MEMBER_NO =M.MEMBER_NO
+	WHERE C.POST_NO = #{postNo}
+	ORDER BY REG_DT ASC
+</when>
+<otherwise>
+	SELECT DISTINCT C.CHAT_NO, C.POST_NO, C.MEMBER_NO, C.CONTENTS,  TO_CHAR(C.REG_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT, M.NM
+	FROM CHAT C INNER JOIN ACCOMPANY_APPLY AA
+	                    ON AA.POST_NO = C.POST_NO
+	            INNER JOIN MEMBER M
+                    ON M.MEMBER_NO = C.MEMBER_NO
+	            INNER JOIN (SELECT AA.REG_DT
+	                        FROM ACCOMPANY_APPLY AA
+	                        WHERE MEMBER_NO = #{memNo}) A
+	      <![CDATA[     ON A.REG_DT <= C.REG_DT ]]>
+	WHERE C.POST_NO = #{postNo}
+	ORDER BY REG_DT ASC                  
+
+</otherwise>
+</choose>
+</select>
+
 </mapper>

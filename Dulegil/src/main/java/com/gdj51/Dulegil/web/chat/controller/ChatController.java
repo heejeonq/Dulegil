@@ -3,15 +3,20 @@ package com.gdj51.Dulegil.web.chat.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj51.Dulegil.web.chat.vo.Room;
 import com.gdj51.Dulegil.web.dao.IDao;
 
@@ -89,10 +94,29 @@ public class ChatController {
 
 		if(cnt > 0) {
 			mv.addObject("postNo", params.get("postNo"));
+			mv.addObject("postMemNo", params.get("postMemNo"));
 			mv.setViewName("mypage/mypage_chat");
 		}else {
 			mv.setViewName("mypage/mypage_accompany");
 		}
 		return mv;
+	}
+	//채팅 메시지 리스트
+	@RequestMapping(value = "/chatMsgList", method = RequestMethod.POST, produces = "test/json;charset=UTF-8")
+	@ResponseBody
+	public String chatMsgList(@RequestParam HashMap<String, String> params) throws Throwable {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Map<String, Object> model = new HashMap<String, Object>();
+
+
+		List<HashMap<String, String>> list = dao.getList("accompany.chatMsgList", params);
+	
+
+		model.put("list", list);
+
+
+		return mapper.writeValueAsString(model);
 	}
 }
