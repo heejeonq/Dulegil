@@ -37,25 +37,7 @@
                                             ON 1=1
 	</select>
 
-	<!-- 동행 성사 수 -->
-	<select id="acped" resultType="hashmap">
-		SELECT COUNT(*) AS CNT
-    	FROM(
-				SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY.MM.DD') AS ACCOMPANY_DT 
-			    FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
-			                                   ON BB.POST_NO = BC.POST_NO
-			                           INNER JOIN BOARD_ACCOMPANY BA
-			                                   ON BB.POST_NO = BA.POST_NO
-											AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
-			                           INNER JOIN ACCOMPANY_APPLY AA
-			                                   ON AA.POST_NO =BB.POST_NO
-			                                  AND STATE_NO = 2
-			                           INNER JOIN MEMBER MEM 
-			                                   ON MEM.MEMBER_NO = AA.MEMBER_NO
-			                           INNER JOIN MEMBER AM 
-			                                   ON BB.MEMBER_NO = AM.MEMBER_NO
-			    ORDER BY ACCOMPANY_DT DESC     )  
-	</select>
+
 
 
 	
