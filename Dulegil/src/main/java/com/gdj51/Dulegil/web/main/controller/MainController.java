@@ -36,10 +36,11 @@ public class MainController {
 	@RequestMapping(value = "/header")
 	public ModelAndView header(HttpSession session, @RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
-		params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
-		int cnt = 0;
+		// .getAttribute()는 선택한 요소(element)의 특정 속성(attribute)의 값을 가져온다.
+		// 로그인 했을 때
 		if (session.getAttribute("sMemNm") != null && session.getAttribute("sMemNm") != "") {
+			// 세션에서 가져와서 params
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 
 		}
