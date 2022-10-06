@@ -56,7 +56,7 @@ $(document).ready(function(){
 	});
 	
 	$(".cosSell").val($("#courseGbn").val());
-	
+
 	//취소버튼
 	$("#cancelBtn").on("click", function() {
 		$("#backForm").attr("action","accompanyDetail")
@@ -193,7 +193,7 @@ $(document).ready(function(){
 		      	<!-- 전화면에서 넘어온 검색 정보 -->
 		      	<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
 		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" /> 
-		        <input type="hidden" id="courseGbn" value="${param.courseNo}" />
+		        <input type="hidden" id="courseGbn" value="${data.COURSE_NO}" />
 		        <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> 
 		       
 		   </form>
