@@ -100,11 +100,9 @@ th, .container-main dt{
 	margin-bottom: 2%; 
 }
 
-.crsMap{
+#map{
 	display: inline-block;
 	vertical-align: top;
-	width: 800px;
-	height: 600px; 
 	margin: 0 30px 0 40px;
 	border: 1px solid #999;
 }

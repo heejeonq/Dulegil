@@ -142,5 +142,16 @@
 		UPDATE BULLETIN_BOARD SET DEL_DT = SYSDATE
 		WHERE POST_NO = #{no}
 	</update>
+	
+	<select id="pstDtl" resultType="hashmap">
+		SELECT M.MEMBER_NO, B.POST_NO, BT.BLTNBOARD_NO, BT.BLTNBOARD_NM, NM, B.TITLE, B.REG_DT,
+	           ROW_NUMBER() OVER(ORDER BY B.REG_DT DESC)AS RNK
+	    FROM BULLETIN_BOARD B INNER JOIN MEMBER M
+	                      			  ON B.MEMBER_NO = M.MEMBER_NO
+	              			  INNER JOIN BOARD_TYPE BT
+	                      			  ON B.BLTNBOARD_NO = BT.BLTNBOARD_NO
+	    WHERE POST_NO = #{no} 
+	    AND M.MEMBER_NO = #{memNo}
+	</select>
 
 </mapper>

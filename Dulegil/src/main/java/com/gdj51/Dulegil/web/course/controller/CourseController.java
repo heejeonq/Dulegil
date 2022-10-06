@@ -70,4 +70,13 @@ public class CourseController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/nf1")
+	public ModelAndView nf1(ModelAndView mav) {
+		
+		mav.setViewName("course/NewFile");
+		
+		return mav;
+	}
+
 }
