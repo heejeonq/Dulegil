@@ -50,6 +50,9 @@ public class adEventController {
 		return mav;
 	} 
 	
+	
+	
+	
 	@RequestMapping(value = "/adEvtListAjax",
 			method = RequestMethod.POST,
 			produces = "text/json;charset=UTF-8")
@@ -76,6 +79,8 @@ public class adEventController {
 		return mapper.writeValueAsString(model);
 	}
 	
+	
+	
 	@RequestMapping(value = "adEvtDtl")
 	public ModelAndView adEvtDtl(
 			HttpSession session,
@@ -101,6 +106,10 @@ public class adEventController {
 		}
 		return mav;
 	}
+	
+	
+	
+	
 	
 	@RequestMapping(value = "adEvtUpd")
 	public ModelAndView adEvtUpd(
