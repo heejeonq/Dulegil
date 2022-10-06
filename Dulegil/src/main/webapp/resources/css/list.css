@@ -214,15 +214,15 @@ tbody tr:hover {
 .sec_cal {
     width: 360px;
     margin: 0 auto;
-    font-family: "NotoSansR";
 }
 .sec_cal .cal_nav {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 700;
-    font-size: 48px;
+    font-size: 30px;
     line-height: 78px;
+    margin-bottom: 30px;
 }
 
 .sec_cal .cal_nav .year-month {
