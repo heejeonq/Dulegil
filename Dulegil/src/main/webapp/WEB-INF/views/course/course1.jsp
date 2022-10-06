@@ -15,8 +15,8 @@ $(document).ready(function(){
 	
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
-			center: new kakao.maps.LatLng(37.6328206,127.0088088), //지도의 중심좌표.
-			level: 5 //지도의 레벨(확대, 축소 정도)
+			center: new kakao.maps.LatLng(37.65456,127.08348), //지도의 중심좌표.
+			level: 7 //지도의 레벨(확대, 축소 정도)
 	};
 	var map = new kakao.maps.Map(container, options);
 	
@@ -699,7 +699,7 @@ $(document).ready(function(){
 	var polyline = new kakao.maps.Polyline({
 	    path: linePath, // 선을 구성하는 좌표배열 입니다
 	    strokeWeight: 5, // 선의 두께 입니다
-	    strokeColor: '#FF0000', // 선의 색깔입니다
+	    strokeColor: '#D000C6', // 선의 색깔입니다
 	    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 	    strokeStyle: 'solid' // 선의 스타일입니다
 	});
