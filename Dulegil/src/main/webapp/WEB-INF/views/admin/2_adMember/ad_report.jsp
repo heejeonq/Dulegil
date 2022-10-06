@@ -20,8 +20,11 @@
 	margin-left: 0;
 }
 /* 테이블 */
+.Ctable td:nth-child(2) {
+    text-align: center;
+}
 .Ctable td{
-	padding: 0;
+	padding: 4px 0;
 }
 th:nth-child(12) {
 	width: 70px;
@@ -530,9 +533,8 @@ function drawPaging(pd) {
 							<th>처리여부</th>
 						</tr>
 					</thead>
-					<tbody class="table_1"></tbody>
-				</table>
-				<div id="hide" style="display: none" >
+					<tbody class="table_1">
+					<div id="hide" style="display: none" >
 					<!-- 테이블2 포스트 th -->
 					<div id="hidebox">	
 						<div class="hb_left">
@@ -563,6 +565,9 @@ function drawPaging(pd) {
 						</div>
 					</div>
 				</div> <!-- 더보기 박스 end -->
+					</tbody>
+				</table>
+				
 				<!--  페이징  -->
 				<div class="Cpaging"></div>
 			</div>
