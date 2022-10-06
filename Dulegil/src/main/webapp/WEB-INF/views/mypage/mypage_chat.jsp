@@ -58,6 +58,7 @@
 	</style>
 <script type="text/javascript">
 $(document).ready(function(){
+	reloadList();
 	var ws;
 	wsOpen();
 	
@@ -116,6 +117,39 @@ function send() {
 		ws.send(JSON.stringify(option));
 		$('#msg').val("");
 }
+
+function reloadList() {
+	var params = $("#chatForm").serialize();
+	
+	console.log(params);
+	$.ajax({
+		url : "chatMsgList", //경로
+		type : "POST", //전송방식
+		dataType : "json", //데이터 형태
+		data : params, //보낼 데이터
+		success : function(res) {//성공했을 때 결과를 res에 받고 함수 실행
+			drawList(res.list);
+		},
+		error : function(request, status, error) {
+			console.log(request.responseText); //실패 상세 내역
+		}
+	});
+		
+		
+}
+function drawList(list){
+	var html = "";
+	
+	for(var data of list){
+		if(data.MEMBER_NO == ${sMemNo}){
+			html += "<p class='me'>나 :" + data.CONTENTS + "</p>";			
+		}
+		else{
+			html += "<p class='others'>" + data.NM + " :" + data.CONTENTS + "</p>";		
+		}
+	}
+	$("#chatting").html(html);
+}
 </script>
 </head>
 <body>
@@ -138,10 +172,14 @@ function send() {
 	
   <div id="container" class="container">
 		<h1>채팅</h1>
-		<input type="hidden" id="sessionId" value="">
-		<input type="hidden" id="postNo" value="${postNo}">
-		<input type="hidden" id="memNo" value="${sMemNo}">
-		<input type="hidden" name="userName" id="userName" value="${sMemNm}">
+		<form action="#" id="chatForm">
+			<input type="hidden" id="sessionId" value="">
+			<input type="hidden" name="postNo" id="postNo" value="${postNo}">
+			<input type="hidden" name="memNo" id="memNo" value="${sMemNo}">
+			<input type="hidden" name="userName" id="userName" value="${sMemNm}">
+			<input type="hidden" name="postMemNo" id="postMemNo" value="${postMemNo}">
+		
+		</form>
 		<div id="chatting" class="chatting">
 		</div>
 	
