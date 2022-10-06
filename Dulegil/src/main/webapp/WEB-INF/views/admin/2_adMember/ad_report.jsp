@@ -11,24 +11,23 @@
 .sel{
 	width: 130px;
 }
-
 #process.sel{
  width:70px;
 }
-
-
 #pCateNo{
 	width: 120px;
 	outline: none;
 	margin-left: 0;
 }
 /* 테이블 */
+.Ctable td{
+	padding: 0;
+}
 th:nth-child(12) {
 	width: 70px;
 }
 
-td {
-	font-size: small;
+.cPost td {
 	border-bottom: solid 0.5px #ebebeb;
 	padding: 8px;
 }
@@ -147,28 +146,24 @@ position:relative;
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	// 카테고리가 변경됐을때
+	$(".Ccate").on("change","#pCateNo", function(){
+		console.log(this);
+		console.log($(this).val());
+		var no = $(this).val();
+		$("#pCateNo").val(no);
+		
+		$("#page").val("1");
+		$("#searchGbn").val("0");
+		$("#searchTxt").val("");
+		$("#oldGbn").val("0");
+		$("#oldTxt").val("");
+		
+		//목록 재조회
+		reloadList();
+	});
 
-		
-		// 카테고리가 변경됐을때
-		$(".Ccate").on("change","#pCateNo", function(){
-			console.log(this);
-			console.log($(this).val());
-			var no = $(this).val();
-			$("#pCateNo").val(no);
-			
-			$("#page").val("1");
-			$("#searchGbn").val("0");
-			$("#searchTxt").val("");
-			$("#oldGbn").val("0");
-			$("#oldTxt").val("");
-			
-			//목록 재조회
-			reloadList();
-		});
 	
-		
-		
-		
 	// 목록 구분 설정
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
@@ -177,9 +172,6 @@ $(document).ready(function(){
 	}	
 	reloadList();
 	
-	
-	
-	
 	// 목록 구분 설정
 	if("${param.process}" != ""){
 		$("#process").val("${param.process}");
@@ -187,9 +179,6 @@ $(document).ready(function(){
 		$("#process").val("0");
 	}	
 	reloadList();
-	
-	
-	
 	
 	// 검색 버튼 클릭시
 	$("#searchBtn").on("click", function(){
@@ -201,7 +190,6 @@ $(document).ready(function(){
 		reloadList();
 	});
 	
-	
 	// 페이징 버튼
 	$(".Cpaging").on("click", "#pBtn", function(){
 		// 기존 검색상태 유지
@@ -212,12 +200,6 @@ $(document).ready(function(){
 		reloadList();		
 	});
 
-	
-	
-
-	
-	
-	
 	function reloadList(){
 		var params = $("#actionForm").serialize();
 		
@@ -270,14 +252,6 @@ function drawPaging(pd) {
 	$(".Cpaging").html(html); 
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 게시글 목록 함수
 	function drawList(list){
 		var html = "";
@@ -322,24 +296,6 @@ function drawPaging(pd) {
 	
 		$(".list tbody").html(html);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-		
 		
 	function reloadList2(){
 		var params = $("#actionForm").serialize();
@@ -371,8 +327,6 @@ function drawPaging(pd) {
 		});
 		
 	} // reloadList end
-	
-		
 	
 	// 처리중 상태 업데이트
 	$("tbody").on("change","tr #process", function(){
@@ -419,9 +373,6 @@ function drawPaging(pd) {
 		
 	} // reloadList end
 	
-	
-	
-	
 	// 더보기 아이콘 클릭시
 	$("tbody").on("click","tr span#show", function(){
 		$("#cateNo").val($(this).parent().parent().parent().attr("cate"));
@@ -448,11 +399,6 @@ function drawPaging(pd) {
 		}
 		
 	});
-	
-	
-	
-	
-	
 	
 	//comment가 있을때
 	function drawList2(comment){
@@ -485,7 +431,6 @@ function drawPaging(pd) {
 		
 		}
 		
-
 		$("#hide tbody").html(html);
 		$("#hide .cmtBoxWrap").html(a);
 		
@@ -495,10 +440,6 @@ function drawPaging(pd) {
 		$("#cateNo").val("");
 	}
 		
-	
-	
-	
-	
 	//post가 있을때
 	function drawList3(post){
 		var html = "";
@@ -523,27 +464,9 @@ function drawPaging(pd) {
 		
 		$("#hide tbody").html(html);
 		$("#hide .cmtBoxWrap").html(a);
-	}
-	
-	
-	
-	
-	
-
-	
-		
-	
-});
-
-
-	
+	}	
+});	
 </script>
-
-
-
-
-
-
 </head>
 <body>
 	<jsp:include page="../adHeader.jsp" flush="true"/>
