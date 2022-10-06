@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>코스 안내</title>
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <link rel="stylesheet" href="resources/css/course.css" />
+<title>코스 안내</title>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("ul.infoBtn li").click(function(){
@@ -23,7 +23,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
 	<!-- Header -->
 	<c:import url="/header"></c:import>
 
@@ -57,7 +56,7 @@ $(document).ready(function(){
 				</div>	
 			</div>
 			
-			<div class="crsMap">지도</div>
+			<div id="map" style="width:800px;height:600px;"></div>
 			
 			<div class="crsMapDtl">
 				<img src="resources/images/mark.png">
@@ -250,6 +249,32 @@ $(document).ready(function(){
 
 	<!-- footer -->
 	<jsp:include page="../common/footer.jsp" flush="true"/>
-
 </body>
+<!-- 지도 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8d38ddde2d7bb1d66146f9d2cdccedf3"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(37.65456,127.08348), //지도의 중심좌표. !!!내용수정하기
+			level: 7 //지도의 레벨(확대, 축소 정도)
+	};
+	var map = new kakao.maps.Map(container, options);
+	
+	var linePath = [];
+
+	// 지도에 표시할 선을 생성합니다
+	var polyline = new kakao.maps.Polyline({
+	    path: linePath, // 선을 구성하는 좌표배열 입니다
+	    strokeWeight: 5, // 선의 두께 입니다
+	    strokeColor: '#0077CC', // 선의 색깔입니다
+	    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+	    strokeStyle: 'solid' // 선의 스타일입니다
+	});
+
+	// 지도에 선을 표시합니다 
+	polyline.setMap(map);  
+});
+</script>
 </html>

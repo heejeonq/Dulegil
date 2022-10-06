@@ -18,15 +18,13 @@
 .Ctable td:nth-child(2) {
     text-align: center;
 }
+#conTit:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	
-	
-	
-	
-	
 	if("${param.searchGbn}" != ""){
 		$("#searchGbn").val("${param.searchGbn}");
 	}else{
@@ -271,7 +269,7 @@ function drawList(list){
 		html += "<td>"+ data.COMMENT_NO +"</td>";
 		html += "<td cate=\""+ data.BLTNBOARD_NO +"\">"+ data.BLTNBOARD_NM +"</td>";
 		html += "<td style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.TITLE +"</td>";
-		html += "<td pNo=\"" +data.POST_NO +"\" style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.CONTENTS +"</td>";
+		html += "<td id=\"conTit\"pNo=\"" +data.POST_NO +"\" style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">"+ data.CONTENTS +"</td>";
 		html += "<td>"+ data.NM +"</td>";
 		html += "<td>"+ data.REG_DT +"</td>";
 		html += "<td><input type=\"checkbox\"id=\"Check\" name=\"Check\" value=\""+data.COMMENT_NO+"\" /></td>";
