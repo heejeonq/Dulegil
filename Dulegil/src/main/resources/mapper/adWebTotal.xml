@@ -25,7 +25,7 @@
 
 	
 	<!-- 연도 별 통계 -->
-	<select id="list" resultType="hashmap">
+	<select id="year" resultType="hashmap">
 		SELECT M.YEAR, M.MEM, P.POST, C.CMT, A.ACOM
 		FROM ( 	SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS MEM    
         		FROM MEMBER
@@ -63,7 +63,7 @@
 
 
 	<!-- 월 별 통계 -->
-	<select id="list" resultType="hashmap">
+	<select id="month" resultType="hashmap">
 		SELECT M.MONTH, M.MEM, P.POST, C.CMT, A.ACOM
 		FROM ( 	SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS MEM    
 		        FROM MEMBER
@@ -107,7 +107,7 @@
 
 
 	<!-- 일 별 통계 -->
-	<select id="list" resultType="hashmap">
+	<select id="day" resultType="hashmap">
 	SELECT M.DAY, M.MEM, P.POST, C.CMT, A.ACOM
 	FROM (  SELECT TO_CHAR(REG_DT, 'YYYYMMDD') AS DAY, COUNT(*) AS MEM    
         	FROM MEMBER
