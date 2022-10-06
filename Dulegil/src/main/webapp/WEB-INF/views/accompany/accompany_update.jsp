@@ -48,14 +48,18 @@ $(document).ready(function(){
 	      height : 400
 	      });
 	
+	      
 		
 	
 	$(".cosSell").change(function(){
 		$("#courseNo").val($(this).val());
 	});
 	
+	$(".cosSell").val($("#courseGbn").val());
+	
 	//취소버튼
 	$("#cancelBtn").on("click", function() {
+		$("#backForm").attr("action","accompanyDetail")
 		$("#backForm").submit();
 	 });
 	 
@@ -133,7 +137,7 @@ $(document).ready(function(){
        	                  switch(res.msg){
        	                  
        	                  case "success" :
-       	          
+       	          			$("#backForm").attr("action","accompany")
        	                    $("#backForm").submit();
        	                     break;
        	                  case "fail" :
@@ -183,12 +187,14 @@ $(document).ready(function(){
 			<div class="tit">동행구하기</div>
 			<div class="col"></div>
 			
-			<form action="accompany" id="backForm" method="post">
+			<form action="#" id="backForm" method="post">
 		  		<!-- 전화면에서 넘어온 페이지정보 -->
 		   		<input type="hidden" id="page" name="page" value="${param.page}"/>
 		      	<!-- 전화면에서 넘어온 검색 정보 -->
 		      	<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
-		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" /> 
+		        <input type="hidden" id="courseGbn" value="${param.courseNo}" />
+		        <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> 
 		       
 		   </form>
 			
@@ -214,7 +220,7 @@ $(document).ready(function(){
 			<div class="cosWrap">
 				<div class="cosNm">코스선택</div>
 				<div class="cosBox">
-					<select class="cosSell">
+					<select class="cosSell" name="courseNo">
 						<option value="0">코스를 선택해 주세요.</option>
 						<option value="1">1코스-수락·불암산코스	</option>
 						<option value="2">2코스-용마·아차산코스	</option>

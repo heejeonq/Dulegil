@@ -57,38 +57,24 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
-//특수문자 입력 방지
+//특수문자, 숫자 입력 방지
 function check(obj){
-// 허용할 특수문자는 여기서 삭제하면 된다.
-var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+// 허용할 문자는 여기서 삭제하면 된다.
+var regExp1 = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/g; 
+var regExp2 = /[0-9]/g; 
 
-//배열에서 하나씩 값을 비교
-if( regExp.test(obj.value) ){
-	alert("특수문자는 입력하실수 없습니다.");
-	
+//배열에서 하나씩 값을 비교 (.test()괄호안에 있는 값이 .앞에 있는 값에 포함 되면 true/obj.value값이 인풋 안에 들어간 벨류 값(입력 받은 값.))
+if( regExp1.test(obj.value) ){
+	alert("특수문자는 입력하실수 없습니다.");  
+	//값이 일치하면 문자를 삭제             //첫번째부터 맨 마지막의 앞자리까지 잘라줌.(그 값의 길이의 -1은 불포함)    
+	obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움.
+	} 
+if( regExp2.test(obj.value) ){
+	alert("숫자는 입력하실수 없습니다.");
 	//값이 일치하면 문자를 삭제
 	obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움.
 	}
 } 
-
-/* function check(t){
-	  var regexp = /[^ㄱ-ㅎ가-힣a-z]/gi;
-	  t.onkeyup = function(e){
-	    var v = this.value;
-	    this.value = v.replace(regexp,'');
-	  }
-	} */
-	
-/* $(function(){
-	     $(".nm").keyup(function (event) {
-	          regexp = /[0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
-	          v = $(this).val();
-	          if (regexp.test(v)) {
-	              alert("한글과 영문만 입력가능 합니다.");
-	              $(this).val(v.replace(regexp, ''));
-	          }
-	      });
-}); */
 
 </script>
 <script type="text/javascript">
@@ -190,17 +176,30 @@ $(document).ready(function(){
 });
 
 <!--이미지 파일 넣기-->
+// 미리보기 처리 함수
 function readURL(input) {
 	 // 파일 선택했을 때 새로운 이미지 파일로 이미지가 변경
+	 // 인풋 태그에 파일이 있는경우
 	 if (input.files && input.files[0]) {
-	   var reader = new FileReader();
+	   var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+	   //파일명의 경로를 읽어(reader가 동작하면 함수 실행)
 	   reader.onload = function(e) {
-		 document.getElementById('preview').src = e.target.result;
+		 // 파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러                
+		 // 이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
+		 //자바스크립트로 아이디 불러올때  document.getElementById
+		 //제이쿼리는 자바스크립트의 라이브러리. 그래서 더 간편하게 쓸 수 있음
+		 //제이쿼리 아이디 호출은 $("#preview")
+		                                   //읽은 파일명의 대상의 실제 경로로 주소를 바꿈
+		//document.getElementById('preview').src = e.target.result;
+		 $("#preview").attr("src",e.target.result)
 	   };
+	 //File내용을 읽어 dataURL형식의 문자열로 저장
+	 //readAsDataURL 메서드는 컨텐츠를 특정 Blob 이나 File에서 읽어 오는 역할을 한다.
 	   reader.readAsDataURL(input.files[0]);
 	 } else {
 	   // 파일 선택 누르고 취소 누르면 전에 저장 되어있는 이미지 파일이 보여짐.
-	   document.getElementById('preview').src = "resources/upload/${data.IMG_FILE}";
+	   // document.getElementById('preview').src = "resources/upload/${data.IMG_FILE}";
+	   $("#preview").attr("src","resources/upload/${data.IMG_FILE}")  
 	 }
   }
   
@@ -244,6 +243,7 @@ function readURL(input) {
                            
                            <!-- 기존파일 삭제후 새파일 용도 --> 
                            <span class="img"> 
+                              <!-- 파일명이 바뀌면 onchange 이벤트가 돈다. input type="file" 벨류 값은 파일명임 -->
                               <input type="file" name="img" onchange="readURL(this);"/> 
                               <!-- value="${data.IMG_FILE}"이게 없으면 사진 수정 없이 수정완료를 했을때 사진이 빔. -->
                               <input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
@@ -274,8 +274,8 @@ function readURL(input) {
 							                   <!--xml에 있는 #이 name이야!..
 							                   name은 그냥 이름일뿐 값은 따로 있어. 그 값이 input은 벨류가 입력 값이야.
 							                   이게무슨말이냐. 입력값이 없으면 원래 받아온 정보를 보여주고,
-							                   있으면 그값으로 바뀜.-->
-							<input type="text" name="nm" id="nm" maxlength="10" onkeyup="check(this)" onkeydown="check(this)" value="${data.NM}">
+							                   있으면 그 값으로 바뀜.-->
+							<input type="text" name="nm" id="nm" maxlength="10" onkeyup="check(this)" value="${data.NM}">
 						</div>	
 						<div class="input">*선택 입력 사항</div>
 						<div class="dtBrt01">

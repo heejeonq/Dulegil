@@ -608,6 +608,7 @@ function reloadList(){
 			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
 			<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}"/>
 			<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+			<input type="hidden" name="courseNo" id="courseNo" value="${data.COURSE_NO}"/>
 		</form>
 
 	<div class="mainWrap">

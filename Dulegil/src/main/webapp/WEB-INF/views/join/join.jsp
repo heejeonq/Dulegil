@@ -107,6 +107,21 @@ function action(flag){
     });
 } 
 
+function check(obj){
+	// 허용할 특수문자는 여기서 삭제하면 된다.
+	var regExp1 = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+
+	//배열에서 하나씩 값을 비교 (.test()괄호안에 있는 값이 .앞에 있는 값에 포함 되면 true/obj.value값이 인풋 안에 들어간 벨류 값(입력 받은 값.))
+	if( regExp1.test(obj.value) ){
+	   alert("특수문자는 입력하실수 없습니다.");
+	   //값이 일치하면 문자를 삭제             //첫번째거부터 맨 마지막의 앞자리까지 잘라줌(그 값의 길이의 -1)
+	   obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움.
+	   
+	}else{
+		   
+	}
+} 
+
 $(document).ready(function() {
 	$("#cnfmBtn").on("click", function(){
 		$("#chkId").val("0");
@@ -206,9 +221,9 @@ $(document).ready(function() {
 						<th>아이디</th>
 						<td>
 							<input type="hidden" name="email" id="email">
-						 	<input type="text" name="id" id="id" placeholder="영문소문자/숫자, 5~20자 이내" maxlength="20" /> 
+						 	<input type="text" name="id" id="id" onkeyup="check(this)" placeholder="영문 대/소문자, 숫자, 4~20자 이내" maxlength="20" /> 
 							<p id="at">@</p> 
-							<input type="text" name="emailId" id="emailId" placeholder="직접 입력" />
+							<input type="text" name="emailId" id="emailId" placeholder="직접 입력" onkeyup="check(this)" />
 							<select id="emailSel" name="emailSel" onChange="emailSelect(this)">
 								<option value="1">직접 입력</option>
 								<option value="naver.com">naver.com</option>
@@ -224,25 +239,25 @@ $(document).ready(function() {
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input type="password" name="pwd" id="pwd" placeholder="영문 소문자/숫자 조합, 8자이상 20자 이내"  maxlength="20" />
+							<input type="password" name="pwd" id="pwd" onkeyup="check(this)" placeholder="영문 대/소문자, 숫자 8자이상 20자 이내"  maxlength="20" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
 						<td>
-							<input type="password" name="cnfmPwd" id="cnfmPwd" maxlength="20" />
+							<input type="password" name="cnfmPwd" id="cnfmPwd" maxlength="20" onkeyup="check(this)" />
 						</td>
 					</tr>
 					<tr>
 						<th>이름</th>
 						<td>
-							<input type="text" name="nm" id="nm" />
+							<input type="text" name="nm" id="nm" placeholder="영문 대/소문자, 한글, 숫자 10자 이내" maxlength="10" onkeyup="check(this)"/>
 						</td>
 					</tr>
 					<tr>
 						<th>휴대전화</th>
 						<td>
-							<input type="text" name="phn" id="phn" placeholder="- 없이 입력하세요" maxlength="11" />
+							<input type="text" name="phn" id="phn" placeholder="- 없이 입력하세요" maxlength="11" onkeyup="check(this)" />
 						</td>
 					</tr>
 				</table>

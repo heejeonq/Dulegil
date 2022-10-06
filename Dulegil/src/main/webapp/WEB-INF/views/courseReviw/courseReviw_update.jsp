@@ -50,13 +50,17 @@ $(document).ready(function(){
 	      });
 	
 
-$("select[name=courseNo]").change(function(){
-	  console.log($(this).val()); //value값 가져오기
-	  console.log($("select[name=courseNo] option:selected").text()); //text값 가져오기
-}); 
+ 
+ $(".cosSell").val($("#courseGbn").val());
+ 
+
+
+ 
+
 	
 //취소버튼
 $("#cancelBtn").on("click", function() {
+	  $("#backForm").attr("action","courseReviewDetail")
 	$("#backForm").submit();
  });
  
@@ -89,7 +93,7 @@ $("#updateBtn").on("click", function() {
        });     
     } else if ($(".cosSell").val()=='0') {
        makeAlert("알림", "코스를 선택해 주세요.", function() {
-    	   $("#contents").focus();
+    	   $("#courseNo").focus();
        });
     } else if ($("#attFile").val()=='') {
     	makeAlert("알림", "사진을 등록해 주세요.");  
@@ -122,6 +126,7 @@ $("#updateBtn").on("click", function() {
     	   	                  switch(res.msg){
     	   	                  
     	   	                  case "success" :
+    	   	                	  $("#backForm").attr("action","courseReview")
     	   	                    $("#backForm").submit();
     	   	                     break;
     	   	                  case "fail" :
@@ -169,28 +174,31 @@ $("#updateBtn").on("click", function() {
 			<div class="tit">코스 별 후기</div>
 			<div class="col"></div>
 			
-			<form action="courseReview" id="backForm" method="post">
+			<form action="#" id="backForm" method="post">
 		  		<!-- 전화면에서 넘어온 페이지정보 -->
-		   		<input type="hidden" id="page" name="page" value="${param.page}"/>
-		   		<input type="hidden" name="no" value="${data.POST_NO}" />
+		   		<input type="hidden" id="page" name="page" value="${param.page}"/> 
 		      	<!-- 전화면에서 넘어온 검색 정보 -->
 		      	<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}" /> 
 		        <input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt}" />
+		        <input type="hidden" id="courseGbn" value="${param.courseNo}" />
+		   		<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
+		     <!-- <input type="hidden" name="no" value="${data.POST_NO}" /> -->   
 		        		       
 		   </form>
 			
-			<div class="midBox">			
+			<div class="midBox">
+						
 			<div class="titWrap">
 			
 			<form action="fileUploadAjax" id="actionForm" method="post" enctype="multipart/form-data">
 				 <input type="hidden" name="imgFile" id="imgFile" /> <!-- 실 저장된 파일명 보관용 -->
-				<!-- <input type="hidden" name="courseNo" id="courseNo" />실 저장된 파일명 보관용 -->
+				 <input type="hidden" name="courseNo" id="courseNo" />
 				 <input type="hidden" name="memberNo" id="memberNo" value="${sMemNo}" /> <!-- 실 저장된 파일명 보관용 -->
 				 <input type="hidden" name="no" value="${data.POST_NO}" />
 				
 				<div class="titNm">제목</div>
 				<div class="titBox">
-				<input type="text" class="titCon" name="title" id="title">
+				<input type="text" class="titCon" name="title" id="title" value= "${data.TITLE}" />
 				</div>
 			</div>
 

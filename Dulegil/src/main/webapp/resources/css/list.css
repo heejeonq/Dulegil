@@ -208,11 +208,46 @@ tbody tr:hover {
 
 /*명예의전당*/
 
+.go-prev,.go-next{
+	cursor: pointer;
+}
+.sec_cal {
+    width: 360px;
+    margin: 0 auto;
+    font-family: "NotoSansR";
+}
+.sec_cal .cal_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 78px;
+}
+
+.sec_cal .cal_nav .year-month {
+    width: 300px;
+    text-align: center;
+    line-height: 1;
+}
+.sec_cal .cal_nav .nav {
+    display: flex;
+    border: 1px solid #333333;
+    border-radius: 5px;
+}
+
 .monSelBox {
 	text-align: center;
 	padding:15px;
 }
-
+.monthCon{
+	border: none;
+    width: 20%;
+    height: 30px;   
+    float: left;
+    margin:10px 483px 30px;
+    font-size: 20px
+}
 .monthSel {
 	font-size: 20px;
 	display: inline-block;
