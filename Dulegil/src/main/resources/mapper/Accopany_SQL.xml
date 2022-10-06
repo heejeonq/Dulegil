@@ -153,6 +153,7 @@ SELECT BB.TITLE, AA.POST_NO, BB.MEMBER_NO
                         AND STATE_NO = 2
                         AND M.MEMBER_NO = #{memNo}
       ) CBA ON ABC.POST_NO = CBA.POST_NO  
+      
       ) A ON A.ACMP = M.MEMBER_NO
       LEFT JOIN RELIABILITY R
                    ON A.ACMP = R.TARGET_RATING_MEMBER_NO
