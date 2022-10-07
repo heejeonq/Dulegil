@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj51.Dulegil.util.Utils;
 import com.gdj51.Dulegil.web.dao.IDao;
 
 @Controller
@@ -36,17 +37,16 @@ public class LoginController {
 
 	@RequestMapping(value = "/memberLoginAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String loginAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String loginAjax(HttpSession session, 
+			@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> model = new HashMap<String, String>();
 
-//		//암호화
-//		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
-//		System.out.println(params.get("pwd"));
-//		
-//		//복호화
-//		System.out.println(Utils.decryptAES128(params.get("pwd")));
-//		
+		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+		System.out.println(params.get("pwd"));
+		
+		System.out.println(Utils.decryptAES128(params.get("pwd")));
+		
 		
 		HashMap<String, String> data = dao.getMap("adLogin.checkMember", params);
 		if (data != null) {
