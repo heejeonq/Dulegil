@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj51.Dulegil.util.Utils;
 import com.gdj51.Dulegil.web.dao.IDao;
 
 @Controller
@@ -73,13 +74,12 @@ public class MypageInfoController {
 		// Object는 다 가능 포괄적인 느낌.
 		Map<String, Object> model = new HashMap<String, Object>();
 
-//		//암호화
-//		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
-//		System.out.println(params.get("pwd"));
-//		
-//		//복호화
-//		System.out.println(Utils.decryptAES128(params.get("pwd")));
-
+		/*
+		 * // 암호화 params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+		 * System.out.println(params.get("pwd"));
+		 * 
+		 * // 복호화 System.out.println(Utils.decryptAES128(params.get("pwd")));
+		 */
 //		HashMap은 키 값의 형태로 이루어짐.
 		HashMap<String, String> data = new HashMap<String, String>();
 
@@ -92,6 +92,14 @@ public class MypageInfoController {
 				// 메소드 = 함수
 				// 메소드 생성()괄호 안에 있는 값을 받아야함
 				// 메소드 호출()괄호 안에 있는 것은 보내주는 값.
+
+				// 암호화
+				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+				System.out.println(params.get("pwd"));
+
+				// 복호화
+				System.out.println(Utils.decryptAES128(params.get("pwd")));
+
 				data = dao.getMap("member.checkPwd", params);
 				if (data != null) {
 					model.put("msg", "success");
@@ -100,6 +108,14 @@ public class MypageInfoController {
 				}
 				break;
 			case "myinfoUpdate":
+
+				// 암호화
+				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+				System.out.println(params.get("pwd"));
+
+				// 복호화
+				System.out.println(Utils.decryptAES128(params.get("pwd")));
+
 				cnt = dao.update("member.updateMyinfo", params);
 				if (cnt > 0) {
 					model.put("msg", "success");
