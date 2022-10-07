@@ -47,7 +47,7 @@ public class LoginController {
 //		//복호화
 //		System.out.println(Utils.decryptAES128(params.get("pwd")));
 //		
-
+		
 		HashMap<String, String> data = dao.getMap("adLogin.checkMember", params);
 		if (data != null) {
 			session.setAttribute("sMemNo", data.get("MEMBER_NO"));
@@ -65,30 +65,6 @@ public class LoginController {
 		// 요청 사용자 세션 초기화
 		sesstion.invalidate();
 		mav.setViewName("redirect:main");
-		return mav;
-	}
-
-	@RequestMapping(value = "/findID")
-	public ModelAndView findID(ModelAndView mav) {
-		mav.setViewName("login/find_ID");
-		return mav;
-	}
-
-	@RequestMapping(value = "/findPW")
-	public ModelAndView findPW(ModelAndView mav) {
-		mav.setViewName("login/find_PW");
-		return mav;
-	}
-
-	@RequestMapping(value = "/viewID")
-	public ModelAndView viewID(ModelAndView mav) {
-		mav.setViewName("login/view_ID");
-		return mav;
-	}
-
-	@RequestMapping(value = "/viewPW")
-	public ModelAndView viewPW(ModelAndView mav) {
-		mav.setViewName("login/view_PW");
 		return mav;
 	}
 
