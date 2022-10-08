@@ -38,4 +38,7 @@ public interface IDao {
 		public int delete(String sql) throws Throwable;
 		
 		public int delete(String sql, HashMap<String, String> params) throws Throwable;
+
+		//추가
+		public List<HashMap<String, Object>> getList2(String sql) throws Throwable;
 }

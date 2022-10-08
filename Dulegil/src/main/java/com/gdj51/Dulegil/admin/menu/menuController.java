@@ -30,13 +30,6 @@ public class menuController {
 	
 	
 	
-	// 메뉴 - 웹사이트 활동 집계
-	@RequestMapping(value="/adWebTotal")
-	public ModelAndView adWebTotal (ModelAndView mav) {
-		
-		mav.setViewName("admin/5_adAggregation/ad_websiteTotal");
-		return mav;
-	} 
 	
 	
 	

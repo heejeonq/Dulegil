@@ -158,6 +158,7 @@ public class CourseReviewController {
 			ModelAndView mav)throws Throwable {
 		
 		if(params.get("no") != null && params.get("no") != "") {
+			
 			dao.update("updateCRHit",params);
 			
 			HashMap<String,String> data = dao.getMap("courseR.getCR",params);

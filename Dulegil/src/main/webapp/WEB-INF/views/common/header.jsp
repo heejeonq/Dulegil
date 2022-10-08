@@ -4,28 +4,34 @@
 <link rel="stylesheet" href="resources/css/mainCon.css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".alarm_num").hide();
-	if($("#memNo").val() != "" && $("#memNo").val() != null){
-		alarm("alarm");		
-	}else{
-	}
+	
+	$("#login").on("click", function(){
+		location.href = "login";
+	});
 	
 	// 로그인/로그아웃	
 	$("#logout").on("click", function(){
 		location.href ="logout";
 	});
 	
-	$("#login").on("click", function(){
-		location.href = "login";
-	});
+	//알림 개수는 숨긴다.
+	$(".alarm_num").hide();
+	//만약 회원 이름의 값이 공백이 아니거나 널 값이 아니면(로그인 된 상태면) 
+	if($("#memNo").val() != "" && $("#memNo").val() != null){
+		//종모양과 알림 개수를 보여줌.
+		alarm("alarm");		
+	}else{
+	}
 	
-	//알람 버튼
+	//알람 버튼 누르면
 	$(".alarm").on("click", function(){
+		//만약 알람 내용의 css가 ﻿style="display: none;"이었으면
 		if($(".alarm_contents").css("display") == "none"){
+			//block으로 바뀌니 내용을 보여주고, 알림 체크가 된다. 
 			$(".alarm_contents").show();
 			alarm("alarmCheck");	
 		}
-		else {
+		else {//block이었으면 none으로 바뀌고 내용이 보이지 않게 숨긴다.
 			$(".alarm_contents").hide();
 		}
 	});
@@ -35,6 +41,7 @@ $(document).ready(function(){
 function alarm(flag){
 	var params = $("#alarmForm").serialize();   
 	
+	//알림 체크가 되었을때
 	if(flag == "alarmCheck"){
 
 	      $.ajax({
@@ -69,10 +76,12 @@ function alarm(flag){
 }
 
 function drawAlarm(cnt, list){
+	//cnt(알림 개수)가 0이 아니면
 	if(cnt != "0"){
+		//알림 개수를 보여준다.
 		$(".alarm_num").show();
 	}
-	else {
+	else {//아니면 숨긴다
 		$(".alarm_num").hide();
 	}
 	$(".alarm_num").html(cnt);
@@ -80,7 +89,7 @@ function drawAlarm(cnt, list){
 	let html = "";
 	
 	for(let data of list){
-		html += "<div class = \"alarmMsg\">";
+		html += "<div class = \"alarmMsg\">"; //동행 신청 게시글 번호       //신청한 사람 이름
 		html += "<li id=\"nmAlarm\" postNo=\"" + data.POST_NO + "\">[" +data.NM + "]님이 동행을 신청하였습니다.</li>";
 		html += "<li id=\"regDtAlarm\" postNo=\"" + data.POST_NO + "\">" +data.REG_DT + "</li>";		
 		html += "</div>";
@@ -97,8 +106,9 @@ function drawAlarm(cnt, list){
 		<div class="util">
 			<ul>
 			<c:choose>
-				<c:when test="${empty sMemNm}"><!-- el태그의 empty : 해당 값이 비어있는지 확인 -->
-					
+				<%-- el태그의 empty : 해당 값이 비어있는지 확인 sMemNm가 없으면(로그인 되어있지 않으면) --%>
+				<c:when test="${empty sMemNm}">
+					<%-- 로그인과 회원가입을 보여줌. --%>
 					<li><a href="login" id="login"> 로그인 </a></li>
 					<li>
 						<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
@@ -107,6 +117,7 @@ function drawAlarm(cnt, list){
 					</li>
 					<li><a href="join"> 회원가입 </a></li>
 				</c:when>
+				<%-- 그렇지 않으면 로그아웃과 마이페이지, 알림을 보여줌 --%> 
 				<c:otherwise>
 					<li><a href="logout" id="logout"> 로그아웃 </a></li>
 					<li>
@@ -121,6 +132,7 @@ function drawAlarm(cnt, list){
 				</svg>
 				</li>
 				<li class="alarm"><img src="resources/images/notification.png" class="alarm_img"><span class="alarm_num"></span>
+					<!-- 알림창 내용 -->
 					<div class="alarm_contents">
 					</div>
 				</li>	

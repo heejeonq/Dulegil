@@ -84,12 +84,22 @@ $(document).ready(function(){
 	$("input[name='gen'][value='${data.GENDER}']").prop("checked",true);
 
 	$("#updatemBtn").on("click", function(){
-		if($.trim($("#cnfmPwd").val()) == "") {
-			makeAlert("알림", "비밀번호를 입력해주세요", function(){;
+	   if ($("#pwd").val() !== "" && $("#cnfmPwd").val() == "") {
+			makeAlert("알림", "새 비밀번호 확인란을 입력해주세요.", function(){;
 				$("#cnfmPwd").focus();	
 			});
 		}
-		else if($.trim($("#nm").val()) == "") {
+	   else if($("#pwd").val() == "" &&  $("#cnfmPwd").val() !== "") {
+			makeAlert("알림", "새 비밀번호 입력란을 입력해주세요.", function(){;
+				$("#pwd").focus();	
+			});
+		}
+	   else if($("#pwd").val() !== $("#cnfmPwd").val()){
+		   makeAlert("알림", "입력한 비밀번호가 비밀번호 확인과 일치하지 않습니다", function(){;
+			$("#pwd").focus();	
+		});
+	   }
+	   else if($.trim($("#nm").val()) == "") {
 			makeAlert("알림", "이름을 입력해주세요", function(){;
 				$("#nm").focus();	
 			});
@@ -119,7 +129,9 @@ $(document).ready(function(){
 				            success: function(res) { 
 				            	switch(res.msg) {
 				            	case "success" : makeAlert("알림", "수정이 완료되었습니다.", function(){
+
 				            		location.href = "mypageMyinfo";
+				            		
 				            		});
 				            		break;
 				            		
@@ -223,6 +235,7 @@ function readURL(input) {
 			    <!-- value="${sMemNo}"를 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 값을 가져오기 위해 -->
 			    <!-- 수정할 정보를 쿼리에 주기 위해서(컨트롤러에서 /mypageAjax/{gbn}부분 업데이트문에 영향) --> 
 				<input type="hidden" name="memNo" value="${sMemNo}">
+				<input type="hidden" name="haha" >
 	 
 			<div class="mem_box">	
 				<div class="contents_wrap">		
@@ -263,11 +276,11 @@ function readURL(input) {
 						</div>
 						<div class="pw01">
 							<label for="pw"></label>
-							<input type="password" name="pwd" id="pwd" value="${data.PWD}" readonly="readonly">
+							<input type="password" name="pwd" id="pwd" placeholder="새 비밀번호 입력">
 						</div>
 						<div class="pw02">
 							<label for="pw"></label>
-							<input type="password" name="cnfmPwd" id="cnfmPwd" placeholder="비밀번호 확인">
+							<input type="password" name="cnfmPwd" id="cnfmPwd" placeholder="새 비밀번호 확인">
 						</div>
 						<div class="name01">
 							<label for="name"></label>

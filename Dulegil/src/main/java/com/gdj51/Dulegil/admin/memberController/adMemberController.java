@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.mapper.Mapper;
-import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj51.Dulegil.common.service.IPagingService;
 import com.gdj51.Dulegil.web.dao.IDao;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 @Controller
 public class adMemberController {
