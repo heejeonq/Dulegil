@@ -97,9 +97,6 @@ public class MypageInfoController {
 				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 				System.out.println(params.get("pwd"));
 
-				// 복호화
-				System.out.println(Utils.decryptAES128(params.get("pwd")));
-
 				data = dao.getMap("member.checkPwd", params);
 				if (data != null) {
 					model.put("msg", "success");
@@ -110,13 +107,12 @@ public class MypageInfoController {
 			case "myinfoUpdate":
 
 				// 암호화
-				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
-				System.out.println(params.get("pwd"));
-
-				// 복호화
-				System.out.println(Utils.decryptAES128(params.get("pwd")));
+				if (params.get("pwd") != null && !params.get("pwd").equals("")) {
+					params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+				}
 
 				cnt = dao.update("member.updateMyinfo", params);
+
 				if (cnt > 0) {
 					model.put("msg", "success");
 				} else {

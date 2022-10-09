@@ -94,7 +94,7 @@ public class CourseReviewController {
 	@RequestMapping(value = "/CourseRevAction/{gbn}", 
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")
-	@ResponseBody
+	@ResponseBody//자바스크립트 형태로 넘어감
 	public String CoreseRevAction(
 			@PathVariable String gbn, 
 			@RequestParam HashMap<String, String> params) throws Throwable {
@@ -130,7 +130,9 @@ public class CourseReviewController {
 
 		return mapper.writeValueAsString(model);
 	}
-
+	//ModelAndView
+	//Model :저장소
+	//view: 출력 페이지
 	@RequestMapping(value = "/courseReviewUpdate")
 	public ModelAndView courseReviewUpdate(@RequestParam HashMap<String, String> params, ModelAndView mav)
 			throws Throwable {
