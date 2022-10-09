@@ -36,24 +36,55 @@
 			height: 500px;
 			overflow: auto;
 		}
-		.chatting .me{
-			color: #000000;
-			text-align: right;
+		.sendMsg input{
+			height: 35px;
+    		width: 90%;
+    		border: 1px solid #7d7d7d7d;
+    		padding: 10px;
 		}
-		.chatting .others{
-			color: #000000;
-			text-align: left;
+		.sendMsg button {
+			height: 38px;
+    		top: 2px;
+    		width: 9%;
+    		margin-left: 1%;
 		}
-		.chatting p{
-			color: #fff;
-			text-align: left;
+		.chat_box.me {
+    		margin-right: 10px;
 		}
-		input{
-			width: 330px;
-			height: 25px;
+		.chat_box.others {
+    		margin-left: 10px;
 		}
-		#yourMsg{
-			
+		.me .from {
+			color: #4A4A4A;
+		    font-size: 13px;
+		    display: block;
+		    width: 100%;
+		    float: left;
+		    text-align: right;
+		}
+		.me .message {
+			font-size: 20px;
+			float: right;
+    		background: #efc318;
+    		color: #FFF;
+    		border-radius: 5px;
+    		padding: 10px;
+		}
+		.others .from {
+			color: #4A4A4A;
+		    font-size: 13px;
+		    display: block;
+		    width: 100%;
+		    float: left;
+		    text-align: left;
+		}
+		.others .message {
+			font-size: 20px;
+			float: left;
+    		background: #fffce1;
+    		color: #000;
+    		border-radius: 5px;
+    		padding: 10px;
 		}
 	</style>
 <script type="text/javascript">
@@ -86,10 +117,27 @@ function wsEvt() {
 					$("#sessionId").val(si); 
 				}
 			}else if(d.type == "message"){
+				let today = new Date();//현재 시간받아옴
+				let min = today.getMinutes(); // 분 받아옴
+				min = min.toString(); //문자열로 변환
+				min = min.padStart(2, '0'); //'01'분 형식으로 변환
+				let time = today.getHours() + ":" + min; //hh:mm
 				if(d.sessionId == $("#sessionId").val()){
-					$("#chatting").append("<p class='me'> ${sMemNm}  :" + d.msg + "</p>");	
+					var myMessage ="";
+					
+					myMessage += "<div class='chat_box me'>";
+					myMessage += 	"<div class='message'>"+ d.msg + "</div>";	
+					myMessage += 	"<div class='from'>"+ time+" ${sMemNm}</div>";
+					myMessage += "</div>";
+					$("#chatting").append(myMessage);	
 				}else{
-					$("#chatting").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+					var othersMessage ="";
+					othersMessage += "<div class='chat_box others'>";
+					othersMessage += 	"<div class='message'>"+ d.msg + "</div>";	
+					othersMessage += 	"<div class='from'>" + d.userName + " "+ time+"</div>";
+					othersMessage += "</div>";
+					
+					$("#chatting").append(othersMessage);
 				}
 					
 			}else{
@@ -142,10 +190,16 @@ function drawList(list){
 	
 	for(var data of list){
 		if(data.MEMBER_NO == ${sMemNo}){
-			html += "<p class='me'>"+ data.NM +" :" + data.CONTENTS + "</p>";			
+			html += "<div class='chat_box me'>";
+			html += 	"<div class='message'>"+ data.CONTENTS + "</div>";	
+			html += 	"<div class='from'>"+data.REG_DT+ " "+ data.NM +"</div>";
+			html += "</div>";
 		}
 		else{
-			html += "<p class='others'>" + data.NM + " :" + data.CONTENTS + "</p>";		
+			html += "<div class='chat_box others'>";
+			html += 	"<div class='message'>"+ data.CONTENTS + "</div>";	
+			html += 	"<div class='from'>"+ data.NM +" "+data.REG_DT+ "</div>";
+			html += "</div>";
 		}
 	}
 	$("#chatting").html(html);
@@ -171,7 +225,7 @@ function drawList(list){
 				<div class="mypage_contents">
 	
   <div id="container" class="container">
-		<h1>${title}</h1>
+		<h1>'${title}' 채팅방</h1>
 		<form action="#" id="chatForm">
 			<input type="hidden" id="sessionId" value="">
 			<input type="hidden" name="postNo" id="postNo" value="${postNo}">
@@ -182,16 +236,13 @@ function drawList(list){
 		</form>
 		<div id="chatting" class="chatting">
 		</div>
-	
-		<div id="yourMsg">
-			<table class="inputTable">
-				<tr>
-					<th>메시지</th>
-					<th><input type="text" name="msg" id="msg" placeholder="보내실 메시지를 입력하세요."></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-				</tr>
-			</table>
+		<div class="sendMsg">
+			<input type="text" name="msg" id="msg" placeholder="보내실 메시지를 입력하세요.">
+			<button onclick="send()" id="sendBtn" class="btn green">보내기</button>
 		</div>
+				
+		
+		
 	</div>
 				</div>
 
