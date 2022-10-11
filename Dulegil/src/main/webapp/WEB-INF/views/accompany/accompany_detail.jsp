@@ -189,7 +189,7 @@ $(document).ready(function(){
 	//댓글 삭제버튼 클릭시
 	$(".mainview4").on("click",".delB",function(){
 		
-		var commentNo= $(this).parent().attr("commentNo");
+		var commentNo= $(this).attr("commentNo");
 		
 		makePopup({
 			title:"알림",
@@ -213,9 +213,11 @@ $(document).ready(function(){
 	
 		//댓글의 수정버튼 클릭시
 	$(".mainview4").on("click",".upB",function(){
+	console.log("ewe");
 		
-	var commentNo= $(this).parent().attr("commentNo");
+	var commentNo= $(this).parent().children().eq(0).attr("commentNo");
 	$("#commentNo").val(commentNo);
+	
 	
 	var ccon = $(this).parent().children().eq(2).html();
 	$("#ccon").val(ccon);
@@ -238,12 +240,12 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-
 		
 	});
 	
 	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
+		
 		$("#cpage").val($("#cpage").val() * 1 + 5);
 		reloadList(); 	
 	});
@@ -585,7 +587,7 @@ function reloadList(){
  		
  		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
  			html += "<span class=\"upB\">수정</span> ";
- 			html += "<span class=\"delB\">삭제</span>";
+ 			html += "<span class=\"delB\" commentNo= \"" + data.COMMENT_NO + "\">삭제</span>";
  		}
  			html += " </div>";		
 	}//여기까지 for
