@@ -168,9 +168,7 @@ $(document).ready(function(){
 	});
 	
 	$("#updateBtn").on("click", function(){
-		if($("#updNo").val() == null || $("#updNo").val() == ""){
-			makeAlert("알림", "수정 할 회원정보를 선택하세요.")
-		}else if($.trim($("#nm").val()) == "") {
+		if($.trim($("#nm").val()) == "") {
 			makeAlert("알림", "이름을 입력하세요.", function() {
 				$("#nm").focus();
 			});
@@ -319,7 +317,6 @@ function drawDetail(list){
 	$("#aut").val(list.AUTHORITY_NO);
 	$("#nm").val(list.NM);
 	$("#email").val(list.EMAIL);
-	$("#pwd").val(list.PWD);
 	$("#phn").val(list.PHONE_NO);
 	$("#dtBrt").val(list.DATE_BIRTH); 
 	$("#gen").val(list.SMALL_CATEGORY);

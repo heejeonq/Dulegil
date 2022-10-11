@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj51.Dulegil.util.Utils;
 import com.gdj51.Dulegil.web.join.dao.IJoinDao;
 
 
@@ -43,8 +44,9 @@ public class JoinController {
 		int cnt = 0;
 		try {
 			switch (gbn) {
-			case "insert":	cnt = dao.insert("member.insertMember", params);
-				
+			case "insert":	
+				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+				cnt = dao.insert("member.insertMember", params);
 				break;
 			case "update": cnt = dao.update("member.updateMember", params);
 				

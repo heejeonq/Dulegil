@@ -233,7 +233,7 @@ $(document).ready(function() {
 								<option value="icloud.com">icloud.com</option>
 							</select>
 							<input type="hidden" name="chkId" id="chkId" value="0">
-							<input type="button" name="cnfmBtn" id="cnfmBtn" value="중복확인" onclick="cnfmId()" />
+							<input type="button" name="cnfmBtn" id="cnfmBtn" value="중복확인" onclick="cnfmId();"> 
 						</td>
 					</tr>
 					<tr>
