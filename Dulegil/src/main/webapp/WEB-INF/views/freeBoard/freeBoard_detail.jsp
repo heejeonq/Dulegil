@@ -566,15 +566,19 @@ function reloadList(){
 		</div>
 		<!-- emptyBox완 ------------------------------------------>
 		
-		<div class="box2">		
-		<c:if test="${sMemNo != data.MEMBER_NO}" >
+		
+				
+		<div class="reportBox">
+			<c:if test="${sMemNo != data.MEMBER_NO}" >
 				<div class="reporBtn" id="reporBtn">
 					<span class="report">
 						<img src="resources/images/report1.png" />
 					</span>
 					<span class="reporTit">신고하기</span>			
-				</div>
+				</div>			
 			</c:if>
+			</div>
+			<div class="box2">
 			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="updateBtn" value="수정"/>

@@ -647,7 +647,16 @@ function reloadList(){
       <div class="midBox">
          <div class="intro">
             <div class="tit_writer">
-            <img src="resources/images/sample1.jpg" />${data.NM}  </div><span>&nbsp;&nbsp;</span>
+				<c:if test="${!empty data.M_IMG}">			
+						<img src="resources/upload/${data.M_IMG}" />
+				</c:if>
+				<c:if test="${empty data.M_IMG}">			
+						<img src="resources/upload/profile_img"/>
+				</c:if>
+				 ${data.NM}
+		 	</div>
+            
+            span>&nbsp;&nbsp;</span>
             <c:choose>
             	<c:when test="${data.PUBLIC_AGE eq 1}">
             		<div class="age"> 나이 비공개 </div>

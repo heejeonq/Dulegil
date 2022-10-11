@@ -210,15 +210,26 @@
 	height: 50px;
 	margin: 0 auto;
 	margin-top: 10px;
+	margin-bottom: 25px;
 }
-.emptyBox {
-  
+.emptyBox { 
     width: 90%;
     height: 50px;
     margin: 0 auto;
-    text-align: left;
-    
-
+    text-align: left;   
+}
+.fileBox{
+	width: 90%;
+    height: 25px;
+    margin: 0 auto;
+    text-align: left; 
+}
+.reportBox{
+	width: 90%;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 10px;
+	text-align:center;
 }
 .tit_writer img{
     width: 40px;
@@ -483,7 +494,7 @@
 	margin-left: 422px;
     margin-top: 3px;
 }
-#courselistBtn{
+#clistBtn{
 	margin-left: 510px;
     margin-top: 3px;
 }
@@ -491,7 +502,6 @@
 	margin-left: 510px;
 }
 .reporBtn{
-  	display: inline-block;
 	vertical-align: top;
 	font-size: 11px;
 	width: 88px;
@@ -501,6 +511,7 @@
 	box-shadow: 0 0 #87a86f;
 	padding: 9px;
 	float: left;
+	margin:0 auto;
 }
 .report img, .like img {
 	transition: all ease 0.25s;

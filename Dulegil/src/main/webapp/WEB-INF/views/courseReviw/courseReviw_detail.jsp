@@ -30,7 +30,7 @@ $(document).ready(function(){
 	$("#clistBtn").on("click",function(list){	
 		history.go(-1);
 		$("#actionForm").attr();
-		$("#actionForm").submit();
+		$("#actionForm").submit();		
 		
 	}); 
 	
@@ -626,8 +626,11 @@ function reloadList(){
 				</div>
 				<div class="ti_ttt">
 					<div class="tit_writer">
-						<c:if test="${!empty data.M_IMG}">				
-							<img src="resources/upload/${data.M_IMG}" />
+						<c:if test="${!empty data.M_IMG}">			
+								<img src="resources/upload/${data.M_IMG}" />
+						</c:if>
+						<c:if test="${empty data.M_IMG}">			
+								<img src="resources/upload/profile_img"/>
 						</c:if>
 						 ${data.NM}
 				 	</div>
@@ -671,7 +674,7 @@ function reloadList(){
 			
 		<!-- cunBox완 ------------------------------------------>
 			
-		<div class="emptyBox">
+		<div class="fileBox">
 			<c:if test="${!empty data.B_IMG}">
 			<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
 			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
@@ -684,26 +687,25 @@ function reloadList(){
 	
 		<!-- emptyBox완 ------------------------------------------>
 		
-		<div class="box2">	
-			
+			<div class="reportBox">
 			<c:if test="${sMemNo != data.MEMBER_NO}" >
 				<div class="reporBtn" id="reporBtn">
 					<span class="report">
 						<img src="resources/images/report1.png" />
 					</span>
 					<span class="reporTit">신고하기</span>			
-				</div>
+				</div>			
 			</c:if>
+			</div>
 			
-			
-			<input type="button" class="btn" id="courselistBtn" value="목록" />
+			<div class="box2">
+			<input type="button" class="btn" id="clistBtn" value="목록" />
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 			</c:if> 
 		</div>
-					
-		<div class="emptyBox"></div>
+
 		<hr style=width:100%;/>	
 		<!-- 댓글 -->	
 	
