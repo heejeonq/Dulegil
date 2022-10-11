@@ -20,6 +20,180 @@ $(document).ready(function(){
 		$("#"+tab_id).addClass("on");
 	});
 });
+/* 행사 정보 */
+$.ajax({
+	url: "http://openapi.seoul.go.kr:8088/4b6751594d746d66373346474e7747/json/GJNewsEventList/1/10/",
+	type: "GET",
+	dataType: "json",
+	success : function(res){
+		drawGJEvtList(res.GJNewsEventList.row);
+	},
+	error : function(request, status, error){
+		console.log(request.responseText);
+	}
+});
+
+$.ajax({
+	url: "http://openapi.seoul.go.kr:8088/52576a4b61676d6c3839725076485a/json/DobongNewsEventList/1/10/",
+	type: "GET",
+	dataType: "json",
+	success : function(res){
+		drawDBEvtList(res.DobongNewsEventList.row);
+	},
+	error : function(request, status, error){
+		console.log(request.responseText);
+	}
+});
+
+/* 숙박 정보*/
+$.ajax({
+	url: "http://openapi.seoul.go.kr:8088/665761455a676d6c38306f6b4b4966/json/LOCALDATA_031103_NW/1/50/",
+	type: "GET",
+	dataType: "json",
+	success : function(res){
+		drawNWStayList(res.LOCALDATA_031103_NW.row);
+	},
+	error : function(request, status, error){
+		console.log(request.responseText);
+	}
+}); 
+
+$.ajax({
+	url: "http://openapi.seoul.go.kr:8088/5744645344676d6c3538486c437558/json/LOCALDATA_031103_DB/1/50/",
+	type: "GET",
+	dataType: "json",
+	success : function(res){
+		drawDBStayList(res.LOCALDATA_031103_DB.row);
+	},
+	error : function(request, status, error){
+		console.log(request.responseText);
+	}
+});
+
+/* 음식점 정보 */
+$.ajax({
+	url: "http://openapi.seoul.go.kr:8088/46456e5752676d6c38357965685976/json/LOCALDATA_072404_NW/1/50/",
+	type: "GET",
+	dataType: "json",
+	success : function(res){
+		drawNWRstrList(res.LOCALDATA_072404_NW.row);
+	},
+	error : function(request, status, error){
+		console.log(request.responseText);
+	}
+});
+
+$.ajax({
+	url: "http://openapi.seoul.go.kr:8088/6247544441676d6c36347a6362647a/json/LOCALDATA_072404_DB/1/50/",
+	type: "GET",
+	dataType: "json",
+	success : function(res){
+		drawDBRstrList(res.LOCALDATA_072404_DB.row);
+	},
+	error : function(request, status, error){
+		console.log(request.responseText);
+	}
+}); 
+});
+
+/* 행사 정보 */
+function drawGJEvtList(list){
+var html = "";
+
+for (var i=0; i<list.length; i++){
+	html += "<tr>";
+	html += "<td rowspan=2>광진구</td>";
+	html += "<td rowspan=2>" + list[i].TITLE + "</td>";
+	html += "<td></td>";
+	html += "</tr>";
+	html += "<tr>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].LINK + "</td>";
+	html += "</tr>";
+}
+$(".infoTable2 tbody").append(html);
+}
+
+function drawDBEvtList(list){
+var html = "";
+
+for (var i=0; i<list.length; i++){
+	html += "<tr>";
+	html += "<td rowspan=2>도봉구</td>";
+	html += "<td rowspan=2>" + list[i].TITLE + "</td>";
+	html += "<td>" + list[i].DESCRIPTION + "</td>";
+	html += "</tr>";
+	html += "<tr>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].LINK + "</td>";
+	html += "</tr>";
+}
+$(".infoTable2 tbody").append(html);
+} 
+SITETEL
+/* 숙박 정보*/
+function drawNWStayList(list){
+var html = "";
+
+for (var i=0; i<list.length; i++){
+	if(list[i].DTLSTATENM == "영업"){
+	html += "<tr>";
+	html += "<td>노원구</td>";
+	html += "<td>" + list[i].BPLCNM + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
+	html += "</tr>";
+	}
+}
+$(".infoTable3 tbody").append(html);
+}
+
+function drawDBStayList(list){
+var html = "";
+
+for (var i=0; i<list.length; i++){
+	if(list[i].DTLSTATENM == "영업"){
+	html += "<tr>";
+	html += "<td>도봉구</td>";
+	html += "<td>" + list[i].BPLCNM + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
+	html += "</tr>";
+	}
+}
+$(".infoTable3 tbody").append(html);
+}
+
+/* 음식점 정보 */
+function drawNWRstrList(list){
+var html = "";
+
+for (var i=0; i<list.length; i++){
+	if(list[i].DTLSTATENM != "폐업"){
+	html += "<tr>";
+	html += "<td>노원구</td>";
+	html += "<td>" + list[i].BPLCNM + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
+	html += "</tr>";
+	}
+}
+$(".infoTable4 tbody").append(html);
+}
+
+function drawDBRstrList(list){
+var html = "";
+
+for (var i=0; i<list.length; i++){
+	if(list[i].DTLSTATENM != "폐업"){
+	html += "<tr>";
+	html += "<td>도봉구</td>";
+	html += "<td>" + list[i].BPLCNM + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].RDNWHLADDR + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SITETEL + "</td>";
+	html += "</tr>";
+	}
+}
+$(".infoTable4 tbody").append(html);
+}
 </script>
 </head>
 <body>

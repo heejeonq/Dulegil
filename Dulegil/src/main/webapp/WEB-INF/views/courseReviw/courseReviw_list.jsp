@@ -29,11 +29,16 @@ $(document).ready(function(){
 		$("#oldGbn").val("0");
 	}
 	
+	
+
+	
 
 	$("#searchBtn").on("click",function(){
 		$("#page").val("1");
 		
 		//신규 상태 적용
+		
+		$("#oldCourse").val($("#courseGbn").val());
 		$("#oldGbn").val($("#searchGbn").val());
 		$("#oldTxt").val($("#searchTxt").val());
 		
@@ -174,6 +179,7 @@ function drawPaging(pd){
 			
 						
 			<input type="hidden" id="oldGbn"  value="${param.searchGbn}"/>
+			<input type="hidden" id="oldCourse"  value="${param.courseGbn}"/>
 			<input type="hidden" id="oldTxt"  value="${param.searchTxt}"/>
 			
 			<div class="midBox">
@@ -186,12 +192,25 @@ function drawPaging(pd){
 					</c:if>
 					
 				<div class="searchWrap">
-				<div class="selBox">
+					<div class="selBox">
+						<select class="sell" name="courseGbn" id="courseGbn">
+							<option value="0">전체</option>
+							<option value="1">1코스</option>
+							<option value="2">2코스</option>					
+							<option value="3">3코스</option>					
+							<option value="4">4코스</option>
+							<option value="5">5코스</option>
+							<option value="6">6코스</option>
+							<option value="7">7코스</option>
+							<option value="8">8코스</option>
+						</select>
+					</div>
+					<div class="selBox">
 					<select class="sel" name="searchGbn" id="searchGbn">						
 						<option value="0">제목</option>
 						<option value="1">내용</option>					
 						<option value="2">작성자</option>					
-						<option value="3">코스</option>
+
 					</select>
 				</div>
 					<div class="searchBox">

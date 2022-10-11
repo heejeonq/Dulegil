@@ -50,12 +50,15 @@ $(document).ready(function(){
 	
 	      
 		
+	$("input[name='gender'][value='${data.PUBLIC_GENDER}']").prop("checked",true);
+	$("input[name='age'][value='${data.PUBLIC_AGE}']").prop("checked",true);
 	
 	$(".cosSell").change(function(){
 		$("#courseNo").val($(this).val());
 	});
 	
 	$(".cosSell").val($("#courseGbn").val());
+	$("#courseNo").val($("#courseGbn").val());
 
 	//취소버튼
 	$("#cancelBtn").on("click", function() {

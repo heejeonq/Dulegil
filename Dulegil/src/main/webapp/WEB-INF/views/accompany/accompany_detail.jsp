@@ -25,7 +25,23 @@
 <script>
 $(document).ready(function(){
 	reloadList();
-
+	var ageYN ="";
+	var genderYN = "";
+	
+	if(${data.PUBLIC_GENDER} == 0){
+		genderYN = "공개";
+	}
+	else{
+		genderYN = "비공개";
+	}
+	
+	if(${data.PUBLIC_AGE} == 0){
+		ageYN = "공개";
+	}
+	else{
+		ageYN = "비공개";
+	}
+	
 	//별그리기
 	$(".star span").css("width", ${data.RELIABILITY} * 20 +"%");
 	
@@ -87,8 +103,10 @@ $(document).ready(function(){
 	
 	
 	//게시글 버튼
-	$("#aclistBtn").on("click",function(){
-		$("#actionForm").attr("action","accompany")
+	$("#aclistBtn").on("click",function(list){
+		history.go(-1);
+
+		$("#actionForm").attr()
 		$("#actionForm").submit();
 	});
 	
@@ -236,7 +254,24 @@ $(document).ready(function(){
 	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
 	       });
 	     } else{
-			action("apply");
+	    	 makePopup({
+	 			title:"알림",
+	 			contents : "동행날짜 : ${data.ACCOMPANY_DT} <br> " +
+	 			"글 작성자에게 성별 " +genderYN+", 나이 " +ageYN+ "됩니다. <br>동행신청 하시겠습니까?",
+	 			buttons : [{
+	 				name:"확인",
+	 				func:function() {
+	 					action("apply");
+	 					closePopup()//제일위의 팝업닫기
+
+	 				}			
+	 			
+	 			},{
+	 				name : "취소"
+	 			}]
+	 		}); 
+	    	 
+			
 			 
 		 }
 	 });
@@ -612,7 +647,16 @@ function reloadList(){
       <div class="midBox">
          <div class="intro">
             <div class="tit_writer">
-            <img src="resources/images/sample1.jpg" />${data.NM}  </div><span>&nbsp;&nbsp;</span>
+				<c:if test="${!empty data.M_IMG}">			
+						<img src="resources/upload/${data.M_IMG}" />
+				</c:if>
+				<c:if test="${empty data.M_IMG}">			
+						<img src="resources/upload/profile_img"/>
+				</c:if>
+				 ${data.NM}
+		 	</div>
+            
+            span>&nbsp;&nbsp;</span>
             <c:choose>
             	<c:when test="${data.PUBLIC_AGE eq 1}">
             		<div class="age"> 나이 비공개 </div>

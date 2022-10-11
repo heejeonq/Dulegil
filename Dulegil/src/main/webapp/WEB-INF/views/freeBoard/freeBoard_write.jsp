@@ -169,16 +169,13 @@ $("#insertBtn").on("click", function() {
 				</div>
 			</div>
 			
-			</form>
-				
-				<div class="btnWrap">
-					<div class="btnBox">
-						<input type="button" class="btn" id="insertBtn" value="등록">
-						<input type="button" class="btn" id="wlistBtn" value="목록">
-					</div>
-					
-					
-				</div>
+			</form>				
+			<div class="btnWrap">
+				<div class="btnBox">
+					<input type="button" class="btn" id="insertBtn" value="등록">
+					<input type="button" class="btn" id="wlistBtn" value="목록">
+				</div>									
+			</div>
 
 
 	</div>
