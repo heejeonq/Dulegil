@@ -25,7 +25,23 @@
 <script>
 $(document).ready(function(){
 	reloadList();
-
+	var ageYN ="";
+	var genderYN = "";
+	
+	if(${data.PUBLIC_GENDER} == 0){
+		genderYN = "공개";
+	}
+	else{
+		genderYN = "비공개";
+	}
+	
+	if(${data.PUBLIC_AGE} == 0){
+		ageYN = "공개";
+	}
+	else{
+		ageYN = "비공개";
+	}
+	
 	//별그리기
 	$(".star span").css("width", ${data.RELIABILITY} * 20 +"%");
 	
@@ -236,7 +252,24 @@ $(document).ready(function(){
 	       makeAlert("알림", "로그인이 필요한 서비스입니다.", function() {	 
 	       });
 	     } else{
-			action("apply");
+	    	 makePopup({
+	 			title:"알림",
+	 			contents : "동행날짜 : ${data.ACCOMPANY_DT} <br> " +
+	 			"글 작성자에게 성별 " +genderYN+", 나이 " +ageYN+ "됩니다. <br>동행신청 하시겠습니까?",
+	 			buttons : [{
+	 				name:"확인",
+	 				func:function() {
+	 					action("apply");
+	 					closePopup()//제일위의 팝업닫기
+
+	 				}			
+	 			
+	 			},{
+	 				name : "취소"
+	 			}]
+	 		}); 
+	    	 
+			
 			 
 		 }
 	 });

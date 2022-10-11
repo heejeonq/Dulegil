@@ -696,7 +696,7 @@ function reloadList(){
 			</c:if>
 			
 			
-			<input type="button" class="btn" id="clistBtn" value="목록" />
+			<input type="button" class="btn" id="courselistBtn" value="목록" />
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
