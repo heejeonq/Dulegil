@@ -35,18 +35,23 @@
 			border: 1px solid #7d7d7d7d;
 			height: 500px;
 			overflow: auto;
+			border-radius: 5px;
 		}
 		.sendMsg input{
 			height: 35px;
     		width: 90%;
     		border: 1px solid #7d7d7d7d;
     		padding: 10px;
+    		border-radius: 5px;
+  			margin-top: 10px;
+
 		}
 		.sendMsg button {
 			height: 38px;
     		top: 2px;
     		width: 9%;
     		margin-left: 1%;
+    		border-radius: 5px;
 		}
 		.chat_box.me {
     		margin-right: 10px;
@@ -61,14 +66,17 @@
 		    width: 100%;
 		    float: left;
 		    text-align: right;
+			margin-top: 5px;
 		}
 		.me .message {
-			font-size: 20px;
-			float: right;
-    		background: #efc318;
-    		color: #FFF;
-    		border-radius: 5px;
-    		padding: 10px;
+			font-size: 15px;
+		    float: right;
+		    background: #efc318;
+		    color: #FFF;
+		    border-radius: 10px;
+		    padding: 10px;
+		    margin-top: 5px;
+
 		}
 		.others .from {
 			color: #4A4A4A;
@@ -77,14 +85,16 @@
 		    width: 100%;
 		    float: left;
 		    text-align: left;
+		    margin-top: 5px;
 		}
 		.others .message {
-			font-size: 20px;
-			float: left;
-    		background: #fffce1;
-    		color: #000;
-    		border-radius: 5px;
-    		padding: 10px;
+			font-size: 15px;
+		    float: left;
+		    background: #fffce1;
+		    color: #000;
+		    border-radius: 5px;
+		    margin-top: 5px;
+		    padding: 10px;
 		}
 	</style>
 <script type="text/javascript">
