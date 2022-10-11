@@ -23,7 +23,7 @@ $(document).ready(function(){
 	//var link = document.location.href("?");
 	//consol.log(link);
 	
-	//$("#page").val($("#page").val());
+
 	
 	
 	$('#searchTxt').keypress(function(event){
@@ -82,6 +82,8 @@ $(document).ready(function(){
 	$("tbody").on("click","tr",function(){
 		$("#no").val($(this).attr("no"));
 		
+		//페이지정보 유지
+		$("#page").val($("#oldpage").val());
 		//기존 검색상태 유지
 		$("#searchGbn").val($("#oldGbn").val());
 		$("#searchTxt").val($("#oldTxt").val());
@@ -178,8 +180,10 @@ function drawPaging(pd){
 			
 			<input type="hidden" id="oldGbn"  value="${param.searchGbn}"/>
 			<input type="hidden" id="oldTxt"  value="${param.searchTxt}"/>
+
 				
 			<div class="midBox">
+
 			<form action="#" id="actionForm" method="post">
 				<input type="hidden" name="sMemNo" id="sMemNo" value="${sMemNo}"/>
 				<input type="hidden" name="no" id="no"/>

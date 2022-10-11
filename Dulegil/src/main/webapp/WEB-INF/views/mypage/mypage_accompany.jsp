@@ -13,16 +13,6 @@
 $(document).ready(function(){
 	reloadList();
 	
-	
-	
-	//채팅 들어가기
-	$(".chat_list").on("click","li" , function(){
-		location.href = "chat";
-		
-	});
-	
-	
-	
 	//별점 그리기
 	$("#memRate").on("change", ".star input", function(){
 		$(this).parent().children().eq(0).css("width", $(this).val()*20 + "%");
@@ -105,9 +95,10 @@ $(document).ready(function(){
 	
 });
 //채팅들어가기
-function goRoom(number, postMemNo){
+function goRoom(number, postMemNo, title){
 	$("#chattingPostNo").val(number);
 	$("#postMemNo").val(postMemNo);
+	$("#title").val(title);
 	$("#chattingForm").submit();
 }
 
@@ -289,7 +280,9 @@ function drawList(list1, list2, list3, list4, list5){
 	//채팅 목록
 	for(var data of list2){        
 		html2 += "<li>" + data.TITLE +"</li>";
-		html2 += "<input type=\"button\" value=\"x\" onclick=\"goRoom("+data.POST_NO+ ","+data.MEMBER_NO+")\">"; 
+
+		html2 += "<input type=\"button\" value=\"입장\" class='btn green' onclick=\"goRoom("+data.POST_NO+ ","+data.MEMBER_NO+ ",'" +data.TITLE+ "')\">"; 
+
 	}
 	//나의 동행 신청목록
 	for(var data of list3){  
@@ -430,6 +423,7 @@ function drawList2(memList){
 			<form action="moveChating" id="chattingForm" method="post">
 				<input type="hidden" name="memNo" id="memNo" value="${sMemNo}">
 				<input type="hidden" name="postNo" id="chattingPostNo">
+				<input type="hidden" name="title" id="title">
 				<input type="hidden" name="postMemNo" id="postMemNo"><!-- 글 작성자 memNo -->
 			</form>
 			<form action="#" id="searchForm">

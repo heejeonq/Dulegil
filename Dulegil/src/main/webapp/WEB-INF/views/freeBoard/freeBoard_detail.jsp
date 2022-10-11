@@ -26,15 +26,15 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	reloadList();
-
 	
+
+
 	
 
 	$("#clistBtn").on("click",function(list){	
 		history.go(-1);
 		$("#actionForm").attr();
 		$("#actionForm").submit();
-	
 	}); 
 	
 	//게시글 신고하기 버튼 누르면 
@@ -517,7 +517,7 @@ function reloadList(){
 	
 			<input type="hidden" name="no" value="${data.POST_NO}" />
 			<!-- <input type="hidden" name="gbn" value="d" /> 이게뭐지-->
-			<input type="hidden" name="page" value= "${param.page}" />
+			<input type="hidden" name="page" id="page" value= "${param.page}" />
 			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
 			
 			<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn}"/>
@@ -566,15 +566,19 @@ function reloadList(){
 		</div>
 		<!-- emptyBox완 ------------------------------------------>
 		
-		<div class="box2">		
-		<c:if test="${sMemNo != data.MEMBER_NO}" >
+		
+				
+		<div class="reportBox">
+			<c:if test="${sMemNo != data.MEMBER_NO}" >
 				<div class="reporBtn" id="reporBtn">
 					<span class="report">
 						<img src="resources/images/report1.png" />
 					</span>
 					<span class="reporTit">신고하기</span>			
-				</div>
+				</div>			
 			</c:if>
+			</div>
+			<div class="box2">
 			<input type="button" class="btn" id="clistBtn" value="목록"/> <!-- onClick="history.go(-1) -->
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
@@ -600,6 +604,7 @@ function reloadList(){
 				<input type="hidden" name="reportContents" id="reportContents">
 				<input type="hidden" name="reportNm" id="reportNm">
 				<input type="hidden" name="cpage" id="cpage" value="1" />								
+									
 				
 				<div class="box3">
 					<div class="comment">comment</div>

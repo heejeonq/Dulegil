@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj51.Dulegil.util.Utils;
 import com.gdj51.Dulegil.web.dao.IDao;
 
 @Controller
@@ -36,18 +37,15 @@ public class LoginController {
 
 	@RequestMapping(value = "/memberLoginAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String loginAjax(HttpSession session, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String loginAjax(HttpSession session, 
+			@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> model = new HashMap<String, String>();
 
-//		//암호화
-//		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
-//		System.out.println(params.get("pwd"));
-//		
-//		//복호화
-//		System.out.println(Utils.decryptAES128(params.get("pwd")));
-//		
-
+		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
+		System.out.println(params.get("pwd"));
+		
+		
 		HashMap<String, String> data = dao.getMap("adLogin.checkMember", params);
 		if (data != null) {
 			session.setAttribute("sMemNo", data.get("MEMBER_NO"));
@@ -65,30 +63,6 @@ public class LoginController {
 		// 요청 사용자 세션 초기화
 		sesstion.invalidate();
 		mav.setViewName("redirect:main");
-		return mav;
-	}
-
-	@RequestMapping(value = "/findID")
-	public ModelAndView findID(ModelAndView mav) {
-		mav.setViewName("login/find_ID");
-		return mav;
-	}
-
-	@RequestMapping(value = "/findPW")
-	public ModelAndView findPW(ModelAndView mav) {
-		mav.setViewName("login/find_PW");
-		return mav;
-	}
-
-	@RequestMapping(value = "/viewID")
-	public ModelAndView viewID(ModelAndView mav) {
-		mav.setViewName("login/view_ID");
-		return mav;
-	}
-
-	@RequestMapping(value = "/viewPW")
-	public ModelAndView viewPW(ModelAndView mav) {
-		mav.setViewName("login/view_PW");
 		return mav;
 	}
 

@@ -95,6 +95,7 @@ public class ChatController {
 		if(cnt > 0) {
 			mv.addObject("postNo", params.get("postNo"));
 			mv.addObject("postMemNo", params.get("postMemNo"));
+			mv.addObject("title", params.get("title"));
 			mv.setViewName("mypage/mypage_chat");
 		}else {
 			mv.setViewName("mypage/mypage_accompany");

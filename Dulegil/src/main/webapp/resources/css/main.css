@@ -48,13 +48,14 @@
 .map_area {
 	display: inline-flex;
     position: relative;
-        justify-content: center;
-    margin: 0% 4% 3%;
+    justify-content: center;
+   
 }
 .map_img {
 	display: inline-block;
 	position: relative;
-	
+	width: 100%;
+    margin-left: 10%;
 
 	}
 .map_line {
@@ -62,13 +63,15 @@
     top: 0;
 
 }
+.map_line img {
 
+}
 
 
 
 .map_img > img{
 	position: relative;
-	width: 100%;
+
 	}
 	
 .map_info {
@@ -76,7 +79,8 @@ display: inline-block;
     position: relative;
     box-sizing: border-box;
     border-radius: 13px 15px 15px 15px;
-        margin: 6% 0 0 40px;
+    margin: 6% 0 0 40px;
+    width: 100%;
 }
 
 .course_no {

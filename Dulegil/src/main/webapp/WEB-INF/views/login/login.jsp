@@ -24,9 +24,9 @@ $(document).ready(function(){
 			$("#lgnId").focus();	
 			});
 		}
-		else if($.trim($("#lgnPwd").val()) == ""){
+		else if($.trim($("#pwd").val()) == ""){
 			makeAlert("알림", "비밀번호를 입력하세요", function(){
-			$("#lgnPwd").focus();
+			$("#pwd").focus();
 			});
 		}
 		else {
@@ -66,7 +66,7 @@ $(document).ready(function(){
 				<span>회원 로그인</span>
 				<div class="lgnInfo">	
 					<input type="text" id="lgnId" name="lgnId" placeholder="아이디" /><br />
-					<input type="password" id="lgnPwd" name="lgnPwd" placeholder="비밀번호" />
+					<input type="password" id="pwd" name="pwd" placeholder="비밀번호" />
 				</div>
 				<input type="button" id="memLgnBtn" value="로그인">
 			</div>

@@ -211,13 +211,11 @@ $("#insertBtn").on("click", function() {
 			</div>
 			
 			</form>
-				<div class="btnWrap">
+			<div class="btnWrap">
 					<div class="btnBox">
-					<input type="button" class="btn" id="insertBtn" value="등록">
-					</div>
-					<div class="btnBox">
-					<input type="button" class="btn" id="listBtn" value="목록">
-					</div>
+						<input type="button" class="btn" id="insertBtn" value="등록">
+						<input type="button" class="btn" id="wlistBtn" value="목록">
+					</div>									
 				</div>
 
 	</div>

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.mapper.Mapper;
+
 import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,7 +72,7 @@ public class adReportController {
 		Map<String, Object> model = new HashMap<String, Object>();
 
 		int cnt = dao.getInt("adReport.cnt",params);
-		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,15,5);
+		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,10,5);
 
 		params.put("start", Integer.toString(pd.get("start")));
 		params.put("end", Integer.toString(pd.get("end")));

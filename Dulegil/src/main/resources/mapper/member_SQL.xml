@@ -27,10 +27,14 @@
 	무조건 해쉬맵으로 받아줌. 카운트 일때만 resultType="integer"-->
 	<!-- 개인 정보 수정  -->
 	<update id="updateMyinfo" parameterType="hashmap">
-		UPDATE MEMBER SET NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt, jdbcType = DATE}, GENDER = #{gen, jdbcType = VARCHAR}, ZIP_CODE = #{zcd, jdbcType = VARCHAR}, 
+		UPDATE MEMBER SET 
+					<if test="pwd != null and pwd !=''">
+                    PWD = #{pwd},
+                    </if> 
+                    NM = #{nm}, PHONE_NO = #{phn}, DATE_BIRTH = #{dtBrt, jdbcType = DATE}, 
+                    GENDER = #{gen, jdbcType = VARCHAR}, ZIP_CODE = #{zcd, jdbcType = VARCHAR}, 
 		ADDRESS =  #{adr, jdbcType = VARCHAR}, DETAIL_ADDRESS = #{adrDtl, jdbcType = VARCHAR}, IMG_FILE = #{imgFile, jdbcType = VARCHAR}
 		WHERE MEMBER_NO = #{memNo}
-		AND PWD = #{cnfmPwd}
 	</update>
 	
 	<select id="findMemId" parameterType="hashmap" resultType="hashmap">
