@@ -87,8 +87,10 @@ $(document).ready(function(){
 	
 	
 	//게시글 버튼
-	$("#aclistBtn").on("click",function(){
-		$("#actionForm").attr("action","accompany")
+	$("#aclistBtn").on("click",function(list){
+		history.go(-1);
+
+		$("#actionForm").attr()
 		$("#actionForm").submit();
 	});
 	
