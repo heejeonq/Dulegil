@@ -16,6 +16,15 @@
 		WHERE DEL_DT IS NULL 
 		AND AUTHORITY_NO = 2
 		AND EMAIL = #{lgnId}
-		AND PWD = #{lgnPwd}
+		AND PWD = #{pwd}
+	</select>
+	
+	<select id="checkStMember" parameterType="hashmap" resultType="hashmap">
+		SELECT MEMBER_NO, NM
+		FROM MEMBER
+		WHERE DEL_DT IS NULL 
+		AND AUTHORITY_NO = 3
+		AND EMAIL = #{lgnId}
+		AND PWD = #{pwd}
 	</select>
 </mapper>

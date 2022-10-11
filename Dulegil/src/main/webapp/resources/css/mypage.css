@@ -423,6 +423,10 @@ img#preview {
     color: #000;
     border-radius:50%;
 }
+.page_btn_on {
+    background-color: #bbd1bc;
+    border-radius: 50%;
+}
 
 /* Searching */
 .searchform{

@@ -4,9 +4,9 @@
 
 
 
-	<!-- 목록 -->
+	<!-- 전체 통계 -->
 	<select id="list" resultType="hashmap">
-		SELECT MEMCNT, POSTCNT, CMTCNT, ACPCNT
+		SELECT MEMCNT, POSTCNT, CMTCNT, ACPCNT, CNT
 		FROM (  SELECT COUNT(*) AS MEMCNT
 		        FROM MEMBER
 		        WHERE AUTHORITY_NO != 1) M  LEFT JOIN ( SELECT COUNT(*) AS POSTCNT
@@ -18,60 +18,195 @@
 		                                    LEFT JOIN ( SELECT COUNT(*) AS ACPCNT
 		                                                FROM BOARD_ACCOMPANY        )A
 		                                    ON 1=1
+                                            LEFT JOIN ( SELECT COUNT(*) AS CNT
+                                                        FROM(
+                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY.MM.DD') AS ACCOMPANY_DT 
+                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                                                                               ON BB.POST_NO = BC.POST_NO
+                                                                                       INNER JOIN BOARD_ACCOMPANY BA
+                                                                                               ON BB.POST_NO = BA.POST_NO
+                                                                                            AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
+                                                                                       INNER JOIN ACCOMPANY_APPLY AA
+                                                                                               ON AA.POST_NO =BB.POST_NO
+                                                                                              AND STATE_NO = 2
+                                                                                       INNER JOIN MEMBER MEM 
+                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
+                                                                                       INNER JOIN MEMBER AM 
+                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
+                                                                ORDER BY ACCOMPANY_DT DESC     )  )E
+                                            ON 1=1
 	</select>
+
+
+
 
 	
+	<!-- 연도 별 통계 -->
+	<select id="year" resultType="hashmap">
+		SELECT M.YEAR, M.MEM, P.POST, C.CMT, A.ACOM
+		FROM ( 	SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS MEM    
+        		FROM MEMBER
+		        WHERE REG_DT >= '20180101' 
+		          AND REG_DT <![CDATA[ < ]]>= '20221001'
+		          AND AUTHORITY_NO != 1
+		        GROUP BY TO_CHAR(REG_DT, 'YYYY'))M  INNER JOIN (    SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS POST    
+		                                                            FROM BULLETIN_BOARD 
+		                                                            WHERE REG_DT >= '20180101' 
+		                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
+		                                                            GROUP BY TO_CHAR(REG_DT, 'YYYY')                            )P
+		                                                ON M.YEAR = P.YEAR
+		                                                
+		                                                
+		                                            INNER JOIN (    SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS CMT    
+		                                                            FROM COMMENTS 
+		                                                            WHERE REG_DT >= '20180101' 
+		                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
+		                                                            GROUP BY TO_CHAR(REG_DT, 'YYYY')                            )C
+		                                                ON M.YEAR = C.YEAR
+		                                                    
+		                                            INNER JOIN (    SELECT TO_CHAR(P.REG_DT, 'YYYY') AS YEAR, COUNT(*) AS ACOM    
+		                                                            FROM BOARD_ACCOMPANY A INNER JOIN BULLETIN_BOARD P
+		                                                                                    ON A.POST_NO = P.POST_NO
+		                                                            WHERE P.REG_DT >= '20180101' 
+		                                                              AND P.REG_DT <![CDATA[ < ]]>= '20221001'
+		                                                            GROUP BY TO_CHAR(P.REG_DT, 'YYYY')                          )A
+		                                                ON M.YEAR = A.YEAR
+		                                            LEFT OUTER JOIN (    SELECT COUNT(*) AS CNT, YEAR
+                                                                        FROM(
+                                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY') AS YEAR 
+                                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                                                                                               ON BB.POST_NO = BC.POST_NO
+                                                                                                       INNER JOIN BOARD_ACCOMPANY BA
+                                                                                                               ON BB.POST_NO = BA.POST_NO
+                                                                                                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
+                                                                                                       INNER JOIN ACCOMPANY_APPLY AA
+                                                                                                               ON AA.POST_NO =BB.POST_NO
+                                                                                                              AND STATE_NO = 2
+                                                                                                       INNER JOIN MEMBER MEM 
+                                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
+                                                                                                       INNER JOIN MEMBER AM 
+                                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
+                                                                                ORDER BY YEAR DESC)ACPED 
+                                                                          GROUP BY YEAR                                                   )E
+                                                        ON M.YEAR = E.YEAR           
 
-
-	<!-- 페이징 -->
-	<select id="cnt" parameterType="hashmap" resultType="integer">
-	SELECT COUNT(*) AS CNT
-	FROM REPORT R INNER JOIN REPORT_TYPE RT
-		ON R.REPORT_TYPE_NO = RT.REPORT_TYPE_NO
-		LEFT JOIN MEMBER P
-		ON R.TARGET_REPORT_MEMBER_NO = P.MEMBER_NO
-		LEFT JOIN MEMBER C
-		ON R.REPORT_MEMBER_NO = C.MEMBER_NO
-		WHERE R.DEL_DT IS NULL
-
-		<if test="searchTxt != null and searchTxt != ''">
-			<choose>
-				<when test="searchGbn == 0">
-					AND CATE LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn == 1">
-					AND ACCUSER '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn == 2">
-					AND ACCUSED LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn == 3">
-					AND REPORT_TYPE_NM LIKE '%' || #{searchTxt} || '%'
-				</when>
-			</choose>
-		</if>
 	</select>
 
 
-	<!-- 더보기 - 댓글 -->
-	<select id="comment" resultType="hashmap">
-	 SELECT R.REPORT_NO,C.POST_NO, BT.BLTNBOARD_NM, PO.NM AS PNM, P.TITLE, P.REG_DT, P.CONTENTS AS POST, C.COMMENT_NO,M.NM AS CNM,M.IMG_FILE,C.CONTENTS AS CMT
-	FROM COMMENTS C INNER JOIN REPORT R
-                ON C.COMMENT_NO = R.COMMENT_NO
-                INNER JOIN BULLETIN_BOARD P
-                ON C.POST_NO = P.POST_NO
-                INNER JOIN MEMBER PO
-                ON P.MEMBER_NO = PO.MEMBER_NO
-                INNER JOIN BOARD_TYPE BT
-                ON P.BLTNBOARD_NO = BT.BLTNBOARD_NO
-                INNER JOIN MEMBER M
-                ON M.MEMBER_NO= C.MEMBER_NO
-	WHERE R.REPORT_NO = #{rptNoC}
+
+
+
+
+	<!-- 월 별 통계 -->
+	<select id="month" resultType="hashmap">
+		SELECT M.MONTH, M.MEM, P.POST, C.CMT, A.ACOM, E.CNT
+		FROM ( 	SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS MEM    
+		        FROM MEMBER
+		        WHERE REG_DT >= '20180101' 
+		          AND REG_DT <![CDATA[ < ]]>= '20221001'
+		          AND AUTHORITY_NO != 1
+		        GROUP BY TO_CHAR(REG_DT, 'YYYYMM'))M  LEFT OUTER JOIN ( SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS POST    
+			                                                            FROM BULLETIN_BOARD 
+			                                                            WHERE REG_DT >= '20180101' 
+			                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
+			                                                            GROUP BY TO_CHAR(REG_DT,'YYYYMM')                            )P
+			                                                ON M.MONTH = P.MONTH
+			                                                
+			                                                
+			                                            LEFT OUTER JOIN (   SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS CMT    
+				                                                            FROM COMMENTS 
+				                                                            WHERE REG_DT >= '20180101' 
+				                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
+				                                                            GROUP BY TO_CHAR(REG_DT, 'YYYYMM')                            )C
+			                                                ON M.MONTH = C.MONTH
+			                                                    
+			                                            LEFT OUTER JOIN (   SELECT TO_CHAR(P.REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS ACOM    
+				                                                            FROM BOARD_ACCOMPANY A INNER JOIN BULLETIN_BOARD P
+				                                                                                    ON A.POST_NO = P.POST_NO
+				                                                            WHERE P.REG_DT >= '20180101' 
+				                                                              AND P.REG_DT <![CDATA[ < ]]>= '20221001'
+				                                                            GROUP BY TO_CHAR(P.REG_DT, 'YYYYMM')                          )A
+			                                                ON M.MONTH = A.MONTH
+			                                           LEFT OUTER JOIN (    SELECT COUNT(*) AS CNT, MONTH
+                                                                        FROM(
+                                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYYMM') AS MONTH 
+                                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                                                                                               ON BB.POST_NO = BC.POST_NO
+                                                                                                       INNER JOIN BOARD_ACCOMPANY BA
+                                                                                                               ON BB.POST_NO = BA.POST_NO
+                                                                                                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
+                                                                                                       INNER JOIN ACCOMPANY_APPLY AA
+                                                                                                               ON AA.POST_NO =BB.POST_NO
+                                                                                                              AND STATE_NO = 2
+                                                                                                       INNER JOIN MEMBER MEM 
+                                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
+                                                                                                       INNER JOIN MEMBER AM 
+                                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
+                                                                                ORDER BY MONTH DESC)ACPED 
+                                                                          GROUP BY MONTH                                                   )E
+                                                        ON M.MONTH = E.MONTH            
+
 	</select>
 
 
 
 
 
+
+
+
+
+
+
+
+	<!-- 일 별 통계 -->
+	<select id="day" resultType="hashmap">
+	SELECT M.DAY, M.MEM, P.POST, C.CMT, A.ACOM
+	FROM (  SELECT TO_CHAR(REG_DT, 'YYYYMMDD') AS DAY, COUNT(*) AS MEM    
+        	FROM MEMBER
+       		 WHERE REG_DT >= '20180101' AND REG_DT <![CDATA[ < ]]> = '20221001'
+          	 AND AUTHORITY_NO != 1
+        	GROUP BY TO_CHAR(REG_DT, 'YYYYMMDD'))M  LEFT OUTER JOIN (   SELECT TO_CHAR(REG_DT, 'YYYYMMDD') AS DAY, COUNT(*) AS POST    
+		                                                            FROM BULLETIN_BOARD 
+		                                                            WHERE REG_DT >= '20180101' 
+		                                                              AND REG_DT<![CDATA[ < ]]> = '20221001'
+				                                                            GROUP BY TO_CHAR(REG_DT,'YYYYMMDD')                            )P
+		                                                ON M.DAY = P.DAY
+		                                                
+		                                                
+		                                            LEFT OUTER JOIN (   SELECT TO_CHAR(REG_DT, 'YYYYMMDD') AS DAY, COUNT(*) AS CMT    
+			                                                            FROM COMMENTS 
+			                                                            WHERE REG_DT >= '20180101' 
+			                                                              AND REG_DT <![CDATA[ < ]]> = '20221001'
+			                                                            GROUP BY TO_CHAR(REG_DT, 'YYYYMMDD')                            )C
+		                                                ON M.DAY = C.DAY
+		                                                    
+		                                            LEFT OUTER JOIN (   SELECT TO_CHAR(P.REG_DT, 'YYYYMMDD') AS DAY, COUNT(*) AS ACOM    
+			                                                            FROM BOARD_ACCOMPANY A INNER JOIN BULLETIN_BOARD P
+			                                                                                    ON A.POST_NO = P.POST_NO
+			                                                            WHERE P.REG_DT >= '20180101' 
+			                                                              AND P.REG_DT <![CDATA[ < ]]> = '20221001'
+			                                                            GROUP BY TO_CHAR(P.REG_DT, 'YYYYMMDD')                          )A
+		                                                ON M.DAY = A.DAY
+		                                            LEFT OUTER JOIN (    SELECT COUNT(*) AS CNT, DAY
+                                                                        FROM(
+                                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYYMMDD') AS DAY 
+                                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+                                                                                                               ON BB.POST_NO = BC.POST_NO
+                                                                                                       INNER JOIN BOARD_ACCOMPANY BA
+                                                                                                               ON BB.POST_NO = BA.POST_NO
+                                                                                                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
+                                                                                                       INNER JOIN ACCOMPANY_APPLY AA
+                                                                                                               ON AA.POST_NO =BB.POST_NO
+                                                                                                              AND STATE_NO = 2
+                                                                                                       INNER JOIN MEMBER MEM 
+                                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
+                                                                                                       INNER JOIN MEMBER AM 
+                                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
+                                                                                ORDER BY DAY DESC)ACPED 
+                                                                          GROUP BY DAY                                                   )E
+                                                        ON M.DAY = E.DAY           
+
+	</select>
 
 </mapper>

@@ -67,6 +67,8 @@ td {
 }
 </style>
 <script type="text/javascript">
+
+
 </script>
 </head>
 <body>
@@ -94,11 +96,11 @@ td {
 				</thead>
 				<tbody>
 					<tr>
-						<td>10</td>
-						<td>10</td>
-						<td>10</td>
-						<td>100</td>
-						<td>100</td>
+						<td>${data.MEMCNT}</td>
+						<td>${data.POSTCNT}</td>
+						<td>${data.CMTCNT}</td>
+						<td>${data.ACPCNT}</td>
+						<td>${data.CNT}</td>
 					</tr>
 				</tbody>
 			</table>
