@@ -38,6 +38,15 @@
 	</select>
 
 
+<!-- 회원수 -->
+	<select id="mem" resultType="hashmap">		
+		SELECT COUNT(*) AS MEMCNT
+		FROM MEMBER
+		WHERE AUTHORITY_NO != 1
+	</select>
+
+
+
 
 
 	
@@ -99,53 +108,62 @@
 
 	<!-- 월 별 통계 -->
 	<select id="month" resultType="hashmap">
-		SELECT M.MONTH, M.MEM, P.POST, C.CMT, A.ACOM, E.CNT
-		FROM ( 	SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS MEM    
-		        FROM MEMBER
-		        WHERE REG_DT >= '20180101' 
-		          AND REG_DT <![CDATA[ < ]]>= '20221001'
-		          AND AUTHORITY_NO != 1
-		        GROUP BY TO_CHAR(REG_DT, 'YYYYMM'))M  LEFT OUTER JOIN ( SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS POST    
-			                                                            FROM BULLETIN_BOARD 
-			                                                            WHERE REG_DT >= '20180101' 
-			                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
-			                                                            GROUP BY TO_CHAR(REG_DT,'YYYYMM')                            )P
-			                                                ON M.MONTH = P.MONTH
-			                                                
-			                                                
-			                                            LEFT OUTER JOIN (   SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS CMT    
-				                                                            FROM COMMENTS 
-				                                                            WHERE REG_DT >= '20180101' 
-				                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
-				                                                            GROUP BY TO_CHAR(REG_DT, 'YYYYMM')                            )C
-			                                                ON M.MONTH = C.MONTH
-			                                                    
-			                                            LEFT OUTER JOIN (   SELECT TO_CHAR(P.REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS ACOM    
-				                                                            FROM BOARD_ACCOMPANY A INNER JOIN BULLETIN_BOARD P
-				                                                                                    ON A.POST_NO = P.POST_NO
-				                                                            WHERE P.REG_DT >= '20180101' 
-				                                                              AND P.REG_DT <![CDATA[ < ]]>= '20221001'
-				                                                            GROUP BY TO_CHAR(P.REG_DT, 'YYYYMM')                          )A
-			                                                ON M.MONTH = A.MONTH
-			                                           LEFT OUTER JOIN (    SELECT COUNT(*) AS CNT, MONTH
-                                                                        FROM(
-                                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYYMM') AS MONTH 
-                                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
-                                                                                                               ON BB.POST_NO = BC.POST_NO
-                                                                                                       INNER JOIN BOARD_ACCOMPANY BA
-                                                                                                               ON BB.POST_NO = BA.POST_NO
-                                                                                                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
-                                                                                                       INNER JOIN ACCOMPANY_APPLY AA
-                                                                                                               ON AA.POST_NO =BB.POST_NO
-                                                                                                              AND STATE_NO = 2
-                                                                                                       INNER JOIN MEMBER MEM 
-                                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
-                                                                                                       INNER JOIN MEMBER AM 
-                                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
-                                                                                ORDER BY MONTH DESC)ACPED 
-                                                                          GROUP BY MONTH                                                   )E
-                                                        ON M.MONTH = E.MONTH            
-
+		SELECT B.M, NVL(SUM(A.MEM),0) AS MEM, NVL(SUM(A.CMT),0) AS CMT,NVL(SUM(A.POST),0) AS POST,NVL(SUM(A.ACOM),0) AS ACOM,NVL(SUM(A.CNT),0) AS CNT
+		FROM (	SELECT M.MONTH, M.MEM, P.POST, C.CMT, A.ACOM, E.CNT
+				FROM ( 		SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS MEM    
+					        FROM MEMBER
+					        WHERE TO_CHAR(REG_DT, 'YYYYMM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-5), 'YYYYMM') 
+					          AND TO_CHAR(REG_DT, 'YYYYMM') <![CDATA[ < ]]>= TO_CHAR(SYSDATE, 'YYYYMM')
+					          AND AUTHORITY_NO != 1
+					        GROUP BY TO_CHAR(REG_DT, 'YYYYMM'))M  LEFT OUTER JOIN ( SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS POST    
+						                                                            FROM BULLETIN_BOARD 
+						                                                            WHERE REG_DT >= '20180101' 
+						                                                              AND REG_DT <![CDATA[ < ]]>= '20221009'
+						                                                            GROUP BY TO_CHAR(REG_DT,'YYYYMM')                            )P
+						                                                ON M.MONTH = P.MONTH
+						                                                
+						                                                
+						                                            LEFT OUTER JOIN (   SELECT TO_CHAR(REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS CMT    
+							                                                            FROM COMMENTS 
+							                                                            WHERE REG_DT >= '20180101' 
+							                                                              AND REG_DT <![CDATA[ < ]]>= '20221009'
+							                                                            GROUP BY TO_CHAR(REG_DT, 'YYYYMM')                            )C
+						                                                ON M.MONTH = C.MONTH
+						                                                    
+						                                            LEFT OUTER JOIN (   SELECT TO_CHAR(P.REG_DT, 'YYYYMM') AS MONTH, COUNT(*) AS ACOM    
+							                                                            FROM BOARD_ACCOMPANY A INNER JOIN BULLETIN_BOARD P
+							                                                                                    ON A.POST_NO = P.POST_NO
+							                                                            WHERE TO_CHAR(P.REG_DT, 'YYYYMM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-5), 'YYYYMM') 
+							                                                              AND TO_CHAR(P.REG_DT, 'YYYYMM') <![CDATA[ < ]]>= TO_CHAR(SYSDATE, 'YYYYMM') 
+							                                                            GROUP BY TO_CHAR(P.REG_DT, 'YYYYMM')                          )A
+						                                                ON M.MONTH = A.MONTH
+			                                                   LEFT OUTER JOIN (    SELECT COUNT(*) AS CNT, MONTH
+			                                                                        FROM(
+			                                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYYMM') AS MONTH 
+			                                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
+			                                                                                                               ON BB.POST_NO = BC.POST_NO
+			                                                                                                       INNER JOIN BOARD_ACCOMPANY BA
+			                                                                                                               ON BB.POST_NO = BA.POST_NO
+			                                                                                                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
+			                                                                                                       INNER JOIN ACCOMPANY_APPLY AA
+			                                                                                                               ON AA.POST_NO =BB.POST_NO
+			                                                                                                              AND STATE_NO = 2
+			                                                                                                       INNER JOIN MEMBER MEM 
+			                                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
+			                                                                                                       INNER JOIN MEMBER AM 
+			                                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
+			                                                                                ORDER BY MONTH DESC)ACPED 
+			                                                                          GROUP BY MONTH                                                   )E
+			                                                        ON M.MONTH = E.MONTH      )A  RIGHT OUTER JOIN
+			                                                                          (
+			                                                                             SELECT TO_CHAR(ADD_MONTHS(SYSDATE, -5) + (LEVEL-1), 'YYYYMM') AS M
+			                                                                              FROM DUAL
+			                                                                            CONNECT BY LEVEL <![CDATA[ < ]]>= SYSDATE - ADD_MONTHS(SYSDATE, -5) +1
+			                                                                            GROUP BY TO_CHAR(ADD_MONTHS(SYSDATE, -5) + (LEVEL-1), 'YYYYMM')
+			                                                                          )B
+		                                                                        ON B.M = A.MONTH
+		                                                                        GROUP BY B.M
+		                                                                        ORDER BY B.M DESC
 	</select>
 
 
@@ -208,5 +226,59 @@
                                                         ON M.DAY = E.DAY           
 
 	</select>
+
+
+
+
+
+
+
+	<select id="endCnt" resultType="integer">
+	SELECT B.M, NVL(SUM(A.MEM),0) AS CNT
+	FROM (
+					SELECT TO_CHAR(REG_DT, 'YYYYMM') AS REG_DT, COUNT(*) AS MEM    
+			        FROM MEMBER
+			        WHERE TO_CHAR(REG_DT, 'YYYYMM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-5), 'YYYYMM') 
+			          AND TO_CHAR(REG_DT, 'YYYYMM') <![CDATA[ < ]]>= TO_CHAR(SYSDATE, 'YYYYMM')
+			          AND AUTHORITY_NO != 1
+			        GROUP BY TO_CHAR(REG_DT, 'YYYYMM')
+		)A RIGHT OUTER JOIN
+	                                (
+	                                 SELECT TO_CHAR(ADD_MONTHS(SYSDATE, -5) + (LEVEL-1), 'YYYYMM') AS M
+	                                 FROM DUAL
+	                                 CONNECT BY LEVEL <![CDATA[ < ]]>= SYSDATE - ADD_MONTHS(SYSDATE, -5) +1
+	                                 GROUP BY TO_CHAR(ADD_MONTHS(SYSDATE, -5) + (LEVEL-1), 'YYYYMM')
+	                                                                          								)B
+	           ON B.M = A.REG_DT
+	GROUP BY B.M
+	ORDER BY B.M
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>
