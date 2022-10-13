@@ -61,6 +61,8 @@ public class adAggregationController {
 	
 	
 	
+	
+	
 	// 통계 아작스
 		@RequestMapping(value="/totalAjax",
 				method=RequestMethod.POST,
@@ -102,14 +104,10 @@ public class adAggregationController {
 						@RequestParam HashMap<String, String> params)throws Throwable {
 					ObjectMapper mapper = new ObjectMapper();
 					Map<String, Object> model = new HashMap<String, Object>();
-
-					
 					
 					// 쿼리에서 불러온 월 별 총 집계
 					List<HashMap<String, String>> month = dao.getList("adWebTotal.month", params);
-					
-					
-					
+									
 					
 					model.put("month", month);
 					return mapper.writeValueAsString(model);
