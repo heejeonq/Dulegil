@@ -145,7 +145,7 @@ function drawAlarm(cnt, list){
 		<div class="nav">
 			<div class="logo">
 				<a href="main"> <img alt="서울둘레길 로고" src="resources/images/direction.png">
-					<span>서울둘레길</span>
+					<span>같이둘레</span>
 				</a>
 			</div>
 			<div class="gnb">

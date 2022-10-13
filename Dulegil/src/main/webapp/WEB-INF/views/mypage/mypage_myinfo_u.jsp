@@ -235,8 +235,6 @@ function readURL(input) {
 			    <!-- value="${sMemNo}"를 폼으로 ajex로 넘김. case "myinfoUpdate": cnt = dao.update("member.updateMyinfo", params); 값을 가져오기 위해 -->
 			    <!-- 수정할 정보를 쿼리에 주기 위해서(컨트롤러에서 /mypageAjax/{gbn}부분 업데이트문에 영향) --> 
 				<input type="hidden" name="memNo" value="${sMemNo}">
-				<input type="hidden" name="haha" >
-	 
 			<div class="mem_box">	
 				<div class="contents_wrap">		
 					<div class=" img_area">
@@ -253,7 +251,6 @@ function readURL(input) {
                               <c:set var="fileName" value="${fn:substring(data.IMG_FILE, 20, fileLength)}"></c:set>
                               <span id="fileName">${fileName}</span>
                            </span>
-                           
                            <!-- 기존파일 삭제후 새파일 용도 --> 
                            <span class="img"> 
                               <!-- 파일명이 바뀌면 onchange 이벤트가 돈다. input type="file" 벨류 값은 파일명임 -->
@@ -274,14 +271,6 @@ function readURL(input) {
 							<label for="email"></label>
 							<input type="text" name="email" id="email" value="${data.EMAIL}" readonly="readonly" >
 						</div>
-						<div class="pw01">
-							<label for="pw"></label>
-							<input type="password" name="pwd" id="pwd" placeholder="새 비밀번호 입력">
-						</div>
-						<div class="pw02">
-							<label for="pw"></label>
-							<input type="password" name="cnfmPwd" id="cnfmPwd" placeholder="새 비밀번호 확인">
-						</div>
 						<div class="name01">
 							<label for="name"></label>
 							                   <!--xml에 있는 #이 name이야!..
@@ -291,6 +280,14 @@ function readURL(input) {
 							<input type="text" name="nm" id="nm" maxlength="10" onkeyup="check(this)" value="${data.NM}">
 						</div>	
 						<div class="input">*선택 입력 사항</div>
+						<div class="pw01">
+							<label for="pw"></label>
+							<input type="password" name="pwd" id="pwd" placeholder="새 비밀번호 입력">
+						</div>
+						<div class="pw02">
+							<label for="pw"></label>
+							<input type="password" name="cnfmPwd" id="cnfmPwd" placeholder="새 비밀번호 확인">
+						</div>
 						<div class="dtBrt01">
 							<label for="dtBrt"></label>
 							<input type="date" name="dtBrt" id="dtBrt" value="${data.DATE_BIRTH}" onblur="return chk_num(this.name);">

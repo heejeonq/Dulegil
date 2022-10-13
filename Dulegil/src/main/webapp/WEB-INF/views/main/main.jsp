@@ -115,7 +115,7 @@ $(document).ready(function (){
 	<div class="container">
    
          <div class="flowtxt">
-            <MARQUEE  scrollamount="10" class="welcometxt">서울둘레길에 오신 것을 환영합니다!</MARQUEE>
+            <MARQUEE  scrollamount="10" class="welcometxt">서울둘레길의 공식 홈페이지 '같이둘레'에 오신 것을 환영합니다!</MARQUEE>
          </div>
          
          
