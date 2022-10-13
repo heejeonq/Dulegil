@@ -1,11 +1,16 @@
 package com.gdj51.Dulegil.admin.aggregationController;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,9 +50,7 @@ public class adAggregationController {
 			}
 			
 			HashMap<String, String> data = dao.getMap("adWebTotal.list", params);
-			HashMap<String, String> acped = dao.getMap("adWebTotal.acped", params);
 			
-			mav.addObject("acped", acped);
 			mav.addObject("data", data);
 			mav.addObject("page", page);
 			mav.setViewName("admin/5_adAggregation/ad_websiteTotal");
@@ -58,6 +61,8 @@ public class adAggregationController {
 	
 	
 	
+	
+	
 	// 통계 아작스
 		@RequestMapping(value="/totalAjax",
 				method=RequestMethod.POST,
@@ -65,31 +70,48 @@ public class adAggregationController {
 
 		@ResponseBody
 		public String totalAjax(
+				HttpServletRequest request,
 				@RequestParam HashMap<String, String> params)throws Throwable {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object> model = new HashMap<String, Object>();
 
-			int cnt = dao.getInt("adWebTotal.cnt",params);
-			HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")),cnt,15,5);
-
-			params.put("start", Integer.toString(pd.get("start")));
-			params.put("end", Integer.toString(pd.get("end")));
-			
 			// LIST
 			List<HashMap<String, String>> list = dao.getList("adWebTotal.list", params);
-			List<HashMap<String, String>> year = dao.getList("adWebTotal.year", params);
-			List<HashMap<String, String>> month = dao.getList("adWebTotal.month", params);
-			List<HashMap<String, String>> day = dao.getList("adWebTotal.day", params);
-
+			
+			
+			
+			
+			
 			model.put("list", list);
-			model.put("year", year);
-			model.put("month", month);
-			model.put("day", day);
-			model.put("pd", pd);
+			
 			return mapper.writeValueAsString(model);
 		}
 
 	
-	
+		
+		
+		
+		
+		
+		// 차트 아작스
+				@RequestMapping(value="/chartAjax",
+						method=RequestMethod.POST,
+						produces = "text/json;charset=UTF-8")
+
+				@ResponseBody
+				public String chartAjax(
+						HttpServletRequest request,
+						@RequestParam HashMap<String, String> params)throws Throwable {
+					ObjectMapper mapper = new ObjectMapper();
+					Map<String, Object> model = new HashMap<String, Object>();
+					
+					// 쿼리에서 불러온 월 별 총 집계
+					List<HashMap<String, String>> month = dao.getList("adWebTotal.month", params);
+									
+					
+					model.put("month", month);
+					return mapper.writeValueAsString(model);
+				}
+
 
 }
