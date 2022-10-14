@@ -158,15 +158,15 @@ function drawAlarm(cnt, list){
 						</ul></li>
 					<li><a href="course1"> 둘레길 코스안내</a>
 
-					<li><a href="event"> 전체일정</a>
+					<li><a href="event"> 전체 일정</a>
 
 					<li><a href="bestReviewGallery"> 명예의 전당</a></li>
 					<li><a href="courseReview"> 커뮤니티</a>
 
 						<ul class="gnb_dropdown">
-							<li><a href="courseReview"> 코스별 후기 </a></li>
-							<li><a href="accompany"> 동행구하기 </a></li>
-							<li><a href="freeBoard"> 자유게시판 </a></li>
+							<li><a href="courseReview"> 코스 별 후기 </a></li>
+							<li><a href="accompany"> 동행 구하기 </a></li>
+							<li><a href="freeBoard"> 둘레길 이야기 </a></li>
 						</ul></li>
 				</ul>
 			</div>

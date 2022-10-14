@@ -285,9 +285,9 @@ function drawPaging(pd){
 							</colgroup>
 							<thead>
 							<tr>
-								<th>번호</th>
-								<th>글제목</th>
-								<th>댓글내용</th>
+								<th>글 번호</th>
+								<th>글 제목</th>
+								<th>댓글 내용</th>
 								<th>작성일</th>
 								<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
 							</tr>
@@ -316,8 +316,8 @@ function drawPaging(pd){
 									<input type="hidden" name="delete" id="delete"/>
 									<input type="hidden" name="page" id="page" value="${page}" />
 									<select class="sel" name="searchGbn" id="searchGbn">
-										<option value="0">글제목</option>
-										<option value="1">댓글내용</option>
+										<option value="0">글 제목</option>
+										<option value="1">댓글 내용</option>
 									</select>
 									<div class="searchBox">
 										<input type="text" class="serchTxt" name="searchTxt" id="searchTxt" value="${param.searchTxt }" placeholder="검색하기" />				
