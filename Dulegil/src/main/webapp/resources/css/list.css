@@ -23,10 +23,10 @@ tr{
 	width:100%;
 	margin:0 auto;
 	border-collapse : collapse;	
-	border-top : 2px solid #ddd;
-	border-bottom : 2px solid #ddd;
+	border-top : 1px solid #7d7d7d7d;
+	border-bottom : 1px solid #7d7d7d7d;
 	text-align : center;
-	font-size:13px;
+	font-size:14px;
 }
 
 tbody td:nth-child(2) {
