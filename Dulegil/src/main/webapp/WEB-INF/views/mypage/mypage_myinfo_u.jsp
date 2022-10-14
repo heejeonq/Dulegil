@@ -240,7 +240,6 @@ function readURL(input) {
 					<div class=" img_area">
 					<img id="preview" src="resources/upload/${data.IMG_FILE}">
 					<div>150 x 150 </div>
-				
                         <td class="filBox">
                            <!-- 기존파일 --> 
                            <span class="imgOld">
@@ -259,7 +258,6 @@ function readURL(input) {
                               <input type="hidden" name="imgFile" id="imgFile" value="${data.IMG_FILE}" /><!-- 실 저장된 파일명 보관용 -->
                            </span>
                         </td>
-					
 					<div>*이미지 파일만 첨부하여 주세요 </div>
 					</div>	
 					<div class="join_area">
