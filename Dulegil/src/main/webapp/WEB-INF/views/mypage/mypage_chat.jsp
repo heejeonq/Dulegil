@@ -113,16 +113,16 @@ function wsEvt() {
 	ws.onopen = function(data){
 		//소켓이 열리면 초기화 세팅하기
 		console.log("웹소켓열림");
-<<<<<<< HEAD
+
 		//스크롤 자동으로 하단
 		let chatScroll = document.querySelector('#chatting');
 		chatScroll.scrollTop = chatScroll.scrollHeight;
 		console.log(chatScroll.scrollTop);
-=======
+
 		console.log(ws);
 		console.log(data);
 		
->>>>>>> branch 'main' of https://github.com/heejeonq/Dulegil.git
+
 	}
 	
 	ws.onmessage = function(data) {
