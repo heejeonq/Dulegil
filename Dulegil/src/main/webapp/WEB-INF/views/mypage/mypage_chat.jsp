@@ -113,12 +113,18 @@ function wsEvt() {
 	ws.onopen = function(data){
 		//소켓이 열리면 초기화 세팅하기
 		console.log("웹소켓열림");
-		
+		//스크롤 자동으로 하단
+		let chatScroll = document.querySelector('#chatting');
+		chatScroll.scrollTop = chatScroll.scrollHeight;
+		console.log(chatScroll.scrollTop);
 	}
 	
 	ws.onmessage = function(data) {
 		//메시지를 받으면 동작
 		var msg = data.data;
+		
+		
+		
 		if(msg != null && msg.trim() != ''){
 			var d = JSON.parse(msg);
 			if(d.type == "getId"){
@@ -153,6 +159,12 @@ function wsEvt() {
 			}else{
 				console.warn("unknown type!")
 			}
+			
+			//스르롤 자동으로 하단
+			let chatScroll = document.querySelector('#chatting');
+			chatScroll.scrollTop = chatScroll.scrollHeight;
+	
+	 
 		}
 	}
 
@@ -164,16 +176,20 @@ function wsEvt() {
 }
 
 function send() {
-	var option ={
-			type: "message",
-			postNo: $("#postNo").val(),
-			sessionId : $("#sessionId").val(),
-			userName : $("#userName").val(),
-			msg : $("#msg").val(),
-			memNo : $("#memNo").val()
-		}
-		ws.send(JSON.stringify(option));
-		$('#msg').val("");
+	let msg = $("#msg").val();
+	if(msg != "" && msg != null){
+		var option ={
+				type: "message",
+				postNo: $("#postNo").val(),
+				sessionId : $("#sessionId").val(),
+				userName : $("#userName").val(),
+				msg : $("#msg").val(),
+				memNo : $("#memNo").val()
+			}
+			ws.send(JSON.stringify(option));
+			$('#msg').val("");
+		
+	}
 }
 
 function reloadList() {
