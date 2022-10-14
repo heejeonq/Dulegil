@@ -32,16 +32,21 @@ $(document).ready(function(){
 		else {
 			var params = $("#actionForm").serialize();
 			$.ajax({
-				url : "memberLoginAjax", 
+				url : "memberLoginAjax",
 				type : "POST",
 				dataType : "json", 
 				data : params, 
 				success : function(res) {
-					if(res.msg == "success"){
-						location.href = "main";
-					}
-					else{
-						makeAlert("알림", "아이디나 비밀번호가 틀립니다.");
+					switch(res.msg) {
+			       	case "stopLogin" : 
+			       		makeAlert("알림", "활동 중지된 회원입니다.");
+			       	break;
+			    	case "success" : 
+		       			location.href='main';
+		       		break;
+			    	case "fail" : 
+			    		makeAlert("알림", "아이디나 비밀번호가 틀립니다.");
+		       		break;
 					}
 				},
 				error : function(request, status, error) {

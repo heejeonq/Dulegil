@@ -70,26 +70,9 @@ function action(flag){
        	switch(res.msg) {
        	case "success" : 
        		switch(flag){
-       		case "insert" : 
-       			
-       			makeAlert("알림", "회원가입이 완료되었습니다.", function() {
-       				location.href='main';
-       			});
-       		break;
-       		case "delete" :
-       			$("#page").val("1");
-       			$("#searchGbn").val("0");
-       			$("#searchText").val("");
-       			$("#oldGbn").val("0");
-       			$("#oldText").val("");
-       		break;
-       		case "update" :
-       			$("#oldGbn").val($("#searchGbn").val());
-       			$("#oldText").val($("#searchText").val());
-       			$("#con").val("");
-       			$("#no").val("");
-       			$(".insert").show();
-       			$(".update").hide();
+       		case "insert" : makeAlert("알림", "회원가입이 완료되었습니다.", function() {
+       			 				location.href='main';
+       						});
        		break;
        		}
        	break;
@@ -97,9 +80,9 @@ function action(flag){
        	case "fail" :  alert("알림", msg[flag] + "에 실패하였습니다.");
    			break;
    		
-    		case "error" : alert("알림", msg[flag] + " 중 문제가 발생하였습니다.");
-				break;
-			}
+    	case "error" : alert("알림", msg[flag] + " 중 문제가 발생하였습니다.");
+			break;
+		}
        }, 
        error: function(request, status, error) { 
           console.log(request.responseText); 
