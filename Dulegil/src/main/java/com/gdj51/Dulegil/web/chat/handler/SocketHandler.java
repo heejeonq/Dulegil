@@ -130,7 +130,7 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 			super.afterConnectionClosed(session, status);
 		}
-		
+		 
 		private static JSONObject jsonToObjectParser(String jsonStr) {
 			JSONParser parser = new JSONParser();
 			JSONObject obj = null;
