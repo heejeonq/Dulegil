@@ -59,6 +59,8 @@ public class LoginController {
 				model.put("msg", "stopLogin");
 			}else if (data2 != null) {
 				model.put("msg", "success");
+				session.setAttribute("sMemNo", data2.get("MEMBER_NO"));
+				session.setAttribute("sMemNm", data2.get("NM"));
 			}
 			else {
 				model.put("msg", "fail");
@@ -69,13 +71,6 @@ public class LoginController {
 			model.put("msg", "error");
 		}
 
-		/*
-		 * HashMap<String, String> data = dao.getMap("adLogin.checkMember", params); if
-		 * (data != null) { session.setAttribute("sMemNo", data.get("MEMBER_NO"));
-		 * session.setAttribute("sMemNm", data.get("NM")); model.put("msg", "success");
-		 * 
-		 * } else { model.put("msg", "failed"); }
-		 */
 		return mapper.writeValueAsString(model);
 	}
 
