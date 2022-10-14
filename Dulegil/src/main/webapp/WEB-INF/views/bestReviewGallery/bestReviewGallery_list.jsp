@@ -206,6 +206,7 @@ function drawList(list) {
 	html += "		</div>";
 	html += "	</div>";
 	html += "	<div class=\"c_b_tit\">" + data.TITLE + " ("+ data.CNT +")"+"</div>";
+	html += "	<div class=\"c_b_c\">" +"("+ data.CNT +")" + "</div>";
 	html += "	<div class=\"c_b_id\">" + data.NM + "</div>";
 	html += "	<div class=\"c_b_coss\">" + data.COURSE_NO + " 코스 : "+ data.COURSE_NM +"</div>";
 	html += "	<div class=\"c_b_date\">" + data.DT + "</div>";
