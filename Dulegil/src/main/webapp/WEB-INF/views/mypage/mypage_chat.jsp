@@ -103,6 +103,8 @@ function wsEvt() {
 	ws.onopen = function(data){
 		//소켓이 열리면 초기화 세팅하기
 		console.log("웹소켓열림");
+		console.log(ws);
+		console.log(data);
 		
 	}
 	
