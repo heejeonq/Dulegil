@@ -166,7 +166,7 @@ function drawAlarm(cnt, list){
 						<ul class="gnb_dropdown">
 							<li><a href="courseReview"> 코스 별 후기 </a></li>
 							<li><a href="accompany"> 동행 구하기 </a></li>
-							<li><a href="freeBoard"> 자유게시판 </a></li>
+							<li><a href="freeBoard"> 둘레길 이야기 </a></li>
 						</ul></li>
 				</ul>
 			</div>

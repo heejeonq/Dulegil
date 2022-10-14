@@ -23,9 +23,10 @@ tr{
 	width:100%;
 	margin:0 auto;
 	border-collapse : collapse;	
-	border-top : 2px solid #444444;
-	border-bottom : 2px solid #444444;
+	border-top : 1px solid #7d7d7d7d;
+	border-bottom : 1px solid #7d7d7d7d;
 	text-align : center;
+	font-size:14px;
 }
 
 tbody td:nth-child(2) {

@@ -450,7 +450,7 @@ function drawList2(memList){
 					<table class="standard a">
 						<thead>
 							<tr>
-								<th>No</th>
+								<th>글 번호</th>
 								<th>코스</th>
 								<th>글 제목</th>
 								<th>ID</th>
@@ -468,10 +468,10 @@ function drawList2(memList){
 					<table class="standard b">
 						<thead>
 							<tr>
-								<th>No</th>
+								<th>글 번호</th>
 								<th>코스</th>
 								<th>글 제목</th>
-								<th>동행자들</th>
+								<th>동행자</th>
 								<th>동행 일자</th>
 							</tr>
 						</thead>
