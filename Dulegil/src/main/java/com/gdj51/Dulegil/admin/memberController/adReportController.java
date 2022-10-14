@@ -82,7 +82,7 @@ public class adReportController {
 		List<HashMap<String, String>> comment = dao.getList("adReport.comment", params);
 		List<HashMap<String, String>> post = dao.getList("adReport.post", params);
 
-		//model.put("post", post);
+		
 		model.put("comment", comment);
 		model.put("list", list);
 		model.put("post", post);
