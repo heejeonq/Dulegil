@@ -107,6 +107,7 @@ public class MypageInfoController {
 			case "myinfoUpdate":
 
 				// 암호화
+				// 폼에서 pwd가 아예 안 넘어왔을때 대비(폼 잘못 만들었을 때) *비밀번호 입력값이 없을때 db에서 if문 실행 안함.
 				if (params.get("pwd") != null && !params.get("pwd").equals("")) {
 					params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 				}

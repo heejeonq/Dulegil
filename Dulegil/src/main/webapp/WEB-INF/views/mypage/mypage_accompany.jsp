@@ -13,14 +13,17 @@
 $(document).ready(function(){
 	reloadList();
 	
-	//별점 그리기
+	//별점 채우기
 	$("#memRate").on("change", ".star input", function(){
+		 //배경 별,그리는 별 따로                             그리는 별의 크기를 늘려줌
 		$(this).parent().children().eq(0).css("width", $(this).val()*20 + "%");
-		console.log($(this).val());
 	})
+	
 	//별점 주기
 	$("#memRate").on("click","#confirmBtn" , function(){
-		let amemNo = $(this).parent().parent().attr("amemNo");
+	    //값을 넣어주기.(보내야하기 때문)
+        //같은 사람이지만 다른 동행 게시물일 수도 같이 두번 갈 수도 있으니까 postNo도 가져옴. 
+		let amemNo = $(this).attr("amemNo");
 		let postNo = $(this).parent().parent().parent().attr("postNo");
 		let rateValue = $(this).parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(1).val();
 		$("#applyMemNo").val(amemNo);
@@ -29,71 +32,72 @@ $(document).ready(function(){
 		
 		action("rateUpdate");
 	});
-	//신고하기
+	
+	//신고
 	$("#memRate").on("click", ".singo img", function(){
-		
+		 //누르기 전에 신고 컨텐츠가 보이면 다 닫아주고
 		if($(this).parent().children(".singo_contents").css("display") == "none"){
+			//아니면 보이게 함.
 			$(".singo_contents").css("display", "none");
 			$(this).parent().children(".singo_contents").css("display", "flex");
 			//$(".singo_contents").show();		
 		}
-		else {
+		else {//다시 클릭시 안보이게 없애기.
 			$(this).parent().children(".singo_contents").css("display", "none");
 		}
 		
 	});
+	
+	//신고 하기
 	$("#memRate").on("click", "#reportBtn", function(){
 		let amemNo = $(this).parent().parent().parent().children().eq(1).attr("amemNo");
 		let amemNm = $(this).parent().parent().parent().children().eq(1).attr("amemNm");
+		//체크 된 것의 값을 넣어주기.
 		let reportNo = $('input[name="report"]:checked').val();
-		console.log()
 		$("#applyMemNo").val(amemNo);
 		$("#applyMemNm").val(amemNm);
 		$("#reportTypeNo").val(reportNo);
+		// 신고 내용 없을 때
 		if (reportNo == null) {
             makeAlert("알림", "신고내용을 선택하세요.", function() {
             });
 		 }
-		else{
+		else{//기타를 누르면 신고 내용을 쓰는란이 뜸.
 			if($("#reportTypeNo").val() == "5"){
 				reportText();
 			}
+		    //아니면 신고가 되고, 콘텐츠 안보이게
 			else{
 				action("report");			
 			}
 			$(".singo_contents").css("display", "none");
-			
-		}
-
-		
+		}	
 	});
 	
 	//동행 신청자 수락 버튼 클릭시 
 	$(".join_mem_list").on("click", "#acceptBtn" , function(){
-		
 		var amemNo = $(this).parent().parent().attr("amemNo");
 		var postNo = $(this).parent().parent().attr("postNo");
 		$("#applyMemNo").val(amemNo);
 		$("#applyPostNo").val(postNo);
+		//상태를 수락으로 바꿔줌.
 		$("#stateNo").val(1);
-
-
+		
 		action("applyMemUpdate");
 	});
+	
 	//거절 버튼 클릭시
 	$(".join_mem_list").on("click", "#rejectBtn" , function(){
 		var amemNo = $(this).parent().parent().attr("amemNo");
 		var postNo = $(this).parent().parent().attr("postNo");
 		$("#applyMemNo").val(amemNo);
 		$("#applyPostNo").val(postNo);
-		
+		//상태를 거절으로 바꿔줌.
 		$("#stateNo").val(2);
 		action("applyMemUpdate");
-	});
-	
-	
-	
+	});	
 });
+
 //채팅들어가기
 function goRoom(number, postMemNo, title){
 	$("#chattingPostNo").val(number);
@@ -105,18 +109,18 @@ function goRoom(number, postMemNo, title){
 function reportText() {
 	html = "";
 	
-	html += "			<table class=\"board_detail_table\">  		";
-	html += "				<tbody>                                                                   			";
-	html += "				<tr>                                                                  			";
-	html += "					<th class=\"popup_th\">신고 내용을 입력하세요</th>                                                      			";
-	html += "				</tr>                                                                  			";
-	html += "				<tr>                                                                  			";
-	html += "					<td>";
-	html += "					<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
-	html += "					</td>    ";
-	html += "				</tr>                                                                  			";
-	html += "				</tbody>                                                                  			";
-	html += "			</table>";
+	html += "<table class=\"board_detail_table\">";
+	html += "<tbody>";
+	html += "<tr>";
+	html += "<th class=\"popup_th\">신고 내용을 입력하세요</th>";
+	html += "</tr>";
+	html += "<tr>";
+	html += "<td>";
+	html += "<textarea rows=\"4\" cols=\"35\" name=\"descript\" id=\"descript\"></textarea>";
+	html += "</td>";
+	html += "</tr>";
+	html += "</tbody>";
+	html += "</table>";
 	
 		makePopup({
 			depth : 1,
@@ -141,8 +145,7 @@ function reportText() {
 					 }
 					 else{
 						action("report");
-						closePopup();
-						 
+						closePopup(); 
 					 }
 				}
 			}, {
@@ -150,6 +153,7 @@ function reportText() {
 			}]
 		});
 }
+
 function action(flag){
 
 		 var params = $("#actionForm").serialize();
@@ -181,11 +185,11 @@ function action(flag){
 	           
 	        }, 
 	        error: function(request, status, error) { 
-	           console.log(request.responseText); 
-	           
+	           console.log(request.responseText);   
 	        }
 	     });// Ajax End
 	} 
+	
 function reloadList() {
 	var params = $("#searchForm").serialize();
 	
@@ -201,10 +205,9 @@ function reloadList() {
 		error : function(request, status, error) {
 			console.log(request.responseText); //실패 상세 내역
 		}
-	});
-		
-		
+	});		
 }
+
 function reloadList2() {
 	var params = $("#searchForm").serialize();
 	
@@ -221,8 +224,6 @@ function reloadList2() {
 			console.log(request.responseText); //실패 상세 내역
 		}
 	});
-		
-		
 }
 
 function drawList(list1, list2, list3, list4, list5){
@@ -231,110 +232,101 @@ function drawList(list1, list2, list3, list4, list5){
 	var html3 = "";
 	var html4 = "";
 	var html5 = "";
-
-	
-
 	
 	//동행 신청자 리스트
 	for(var data of list1){                                                          
-		html1 += "<table class=\"standard c\">                                            ";
-		html1 += "	<tr>                                                                ";
-		html1 += "		<th>" + data.COURSE_NO +"코스</th>                                      ";
-		html1 += "		<th colspan=\"5\">" + data.TITLE +"</th>                                ";
-		html1 += "	</tr>                                                               ";
-		html1 += "	<tr amemNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">                                                              ";
-		html1 += "		<td class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>    ";
-		html1 += "		<td class=\"mem_id\">" + data.NM +"</td>                                     ";
-		html1 += "		<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>                                      ";
+		html1 += "<table class=\"standard c\">";
+		html1 += "<tr>";
+		html1 += "<th>" + data.COURSE_NO +"코스</th>";
+		html1 += "<th colspan=\"5\">" + data.TITLE +"</th>";
+		html1 += "</tr>";
+		html1 += "<tr amemNo=\"" + data.MEM_NO + "\" postNo=\"" + data.POST_NO + "\">";
+		html1 += "<td class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>";
+		html1 += "<td class=\"mem_id\">" + data.NM +"</td>";
+		html1 += "<td class=\"mem_lvl\">" + data.RELIABILITY +"</td>";
 		if(data.PUBLIC_AGE == 0){
-			html1 += "		<td class=\"mem_age\">" + data.AGE +"세</td>                                        ";			
+			html1 += "<td class=\"mem_age\">" + data.AGE +"세</td>";			
 		}
 		else {
-			html1 += "		<td class=\"mem_age\">나이 비공개</td>                                        ";			
+			html1 += "<td class=\"mem_age\">나이 비공개</td>";			
 		}
 		if(data.PUBLIC_GENGER == 0){
-			html1 += "		<td>" + data.GENDER +"</td>                                                   ";
+			html1 += "<td>" + data.GENDER +"</td>";
 		}
 		else {
-			html1 += "		<td class=\"mem_age\">성별 비공개</td>                                        ";			
+			html1 += "<td class=\"mem_age\">성별 비공개</td>";			
 		}
 		//stateno가 1일때 수락버튼 비활성화 0일때 거절 버튼 비활성화
 		if(data.STATE_NO == 1){
-			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\" disabled=\"disabled\">        ";
-			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>   ";
+			html1 += "<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\" disabled=\"disabled\">";
+			html1 += "<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>";
 		}	
 		else if(data.STATE_NO == 2) {
-			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">        ";
-			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\" disabled=\"disabled\"></td>   ";
+			html1 += "<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">";
+			html1 += "<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\" disabled=\"disabled\"></td>   ";
 			
 		}
 		else {
-			html1 += "		<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">        ";
-			html1 += "		<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>   ";
+			html1 += "<td><input type=\"button\" value=\"수락\" class=\"btn green\" id=\"acceptBtn\">";
+			html1 += "<input type=\"button\" value=\"거절\" class=\"btn green\" id=\"rejectBtn\"></td>";
 			
 		}
-		html1 += "		</tr>                                                               ";
+		html1 += "</tr>";
 		html1 += "</table>";
 	
 	}
+	
 	//채팅 목록
 	for(var data of list2){        
 		html2 += "<li>" + data.TITLE +"</li>";
-
 		html2 += "<input type=\"button\" value=\"입장\" class='btn green' onclick=\"goRoom("+data.POST_NO+ ","+data.MEMBER_NO+ ",'" +data.TITLE+ "')\">"; 
-
 	}
+	
 	//나의 동행 신청목록
 	for(var data of list3){  
 		html3 += "<tr>";
-		html3 += "<td>" + data.POST_NO +"</td>                            ";
-		html3 += "<td>" + data.COURSE_NO +"코스</td>                         ";
-		html3 += "<td>" + data.TITLE +"</td>        ";
-		html3 += "<td>" + data.NM +"</td>                     ";
+		html3 += "<td>" + data.POST_NO +"</td>";
+		html3 += "<td>" + data.COURSE_NO +"코스</td>";
+		html3 += "<td>" + data.TITLE +"</td>";
+		html3 += "<td>" + data.NM +"</td>";
 		if(data.STATE_NO == 0){
-			html3 += "<td>거절</td>                        ";
+			html3 += "<td>대기</td>";
 			
 		}else if(data.STATE_NO == 1){
-			html3 += "<td>대기</td>                        ";
+			html3 += "<td>수락</td>";
 		}else{
-			html3 += "<td>수락</td>                        ";
+			html3 += "<td>거절</td>";
 		}
-		html3 += "<td>" + data.REG_DT +"</td>                    ";
+		html3 += "<td>" + data.REG_DT +"</td>";
 		html3 += "</tr>";
 	}
 	
 	//동행 히스토리
 	for(var data of list4){       
-	
 		html4 += "<tr>";
-		html4 += "<td>" + data.POST_NO +"</td>                            ";
-		html4 += "<td>" + data.COURSE_NO +"코스</td>                         ";
-		html4 += "<td>" + data.TITLE +"</td>        ";
-	
+		html4 += "<td>" + data.POST_NO +"</td>";
+		html4 += "<td>" + data.COURSE_NO +"코스</td>";
+		html4 += "<td>" + data.TITLE +"</td>";
 		$("#postNo").val(data.POST_NO);
 		reloadList2();
-		
-		html4 += "<td class=\"historyNo" + data.POST_NO + "\"></td>                     ";	
-		html4 += "<td>" + data.ACCOMPANY_DT +"</td>                    ";
+		html4 += "<td class=\"historyNo" + data.POST_NO + "\"></td>";	
+		html4 += "<td>" + data.ACCOMPANY_DT +"</td>";
 		html4 += "</tr>";
 	}
 	
 	//동행 상대평가
-	
 	for(var data of list4){  
 		html5 += "<table class=\"mem_rate\">";
 		html5 += "<tbody class=\"postNo" + data.POST_NO + "\" postNo=\"" + data.POST_NO + "\">";
-		html5 += "	<tr>                                                                                     ";
-		html5 += "		<th class=join_title>" + data.POST_NO +"</th>                                      ";
-		html5 += "		<th class=join_title>" + data.COURSE_NO +"코스</th>                                      ";
-		html5 += "		<th colspan=\"3\"  class=join_title>" + data.TITLE +"</th>                                      ";
-		html5 += "		<th class=join_title>" + data.ACCOMPANY_DT +"</th>                                      ";
-		html5 += "	</tr>                                                                                        ";
+		html5 += "<tr>";
+		html5 += "<th class=join_title>" + data.POST_NO +"</th>";
+		html5 += "<th class=join_title>" + data.COURSE_NO +"코스</th>";
+		html5 += "<th colspan=\"3\"  class=join_title>" + data.TITLE +"</th>";
+		html5 += "<th class=join_title>" + data.ACCOMPANY_DT +"</th>";
+		html5 += "</tr>";
 		html5 += "</tbody>";
 		html5 += "</table>";
-		
 	}
-		
 	$(".join_mem_list").html(html1);
 	$(".chat_list").html(html2);
 	$(".myApply").html(html3);
@@ -351,61 +343,56 @@ function drawList2(memList){
 		html1 += data.NM + " ";
 	}
 	
-	//신뢰도평가멤버 리스트
+	//신뢰도 평가 멤버 리스트
 	for(var data of memList){  
-		html2 += "	<tr>                                                                                         ";
-		html2 += "		<td rowspan=\"2\" class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>                  ";
-		html2 += "		<td id=\"mem_id\" class=\"item\" amemNo=\"" + data.MEMBER_NO+ "\" amemNm=\"" + data.NM+ "\">" + data.NM +"</td>                                               ";
-		html2 += "		<td></td>                                                                                ";
-		html2 += "		<td></td>                                                                                ";
-		html2 += "		<td></td>                                                                                ";
-		html2 += "		<td class=\"singo\"><img src=\"resources/images/detailViewIcon.png\" />                                                       ";
-		html2 += "			<div class=\"singo_contents\">                                                         ";
-		html2 += "				<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>                         ";
-		html2 += "				<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>                             ";
-		html2 += "				<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>                    ";
-		html2 += "				<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>                 ";
-		html2 += "				<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>                             ";
-		html2 += "				<input type=\"button\" value=\"신고\" id=\"reportBtn\">                                               ";
-		html2 += "			</div>                                                                               ";
-		html2 += "		</td>                                                                                    ";
-		html2 += "	</tr>                                                                                        ";
-		html2 += "	<tr>                                                                                         ";
-		html2 += "		<td colspan=\"2\">                                                                         ";
-		html2 += "			<div class=\"startRadio\">                                                             ";
-		html2 += "				<span class=\"star\">★★★★★															";
-		html2 += "					<span>★★★★★</span>";
+		html2 += "<tr>";
+		html2 += "<td rowspan=\"2\" class=\"mem_img\"><img src=\"resources/upload/" + data.IMG_FILE + "\"></td>";
+		html2 += "<td id=\"mem_id\" class=\"item\" amemNo=\"" + data.MEMBER_NO+ "\" amemNm=\"" + data.NM+ "\">" + data.NM +"</td>                                               ";
+		html2 += "<td></td>";
+		html2 += "<td></td>";
+		html2 += "<td></td>";
+		html2 += "<td class=\"singo\"><img src=\"resources/images/detailViewIcon.png\" />";
+		html2 += "<div class=\"singo_contents\">";
+		html2 += "<label><input type=\"radio\" value=\"1\" name=\"report\" value=\"성희롱\">성희롱</label>";
+		html2 += "<label><input type=\"radio\" value=\"2\" name=\"report\" value=\"욕설\">욕설</label>";
+		html2 += "<label><input type=\"radio\" value=\"3\" name=\"report\" value=\"악의적 비방\">악의적</label>";
+		html2 += "<label><input type=\"radio\" value=\"4\" name=\"report\" value=\"스팸(광고)\">스팸(광고)</label>";
+		html2 += "<label><input type=\"radio\" value=\"5\" name=\"report\" value=\"기타\">기타</label>";
+		html2 += "<input type=\"button\" value=\"신고\" id=\"reportBtn\">";
+		html2 += "</div>";
+		html2 += "</td>";
+		html2 += "</tr>";
+		html2 += "<tr>";
+		html2 += "<td colspan=\"2\">";
+		html2 += "<div class=\"startRadio\">";
+		html2 += "<span class=\"star\">★★★★★";
+		html2 += "<span>★★★★★</span>";
 		if(data.SCOURE != null){
-			html2 += "					<input type=\"range\"  value=\"" + data.SCOURE+ "\" step=\"0.5\" min=\"0\" max=\"5\" class=\"q\"disabled=\"disabled\" >";
-			html2 += "				</span>";
-			html2 += "			</div>                                                                               ";
-			html2 += "		</td>                                                                                    ";
-			html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\" id=\"confirmBtn\" disabled=\"disabled\"></td>                            ";
+			html2 += "<input type=\"range\"  value=\"" + data.SCOURE+ "\" step=\"0.5\" min=\"0\" max=\"5\" class=\"q\"disabled=\"disabled\" >";
+			html2 += "</span>";
+			html2 += "</div>";
+			html2 += "</td>";
+			html2 += "<td><input type=\"button\" amemNo=\"" + data.MEMBER_NO+ "\" value=\"완료\" class=\"btn green\" id=\"confirmBtn\" disabled=\"disabled\"></td>                            ";
 		} 
 		else {
-			html2 += "					<input type=\"range\"  value=\"0\" step=\"0.5\" min=\"0\" max=\"5\" class=\"q\">";
-			html2 += "				</span>";
-			html2 += "			</div>                                                                               ";
-			html2 += "		</td>                                                                                    ";
-			html2 += "		<td><input type=\"button\" value=\"완료\" class=\"btn green\" id=\"confirmBtn\"></td>                            ";
+			html2 += "<input type=\"range\" value=\"0\" step=\"0.5\" min=\"0\" max=\"5\" class=\"q\">";
+			html2 += "</span>";
+			html2 += "</div>";
+			html2 += "</td>";
+			html2 += "<td><input type=\"button\" amemNo=\"" + data.MEMBER_NO+ "\" value=\"완료\" class=\"btn green\" id=\"confirmBtn\"></td>";
 		}
-		html2 += "		<td></td>                                                                                ";
-		html2 += "		<td></td>                                                                                ";
-		html2 += "	</tr>";	
-
+		html2 += "<td></td>";
+		html2 += "<td></td>";
+		html2 += "</tr>";	
 	}
-	
 	$(".historyNo" + data.POST_NO).html(html1);
 	$(".postNo" + data.POST_NO).append(html2);
 	
+	//채워진 별 그려주기.
 	$("input[type='range']").each(function() {
 		$(this).parent().children("span").css("width", $(this).val() * 20 + "%");
 	});
 }
-
-
-
-
 
 </script>
 </head>
@@ -426,10 +413,12 @@ function drawList2(memList){
 				<input type="hidden" name="title" id="title">
 				<input type="hidden" name="postMemNo" id="postMemNo"><!-- 글 작성자 memNo -->
 			</form>
+			
 			<form action="#" id="searchForm">
 				<input type="hidden" name="memNo" id="memNo">
 				<input type="hidden" name="postNo" id="postNo">
 			</form>
+			
 			<form action="#" id="actionForm">
 				<input type="hidden" name="memNo">
 				<input type="hidden" name="amemNo" id="applyMemNo">
@@ -443,27 +432,25 @@ function drawList2(memList){
 
 			<div class="mypage_contents">
 				<div class="mypage_area1">
-			
 					<div class="area_tit"><span>신청자 목록</span></div>
 					<div class="join_mem_list">
-					
 					</div>
 				</div>
+				
 					<div class="mypage_area1">
 					<div class="area_tit"><span>채팅 목록</span></div>
 				<div class="chat_list">
-					<ul class="standard">
-						
+					<ul class="standard">	
 					</ul>
 				</div>
 				</div>
+				
 				<div class="mypage_area">
 					<div class="area_tit"><span>내가 신청한 동행</span></div>
 					<table class="standard a">
-				
 						<thead>
 							<tr>
-								<th>No</th>
+								<th>글 번호</th>
 								<th>코스</th>
 								<th>글 제목</th>
 								<th>ID</th>
@@ -471,33 +458,32 @@ function drawList2(memList){
 								<th>신청 일자</th>
 							</tr>
 						</thead>
-						<tbody class = "myApply">
+						<tbody class ="myApply">
 						</tbody>
 					</table>
 				</div>
+				
 				<div class="mypage_area">
 					<div class="area_tit"><span>동행 history</span></div>
 					<table class="standard b">
-				
 						<thead>
 							<tr>
-								<th>No</th>
+								<th>글 번호</th>
 								<th>코스</th>
 								<th>글 제목</th>
-								<th>동행자들</th>
+								<th>동행자</th>
 								<th>동행 일자</th>
 							</tr>
 						</thead>
-						<tbody class = "accompanyHistory">
+						<tbody class ="accompanyHistory">
 						</tbody>
 					</table>
 				</div>
+				
 				<div class="mypage_area">
 					<div class="area_tit"><span>동행 상대 평가</span></div>
 					<div id="memRate">
-					
 					</div>
-					
 				</div>
 			</div>
 		</div>

@@ -457,7 +457,7 @@ function reloadList(){
 
  function drawList(list) {
 //만약 다섯개 미만이면 버튼을 삭제하고	
-	if(list.length<=5){
+	if(list.length<5){
 		$("#moreBtn").hide();		
 	}else{
 		$("#moreBtn").show();

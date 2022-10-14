@@ -472,7 +472,7 @@ FROM COMMENTS C INNER JOIN MEMBER M
      AND C.DEL_DT IS NULL
      AND M.DEL_DT IS NULL
      WHERE POST_NO=#{no})F
-   WHERE F.RCNUM &lt;= #{end} 
+   WHERE F.RCNUM BETWEEN #{start} AND #{end}
 </select>
 
 <!-- 댓글추가 -->
@@ -523,7 +523,7 @@ AND MEMBER_NO=#{sMemNo}
 	
 </select>
 
-
+<!-- 좋아요 -->
 <select id="goodCheck" resultType="hashmap" parameterType="hashmap">
 SELECT *
 FROM GOOD
