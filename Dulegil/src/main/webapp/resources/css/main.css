@@ -93,7 +93,7 @@ display: inline-block;
     text-align: center;
     background-color: #f0c41994;
     box-sizing: border-box;
-    border-radius: 13px;
+    border-radius: 35px;
 }
 .course_txt {
     display: flex;
@@ -163,7 +163,7 @@ display: inline-block;
     height: 150px;
 	display:inline-block;
 	margin:5px;
-	border-radius: 3px;
+	border-radius: 10px;
 }
 .one{
 	width:100px;

@@ -38,70 +38,6 @@
 	</select>
 
 
-<!-- 회원수 -->
-	<select id="mem" resultType="hashmap">		
-		SELECT COUNT(*) AS MEMCNT
-		FROM MEMBER
-		WHERE AUTHORITY_NO != 1
-	</select>
-
-
-
-
-
-	
-	<!-- 연도 별 통계 -->
-	<select id="year" resultType="hashmap">
-		SELECT M.YEAR, M.MEM, P.POST, C.CMT, A.ACOM
-		FROM ( 	SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS MEM    
-        		FROM MEMBER
-		        WHERE REG_DT >= '20180101' 
-		          AND REG_DT <![CDATA[ < ]]>= '20221001'
-		          AND AUTHORITY_NO != 1
-		        GROUP BY TO_CHAR(REG_DT, 'YYYY'))M  INNER JOIN (    SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS POST    
-		                                                            FROM BULLETIN_BOARD 
-		                                                            WHERE REG_DT >= '20180101' 
-		                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
-		                                                            GROUP BY TO_CHAR(REG_DT, 'YYYY')                            )P
-		                                                ON M.YEAR = P.YEAR
-		                                                
-		                                                
-		                                            INNER JOIN (    SELECT TO_CHAR(REG_DT, 'YYYY') AS YEAR, COUNT(*) AS CMT    
-		                                                            FROM COMMENTS 
-		                                                            WHERE REG_DT >= '20180101' 
-		                                                              AND REG_DT <![CDATA[ < ]]>= '20221001'
-		                                                            GROUP BY TO_CHAR(REG_DT, 'YYYY')                            )C
-		                                                ON M.YEAR = C.YEAR
-		                                                    
-		                                            INNER JOIN (    SELECT TO_CHAR(P.REG_DT, 'YYYY') AS YEAR, COUNT(*) AS ACOM    
-		                                                            FROM BOARD_ACCOMPANY A INNER JOIN BULLETIN_BOARD P
-		                                                                                    ON A.POST_NO = P.POST_NO
-		                                                            WHERE P.REG_DT >= '20180101' 
-		                                                              AND P.REG_DT <![CDATA[ < ]]>= '20221001'
-		                                                            GROUP BY TO_CHAR(P.REG_DT, 'YYYY')                          )A
-		                                                ON M.YEAR = A.YEAR
-		                                            LEFT OUTER JOIN (    SELECT COUNT(*) AS CNT, YEAR
-                                                                        FROM(
-                                                                                SELECT DISTINCT BB.POST_NO, BC.COURSE_NO, BB.TITLE, TO_CHAR(BA.ACCOMPANY_DT,'YYYY') AS YEAR 
-                                                                                FROM BULLETIN_BOARD BB INNER JOIN BOARD_COURSE BC
-                                                                                                               ON BB.POST_NO = BC.POST_NO
-                                                                                                       INNER JOIN BOARD_ACCOMPANY BA
-                                                                                                               ON BB.POST_NO = BA.POST_NO
-                                                                                                               AND TO_CHAR(BA.ACCOMPANY_DT, 'YY.MM.DD') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'YY.MM.DD') 
-                                                                                                       INNER JOIN ACCOMPANY_APPLY AA
-                                                                                                               ON AA.POST_NO =BB.POST_NO
-                                                                                                              AND STATE_NO = 2
-                                                                                                       INNER JOIN MEMBER MEM 
-                                                                                                               ON MEM.MEMBER_NO = AA.MEMBER_NO
-                                                                                                       INNER JOIN MEMBER AM 
-                                                                                                               ON BB.MEMBER_NO = AM.MEMBER_NO
-                                                                                ORDER BY YEAR DESC)ACPED 
-                                                                          GROUP BY YEAR                                                   )E
-                                                        ON M.YEAR = E.YEAR           
-
-	</select>
-
-
 
 
 
@@ -230,29 +166,6 @@
 
 
 
-
-
-
-	<select id="endCnt" resultType="integer">
-	SELECT B.M, NVL(SUM(A.MEM),0) AS CNT
-	FROM (
-					SELECT TO_CHAR(REG_DT, 'YYYYMM') AS REG_DT, COUNT(*) AS MEM    
-			        FROM MEMBER
-			        WHERE TO_CHAR(REG_DT, 'YYYYMM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-5), 'YYYYMM') 
-			          AND TO_CHAR(REG_DT, 'YYYYMM') <![CDATA[ < ]]>= TO_CHAR(SYSDATE, 'YYYYMM')
-			          AND AUTHORITY_NO != 1
-			        GROUP BY TO_CHAR(REG_DT, 'YYYYMM')
-		)A RIGHT OUTER JOIN
-	                                (
-	                                 SELECT TO_CHAR(ADD_MONTHS(SYSDATE, -5) + (LEVEL-1), 'YYYYMM') AS M
-	                                 FROM DUAL
-	                                 CONNECT BY LEVEL <![CDATA[ < ]]>= SYSDATE - ADD_MONTHS(SYSDATE, -5) +1
-	                                 GROUP BY TO_CHAR(ADD_MONTHS(SYSDATE, -5) + (LEVEL-1), 'YYYYMM')
-	                                                                          								)B
-	           ON B.M = A.REG_DT
-	GROUP BY B.M
-	ORDER BY B.M
-	</select>
 
 
 

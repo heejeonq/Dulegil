@@ -9,6 +9,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>웹 사이트 활동 집계</title>
 <style type="text/css">
+:root {
+    --color-white: #ffffff;
+    --color-light-white: #eeeeee;
+    --color-dark-white: #bdbdbd;
+    --color-pink: #feeff2;
+    --color-dark-pink: #f8dde0;
+    --color-dark-grey: #4d4d4d;
+    --color-grey: #616161;
+    --color-light-grey: #7c7979;
+    --color-blue: #e5f2f6;
+    --color-mint: #e5f6ef;
+    --color-yellow: #ffffd1;
+    --color-orange: #feb546;
+    --color-black: #000000;
+    --color-bread: #f6f3e5;
+    --font-large: 48px;
+    --font-medium: 28px;
+    --font-regular: 18px;
+    --font-small: 16px;
+    --font-micro: 14px;
+    --weight-bold: 700;
+    --weight-semi-bold: 600;
+    --weight-regular: 400;
+    --size-border-radius: 4px;
+    --animation-duration: 300ms;
+}
+
 #box1 {
 	width: 100%;
 	height: 6%;
@@ -111,6 +138,31 @@ td {
     opacity: 1;
 }
 
+
+/* 표2*/
+.date {
+    position: relative;
+    bottom: -42px;
+    left: 0px;
+    margin-right: 10px;
+}
+
+.date__btn {
+  	position: relative;
+    bottom: -42px;
+    left: 0px;
+    margin-right: 10px;
+    border: 1px solid var(--color-dark-white);
+    border-radius: var(--size-border-radius);
+    font-size: 13px;
+    padding: 2px 14px;
+}
+
+.date__btn.active,
+.date__btn:hover {
+    background-color: var(--color-pink);
+    color: var(--color-white);
+}
 
 
 </style>
@@ -269,10 +321,7 @@ function getData() {
 			<p class="highcharts-description">위 표는 웹사이트 활동집계</p>
 			
 			<input type="hidden" id="chartType" value="column"/>
-			<form action="#" id="getForm">
-			사이즈 : <input type="text" name="size" value="5" />
-			시리즈 : <input type="text" name="series" value="2" />
-			</form>
+			
 			
 		</figure>
 		
@@ -301,6 +350,17 @@ function getData() {
 				</tbody>
 			</table>
 		</div>
+		
+		
+		<form action="#" id="getForm">
+		<input type="hidden" id="date__start" name="date__start"/>
+		<input type="hidden" id="date__end" name="date__end"/>
+			
+		<section class="box2">
+		<input type="date" class="date" id="date__start" name="date__start"/> 	
+		<span class="date" style="font-size : 14px; font-weight:bold;">&#8764;</span>
+		<input type="date" class="date" id="date__end" name="date__end"/>	
+		<button class="date__btn">검색</button>
 		<div id="box2">
 			<table>
 				<thead>
@@ -327,6 +387,8 @@ function getData() {
 				</tbody>
 			</table>
 		</div>
+		</section>
+		</form>
 
 	</div>
 </body>

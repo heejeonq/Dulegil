@@ -109,23 +109,23 @@ function drawAlarm(cnt, list){
 				<%-- el태그의 empty : 해당 값이 비어있는지 확인 sMemNm가 없으면(로그인 되어있지 않으면) --%>
 				<c:when test="${empty sMemNm}">
 					<%-- 로그인과 회원가입을 보여줌. --%>
-					<li><a href="login" id="login"> 로그인 </a></li>
+					<li><a href="login" id="login"> Login </a></li>
 					<li>
 						<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
 						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 						</svg>
 					</li>
-					<li><a href="join"> 회원가입 </a></li>
+					<li><a href="join"> join </a></li>
 				</c:when>
 				<%-- 그렇지 않으면 로그아웃과 마이페이지, 알림을 보여줌 --%> 
 				<c:otherwise>
-					<li><a href="logout" id="logout"> 로그아웃 </a></li>
+					<li><a href="logout" id="logout"> Logout </a></li>
 					<li>
 						<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
 						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 						</svg>
 					</li>
-				<li><a href="mypageMyinfo"> 마이페이지 </a></li>
+				<li><a href="mypageMyinfo"> MyPage </a></li>
 				<li>
 				<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
 				<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
@@ -145,7 +145,7 @@ function drawAlarm(cnt, list){
 		<div class="nav">
 			<div class="logo">
 				<a href="main"> <img alt="서울둘레길 로고" src="resources/images/direction.png">
-					<span>서울둘레길</span>
+					<span>같이둘레</span>
 				</a>
 			</div>
 			<div class="gnb">
@@ -158,14 +158,14 @@ function drawAlarm(cnt, list){
 						</ul></li>
 					<li><a href="course1"> 둘레길 코스안내</a>
 
-					<li><a href="event"> 전체일정</a>
+					<li><a href="event"> 전체 일정</a>
 
 					<li><a href="bestReviewGallery"> 명예의 전당</a></li>
 					<li><a href="courseReview"> 커뮤니티</a>
 
 						<ul class="gnb_dropdown">
-							<li><a href="courseReview"> 코스별 후기 </a></li>
-							<li><a href="accompany"> 동행구하기 </a></li>
+							<li><a href="courseReview"> 코스 별 후기 </a></li>
+							<li><a href="accompany"> 동행 구하기 </a></li>
 							<li><a href="freeBoard"> 자유게시판 </a></li>
 						</ul></li>
 				</ul>

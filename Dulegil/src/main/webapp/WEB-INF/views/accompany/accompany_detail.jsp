@@ -835,12 +835,9 @@ function reloadList(){
            
           </div>
             
-            <div class="coll"></div>
-        
-         
-         <div class="mainview4">
-         
-          
+            <div class="coll"></div>                
+         <div class="mainview4">         
+          	<!-- 위로올림 -->
          </div>
          <div class="more">
 			<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 

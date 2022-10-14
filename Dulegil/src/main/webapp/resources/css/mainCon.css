@@ -130,7 +130,7 @@ span.material-symbols-outlined {
 	display: inline-flex;
     position: relative;
     align-items: flex-end;
-    margin-left: 22px;
+    margin-left: 40px;
 }
 .gnb > ul {
 	padding-bottom: 50px;
@@ -234,6 +234,7 @@ span.material-symbols-outlined {
 .footer_section {
 	width: 1200px;
 	position: relative;
+	margin-right: -150px;
 }
 .footer_section div a{
 	font-size: 16px;
