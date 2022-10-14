@@ -30,7 +30,7 @@ $(document).ready(function(){
 	$("#clistBtn").on("click",function(list){	
 		history.go(-1);
 		$("#actionForm").attr();
-		$("#actionForm").submit();
+		$("#actionForm").submit();		
 		
 	}); 
 	
@@ -222,9 +222,9 @@ $(document).ready(function(){
 		});
 		
 		
-		//목록 삭제버튼 클릭시
+		//댓글 삭제버튼 클릭시
 		$(".mainview4").on("click",".delB",function(){			
-			var commentNo= $(this).parent().attr("commentNo");
+			var commentNo= $(this).attr("commentNo");
 			
 			makePopup({
 				title:"알림",
@@ -246,10 +246,10 @@ $(document).ready(function(){
 		
 		
 		
- 		//목록의 수정버튼 클릭시
+ 		//댓글의 수정버튼 클릭시
 		$(".mainview4").on("click",".upB",function(){
 			
-		var commentNo= $(this).parent().attr("commentNo");
+		var commentNo= $(this).attr("commentNo");
 		$("#commentNo").val(commentNo);
 		
 		var ccon = $(this).parent().children().eq(2).html();
@@ -279,9 +279,10 @@ $(document).ready(function(){
 	});
 	
 	
- 	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
+	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
-		$("#cpage").val($("#cpage").val() * 1 + 5); // 다섯개씩 늘어난다
+		
+		$("#cpage").val($("#cpage").val() * 1 + 5);
 		reloadList(); 	
 	});
  	
@@ -523,7 +524,7 @@ function reloadList(){
 
  function drawList(list) {
 	//만약 다섯개 미만이면 버튼을 삭제하고	
-		if(list.length<=5){
+		if(list.length<5){
 			$("#moreBtn").hide();		
 		}else{
 			$("#moreBtn").show();
@@ -558,8 +559,8 @@ function reloadList(){
 	  	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
 	 		
 	 		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
-	 			html += "<span class=\"upB\">수정</span> ";
-	 			html += "<span class=\"delB\">삭제</span>";
+	 			html += "<span class=\"upB\"commentNo= \"" + data.COMMENT_NO + "\">수정</span> ";
+	 			html += "<span class=\"delB\" commentNo= \"" + data.COMMENT_NO + "\">삭제</span>";
 	 		}
 	 			html += " </div>";		
 		}//여기까지 for
@@ -626,8 +627,11 @@ function reloadList(){
 				</div>
 				<div class="ti_ttt">
 					<div class="tit_writer">
-						<c:if test="${!empty data.M_IMG}">				
-							<img src="resources/upload/${data.M_IMG}" />
+						<c:if test="${!empty data.M_IMG}">			
+								<img src="resources/upload/${data.M_IMG}" />
+						</c:if>
+						<c:if test="${empty data.M_IMG}">			
+								<img src="resources/upload/profile_img"/>
 						</c:if>
 						 ${data.NM}
 				 	</div>
@@ -671,7 +675,7 @@ function reloadList(){
 			
 		<!-- cunBox완 ------------------------------------------>
 			
-		<div class="emptyBox">
+		<div class="fileBox">
 			<c:if test="${!empty data.B_IMG}">
 			<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
 			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
@@ -684,26 +688,25 @@ function reloadList(){
 	
 		<!-- emptyBox완 ------------------------------------------>
 		
-		<div class="box2">	
-			
+			<div class="reportBox">
 			<c:if test="${sMemNo != data.MEMBER_NO}" >
 				<div class="reporBtn" id="reporBtn">
 					<span class="report">
 						<img src="resources/images/report1.png" />
 					</span>
 					<span class="reporTit">신고하기</span>			
-				</div>
+				</div>			
 			</c:if>
+			</div>
 			
-			
+			<div class="box2">
 			<input type="button" class="btn" id="clistBtn" value="목록" />
 			<c:if test="${sMemNo eq data.MEMBER_NO}" >			
 				<input type="button" class="btn" id="updateBtn" value="수정"/>
 				<input type="button" class="btn" id="deleteBtn" value="삭제"/>		
 			</c:if> 
 		</div>
-					
-		<div class="emptyBox"></div>
+
 		<hr style=width:100%;/>	
 		<!-- 댓글 -->	
 	
@@ -747,7 +750,7 @@ function reloadList(){
 				</div>				   
 				<div class="coll"></div>
 				<div class="mainview4">
-					<!-- 위로올림 -->
+					<!-- 위로올림 -->	
 				</div>
 				<div class="more">
 					<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 

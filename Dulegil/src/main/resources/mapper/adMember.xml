@@ -64,9 +64,13 @@
 		
 	<!-- 수정 -->
 	<update id ="update" parameterType="hashmap">
-		UPDATE MEMBER SET AUTHORITY_NO = #{aut}, NM = #{nm}, PWD = #{pwd}, PHONE_NO = #{phn}, 
+		UPDATE MEMBER SET AUTHORITY_NO = #{aut}, NM = #{nm}, 
+						  <if test="pwd != null and pwd !=''">
+						  PWD = #{pwd},
+						  </if> 
+						  PHONE_NO = #{phn}, 
                           DATE_BIRTH = #{dtBrt}
-                          <if test="gen !='' ">
+                          <if test="gen != null and gen !='' ">
                           , GENDER = #{gen}
                           </if>
                           , ZIP_CODE = #{zcd}, 

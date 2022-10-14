@@ -507,8 +507,11 @@ function drawDBRstrList(list){
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	/* 1. 둘레길 선형정보를 다운 받는다.
+	/* 
+	1. 둘레길 선형정보를 다운 받는다.(서울시 공공데이터)
 	2. gpx파일을 convert해서 엑셀로 변환한다.
+	https://anyconv.com/gpx-to-csv-converter/
+	https://mygeodata.cloud/converter/
 	3. db에 코스용 임시 테이블을 만든다.
 	4. 데이터 테이블 명에 맞춰 데이터를 넣는다.
 	NO	COURSE_NO	LAT	LNG 

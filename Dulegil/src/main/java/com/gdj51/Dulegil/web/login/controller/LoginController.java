@@ -45,8 +45,6 @@ public class LoginController {
 		params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 		System.out.println(params.get("pwd"));
 		
-		System.out.println(Utils.decryptAES128(params.get("pwd")));
-		
 		
 		HashMap<String, String> data = dao.getMap("adLogin.checkMember", params);
 		if (data != null) {

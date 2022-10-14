@@ -15,24 +15,179 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
               ON BB.POST_NO= G.POST_NO            
 WHERE BLTNBOARD_NO=1
 AND BB.DEL_DT IS NULL
-	<if test="searchTxt != null and searchTxt !=''">
+<choose>
+	<when test="searchTxt == null and searchTxt ==''">
+		<choose>
+			<when test="searchGbn eq 0">				
+			</when>
+			<when test="searchGbn eq 1">
+				AND C.COURSE_NO='1'
+			</when>
+			<when test="searchGbn eq 2">
+				AND C.COURSE_NO='1'
+			</when>
+			<when test="searchGbn eq 3">
+				AND C.COURSE_NO='3'
+			</when>
+			<when test="searchGbn eq 4">
+				AND C.COURSE_NO='4'
+			</when>
+			<when test="searchGbn eq 5">
+				AND C.COURSE_NO='5'
+			</when>
+			<when test="searchGbn eq 6">
+				AND C.COURSE_NO='6'
+			</when>
+			<when test="searchGbn eq 7">
+				AND C.COURSE_NO='7'
+			</when>
+			<when test="searchGbn eq 8">
+				AND C.COURSE_NO='8'
+			</when>
+		</choose>
+	</when>
+	<otherwise>
+		<choose>
+	<when test="courseGbn eq 0">
 			<choose>
-				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
-				<when test="searchGbn eq 0">
-				AND TITLE LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn eq 1">
-				AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
-				</when>
-				<when test="searchGbn eq 2">
-				AND NM LIKE '%'|| #{searchTxt} ||'%'
-				</when>
-				<when test="searchGbn eq 3">
-				AND BC.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
-				
-				</when>
-			</choose>		
-		</if>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+
+				</choose>	
+			</when>
+			<when test="courseGbn eq 1">
+			AND C.COURSE_NO='1'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+
+				</choose>	
+			</when>
+			<when test="courseGbn eq 2">
+			AND C.COURSE_NO='2'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>	
+				</choose>	
+			</when>
+			<when test="courseGbn eq 3">
+			AND C.COURSE_NO='3'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+		</when>
+		<when test="courseGbn eq 4">
+		AND C.COURSE_NO='4'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>
+			<when test="courseGbn eq 5">
+			AND C.COURSE_NO='5'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>
+			<when test="courseGbn eq 6">
+			AND C.COURSE_NO='6'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>
+			<when test="courseGbn eq 7">
+			AND C.COURSE_NO='7'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+		</when>
+			<when test="courseGbn eq 8">
+			AND C.COURSE_NO='8'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>		
+		</choose>
+	</otherwise>	
+</choose>
+			
 </select>
 
 <!-- 목록 -->
@@ -60,24 +215,178 @@ FROM COURSE C INNER JOIN BOARD_COURSE BC ON C.COURSE_NO=BC.COURSE_NO
              GROUP BY POST_NO) CC ON BB.POST_NO=CC.POST_NO
 WHERE BLTNBOARD_NO=1
 AND BB.DEL_DT IS NULL
-	<if test="searchTxt != null and searchTxt !=''">
+	<choose>
+	<when test="searchTxt == null and searchTxt ==''">
+		<choose>
+			<when test="searchGbn eq 0">				
+			</when>
+			<when test="searchGbn eq 1">
+				AND C.COURSE_NO='1'
+			</when>
+			<when test="searchGbn eq 2">
+				AND C.COURSE_NO='1'
+			</when>
+			<when test="searchGbn eq 3">
+				AND C.COURSE_NO='3'
+			</when>
+			<when test="searchGbn eq 4">
+				AND C.COURSE_NO='4'
+			</when>
+			<when test="searchGbn eq 5">
+				AND C.COURSE_NO='5'
+			</when>
+			<when test="searchGbn eq 6">
+				AND C.COURSE_NO='6'
+			</when>
+			<when test="searchGbn eq 7">
+				AND C.COURSE_NO='7'
+			</when>
+			<when test="searchGbn eq 8">
+				AND C.COURSE_NO='8'
+			</when>
+		</choose>
+	</when>
+	<otherwise>
+		<choose>
+	<when test="courseGbn eq 0">
 			<choose>
-				<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
-				<when test="searchGbn eq 0">
-				AND TITLE LIKE '%' || #{searchTxt} || '%'
-				</when>
-				<when test="searchGbn eq 1">
-				AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
-				</when>
-				<when test="searchGbn eq 2">
-				AND NM LIKE '%'|| #{searchTxt} ||'%'
-				</when>
-				<when test="searchGbn eq 3">
-				AND C.COURSE_NO LIKE '%'|| #{searchTxt} ||'%'
-				OR COURSE_NM LIKE '%'|| #{searchTxt} ||'%'
-				</when>
-			</choose>		
-		</if>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+
+				</choose>	
+			</when>
+			<when test="courseGbn eq 1">
+			AND C.COURSE_NO='1'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+
+				</choose>	
+			</when>
+			<when test="courseGbn eq 2">
+			AND C.COURSE_NO='2'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>	
+				</choose>	
+			</when>
+			<when test="courseGbn eq 3">
+			AND C.COURSE_NO='3'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+		</when>
+		<when test="courseGbn eq 4">
+		AND C.COURSE_NO='4'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>
+			<when test="courseGbn eq 5">
+			AND C.COURSE_NO='5'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>
+			<when test="courseGbn eq 6">
+			AND C.COURSE_NO='6'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>
+			<when test="courseGbn eq 7">
+			AND C.COURSE_NO='7'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+		</when>
+			<when test="courseGbn eq 8">
+			AND C.COURSE_NO='8'
+			<choose>
+					<!-- 구분이 제목일때  #{serchTxt} 들어가묜-->
+					<when test="searchGbn eq 0">
+					AND TITLE LIKE '%' || #{searchTxt} || '%'
+					</when>
+					<when test="searchGbn eq 1">
+					AND CONTENTS LIKE '%'|| #{searchTxt}||'%'
+					</when>
+					<when test="searchGbn eq 2">
+					AND NM LIKE '%'|| #{searchTxt} ||'%'
+					</when>
+				</choose>	
+			</when>		
+		</choose>
+	</otherwise>	
+</choose>
 
 )F
 WHERE F.RNUM BETWEEN #{start} AND #{end}
@@ -163,7 +472,7 @@ FROM COMMENTS C INNER JOIN MEMBER M
      AND C.DEL_DT IS NULL
      AND M.DEL_DT IS NULL
      WHERE POST_NO=#{no})F
-   WHERE F.RCNUM &lt;= #{end} 
+   WHERE F.RCNUM BETWEEN #{start} AND #{end}
 </select>
 
 <!-- 댓글추가 -->
@@ -214,7 +523,7 @@ AND MEMBER_NO=#{sMemNo}
 	
 </select>
 
-
+<!-- 좋아요 -->
 <select id="goodCheck" resultType="hashmap" parameterType="hashmap">
 SELECT *
 FROM GOOD

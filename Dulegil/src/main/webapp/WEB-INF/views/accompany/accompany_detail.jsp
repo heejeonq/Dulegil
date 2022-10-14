@@ -103,8 +103,10 @@ $(document).ready(function(){
 	
 	
 	//게시글 버튼
-	$("#aclistBtn").on("click",function(){
-		$("#actionForm").attr("action","accompany")
+	$("#aclistBtn").on("click",function(list){
+		history.go(-1);
+
+		$("#actionForm").attr()
 		$("#actionForm").submit();
 	});
 	
@@ -187,7 +189,7 @@ $(document).ready(function(){
 	//댓글 삭제버튼 클릭시
 	$(".mainview4").on("click",".delB",function(){
 		
-		var commentNo= $(this).parent().attr("commentNo");
+		var commentNo= $(this).attr("commentNo");
 		
 		makePopup({
 			title:"알림",
@@ -211,9 +213,11 @@ $(document).ready(function(){
 	
 		//댓글의 수정버튼 클릭시
 	$(".mainview4").on("click",".upB",function(){
+	console.log("ewe");
 		
-	var commentNo= $(this).parent().attr("commentNo");
+	var commentNo= $(this).parent().children().eq(0).attr("commentNo");
 	$("#commentNo").val(commentNo);
+	
 	
 	var ccon = $(this).parent().children().eq(2).html();
 	$("#ccon").val(ccon);
@@ -236,12 +240,12 @@ $(document).ready(function(){
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
 		action("update");
-
 		
 	});
 	
 	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
+		
 		$("#cpage").val($("#cpage").val() * 1 + 5);
 		reloadList(); 	
 	});
@@ -583,7 +587,7 @@ function reloadList(){
  		
  		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
  			html += "<span class=\"upB\">수정</span> ";
- 			html += "<span class=\"delB\">삭제</span>";
+ 			html += "<span class=\"delB\" commentNo= \"" + data.COMMENT_NO + "\">삭제</span>";
  		}
  			html += " </div>";		
 	}//여기까지 for
@@ -645,7 +649,16 @@ function reloadList(){
       <div class="midBox">
          <div class="intro">
             <div class="tit_writer">
-            <img src="resources/images/sample1.jpg" />${data.NM}  </div><span>&nbsp;&nbsp;</span>
+				<c:if test="${!empty data.M_IMG}">			
+						<img src="resources/upload/${data.M_IMG}" />
+				</c:if>
+				<c:if test="${empty data.M_IMG}">			
+						<img src="resources/upload/profile_img"/>
+				</c:if>
+				 ${data.NM}
+		 	</div>
+            
+            span>&nbsp;&nbsp;</span>
             <c:choose>
             	<c:when test="${data.PUBLIC_AGE eq 1}">
             		<div class="age"> 나이 비공개 </div>
@@ -822,12 +835,9 @@ function reloadList(){
            
           </div>
             
-            <div class="coll"></div>
-        
-         
-         <div class="mainview4">
-         
-          
+            <div class="coll"></div>                
+         <div class="mainview4">         
+          	<!-- 위로올림 -->
          </div>
          <div class="more">
 			<input type="button" class="moreBtn" id="moreBtn" name="moreBtn" value="더보기+"/>							 
