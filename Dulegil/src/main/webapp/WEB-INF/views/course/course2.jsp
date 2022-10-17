@@ -128,7 +128,7 @@ for (var i=0; i<list.length; i++){
 	html += "<td>" + list[i].PLACENM +", 서비스대상 : "+ list[i].USETGTINFO +  "</td>";
 	html += "</tr>";
 	html += "<tr>";
-	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].LINK + "</td>";
+	html += "<td style=\"border-left: 1px solid #ddd;\">" + list[i].SVCURL + "</td>";
 	html += "</tr>";
 }
 $(".infoTable2 tbody").append(html);

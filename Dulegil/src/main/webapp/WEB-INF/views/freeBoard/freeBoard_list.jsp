@@ -23,7 +23,6 @@ $(document).ready(function(){
 	//var link = document.location.href("?");
 	//consol.log(link);
 	
-
 	
 	
 	$('#searchTxt').keypress(function(event){
