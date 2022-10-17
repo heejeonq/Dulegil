@@ -210,7 +210,7 @@ function drawPaging(pd){
 		</colgroup>
 		<thead>
 			<tr>
-				<th>글번호</th>
+				<th>글 번호</th>
 				<th>코스</th>
 				<th>제목</th>
 				<th>작성자</th>
