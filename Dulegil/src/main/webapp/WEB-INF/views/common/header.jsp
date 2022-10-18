@@ -115,7 +115,13 @@ function drawAlarm(cnt, list){
 						<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
 						</svg>
 					</li>
-					<li><a href="join"> join </a></li>
+					<li><a href="mypageMyinfo"> MyPage </a></li>
+					<li>
+					<svg width="4" height="7" fill="none" xmlns="http://www.w3.org/2000/svg" class="bBA0gi7mU5KrAmvhUBC_">
+					<circle r="2" transform="matrix(1 0 0 -1 2 2)" fill="#1b1b1b"></circle>
+					</svg>
+					</li>
+					<li><a href="join"> Join </a></li>
 				</c:when>
 				<%-- 그렇지 않으면 로그아웃과 마이페이지, 알림을 보여줌 --%> 
 				<c:otherwise>
