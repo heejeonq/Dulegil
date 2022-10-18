@@ -109,10 +109,6 @@ $("#updateBtn").on("click", function() {
     	   	 			if(res.fileName.length > 0){//배열의 갯수가 0보다 크다면
     	   	 				$("#imgFile").val(res.fileName[0]);//올라간 파일명 보관
     	   	 			}
-    	   	 		/*
-    	   	 		글저장
-    	   	 		
-    	   	 		*/
     	   	 			 var params = $("#actionForm").serialize();   
     	   	               $.ajax({
     	   	                  url:"CourseRevAction/update", //경로 주소 새로생기면 컨트롤러 가
@@ -242,18 +238,16 @@ $("#updateBtn").on("click", function() {
 					<div class="filBox">
 				<c:choose>
 					<c:when test="${empty data.B_IMG}">
-					<!-- 파일 없을때 -->
+
 						<input type="file" class="file" name="attFile"/>					
 						<div class="fileT">*이미지 파일만 첨부하여 주세요.</div> 
 						<input type="hidden" name="imgFile" id="imgFile" />			
 					</c:when>
 					<c:otherwise>
-					<!-- 파일 있을때 -->
-				
+					<!-- 파일 있을때 -->			
 					<span class="attOld"><!-- 기존파일 -->
 						<span>
-							<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
-					
+							<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->					
 							<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
 							<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
 							<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>

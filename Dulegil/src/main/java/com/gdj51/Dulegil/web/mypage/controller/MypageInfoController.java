@@ -33,18 +33,15 @@ public class MypageInfoController {
 			ModelAndView mav) throws Throwable {
 		// 로그인 안했을 때 마이페이지 클릭했을 때 로그인 페이지로 가게 함.
 		// .getAttribute()는 선택한 요소(element)의 특정 속성(attribute)의 값을 가져온다.
-		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
 
-			mav.setViewName("login/login");
-
-		} else { // 세션에서 가져와서 params
+		    // 세션에서 가져와서 params
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
 			// 키 //값
 			HashMap<String, String> data = dao.getMap("member.getMyinfo", params);
 			session.setAttribute("sMemNm", data.get("NM"));
 			mav.addObject("data", data);
 			mav.setViewName("mypage/mypage_myinfo");
-		}
+		
 		return mav;
 	}
 

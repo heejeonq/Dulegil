@@ -233,7 +233,9 @@ public class CourseReviewController {
 			method = RequestMethod.POST, 
 			produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String commentAjax(HttpSession session,@RequestParam HashMap<String, String> params) throws Throwable {
+	public String commentAjax(
+			HttpSession session,
+			@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
