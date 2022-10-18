@@ -47,16 +47,12 @@
 							</div>
 							<div>
 								<dt>성별</dt>
-						    <!-- 사용하려면 꼭 헤더에 코어 태그 추가 switch문과 비슷. -->
-							<!-- switch문 case에 해당. data.GENDER0이라면 남성 -->
-							<!-- switch문 default에 해당. 아니라면 여성 -->
-							<!-- c:태그에는 주석 제대로 달아야 안 터짐. -->
-							<%--이렇게 달면 됨--%>
+						    <!-- 사용하려면 꼭 헤더에 코어 태그 추가 switch문과 비슷.c:태그에는 주석 제대로 달아야 안 터짐.<%--이렇게 달면 됨--%> -->
 							<c:choose>
-							<c:when test="${data.GENDER == 0}">
+							<c:when test="${data.GENDER == 0}"><%-- switch문 case에 해당. data.GENDER0이라면 남성 --%>
 								<dd>남성</dd>
 							</c:when>
-							<c:otherwise>
+							<c:otherwise><%-- switch문 default에 해당. 아니라면 여성 --%>
 								<dd>여성</dd>
 							</c:otherwise>
 							</c:choose>
