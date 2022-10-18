@@ -30,7 +30,7 @@ public class AccompanyController {
 	
 	//리스트
 	@RequestMapping(value = "/accompany")
-	public ModelAndView accompany(
+	public ModelAndView accompanyList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable {
 		

@@ -27,7 +27,7 @@ public class BestReviewGalleryController {
 	
 	//리스트
 	@RequestMapping(value = "/bestReviewGallery")
-	public ModelAndView bestReviewGallery(
+	public ModelAndView bestReviewGalleryList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable{
 		

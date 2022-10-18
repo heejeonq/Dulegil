@@ -32,7 +32,7 @@ public class CourseReviewController {
 	
 	//리스트
 	@RequestMapping(value="/courseReview")
-	public ModelAndView courseReview(
+	public ModelAndView courseReviewList(
 			@RequestParam HashMap<String,String> params,
 			ModelAndView mav) throws Throwable{
 		
