@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @EnableAspectJAutoProxy
 public class AOPComponent {
 	@Pointcut("execution(* com.gdj51.Dulegil.admin..*Controller.*(..))"
+			+ "&& !execution(* com.gdj51.Dulegil.admin..adLoginController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil.admin..*Controller.*Ajax(..))"
 	            + "&& !execution(* com.gdj51.Dulegil.admin..*Controller.*Action(..))")
 	public void adNtAOP() {};
@@ -47,13 +48,12 @@ public class AOPComponent {
 	            + "&& !execution(* com.gdj51.Dulegil..LoginController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil.admin..*Controller.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil..BestReviewGalleryController.*(..))"
-	            + "&& !execution(* com.gdj51.Dulegil..CourseReviewController.*(..))"
-	            + "&& !execution(* com.gdj51.Dulegil..FreeBoardController.*(..))"
-	            + "&& !execution(* com.gdj51.Dulegil..AccompanyController.*(..))"
+	            + "&& !execution(* com.gdj51.Dulegil..CourseReviewController.courseReview.*(..))"
+	            + "&& !execution(* com.gdj51.Dulegil..FreeBoardController.freeBoardList*(..))"
+	            + "&& !execution(* com.gdj51.Dulegil..AccompanyController.Accompany*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil..NoticeController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil..FAQController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil..CourseController.*(..))"
-	            + "&& !execution(* com.gdj51.Dulegil..EventController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil..EventController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil.web.join..JoinController.*(..))"
 	            )
