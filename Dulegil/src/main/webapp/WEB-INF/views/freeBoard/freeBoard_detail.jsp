@@ -553,7 +553,7 @@ function reloadList(){
 			</div>
 		
 		<!-- conBox완 ------------------------------------------>
-	<div class="emptyBox">
+		<div class="emptyBox">
 			<c:if test="${!empty data.B_IMG}">
 			<!-- fn:length(대상) : 대상 문자열의 길이나 배열, 리스트의 크기를 가져온다. -->
 			<c:set var="fileLength" value="${fn:length(data.B_IMG)}"></c:set>
