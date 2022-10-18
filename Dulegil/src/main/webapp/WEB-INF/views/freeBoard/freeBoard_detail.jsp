@@ -560,7 +560,7 @@ function reloadList(){
 			<!-- fn:substring(값,숫자1,숫자2) : 값을 숫자1이상 부터 숫자2미만까지 인덱스 기준으로 자른다 -->
 			<c:set var="fileName" value="${fn:substring(data.B_IMG, 20, fileLength)}"></c:set>
 			<span class="material-symbols-outlined" style="margin-right: 10px;">file_present</span> 
-			<a class="aL" href = "resources/upload/${data.ATT_FILE}" download="${fileName}">${fileName}</a>
+			<a class="aL" href = "resources/upload/${data.B_IMG}" download="${fileName}">${fileName}</a>
 			</c:if>
 		</div>
 		<!-- emptyBox완 ------------------------------------------>

@@ -56,8 +56,8 @@ public class AOPComponent {
 	            )
 	public void MyInAOP() {};
 	
-	@Around("MyInAOP()")
-	public ModelAndView MyInAOP(ProceedingJoinPoint joinPoint) throws Throwable{
+	@Around("DulAOP()")
+	public ModelAndView DulAOP(ProceedingJoinPoint joinPoint) throws Throwable{
 	   ModelAndView mav = new ModelAndView();
 	   //세션을 가져와야 로그인 됐는지 안됐는지 알 수 있기 때문에 가져오기
 	   HttpServletRequest request
