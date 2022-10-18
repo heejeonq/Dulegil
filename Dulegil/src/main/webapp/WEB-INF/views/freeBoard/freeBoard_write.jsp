@@ -57,10 +57,6 @@ $("#insertBtn").on("click", function() {
    	 			if(res.fileName.length > 0){//배열의 갯수가 0보다 크다면
    	 				$("#imgFile").val(res.fileName[0]);//올라간 파일명 보관
    	 			}
-   	 		/*
-   	 		글저장
-   	 		
-   	 		*/
    	 			 var params = $("#actionForm").serialize();   
    	               $.ajax({
    	                  url:"FREEAction/insert", //경로 주소 새로생기면 컨트롤러 가
