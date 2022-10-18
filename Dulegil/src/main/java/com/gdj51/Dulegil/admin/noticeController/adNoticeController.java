@@ -30,11 +30,10 @@ public class adNoticeController {
    //리스트
    @RequestMapping(value = "/adNtList")
    public ModelAndView adNtList(
-         HttpSession session,
          @RequestParam HashMap<String, String> params,
          ModelAndView mav) throws Throwable {
 
-      if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
+    
 
          int page = 1;
 
@@ -46,10 +45,7 @@ public class adNoticeController {
          
          mav.setViewName("admin/3_adNotice/ad_notice_list");
          
-      }else {
-         mav.setViewName("admin/0_adLogin/ad_Login");
 
-      }
       return mav;
    }
 

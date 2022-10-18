@@ -12,6 +12,9 @@ ON T.BLTNBOARD_NO = B.BLTNBOARD_NO
 WHERE B.DEL_DT IS NULL
 AND T.BLTNBOARD_NO =3)G INNER JOIN MEMBER M
 ON G.MEMBER_NO=M.MEMBER_NO
+
+
+
 <!-- 검색어가 널이 또는 '' 가 아니라면 -->
 <if test="searchTxt != null and searchTxt !=''">
 	<choose>
@@ -33,13 +36,12 @@ ON G.MEMBER_NO=M.MEMBER_NO
 <!-- 목록 -->
 <select id="getFreeList" parameterType="hashmap" resultType="hashmap">	
 SELECT F.POST_NO,F.NM,F.TITLE,F.HIT,F.DT,F.CONTENTS,F.IMG_FILE,F.IMG_FILE,NVL(F.CNT,0)AS CNT
-FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,CC.CNT
+FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.IMG_FILE,CC.CNT,ROW_NUMBER() OVER(ORDER BY G.POST_NO DESC) AS RNUM  
      FROM (SELECT POST_NO,TITLE,HIT,CONTENTS,MEMBER_NO,B.IMG_FILE,
                 CASE WHEN TO_CHAR(B.REG_DT, 'YY.MM.DD') = TO_CHAR(SYSDATE,'YY.MM.DD')
             	THEN TO_CHAR(B.REG_DT, 'HH24:MI')
             	ELSE TO_CHAR(B.REG_DT,'YY.MM.DD')
-       			END AS DT,
-                ROW_NUMBER() OVER(ORDER BY B.POST_NO DESC) AS RNUM  
+       			END AS DT
                 FROM BOARD_TYPE T INNER JOIN BULLETIN_BOARD B
                 ON T.BLTNBOARD_NO = B.BLTNBOARD_NO                
                 WHERE B.DEL_DT IS NULL
@@ -67,8 +69,7 @@ FROM(SELECT G.POST_NO,M.NM,G.TITLE,G.HIT,G.DT,G.CONTENTS,G.RNUM,G.IMG_FILE,CC.CN
 				</choose>		
 			</if>
         )F
-        WHERE F.RNUM BETWEEN #{start} AND #{end}
-    
+        WHERE F.RNUM BETWEEN #{start} AND #{end}    
 </select>
 
 <!-- 게시글등록 -->

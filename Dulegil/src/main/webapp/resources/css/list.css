@@ -139,6 +139,7 @@ tbody tr:hover {
     font-size: 10px;
     cursor: pointer;
     position: relative;
+    
 }
 .c_b_photo{
 	width: 100%;
@@ -157,12 +158,27 @@ tbody tr:hover {
     font-size: 12px;
     line-height: 25px;
     text-align: left;
-    float: right;
+    float: left;
     padding-left: 5px;
+    
 }
 .c_b_tit{
 	font-size:14px;
+	height: 6%;	
+	width: auto;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+.c_b_c{
+	display:inline-block;
+	line-height: 25px;
+	width: 18%;
+	font-size:14px;
 	height: 6%;
+	width: auto;
+	color:#979393;
 }
 .c_b_lv {
 	width: 100%;
@@ -172,6 +188,7 @@ tbody tr:hover {
     text-align: left;
     padding-left: 5px;
     margin-top: 5px;
+   
 }
 .c_b_like2,.c_b_view2{
 	display: inline-block;

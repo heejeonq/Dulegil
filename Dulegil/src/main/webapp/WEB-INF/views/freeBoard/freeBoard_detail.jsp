@@ -37,6 +37,8 @@ $(document).ready(function(){
 		$("#actionForm").submit();
 	}); 
 	
+	
+	
 	//게시글 신고하기 버튼 누르면 
 	$("#reporBtn").on("click",function(){ 
 		 if ($("#sMemNo").val() == "") {
@@ -146,32 +148,27 @@ $(document).ready(function(){
 		});
 		
 		
-		//댓글버튼
-		
+		//댓글버튼		
 		$(".box3 #loginBtn").on("click",function(){
 			location.href="login"
 		});
 		
-		$(".box3 #insertCBtn").on("click",function(){
-		
+		$(".box3 #insertCBtn").on("click",function(){		
 			 if ($.trim($("#ccon").val()) == "") {
 		            makeAlert("알림", "내용을 입력하세요.", function() {
 		               $("#ccon").focus();
 		            });
 
 		         }else{
-					action("insert");	 
-					
-		         }
-		
-		
+					action("insert");	 					
+		         }				
 		});
 		
 		
-		//목록 삭제버튼 클릭시
+		//댓글 삭제버튼 클릭시
 		$(".mainview4").on("click",".delB",function(){
 			
-			var commentNo= $(this).parent().attr("commentNo");
+			var commentNo= $(this).attr("commentNo");
 			
 			makePopup({
 				title:"알림",
@@ -193,10 +190,10 @@ $(document).ready(function(){
 		
 		
 		
- 		//목록의 수정버튼 클릭시
+ 		//댓글목록의 수정버튼 클릭시
 		$(".mainview4").on("click",".upB",function(){
 			
-		var commentNo= $(this).parent().attr("commentNo");
+		var commentNo= $(this).attr("commentNo");
 		$("#commentNo").val(commentNo);
 		
 		var ccon = $(this).parent().children().eq(2).html();
@@ -204,9 +201,7 @@ $(document).ready(function(){
 		
 		$(".insert").hide();
 		$(".update").css("display","inline-block");
-		
-	
-	//	$(".update").show();
+
 		
 		});
 	
@@ -222,10 +217,9 @@ $(document).ready(function(){
 	
 	//수정영역의 수정버튼
 	$(".box3 #updateCBtn").on("click",function(){
-		action("update");
-
-		
+		action("update");		
 	});
+	
 	
  	$("#moreBtn").on("click",function(){ //더보기 버튼 누르면
 		//more버튼을 누르면 페이지가 더보이게
@@ -491,8 +485,8 @@ function reloadList(){
   	    html += " <span class=\"date\">" + data.CREG_DT + "</span>";
  		
  		if("${sMemNo}" == data.CMEMBER_NO){//작성자이면
- 			html += "<span class=\"upB\">수정</span> ";
- 			html += "<span class=\"delB\">삭제</span>";
+ 			html += "<span class=\"upB\"commentNo= \"" + data.COMMENT_NO + "\">수정</span> ";
+ 			html += "<span class=\"delB\" commentNo= \"" + data.COMMENT_NO + "\">삭제</span>";
  		}
  			html += " </div>";		
 	}//여기까지 for
@@ -516,7 +510,7 @@ function reloadList(){
 		<form action="#" id= "actionForm" method="post">
 	
 			<input type="hidden" name="no" value="${data.POST_NO}" />
-			<!-- <input type="hidden" name="gbn" value="d" /> 이게뭐지-->
+			<input type="hidden" name="gbn" value="d" />
 			<input type="hidden" name="page" id="page" value= "${param.page}" />
 			<input type="hidden" name="cnt" id="cnt" value= "${param.cnt}" />
 			
@@ -531,11 +525,16 @@ function reloadList(){
 			<div class="emptyBox"></div>
 			<div class="tit_tt"> ${data.TITLE} </div>	
 			<div class="ti_ttt">
-				<div class="tit_writer">
-					<c:if test="${!empty data.M_IMG}">				
-						<img src="resources/upload/${data.M_IMG}" />
-					</c:if>
-					 ${data.NM}
+				<div class="ti_ttt">
+					<div class="tit_writer">
+						<c:if test="${!empty data.M_IMG}">			
+								<img src="resources/upload/${data.M_IMG}" />
+						</c:if>
+						<c:if test="${empty data.M_IMG}">			
+								<img src="resources/upload/profile_img"/>
+						</c:if>
+						 ${data.NM}
+				 	</div>
 			 	</div>
 			 </div>
 			<span>&nbsp;&nbsp;</span>

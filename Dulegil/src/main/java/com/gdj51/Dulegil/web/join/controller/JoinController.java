@@ -48,13 +48,6 @@ public class JoinController {
 				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 				cnt = dao.insert("member.insertMember", params);
 				break;
-			case "update": cnt = dao.update("member.updateMember", params);
-				
-				break;
-			case "delete": cnt = dao.update("member.deleteMember", params);
-				
-				break;
-				
 			default:
 				break;
 			}

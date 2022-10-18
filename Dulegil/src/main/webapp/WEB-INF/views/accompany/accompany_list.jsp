@@ -77,16 +77,16 @@ function reloadList(){
 	var params = $("#actionForm").serialize();
 
 	$.ajax({
-		url : "AccompanyAjax", //경로
-		type : "POST", //전송방식(GET : 주소형태,POST: 주소 헤더)
+		url : "AccompanyAjax", 
+		type : "POST", 
 		dataType : "json",
 		data : params,
-		success : function(res) { // 성공했을 때 결과를 res에 받고 함수 실행
+		success : function(res) { 
 			drawList(res.list);
 			drawPaging(res.pd);
 		},
-		error : function(request, status, error) { //실패했을 때 함수 실행
-			console.log(request.responseText); //실패 상세내용
+		error : function(request, status, error) {
+			console.log(request.responseText); 
 		}
 
 	});
