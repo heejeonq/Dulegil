@@ -212,9 +212,7 @@ $(document).ready(function(){
 		      	        text: '웹사이트 활동 집계'
 		      	    },
 		      	    subtitle: {
-		      	        text: 'Source: ' +
-		      	            '<a href="https://www.ssb.no/en/statbank/table/08940/" ' +
-		      	            'target="_blank">SSB</a>'
+		      	        text: 
 		      	    },
 		      	    xAxis: {
 		      	        categories: month
