@@ -33,6 +33,7 @@ public class MypageInfoController {
 			ModelAndView mav) throws Throwable {
 		// 로그인 안했을 때 마이페이지 클릭했을 때 로그인 페이지로 가게 함.
 		// .getAttribute()는 선택한 요소(element)의 특정 속성(attribute)의 값을 가져온다.
+		
 
 		    // 세션에서 가져와서 params
 			params.put("memNo", String.valueOf(session.getAttribute("sMemNo")));
@@ -41,22 +42,12 @@ public class MypageInfoController {
 			session.setAttribute("sMemNm", data.get("NM"));
 			mav.addObject("data", data);
 			mav.setViewName("mypage/mypage_myinfo");
-		
 		return mav;
 	}
 
 	@RequestMapping(value = "/mypagePasswordCheck")
-	public ModelAndView mypagePasswordCheck(HttpSession session, ModelAndView mav) throws Throwable {
-
-		if (session.getAttribute("sMemNm") == null || session.getAttribute("sMemNm") == "") {
-
-			mav.setViewName("login/login");
-
-		} else {
-
+	public ModelAndView mypagePasswordCheck(ModelAndView mav) throws Throwable {
 			mav.setViewName("mypage/mypage_password_check");
-
-		}
 		return mav;
 	}
 
@@ -71,12 +62,6 @@ public class MypageInfoController {
 		// Object는 다 가능 포괄적인 느낌.
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		/*
-		 * // 암호화 params.put("pwd", Utils.encryptAES128(params.get("pwd")));
-		 * System.out.println(params.get("pwd"));
-		 * 
-		 * // 복호화 System.out.println(Utils.decryptAES128(params.get("pwd")));
-		 */
 //		HashMap은 키 값의 형태로 이루어짐.
 		HashMap<String, String> data = new HashMap<String, String>();
 
@@ -84,16 +69,9 @@ public class MypageInfoController {
 		try {
 			switch (gbn) {
 			case "passwordCheck":
-
-				// ex)int qwe = dao.getInt2(7, 5);
-				// 메소드 = 함수
-				// 메소드 생성()괄호 안에 있는 값을 받아야함
-				// 메소드 호출()괄호 안에 있는 것은 보내주는 값.
-
 				// 암호화
 				params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 				System.out.println(params.get("pwd"));
-
 				data = dao.getMap("member.checkPwd", params);
 				if (data != null) {
 					model.put("msg", "success");
@@ -102,15 +80,12 @@ public class MypageInfoController {
 				}
 				break;
 			case "myinfoUpdate":
-
 				// 암호화
 				// 폼에서 pwd가 아예 안 넘어왔을때 대비(폼 잘못 만들었을 때) *비밀번호 입력값이 없을때 db에서 if문 실행 안함.
 				if (params.get("pwd") != null && !params.get("pwd").equals("")) {
 					params.put("pwd", Utils.encryptAES128(params.get("pwd")));
 				}
-
 				cnt = dao.update("member.updateMyinfo", params);
-
 				if (cnt > 0) {
 					model.put("msg", "success");
 				} else {
