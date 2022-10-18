@@ -54,7 +54,7 @@ public class AOPComponent {
 	            + "&& !execution(* com.gdj51.Dulegil..EventController.*(..))"
 	            + "&& !execution(* com.gdj51.Dulegil.web.join..JoinController.*(..))"
 	            )
-	public void MyInAOP() {};
+	public void DulAOP() {};
 	
 	@Around("DulAOP()")
 	public ModelAndView DulAOP(ProceedingJoinPoint joinPoint) throws Throwable{
