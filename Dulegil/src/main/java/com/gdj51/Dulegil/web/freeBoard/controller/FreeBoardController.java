@@ -55,11 +55,9 @@ public class FreeBoardController {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> model = new HashMap<String, Object>();
-
 		int cnt = dao.getInt("free.getCnt", params);
-		int ccnt = dao.getInt("free.getCCnt", params);
-	
-
+		int ccnt = dao.getInt("free.getCCnt", params);	
+		
 		HashMap<String, Integer> pd = ips.getPagingData(Integer.parseInt(params.get("page")), cnt, 10, 5);
 
 		params.put("start", Integer.toString(pd.get("start")));
@@ -67,8 +65,6 @@ public class FreeBoardController {
 
 		List<HashMap<String, String>> list = dao.getList("free.getFreeList", params);
 	
-		// T에 있는 겟리스트를 가져올거여
-
 		model.put("list", list);
 		model.put("pd", pd);
 
@@ -110,11 +106,6 @@ public class FreeBoardController {
 			case "delete":
 				cnt = dao.update("free.delete", params);
 				break;
-			case "commentReport":
-				cnt = dao.insert("free.commentReport", params);
-				break;
-			case "postReport":
-				cnt = dao.insert("free.postReport", params);	
 			}
 			if (cnt > 0) {
 				model.put("msg", "success");

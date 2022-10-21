@@ -27,7 +27,7 @@ public class NoticeController {
 
 	
 	@RequestMapping(value="/notice")
-	public ModelAndView notice(
+	public ModelAndView noticeList(
 			@RequestParam HashMap<String, String> params,
 			ModelAndView mav)throws Throwable {
 		
