@@ -25,10 +25,14 @@ public class adLoginController {
 	// 로그인 페이지
 	@RequestMapping(value="/adLogin")
 	public ModelAndView adLogin(
-			
+			HttpSession session,
 			ModelAndView mav) {
 
-		
+		if(session.getAttribute("adMemNm") != null && session.getAttribute("adMemNm") != "") {
+			mav.setViewName("redirect:adminList");
+		}else {
+			mav.setViewName("admin/0_adLogin/ad_Login");
+		}
 		return mav;
 	}
 
